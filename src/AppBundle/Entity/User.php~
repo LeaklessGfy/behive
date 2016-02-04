@@ -1,0 +1,269 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * User
+ *
+ * @ORM\Table(name="user")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
+ */
+class User
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="username", type="string", length=255)
+     */
+    private $username;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="password", type="string", length=255)
+     */
+    private $password;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="level", type="integer")
+     */
+    private $level;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="xp", type="float")
+     */
+    private $xp;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="lastConnexion", type="datetime")
+     */
+    private $lastConnexion;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="email", type="string", length=255)
+     */
+    private $email;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="avatar", type="string", length=255)
+     */
+    private $avatar;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Badge", inversedBy="users")
+     * @ORM\JoinTable(name="users_badges")
+     */
+    private $badges;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Game", inversedBy="owners")
+     * @ORM\JoinTable(name="owners_games")
+     */
+    private $games;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Challenge", inversedBy="players")
+     * @ORM\JoinTable(name="players_challenges")
+     */
+    private $challenges;
+
+    public function __construct() {
+        $this->badges = new ArrayCollection();
+        $this->myGames = new ArrayCollection();
+        $this->games = new ArrayCollection();
+        $this->challenges = new ArrayCollection();
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set username
+     *
+     * @param string $username
+     * @return User
+     */
+    public function setUsername($username)
+    {
+        $this->username = $username;
+
+        return $this;
+    }
+
+    /**
+     * Get username
+     *
+     * @return string 
+     */
+    public function getUsername()
+    {
+        return $this->username;
+    }
+
+    /**
+     * Set password
+     *
+     * @param string $password
+     * @return User
+     */
+    public function setPassword($password)
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    /**
+     * Get password
+     *
+     * @return string 
+     */
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+    /**
+     * Set level
+     *
+     * @param integer $level
+     * @return User
+     */
+    public function setLevel($level)
+    {
+        $this->level = $level;
+
+        return $this;
+    }
+
+    /**
+     * Get level
+     *
+     * @return integer 
+     */
+    public function getLevel()
+    {
+        return $this->level;
+    }
+
+    /**
+     * Set xp
+     *
+     * @param float $xp
+     * @return User
+     */
+    public function setXp($xp)
+    {
+        $this->xp = $xp;
+
+        return $this;
+    }
+
+    /**
+     * Get xp
+     *
+     * @return float 
+     */
+    public function getXp()
+    {
+        return $this->xp;
+    }
+
+    /**
+     * Set lastConnexion
+     *
+     * @param \DateTime $lastConnexion
+     * @return User
+     */
+    public function setLastConnexion($lastConnexion)
+    {
+        $this->lastConnexion = $lastConnexion;
+
+        return $this;
+    }
+
+    /**
+     * Get lastConnexion
+     *
+     * @return \DateTime 
+     */
+    public function getLastConnexion()
+    {
+        return $this->lastConnexion;
+    }
+
+    /**
+     * Set email
+     *
+     * @param string $email
+     * @return User
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * Get email
+     *
+     * @return string 
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * Set avatar
+     *
+     * @param string $avatar
+     * @return User
+     */
+    public function setAvatar($avatar)
+    {
+        $this->avatar = $avatar;
+
+        return $this;
+    }
+
+    /**
+     * Get avatar
+     *
+     * @return string
+     */
+    public function getAvatar()
+    {
+        return $this->avatar;
+    }
+}
