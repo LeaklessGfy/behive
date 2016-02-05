@@ -58,7 +58,7 @@ class Game
     private $cover;
 
     /**
-     * @ORM\ManyToMany(targetEntity="User", mappedBy="myGames")
+     * @ORM\ManyToMany(targetEntity="User", mappedBy="games")
      */
     private $owners;
 

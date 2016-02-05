@@ -1,0 +1,79 @@
+{% extends "base.html.twig" %}
+
+
+{% block body %}
+    <header>
+        <div class="MenuDroite">
+            <nav class='home'>
+                <div class="burger">
+                    <span class="burger-1"></span>
+                    <span class="burger-2"></span>
+                    <span class="burger-3"></span>
+                </div>
+            </nav>
+        </div>
+        <ul class="menu">
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="forum.html">Forum</a></li>
+            <li><a href="challenges.html">Challenges</a></li>
+        </ul>
+        <a class="profil" href="profil.html"></a>
+        <div class="search"></div>
+        <input type="text" />
+        <h1><a href="index.html">Behive</a></h1>
+    </header>
+
+    <div id="catalogue" class="main">
+        {% for game in games %}
+            {% if loop.index is odd %}
+                <div class="item">
+                    <a href="">
+                        <div class="containImage">
+                            <img src="{{ game.cover }}" />
+                            <div class="bgImg"></div>
+                        </div>
+                        <h3>{{ game.name }}</h3>
+                        {% for category in game.categories %}
+                            <h4>
+                                <a href="">{{ category.name }}</a>
+                            </h4>
+                        {% endfor %}
+                    </a>
+                </div>
+            {% else %}
+                <div class="item right">
+                    <a href="">
+                        <div class="containImage">
+                            <img src="{{ game.cover }}">
+                            <div class="bgImg"></div>
+                        </div>
+                        <h3>{{ game.name }}</h3>
+                        {% for category in game.categories %}
+                            <h4>
+                                <a href="">{{ category.name }}</a>
+                            </h4>
+                        {% endfor %}
+                    </a>
+                </div>
+            {% endif %}
+        {% endfor %}
+        <div class="filtrer">
+            <i class="fa fa-filter fa-2x"></i>
+            <h4>Filtrer</h4>
+            <div class="tableauFiltrer">
+                {% for category in categories %}
+                    <div class="itemFiltrer">
+                        <img src="{{ category.logo }}">
+                        <h5>{{ category.name }}</h5>
+                    </div>
+                {% endfor %}
+                <div style="clear:both"></div>
+            </div>
+            <div class="closeFiltre">
+                VALIDER
+            </div>
+        </div>
+    </div>
+    <div class="loader"></div>
+    <div class="tuto"><h3>Tirez pour afficher la suite !</h3></div>
+{% endblock %}
