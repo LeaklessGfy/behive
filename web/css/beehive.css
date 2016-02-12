@@ -290,7 +290,6 @@ header input{
 	width:				47%;
 	display:			inline-block;
 	text-align: 		left;
-	margin-right:		1%;
 	margin-top:			2%;
 }
 .item img{
@@ -414,7 +413,7 @@ header input{
 	max-width:		400px;
 	margin:			0 auto;
 	width:			auto;
-	overflow:		scroll;
+	overflow-y:		scroll;
 	max-height:		calc(90% - 90px);
 }
 
@@ -1136,4 +1135,26 @@ header h1 a{
 	height: 50px;
 	border-bottom: 1px solid #1f1f1f;
 
+}
+
+.flexContent{
+	display:		flex;
+	display:		-webkit-flex;
+	width:			95%;
+	justify-content:space-between;
+	-webkit-justify-content: space-between;
+	-webkit-align-items: 	center;
+	align-items: 	center;
+	flex-wrap:		wrap;
+	-webkit-flex-wrap: wrap;
+	margin:			0 auto;
+}
+.item {
+	width:			18%;
+}
+
+@media screen and (max-width: 700px){
+	.item{
+		width:		47%;
+	}
 }

@@ -75,7 +75,6 @@ class BaseController extends Controller
 
             if($file) {
                 $fileName = $ressource."-".time()."-img.jpg";
-
                 $fileDir = $this->container->getParameter('kernel.root_dir').'/../web/uploads/'.$ressource;
                 $file->move($fileDir, $fileName);
 
