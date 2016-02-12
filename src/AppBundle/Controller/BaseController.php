@@ -41,7 +41,8 @@ class BaseController extends Controller
             "editor" => "éditeur",
             "challenge" => "challenge",
             "badge" => "badge",
-            "category" => "categorie"
+            "category" => "categorie",
+            "challengeAward" => "récompense"
         );
 
         if(!isset($nameHelp[$ressource])) {
@@ -89,6 +90,17 @@ class BaseController extends Controller
             $encoder = $this->container->get('security.password_encoder');
             $password = $encoder->encodePassword($entity, $entity->getPassword());
             $entity->setPassword($password);
+        }
+    }
+
+    protected function handleChallenge($ressource, $entity, $em)
+    {
+        if($ressource === "Challenge") {
+            $limits = $entity->getLimits();
+            foreach($limits as $limit) {
+                $limit->setChallenge($entity);
+                $em->persist($limit);
+            }
         }
     }
 }

@@ -87,6 +87,8 @@ class BackController extends BaseController
         if($form->isValid()) {
             $this->handleUserPassword($ressource, $entity);
             $this->handleImage($entity, $ressource);
+            $this->handleChallenge($ressource, $entity, $em);
+            dump($entity);die;
 
             $em->persist($entity);
             $em->flush();
@@ -127,6 +129,7 @@ class BackController extends BaseController
         if($form->isValid()) {
             $this->handleUserPassword($entity, $ressource);
             $this->handleImage($entity,$ressource);
+            $this->handleChallenge($ressource, $entity, $em);
 
             $em->flush();
             $this->addFlash('success', "Votre '$ressource' à bien été modifié");

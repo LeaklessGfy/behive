@@ -16,16 +16,16 @@
 
             <li {% if re == "category" %}class="active"{% endif %}><a href="{{ path('back_list', {ressource:'category'}) }}"><i class="lnr lnr-spell-check"></i> <span>Categories</span></a></li>
 
-            <li {% if re == "editor" %}class="active"{% endif %}><a href="{{ path('back_list', {ressource:'editor'}) }}"><i class="lnr lnr-spell-check"></i> <span>Editeur</span></a></li>
+            <li {% if re == "editor" %}class="active"{% endif %}><a href="{{ path('back_list', {ressource:'editor'}) }}"><i class="lnr lnr-spell-check"></i> <span>Editeurs</span></a></li>
 
-            <li class="menu-list {% if re == "challenge" %}active{% endif %}"><a href="{{ path('back_list', {ressource:'challenge'}) }}"><i class="lnr lnr-indent-increase"></i> <span>Challenges</span></a>
+            <li class="menu-list {% if re == "challenge" or re == "challengeAward"  %}active{% endif %}"><a href="{{ path('back_list', {ressource:'challenge'}) }}"><i class="lnr lnr-indent-increase"></i> <span>Challenges</span></a>
                 <ul class="sub-menu-list">
-                    <li><a href="{{ path('back_list', {ressource:'challenge'}) }}">Challenges</a></li>
-                    <li><a href="{{ path('back_list', {ressource:'challengeAward'}) }}">Récompense</a></li>
+                    <li {% if re == "challenge" %}class="active"{% endif %}><a href="{{ path('back_list', {ressource:'challenge'}) }}">Challenges</a></li>
+                    <li {% if re == "challengeAward" %}class="active"{% endif %}><a href="{{ path('back_list', {ressource:'challengeAward'}) }}">Récompenses</a></li>
                 </ul>
             </li>
 
-            <li {% if re == "badge" %}class="active"{% endif %}><a href="{{ path('back_list', {ressource:'badge'}) }}"><i class="lnr lnr-pencil"></i> <span>Badge</span></a></li>
+            <li {% if re == "badge" %}class="active"{% endif %}><a href="{{ path('back_list', {ressource:'badge'}) }}"><i class="lnr lnr-pencil"></i> <span>Badges</span></a></li>
         </ul>
     </div>
 </div>

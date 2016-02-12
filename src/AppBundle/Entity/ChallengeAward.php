@@ -35,6 +35,11 @@ class ChallengeAward
      */
     private $points;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="ChallengeLimit", mappedBy="awards")
+     */
+    private $limits;
+
 
     /**
      * Get id
@@ -90,5 +95,45 @@ class ChallengeAward
     public function getName()
     {
         return $this->name;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->limits = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add limits
+     *
+     * @param \AppBundle\Entity\ChallengeLimit $limits
+     * @return ChallengeAward
+     */
+    public function addLimit(\AppBundle\Entity\ChallengeLimit $limits)
+    {
+        $this->limits[] = $limits;
+
+        return $this;
+    }
+
+    /**
+     * Remove limits
+     *
+     * @param \AppBundle\Entity\ChallengeLimit $limits
+     */
+    public function removeLimit(\AppBundle\Entity\ChallengeLimit $limits)
+    {
+        $this->limits->removeElement($limits);
+    }
+
+    /**
+     * Get limits
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getLimits()
+    {
+        return $this->limits;
     }
 }

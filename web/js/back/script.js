@@ -27,8 +27,8 @@ $(document).ready(function() {
     $collectionHolder = $('ul.limits');
     $collectionHolder.append($newLinkLi);
 
-    $collectionHolder.find('li').each(function() {
-        //addFormDeleteLink($(this));
+    $collectionHolder.find('li.former').each(function() {
+        addFormDeleteLink($(this));
     });
 
     $collectionHolder.data('index', $collectionHolder.find(':input').length);

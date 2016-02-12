@@ -49,6 +49,12 @@ class ChallengeLimit
     private $challenge;
 
     /**
+     * @ORM\ManyToMany(targetEntity="ChallengeAward", inversedBy="limits")
+     * @ORM\JoinTable(name="limits_awards")
+     */
+    private $awards;
+
+    /**
      * Get id
      *
      * @return integer 

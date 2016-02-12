@@ -271,4 +271,27 @@ class Challenge
             "set" => "setCover"
         );
     }
+
+    /**
+     * Set isDaily
+     *
+     * @param boolean $isDaily
+     * @return Challenge
+     */
+    public function setIsDaily($isDaily)
+    {
+        $this->isDaily = $isDaily;
+
+        return $this;
+    }
+
+    /**
+     * Get isDaily
+     *
+     * @return boolean 
+     */
+    public function getIsDaily()
+    {
+        return $this->isDaily;
+    }
 }

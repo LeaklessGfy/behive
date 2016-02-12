@@ -2982,6 +2982,17 @@ span.badge1 {
 	color: #fff;
 	padding: 6px 10px;
 }
+.btn-edit {
+	background-color: #F39C12 !important;
+	border-color: #d58910 !important;
+	color: #fff;
+	padding: 6px 13px;
+}
+.btn-edit:hover {
+	background-color: #ffa612 !important;
+	border-color: #d58910 !important;
+	color: #fff;
+}
 .btn-primary:hover{
 	background-color: #8BC34A !important;
     border-color: #8BC34A !important;

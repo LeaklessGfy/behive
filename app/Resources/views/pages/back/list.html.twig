@@ -43,7 +43,7 @@
                                 {% endif %}
                             {% endfor %}
                             <td>
-                                <a href="{{ path('back_edit', {ressource:app.request.get('ressource'), id:entity.id}) }}" class="btn btn-info"><i class="fa fa-edit"></i></a>
+                                <a href="{{ path('back_edit', {ressource:app.request.get('ressource'), id:entity.id}) }}" class="btn btn-edit"><i class="fa fa-edit"></i></a>
                                 <a href="{{ path('back_delete', {ressource:app.request.get('ressource'), id:entity.id}) }}" class="btn btn-danger btn-delete" data-entity="{{ app.request.get('ressource') }}"><i class="fa fa-remove"></i></a>
                             </td>
                         </tr>

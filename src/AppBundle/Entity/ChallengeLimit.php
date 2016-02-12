@@ -49,6 +49,12 @@ class ChallengeLimit
     private $challenge;
 
     /**
+     * @ORM\ManyToMany(targetEntity="ChallengeAward", inversedBy="limits")
+     * @ORM\JoinTable(name="limits_awards")
+     */
+    private $awards;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -148,5 +154,45 @@ class ChallengeLimit
     public function getChallenge()
     {
         return $this->challenge;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->awards = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add awards
+     *
+     * @param \AppBundle\Entity\ChallengeAward $awards
+     * @return ChallengeLimit
+     */
+    public function addAward(\AppBundle\Entity\ChallengeAward $awards)
+    {
+        $this->awards[] = $awards;
+
+        return $this;
+    }
+
+    /**
+     * Remove awards
+     *
+     * @param \AppBundle\Entity\ChallengeAward $awards
+     */
+    public function removeAward(\AppBundle\Entity\ChallengeAward $awards)
+    {
+        $this->awards->removeElement($awards);
+    }
+
+    /**
+     * Get awards
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getAwards()
+    {
+        return $this->awards;
     }
 }

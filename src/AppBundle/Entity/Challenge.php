@@ -192,6 +192,7 @@ class Challenge
     public function setGame(\AppBundle\Entity\Game $game = null)
     {
         $this->game = $game;
+        $game->setChallenge($this);
 
         return $this;
     }
@@ -248,7 +249,7 @@ class Challenge
 
         $limitsArray = array();
         foreach($this->limits as $limit) {
-            $limitsArray[] = $limit->getBegin() . " - " . $limit->getEnd();
+            $limitsArray[] = $limit->getBegin() . " - " . $limit->getEnd() . " - " . $limit->getPoints() . " points";
         }
 
         $entity = array(
@@ -257,7 +258,7 @@ class Challenge
             "cover" => $this->cover,
             "description" => $this->description,
             "players" => $playersArray,
-            "game" => $this->game,
+            "game" => $this->game->getName(),
             "limits" => $limitsArray
         );
 

@@ -5,7 +5,7 @@ namespace AppBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 
-class MainController extends BaseController
+class FrontController extends BaseController
 {
     /**
      * @Route("/", name="homepage")

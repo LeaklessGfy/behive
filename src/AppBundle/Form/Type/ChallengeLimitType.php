@@ -15,7 +15,8 @@ class ChallengeLimitType extends AbstractType
                 ->add('awards', 'entity', array(
                     'class' => 'AppBundle:ChallengeAward',
                     'choice_label' => 'name',
-                    'multiple' => false
+                    'multiple' => true,
+                    'expanded' => true
                 ))
         ;
     }
