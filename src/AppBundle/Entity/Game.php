@@ -368,4 +368,12 @@ class Game
 
         return $entity;
     }
+
+    public function hasImage()
+    {
+        return array(
+            "get" => $this->getCover(),
+            "set" => "setCover"
+        );
+    }
 }

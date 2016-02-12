@@ -435,4 +435,12 @@ class User implements UserInterface, \Serializable
 
         return $entity;
     }
+
+    public function hasImage()
+    {
+        return array(
+            "get" => $this->getAvatar(),
+            "set" => "setAvatar"
+        );
+    }
 }

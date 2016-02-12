@@ -5,6 +5,7 @@ namespace AppBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Entity\User;
 
 class SecurityController extends Controller
 {
@@ -14,8 +15,10 @@ class SecurityController extends Controller
     public function backLoginAction(Request $request)
     {
         $encoder = $this->container->get('security.password_encoder');
+        //$user = new User();
+        //$password = $encoder->encodePassword($user, "test");
 
-        //$password = $encoder->encodePassword($user, $plainTextPassword);
+        //dump($password);
 
         $authenticationUtils = $this->get('security.authentication_utils');
 

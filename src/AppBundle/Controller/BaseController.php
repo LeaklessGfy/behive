@@ -20,18 +20,21 @@ class BaseController extends Controller
         $this->apiId = "440";
     }
 
-    protected function callApi($interface, $method, $steamId) {
+    protected function callApi($interface, $method, $steamId)
+    {
         $url = $this->apiBaseUrl . "/" . $interface . "/" . $method . "/" . $this->apiVersion . "/&key=" . $this->apiKey . "&steamid=" . $steamId;
     }
 
-    protected function getPlayerAchievement($steamId) {
+    protected function getPlayerAchievement($steamId)
+    {
         $interface = "ISteamUserStats";
         $method = "GetPlayerAchievements";
 
         $response = $this->callApi($interface, $method, $steamId);
     }
 
-    protected function getRessourceName($ressource) {
+    protected function getRessourceName($ressource)
+    {
         $nameHelp = array(
             "user" => "utilisateur",
             "game" => "jeux vidéo",
@@ -41,6 +44,47 @@ class BaseController extends Controller
             "category" => "categorie"
         );
 
+        if(!isset($nameHelp[$ressource])) {
+            return false;
+        }
+
         return $nameHelp[$ressource];
+    }
+
+    protected function getNewEntity($ressource)
+    {
+        $ressource = ucfirst($ressource);
+
+        $entity= "AppBundle\\Entity\\".$ressource;
+        return new $entity();
+    }
+
+    protected function getForm($ressource)
+    {
+        return "AppBundle\\Form\\Type\\".$ressource."Type";
+    }
+
+    protected function handleImage($entity, $ressource)
+    {
+        $ressource = strtolower($ressource);
+
+        if($hasImage = $entity->hasImage()) {
+            $file = $hasImage["get"];
+            $fileName = $ressource."-".time()."-img.jpg";
+
+            $fileDir = $this->container->getParameter('kernel.root_dir').'/../web/uploads/'.$ressource;
+            $file->move($fileDir, $fileName);
+
+            $entity->$hasImage["set"]($ressource."/".$fileName);
+        }
+    }
+
+    protected function handleUserPassword($ressource, $entity)
+    {
+        if($ressource === "User") {
+            $encoder = $this->container->get('security.password_encoder');
+            $password = $encoder->encodePassword($entity, $entity->getPassword());
+            $entity->setPassword($password);
+        }
     }
 }

@@ -192,4 +192,17 @@ class Challenge
     {
         return $this->game;
     }
+
+    public function toArray()
+    {
+
+    }
+
+    public function hasImage()
+    {
+        return array(
+            "get" => $this->getCover(),
+            "set" => "setCover"
+        );
+    }
 }

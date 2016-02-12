@@ -35,6 +35,11 @@ class BackController extends BaseController
     {
         $ressourceHelper = $this->getRessourceName($ressource);
 
+        if(!$ressourceHelper) {
+            $this->addFlash("danger", "Cette ressource n'existe pas");
+            return $this->redirectToRoute('back_home');
+        }
+
         $em = $this->getDoctrine()->getManager();
         $ressource = ucfirst($ressource);
 
@@ -57,23 +62,28 @@ class BackController extends BaseController
     public function createAction(Request $request, $ressource)
     {
         $ressourceHelper = $this->getRessourceName($ressource);
-
         $em = $this->getDoctrine()->getManager();
-        $ressource = ucfirst($ressource);
 
-        $entity= "AppBundle\\Entity\\".$ressource;
-        $entity = new $entity;
+        if(!$ressourceHelper) {
+            $this->addFlash("danger", "Cette ressource n'existe pas");
+            return $this->redirectToRoute('back_home');
+        }
 
-        $entityForm = "AppBundle\\Form\\Type\\".$ressource."Type";
+        $entity = $this->getNewEntity($ressource);
+        $entityForm = $this->getForm($entity);
 
         $form = $this->createForm(new $entityForm(), $entity);
 
         $form->handleRequest($request);
 
         if($form->isValid()) {
+            $this->handleUserPassword($ressource, $entity);
+            $this->handleImage($entity, $ressource);
+
             $em->persist($entity);
             $em->flush();
             $this->addFlash('success', "Votre '$ressource' à bien été créé");
+
             return $this->redirectToRoute("back_home");
         }
 
@@ -87,10 +97,16 @@ class BackController extends BaseController
     /**
      * @Route("/{ressource}/{id}/edit", name="back_edit")
      */
-    public function editAction(Request $request, $ressource, $id) {
+    public function editAction(Request $request, $ressource, $id)
+    {
         $ressourceHelper = $this->getRessourceName($ressource);
-
         $em = $this->getDoctrine()->getManager();
+
+        if(!$ressourceHelper) {
+            $this->addFlash("danger", "Cette ressource n'existe pas");
+            return $this->redirectToRoute('back_home');
+        }
+
         $ressource = ucfirst($ressource);
 
         $entity = $em->getRepository("AppBundle:".$ressource)->find($id);
@@ -100,9 +116,12 @@ class BackController extends BaseController
         $form->handleRequest($request);
 
         if($form->isValid()) {
+            $this->handleUserPassword($ressource, $entity);
+            $this->handleImage($entity,$ressource);
 
             $em->flush();
-            $this->addFlash('succes', "Votre '$ressource' à bien été modifié");
+            $this->addFlash('success', "Votre '$ressource' à bien été modifié");
+
             return $this->redirectToRoute("back_home");
         }
 
@@ -115,7 +134,8 @@ class BackController extends BaseController
     /**
      * @Route("/{ressource}/{id}/delete", name="back_delete")
      */
-    public function deleteAction($ressource, $id) {
+    public function deleteAction($ressource, $id)
+    {
         $em = $this->getDoctrine()->getManager();
         $ressource = ucfirst($ressource);
 

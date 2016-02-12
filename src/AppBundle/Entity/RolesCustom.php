@@ -72,4 +72,9 @@ class RolesCustom implements RoleInterface
 
         return $this;
     }
+
+    public function hasImage()
+    {
+        return false;
+    }
 }

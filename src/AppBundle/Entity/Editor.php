@@ -144,4 +144,12 @@ class Editor
 
         return $entity;
     }
+
+    public function hasImage()
+    {
+        return array(
+            "get" => $this->getLogo(),
+            "set" => "setLogo"
+        );
+    }
 }
