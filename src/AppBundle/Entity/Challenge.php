@@ -53,9 +53,22 @@ class Challenge
      */
     private $game;
 
+    /**
+     * @ORM\OneToMany(targetEntity="ChallengeLimit", mappedBy="challenge")
+     */
+    private $limits;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="is_daily", type="boolean")
+     */
+    private $isDaily;
+
     public function __construct()
     {
         $this->players = new ArrayCollection();
+        $this->limits = new ArrayCollection();
     }
 
     /**
@@ -193,9 +206,62 @@ class Challenge
         return $this->game;
     }
 
+    /**
+     * Add limits
+     *
+     * @param \AppBundle\Entity\ChallengeLimit $limits
+     * @return Challenge
+     */
+    public function addLimit(\AppBundle\Entity\ChallengeLimit $limits)
+    {
+        $this->limits[] = $limits;
+
+        return $this;
+    }
+
+    /**
+     * Remove limits
+     *
+     * @param \AppBundle\Entity\ChallengeLimit $limits
+     */
+    public function removeLimit(\AppBundle\Entity\ChallengeLimit $limits)
+    {
+        $this->limits->removeElement($limits);
+    }
+
+    /**
+     * Get limits
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getLimits()
+    {
+        return $this->limits;
+    }
+
     public function toArray()
     {
+        $playersArray = array();
+        foreach($this->players as $player) {
+            $playersArray[] = $player->getUsername();
+        }
 
+        $limitsArray = array();
+        foreach($this->limits as $limit) {
+            $limitsArray[] = $limit->getBegin() . " - " . $limit->getEnd();
+        }
+
+        $entity = array(
+            "id" => $this->id,
+            "name" => $this->name,
+            "cover" => $this->cover,
+            "description" => $this->description,
+            "players" => $playersArray,
+            "game" => $this->game,
+            "limits" => $limitsArray
+        );
+
+        return $entity;
     }
 
     public function hasImage()
@@ -204,5 +270,28 @@ class Challenge
             "get" => $this->getCover(),
             "set" => "setCover"
         );
+    }
+
+    /**
+     * Set isDaily
+     *
+     * @param boolean $isDaily
+     * @return Challenge
+     */
+    public function setIsDaily($isDaily)
+    {
+        $this->isDaily = $isDaily;
+
+        return $this;
+    }
+
+    /**
+     * Get isDaily
+     *
+     * @return boolean 
+     */
+    public function getIsDaily()
+    {
+        return $this->isDaily;
     }
 }

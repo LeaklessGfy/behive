@@ -9,10 +9,9 @@
         </div>
     </div>
 
-    {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
-    {{ form_widget(form) }}
-    <div>
-        <input type="submit" class="btn btn-warning" value="Modifier">
-    </div>
-    {{ form_end(form) }}
+    {% if app.request.get('ressource') == "challenge" %}
+        {% include "pages/back/partial/_limits-form.html.twig" %}
+    {% else %}
+        {% include "pages/back/partial/_form.html.twig" %}
+    {% endif %}
 {% endblock %}

@@ -38,6 +38,9 @@ h1, h2, h3, h4, h5 {
 .edit-img {
 	max-width: 300px;
 }
+.limits {
+	list-style: none;
+}
 .icons {
     margin: 2em 2em;
     background: #fff;

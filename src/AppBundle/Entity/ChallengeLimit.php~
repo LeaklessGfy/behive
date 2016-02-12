@@ -42,6 +42,11 @@ class ChallengeLimit
      */
     private $points;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="Challenge", inversedBy="limits")
+     * @ORM\JoinColumn(name="challenge_id", referencedColumnName="id")
+     */
+    private $challenge;
 
     /**
      * Get id
@@ -120,5 +125,28 @@ class ChallengeLimit
     public function getPoints()
     {
         return $this->points;
+    }
+
+    /**
+     * Set challenge
+     *
+     * @param \AppBundle\Entity\Challenge $challenge
+     * @return ChallengeLimit
+     */
+    public function setChallenge(\AppBundle\Entity\Challenge $challenge = null)
+    {
+        $this->challenge = $challenge;
+
+        return $this;
+    }
+
+    /**
+     * Get challenge
+     *
+     * @return \AppBundle\Entity\Challenge 
+     */
+    public function getChallenge()
+    {
+        return $this->challenge;
     }
 }

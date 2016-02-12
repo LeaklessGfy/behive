@@ -32,13 +32,12 @@ class Category
     /**
      * @var string
      *
-     * @ORM\Column(name="logo", type="string", length=255)
+     * @ORM\Column(name="logo", type="string", length=255, nullable=true)
      */
     private $logo;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Game", inversedBy="categories")
-     * @ORM\JoinTable(name="categories_games")
+     * @ORM\ManyToMany(targetEntity="Game", mappedBy="categories")
      */
     private $games;
 
@@ -134,5 +133,23 @@ class Category
     public function getGames()
     {
         return $this->games;
+    }
+
+    public function toArray() {
+        $entity = array(
+            "id" => $this->id,
+            "name" => $this->name,
+            "logo" => $this->logo
+        );
+
+        return $entity;
+    }
+
+    public function hasImage()
+    {
+        return array(
+            "get" => $this->getLogo(),
+            "set" => "setLogo"
+        );
     }
 }

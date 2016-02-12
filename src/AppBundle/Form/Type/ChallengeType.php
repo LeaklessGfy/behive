@@ -19,6 +19,18 @@ class ChallengeType extends AbstractType
                     'choice_label' => 'name',
                     'multiple' => false
                 ))
+                ->add('limits', 'collection', array(
+                    'entry_type'   => new ChallengeLimitType(),
+                    'allow_add'    => true,
+                    'allow_delete' => true
+                ))
+                ->add('isDaily', 'choice', array(
+                    'label' => 'Challenge du jour',
+                    'choices' => array(
+                        true => "Oui",
+                        false => "Non"
+                    )
+                ))
         ;
     }
 

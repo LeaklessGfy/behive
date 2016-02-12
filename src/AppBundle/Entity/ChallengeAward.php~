@@ -22,6 +22,13 @@ class ChallengeAward
     private $id;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="name", type="string", length=40)
+     */
+    private $name;
+
+    /**
      * @var int
      *
      * @ORM\Column(name="points", type="integer")
@@ -60,5 +67,28 @@ class ChallengeAward
     public function getPoints()
     {
         return $this->points;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     * @return ChallengeAward
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
     }
 }
