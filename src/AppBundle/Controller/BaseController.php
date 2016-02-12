@@ -61,6 +61,8 @@ class BaseController extends Controller
 
     protected function getForm($ressource)
     {
+        $ressource = ucfirst($ressource);
+
         return "AppBundle\\Form\\Type\\".$ressource."Type";
     }
 
@@ -70,12 +72,15 @@ class BaseController extends Controller
 
         if($hasImage = $entity->hasImage()) {
             $file = $hasImage["get"];
-            $fileName = $ressource."-".time()."-img.jpg";
 
-            $fileDir = $this->container->getParameter('kernel.root_dir').'/../web/uploads/'.$ressource;
-            $file->move($fileDir, $fileName);
+            if($file) {
+                $fileName = $ressource."-".time()."-img.jpg";
 
-            $entity->$hasImage["set"]($ressource."/".$fileName);
+                $fileDir = $this->container->getParameter('kernel.root_dir').'/../web/uploads/'.$ressource;
+                $file->move($fileDir, $fileName);
+
+                $entity->$hasImage["set"]("uploads/".$ressource."/".$fileName);
+            }
         }
     }
 

@@ -70,8 +70,7 @@ class BackController extends BaseController
         }
 
         $entity = $this->getNewEntity($ressource);
-        $entityForm = $this->getForm($entity);
-
+        $entityForm = $this->getForm($ressource);
         $form = $this->createForm(new $entityForm(), $entity);
 
         $form->handleRequest($request);
@@ -108,15 +107,16 @@ class BackController extends BaseController
         }
 
         $ressource = ucfirst($ressource);
-
         $entity = $em->getRepository("AppBundle:".$ressource)->find($id);
-        $entityForm = "AppBundle\\Form\\Type\\".$ressource."Type";
-
+        $entityForm = $this->getForm($ressource);
         $form = $this->createForm(new $entityForm(), $entity);
+
+        $image = $entity->hasImage() ? $entity->hasImage()['get'] : null;
+
         $form->handleRequest($request);
 
         if($form->isValid()) {
-            $this->handleUserPassword($ressource, $entity);
+            $this->handleUserPassword($entity, $ressource);
             $this->handleImage($entity,$ressource);
 
             $em->flush();
@@ -127,7 +127,8 @@ class BackController extends BaseController
 
         return $this->render('pages/back/edit.html.twig', array(
             "form" => $form->createView(),
-            "ressourceHelper" => $ressourceHelper
+            "ressourceHelper" => $ressourceHelper,
+            "image" => $image
         ));
     }
 
