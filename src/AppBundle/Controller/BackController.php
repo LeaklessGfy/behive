@@ -21,10 +21,17 @@ class BackController extends BaseController
         $games = $em->getRepository("AppBundle:Game")->findBy(array(), array(), 5, 0);
         $challenges = $em->getRepository("AppBundle:Challenge")->findBy(array(), array(), 5, 0);
 
+        $userTotal = $em->getRepository("AppBundle:User")->getCount();
+        $gameTotal = $em->getRepository("AppBundle:Game")->getCount();
+        $challengeTotal = $em->getRepository("AppBundle:Challenge")->getCount();
+
         return $this->render('pages/back/index.html.twig', array(
             "users" => $users,
             "games" => $games,
-            "challenges" => $challenges
+            "challenges" => $challenges,
+            "userTotal" => $userTotal,
+            "gameTotal" => $gameTotal,
+            "challengeTotal" => $challengeTotal
         ));
     }
 
@@ -78,7 +85,7 @@ class BackController extends BaseController
         if($form->isValid()) {
             $this->handleUserPassword($ressource, $entity);
             $this->handleImage($entity, $ressource);
-
+            //dump($entity);die;
             $em->persist($entity);
             $em->flush();
             $this->addFlash('success', "Votre '$ressource' à bien été créé");
@@ -118,6 +125,7 @@ class BackController extends BaseController
         if($form->isValid()) {
             $this->handleUserPassword($entity, $ressource);
             $this->handleImage($entity,$ressource);
+            //dump($entity);die;
 
             $em->flush();
             $this->addFlash('success', "Votre '$ressource' à bien été modifié");

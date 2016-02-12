@@ -37,8 +37,7 @@ class Category
     private $logo;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Game", inversedBy="categories")
-     * @ORM\JoinTable(name="categories_games")
+     * @ORM\ManyToMany(targetEntity="Game", mappedBy="categories")
      */
     private $games;
 
