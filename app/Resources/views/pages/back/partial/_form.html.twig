@@ -1,7 +1,7 @@
 {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
-        {{ form_row(form) }}
+    {{ form_widget(form) }}
 
-<div>
-    <input type="submit" class="btn btn-warning" value="Enregistrer">
-</div>
+    <div>
+        <input type="submit" class="btn btn-warning" value="Enregistrer">
+    </div>
 {{ form_end(form) }}

@@ -1,6 +1,7 @@
 <?php
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Game;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -55,8 +56,6 @@ class BackController extends BaseController
         foreach($entities as $entity) {
             $entitiesArray[] = $entity->toArray();
         }
-
-        dump($entitiesArray);
 
         return $this->render('pages/back/list.html.twig', array(
             "entities" => $entitiesArray,
@@ -168,23 +167,62 @@ class BackController extends BaseController
     }
 
     /**
-     * @Route("/api/{game}/search", name="back_api_search")
+     * @Route("/helper", name="back_helper")
      */
-    public function searchVideoGame($game = null)
+    public function getGameHelperAction(Request $request)
     {
-//        $apiUrl = "http://thegamesdb.net/api/GetGamesList.php?name=".$game;
-//        $rawGameList = file_get_contents($apiUrl);
-//        dump($rawGameList);die;
+        $games = array();
+        $search = $request->get('search');
 
-        $apiUrl = "http://www.giantbomb.com/api/search/?";
-        $apiKey = "api_key=838b1d8ea15ef015b443db5049548da60c4ed8d8";
-        $format = "&format=json";
-        $query = "&query=\"$game\"";
-        $ressource = "&resources=game";
+        if($search) {
+            $api = $this->get('api.giant');
+            $games = $api->searchVideoGame($search)['results'];
 
-        $url = $apiUrl . $apiKey . $format . $query . $ressource;
+            $session = $this->get('session');
+            $session->set("result", serialize($games));
+        }
 
-        $rawGameList = file_get_contents($url);
-        dump(json_decode($rawGameList));die;
+        return $this->render('pages/back/helper.html.twig', array(
+            "games" => $games,
+            "search" => $search
+        ));
+    }
+
+    /**
+     * @Route("/helper/save/{id}", name="back_helper_save")
+     */
+    public function saveGameFromHelperAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $session = $this->get('session');
+        $helperArray = $session->get("result");
+        $helper = unserialize($helperArray)[$id];
+
+        $game = new Game();
+        $game->setName($helper['name']);
+        $game->setCover($helper['image']['super_url']);
+        $game->setDescription($helper['deck']);
+        $game->setRating(0);
+
+        foreach($helper['original_game_rating'] as $rating) {
+            if(strpos($rating['name'], "PEGI:") !== false) {
+                preg_match_all('!\d+!', $rating['name'], $matches);
+                $game->setPegi($matches[0][0]);
+                break;
+            }
+        }
+
+        $date = $helper['original_release_date'];
+        $date = new \DateTime($date);
+        $game->setDate($date);
+
+        $em->persist($game);
+        $em->flush();
+
+        $this->addFlash('success', 'Le jeu à bien été créé');
+
+        $id = $game->getId();
+        return $this->redirectToRoute('back_edit', array("ressource" => "game", "id" => $id));
     }
 }

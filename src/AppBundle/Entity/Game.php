@@ -77,7 +77,7 @@ class Game
     /**
      * @var string
      *
-     * @ORM\Column(name="buy_link", type="string", length=255)
+     * @ORM\Column(name="buy_link", type="string", length=255, nullable=true)
      */
     private $buy;
 
@@ -391,9 +391,9 @@ class Game
             $categoriesArray[] = $cat->getName();
         }
 
-        $chal = $this->challenge;
-        if($chal) {
-            $chal = $this->challenge->getName();
+        $challengeName = $this->challenge;
+        if($challengeName) {
+            $challengeName = $this->challenge->getName();
         }
 
         $entity = array(
@@ -403,7 +403,7 @@ class Game
             "description" => $this->description,
             "rating" => $this->rating,
             "cover" => $this->cover,
-            "challenge" => $chal,
+            "challenge" => $challengeName,
             "editeur" => $this->editor,
             "buy link" => $this->buy,
             "pegi" => $this->pegi,

@@ -26,6 +26,7 @@
             </li>
 
             <li {% if re == "badge" %}class="active"{% endif %}><a href="{{ path('back_list', {ressource:'badge'}) }}"><i class="lnr lnr-pencil"></i> <span>Badges</span></a></li>
+            <li {% if route == "back_helper" %}class="active"{% endif %}><a href="{{ path('back_helper') }}"><i class="lnr lnr-pencil"></i> <span>Helper</span></a></li>
         </ul>
     </div>
 </div>
