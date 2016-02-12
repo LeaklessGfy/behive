@@ -24,12 +24,13 @@
     </header>
 
     <div id="catalogue" class="main">
+        <div class="flexContent">
         {% for game in games %}
             {% if loop.index is odd %}
                 <div class="item">
                     <a href="">
                         <div class="containImage">
-                            <img src="{{ game.cover }}" />
+                            <img src="{{ asset(game.cover)}}" />
                             <div class="bgImg"></div>
                         </div>
                         <h3>{{ game.name }}</h3>
@@ -57,6 +58,7 @@
                 </div>
             {% endif %}
         {% endfor %}
+        </div>
         <div class="filtrer">
             <i class="fa fa-filter fa-2x"></i>
             <h4>Filtrer</h4>

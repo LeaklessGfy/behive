@@ -69,13 +69,16 @@ class BaseController extends Controller
         $ressource = strtolower($ressource);
 
         if($hasImage = $entity->hasImage()) {
+
             $file = $hasImage["get"];
-            $fileName = $ressource."-".time()."-img.jpg";
+            if( $file ){
+                $fileName = $ressource."-".time()."-img.jpg";
 
-            $fileDir = $this->container->getParameter('kernel.root_dir').'/../web/uploads/'.$ressource;
-            $file->move($fileDir, $fileName);
+                $fileDir = $this->container->getParameter('kernel.root_dir').'/../web/uploads/'.$ressource;
+                $file->move($fileDir, $fileName);
 
-            $entity->$hasImage["set"]($ressource."/".$fileName);
+                $entity->$hasImage["set"]("uploads/".$ressource."/".$fileName);
+            }
         }
     }
 
