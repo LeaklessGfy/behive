@@ -3,6 +3,12 @@
 {% block body %}
     <h2>Modifier {{ app.request.get('ressource') }}</h2>
 
+    <div class="row">
+        <div class="col-md-12">
+            <img src="{{ asset(image) }}" alt="" class="img-responsive center-block edit-img">
+        </div>
+    </div>
+
     {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
     {{ form_widget(form) }}
     <div>

@@ -10,6 +10,9 @@ class GameType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('name', 'text')
+                ->add('cover', 'file', array(
+                    'data_class' => null
+                ))
                 ->add('date', 'date')
                 ->add('description', 'textarea')
                 ->add('rating', 'choice', array(
@@ -26,8 +29,11 @@ class GameType extends AbstractType
                         16 => 16,
                         18 => 18)
                 ))
-                ->add('cover', 'file', array(
-                    'data_class' => null
+                ->add('categories', 'entity', array(
+                    'class' => 'AppBundle:Category',
+                    'choice_label' => 'name',
+                    'multiple' => true,
+                    'expanded' => true
                 ))
         ;
     }
