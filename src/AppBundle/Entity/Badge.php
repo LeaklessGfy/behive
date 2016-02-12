@@ -30,6 +30,13 @@ class Badge
     private $name;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="logo", type="string", length=255, nullable=true)
+     */
+    private $logo;
+
+    /**
      * @ORM\ManyToMany(targetEntity="User", mappedBy="badges")
      */
     private $users;
@@ -72,6 +79,29 @@ class Badge
     }
 
     /**
+     * Set logo
+     *
+     * @param string $logo
+     * @return Badge
+     */
+    public function setLogo($logo)
+    {
+        $this->logo = $logo;
+
+        return $this;
+    }
+
+    /**
+     * Get logo
+     *
+     * @return string
+     */
+    public function getLogo()
+    {
+        return $this->logo;
+    }
+
+    /**
      * Add users
      *
      * @param \AppBundle\Entity\User $users
@@ -102,5 +132,15 @@ class Badge
     public function getUsers()
     {
         return $this->users;
+    }
+
+    public function toArray() {
+        $entity = array(
+            "id" => $this->id,
+            "name" => $this->name,
+            "logo" => $this->logo
+        );
+
+        return $entity;
     }
 }

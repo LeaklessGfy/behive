@@ -1,0 +1,53 @@
+{% extends "back_base.html.twig" %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-12">
+            <h2>List {{ ressourceHelper }}</h2>
+
+            <div class="row padding-b-5">
+                <div class="col-md-12">
+                    <a href="{{ path('back_create', {ressource:app.request.get('ressource')}) }}" class="btn btn-warning">
+                        <i class="fa fa-plus"></i> Créer un {{ ressourceHelper }}
+                    </a>
+                </div>
+            </div>
+
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        {% if entities|length %}
+                            {% for key, entiyField in entities.0 %}
+                                <th>{{ key|capitalize }}</th>
+                            {% endfor %}
+                            <th>Options</th>
+                        {% else %}
+                            <p>{{ app.request.get('ressource') }} n'a aucune entrée</p>
+                        {% endif %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for entity in entities %}
+                        <tr class="behive-ressource">
+                            {% for entityField in entity %}
+                                {% if entityField is iterable %}
+                                    <td>
+                                        {% for field in entityField %}
+                                            {{ field }}
+                                        {% endfor %}
+                                    </td>
+                                {% else %}
+                                    <td>{{ entityField }}</td>
+                                {% endif %}
+                            {% endfor %}
+                            <td>
+                                <a href="{{ path('back_edit', {ressource:app.request.get('ressource'), id:entity.id}) }}" class="btn btn-info"><i class="fa fa-edit"></i></a>
+                                <a href="{{ path('back_delete', {ressource:app.request.get('ressource'), id:entity.id}) }}" class="btn btn-danger btn-delete" data-entity="{{ app.request.get('ressource') }}"><i class="fa fa-remove"></i></a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

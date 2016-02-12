@@ -136,4 +136,60 @@ class Challenge
     {
         return $this->description;
     }
+
+    /**
+     * Add players
+     *
+     * @param \AppBundle\Entity\User $players
+     * @return Challenge
+     */
+    public function addPlayer(\AppBundle\Entity\User $players)
+    {
+        $this->players[] = $players;
+
+        return $this;
+    }
+
+    /**
+     * Remove players
+     *
+     * @param \AppBundle\Entity\User $players
+     */
+    public function removePlayer(\AppBundle\Entity\User $players)
+    {
+        $this->players->removeElement($players);
+    }
+
+    /**
+     * Get players
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPlayers()
+    {
+        return $this->players;
+    }
+
+    /**
+     * Set game
+     *
+     * @param \AppBundle\Entity\Game $game
+     * @return Challenge
+     */
+    public function setGame(\AppBundle\Entity\Game $game = null)
+    {
+        $this->game = $game;
+
+        return $this;
+    }
+
+    /**
+     * Get game
+     *
+     * @return \AppBundle\Entity\Game 
+     */
+    public function getGame()
+    {
+        return $this->game;
+    }
 }

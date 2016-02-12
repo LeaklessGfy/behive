@@ -58,7 +58,7 @@ class Game
     private $cover;
 
     /**
-     * @ORM\ManyToMany(targetEntity="User", mappedBy="myGames")
+     * @ORM\ManyToMany(targetEntity="User", mappedBy="games")
      */
     private $owners;
 
@@ -214,5 +214,140 @@ class Game
     public function getCover()
     {
         return $this->cover;
+    }
+
+    /**
+     * Add owners
+     *
+     * @param \AppBundle\Entity\User $owners
+     * @return Game
+     */
+    public function addOwner(\AppBundle\Entity\User $owners)
+    {
+        $this->owners[] = $owners;
+
+        return $this;
+    }
+
+    /**
+     * Remove owners
+     *
+     * @param \AppBundle\Entity\User $owners
+     */
+    public function removeOwner(\AppBundle\Entity\User $owners)
+    {
+        $this->owners->removeElement($owners);
+    }
+
+    /**
+     * Get owners
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getOwners()
+    {
+        return $this->owners;
+    }
+
+    /**
+     * Set challenge
+     *
+     * @param \AppBundle\Entity\Challenge $challenge
+     * @return Game
+     */
+    public function setChallenge(\AppBundle\Entity\Challenge $challenge = null)
+    {
+        $this->challenge = $challenge;
+
+        return $this;
+    }
+
+    /**
+     * Get challenge
+     *
+     * @return \AppBundle\Entity\Challenge 
+     */
+    public function getChallenge()
+    {
+        return $this->challenge;
+    }
+
+    /**
+     * Set editor
+     *
+     * @param \AppBundle\Entity\Editor $editor
+     * @return Game
+     */
+    public function setEditor(\AppBundle\Entity\Editor $editor = null)
+    {
+        $this->editor = $editor;
+
+        return $this;
+    }
+
+    /**
+     * Get editor
+     *
+     * @return \AppBundle\Entity\Editor 
+     */
+    public function getEditor()
+    {
+        return $this->editor;
+    }
+
+    /**
+     * Set pegi
+     *
+     * @param \AppBundle\Entity\Pegi $pegi
+     * @return Game
+     */
+    public function setPegi(\AppBundle\Entity\Pegi $pegi = null)
+    {
+        $this->pegi = $pegi;
+
+        return $this;
+    }
+
+    /**
+     * Get pegi
+     *
+     * @return \AppBundle\Entity\Pegi 
+     */
+    public function getPegi()
+    {
+        return $this->pegi;
+    }
+
+    /**
+     * Add categories
+     *
+     * @param \AppBundle\Entity\Category $categories
+     * @return Game
+     */
+    public function addCategory(\AppBundle\Entity\Category $categories)
+    {
+        $this->categories[] = $categories;
+
+        return $this;
+    }
+
+    /**
+     * Remove categories
+     *
+     * @param \AppBundle\Entity\Category $categories
+     */
+    public function removeCategory(\AppBundle\Entity\Category $categories)
+    {
+        $this->categories->removeElement($categories);
+    }
+
+    /**
+     * Get categories
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCategories()
+    {
+        return $this->categories;
     }
 }

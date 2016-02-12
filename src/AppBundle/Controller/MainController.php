@@ -12,7 +12,7 @@ class MainController extends BaseController
      */
     public function indexAction()
     {
-        return $this->render('pages/index.html.twig');
+        return $this->render('pages/front/index.html.twig');
     }
 
     /**
@@ -25,7 +25,7 @@ class MainController extends BaseController
         $games = $em->getRepository("AppBundle:Game")->findAll();
         $categories = $em->getRepository("AppBundle:Category")->findAll();
 
-        return $this->render('pages/catalogue.html.twig', array(
+        return $this->render('pages/front/catalogue.html.twig', array(
             "games" => $games,
             "categories" => $categories
         ));
@@ -38,7 +38,7 @@ class MainController extends BaseController
     {
         $em = $this->getDoctrine()->getManager();
 
-        return $this->render('pages/challenge.html.twig');
+        return $this->render('pages/front/challenge.html.twig');
     }
 
     /**
@@ -46,7 +46,7 @@ class MainController extends BaseController
      */
     public function forumAction()
     {
-        return $this->render('pages/forum.html.twig');
+        return $this->render('pages/front/forum.html.twig');
     }
 
     /**
@@ -54,6 +54,6 @@ class MainController extends BaseController
      */
     public function userAction()
     {
-        return $this->render('pages/user.html.twig');
+        return $this->render('pages/front/user.html.twig');
     }
 }

@@ -32,7 +32,7 @@ class Editor
     /**
      * @var string
      *
-     * @ORM\Column(name="logo", type="string", length=255)
+     * @ORM\Column(name="logo", type="string", length=255, nullable=true)
      */
     private $logo;
 
@@ -133,5 +133,15 @@ class Editor
     public function getGames()
     {
         return $this->games;
+    }
+
+    public function toArray() {
+        $entity = array(
+            "id" => $this->id,
+            "name" => $this->name,
+            "logo" => $this->logo
+        );
+
+        return $entity;
     }
 }

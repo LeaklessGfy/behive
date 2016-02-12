@@ -32,7 +32,7 @@ class Game
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="date", type="datetime")
+     * @ORM\Column(name="date", type="date")
      */
     private $date;
 
@@ -53,7 +53,7 @@ class Game
     /**
      * @var string
      *
-     * @ORM\Column(name="cover", type="string", length=255)
+     * @ORM\Column(name="cover", type="string", length=255, nullable=true)
      */
     private $cover;
 
@@ -75,8 +75,9 @@ class Game
     private $editor;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Pegi", inversedBy="games")
-     * @ORM\JoinColumn(name="pegi_id", referencedColumnName="id")
+     * @var int
+     *
+     * @ORM\Column(name="pegi", type="integer")
      */
     private $pegi;
 
@@ -140,7 +141,7 @@ class Game
     /**
      * Get date
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getDate()
     {
@@ -298,10 +299,10 @@ class Game
     /**
      * Set pegi
      *
-     * @param \AppBundle\Entity\Pegi $pegi
+     * @param integer $pegi
      * @return Game
      */
-    public function setPegi(\AppBundle\Entity\Pegi $pegi = null)
+    public function setPegi($pegi = null)
     {
         $this->pegi = $pegi;
 
@@ -311,7 +312,7 @@ class Game
     /**
      * Get pegi
      *
-     * @return \AppBundle\Entity\Pegi 
+     * @return integer
      */
     public function getPegi()
     {
@@ -349,5 +350,22 @@ class Game
     public function getCategories()
     {
         return $this->categories;
+    }
+
+    public function toArray() {
+        $entity = array(
+            "id" => $this->id,
+            "name" => $this->name,
+            "date" => $this->date->format("d/m/Y"),
+            "description" => $this->description,
+            "rating" => $this->rating,
+            "cover" => $this->cover,
+            "challenge" => $this->challenge,
+            "editeur" => $this->editor,
+            "pegi" => $this->pegi,
+            "categories" => $this->categories
+        );
+
+        return $entity;
     }
 }

@@ -30,4 +30,17 @@ class BaseController extends Controller
 
         $response = $this->callApi($interface, $method, $steamId);
     }
+
+    protected function getRessourceName($ressource) {
+        $nameHelp = array(
+            "user" => "utilisateur",
+            "game" => "jeux vidéo",
+            "editor" => "éditeur",
+            "challenge" => "challenge",
+            "badge" => "badge",
+            "category" => "categorie"
+        );
+
+        return $nameHelp[$ressource];
+    }
 }

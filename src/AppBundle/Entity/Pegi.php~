@@ -65,4 +65,44 @@ class Pegi
     {
         return $this->age;
     }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->games = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add games
+     *
+     * @param \AppBundle\Entity\Game $games
+     * @return Pegi
+     */
+    public function addGame(\AppBundle\Entity\Game $games)
+    {
+        $this->games[] = $games;
+
+        return $this;
+    }
+
+    /**
+     * Remove games
+     *
+     * @param \AppBundle\Entity\Game $games
+     */
+    public function removeGame(\AppBundle\Entity\Game $games)
+    {
+        $this->games->removeElement($games);
+    }
+
+    /**
+     * Get games
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getGames()
+    {
+        return $this->games;
+    }
 }

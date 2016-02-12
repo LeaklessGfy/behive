@@ -1,0 +1,127 @@
+{% extends "back_base.html.twig" %}
+
+{% block body %}
+    <div class="graphs">
+        <div class="col_3">
+            <div class="col-md-3 widget widget1">
+                <div class="r3_counter_box">
+                    <i class="fa fa-mail-forward"></i>
+                    <div class="stats">
+                        <h5>45 <span>%</span></h5>
+                        <div class="grow">
+                            <p>Growth</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 widget widget1">
+                <div class="r3_counter_box">
+                    <i class="fa fa-users"></i>
+                    <div class="stats">
+                        <h5>50 <span>%</span></h5>
+                        <div class="grow grow1">
+                            <p>Utilisateurs</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 widget widget1">
+                <div class="r3_counter_box">
+                    <i class="fa fa-eye"></i>
+                    <div class="stats">
+                        <h5>70 <span>%</span></h5>
+                        <div class="grow grow3">
+                            <p>Jeux</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 widget">
+                <div class="r3_counter_box">
+                    <i class="fa fa-usd"></i>
+                    <div class="stats">
+                        <h5>70 <span>%</span></h5>
+                        <div class="grow grow2">
+                            <p>Challenges</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Derniers utilisateurs <a href="{{ path('back_create', {ressource:"user"}) }}" class="btn btn-warning"><i class="fa fa-plus"></i></a>
+                </div>
+                <div class="panel-body">
+                    <ul class="list-group">
+                        {% for user in users %}
+                            <li class="list-group-item behive-ressource">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <p>{{ user.id }} - {{ user.username }}</p>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <a href="{{ path('back_edit', {ressource:'user', id:user.id}) }}" class="btn btn-info"><i class="fa fa-info"></i></a>
+                                        <a href="{{ path('back_delete', {ressource:'user', id:user.id}) }}" class="btn btn-danger btn-delete"><i class="fa fa-remove"></i></a>
+                                    </div>
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Derniers jeux <a href="{{ path('back_create', {ressource:'game'}) }}" class="btn btn-warning"><i class="fa fa-plus"></i></a>
+                </div>
+                <div class="panel-body">
+                    <ul class="list-group">
+                        {% for game in games %}
+                            <li class="list-group-item behive-ressource">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <p>{{ game.id }} - {{ game.name }}</p>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <a href="{{ path('back_edit', {ressource:'game', id:game.id}) }}" class="btn btn-info"><i class="fa fa-info"></i></a>
+                                        <a href="{{ path('back_delete', {ressource:'game', id:game.id}) }}" class="btn btn-danger btn-delete"><i class="fa fa-remove"></i></a>
+                                    </div>
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Derniers challenges <a href="{{ path('back_create', {ressource:"challenge"}) }}" class="btn btn-warning"><i class="fa fa-plus"></i></a>
+                </div>
+                <div class="panel-body">
+                    <ul class="list-group">
+                        {% for challenge in challenges %}
+                            <li class="list-group-item behive-ressource">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <p>{{ challenge.id }} - {{ challenge.name }}</p>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <a href="{{ path('back_edit', {ressource:'challenge', id:challenge.id}) }}" class="btn btn-info"><i class="fa fa-info"></i></a>
+                                        <a href="{{ path('back_delete', {ressource:'challenge', id:challenge.id}) }}" class="btn btn-danger btn-delete"><i class="fa fa-remove"></i></a>
+                                    </div>
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

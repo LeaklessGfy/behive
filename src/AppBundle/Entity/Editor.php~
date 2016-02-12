@@ -101,4 +101,37 @@ class Editor
     {
         return $this->logo;
     }
+
+    /**
+     * Add games
+     *
+     * @param \AppBundle\Entity\Game $games
+     * @return Editor
+     */
+    public function addGame(\AppBundle\Entity\Game $games)
+    {
+        $this->games[] = $games;
+
+        return $this;
+    }
+
+    /**
+     * Remove games
+     *
+     * @param \AppBundle\Entity\Game $games
+     */
+    public function removeGame(\AppBundle\Entity\Game $games)
+    {
+        $this->games->removeElement($games);
+    }
+
+    /**
+     * Get games
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getGames()
+    {
+        return $this->games;
+    }
 }

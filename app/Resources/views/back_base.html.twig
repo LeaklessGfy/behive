@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Dashboard{% endblock %}</title>
+    {% block stylesheets %}
+        {% stylesheets 'css/back/bootstrap.min.css' 'css/back/style.css' 'css/font-awesome.min.css' 'css/back/icon-font.min.css' filter='cssrewrite' %}
+            <link rel="stylesheet" href="{{ asset_url }}">
+        {% endstylesheets %}
+    {% endblock %}
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,300,700' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Lato:300,400' rel='stylesheet' type='text/css'>
+</head>
+<body>
+    <section>
+        {% include "pages/back/partial/left-nav.html.twig" %}
+
+        <div class="main-content">
+            {% include "pages/back/partial/top-bar.html.twig" %}
+
+            <div id="page-wrapper">
+                {% for label, flashes in app.session.flashbag.all %}
+                    {% for flash in flashes %}
+                        <div class="alert alert-{{ label }}">
+                            {{ flash }}
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+
+                {% block body %}{% endblock %}
+            </div>
+        </div>
+    </section>
+
+    <div class="modal fade" tabindex="-1" role="dialog" id="deleteModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Suppression de : <span></span></h4>
+                </div>
+                <div class="modal-body">
+                    <p>Êtes vous sûr de vouloir supprimer cette ressource ?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger btn-delete-valid">Oui</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Non</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy 2015 Easy Admin Panel.</p>
+    </footer>
+
+    {% block javascripts %}
+        {% javascripts 'js/jquery-2.2.0.min.js' 'js/back/bootstrap.min.js' 'js/back/script.js' %}
+            <script src="{{ asset_url }}"></script>
+        {% endjavascripts %}
+    {% endblock %}
+</body>
+</html>

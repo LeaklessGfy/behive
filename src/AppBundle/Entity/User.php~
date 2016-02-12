@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * User
@@ -11,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="user")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
  */
-class User
+class User implements UserInterface, \Serializable
 {
     /**
      * @var int
@@ -89,11 +90,18 @@ class User
      */
     private $challenges;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="Group", inversedBy="users")
+     *
+     */
+    private $groups;
+
     public function __construct() {
         $this->badges = new ArrayCollection();
         $this->myGames = new ArrayCollection();
         $this->games = new ArrayCollection();
         $this->challenges = new ArrayCollection();
+        $this->groups = new ArrayCollection();
     }
 
     /**
@@ -265,5 +273,144 @@ class User
     public function getAvatar()
     {
         return $this->avatar;
+    }
+
+    /**
+     * Add badges
+     *
+     * @param \AppBundle\Entity\Badge $badges
+     * @return User
+     */
+    public function addBadge(\AppBundle\Entity\Badge $badges)
+    {
+        $this->badges[] = $badges;
+
+        return $this;
+    }
+
+    /**
+     * Remove badges
+     *
+     * @param \AppBundle\Entity\Badge $badges
+     */
+    public function removeBadge(\AppBundle\Entity\Badge $badges)
+    {
+        $this->badges->removeElement($badges);
+    }
+
+    /**
+     * Get badges
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getBadges()
+    {
+        return $this->badges;
+    }
+
+    /**
+     * Add games
+     *
+     * @param \AppBundle\Entity\Game $games
+     * @return User
+     */
+    public function addGame(\AppBundle\Entity\Game $games)
+    {
+        $this->games[] = $games;
+
+        return $this;
+    }
+
+    /**
+     * Remove games
+     *
+     * @param \AppBundle\Entity\Game $games
+     */
+    public function removeGame(\AppBundle\Entity\Game $games)
+    {
+        $this->games->removeElement($games);
+    }
+
+    /**
+     * Get games
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getGames()
+    {
+        return $this->games;
+    }
+
+    /**
+     * Add challenges
+     *
+     * @param \AppBundle\Entity\Challenge $challenges
+     * @return User
+     */
+    public function addChallenge(\AppBundle\Entity\Challenge $challenges)
+    {
+        $this->challenges[] = $challenges;
+
+        return $this;
+    }
+
+    /**
+     * Remove challenges
+     *
+     * @param \AppBundle\Entity\Challenge $challenges
+     */
+    public function removeChallenge(\AppBundle\Entity\Challenge $challenges)
+    {
+        $this->challenges->removeElement($challenges);
+    }
+
+    /**
+     * Get challenges
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getChallenges()
+    {
+        return $this->challenges;
+    }
+
+    public function getSalt()
+    {
+        // you *may* need a real salt depending on your encoder
+        // see section on salt below
+        return null;
+    }
+
+    public function getRoles()
+    {
+        return $this->groups;
+    }
+
+    /** @see \Serializable::serialize() */
+    public function serialize()
+    {
+        return serialize(array(
+            $this->id,
+            $this->username,
+            $this->password,
+            // see section on salt below
+            // $this->salt,
+        ));
+    }
+
+    /** @see \Serializable::unserialize() */
+    public function unserialize($serialized)
+    {
+        list (
+            $this->id,
+            $this->username,
+            $this->password,
+            // see section on salt below
+            // $this->salt
+            ) = unserialize($serialized);
+    }
+
+    public function eraseCredentials()
+    {
     }
 }

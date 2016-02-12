@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * User
@@ -11,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="user")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
  */
-class User
+class User implements UserInterface, \Serializable
 {
     /**
      * @var int
@@ -53,7 +54,7 @@ class User
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="lastConnexion", type="datetime")
+     * @ORM\Column(name="lastConnexion", type="datetime", nullable=true)
      */
     private $lastConnexion;
 
@@ -67,7 +68,7 @@ class User
     /**
      * @var string
      *
-     * @ORM\Column(name="avatar", type="string", length=255)
+     * @ORM\Column(name="avatar", type="string", length=255, nullable=true)
      */
     private $avatar;
 
@@ -89,11 +90,18 @@ class User
      */
     private $challenges;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="RolesCustom")
+     * @ORM\JoinColumn(name="role_id", referencedColumnName="id")
+     */
+    private $roles;
+
     public function __construct() {
         $this->badges = new ArrayCollection();
         $this->myGames = new ArrayCollection();
         $this->games = new ArrayCollection();
         $this->challenges = new ArrayCollection();
+        $this->xp = 10;
     }
 
     /**
@@ -364,5 +372,67 @@ class User
     public function getChallenges()
     {
         return $this->challenges;
+    }
+
+    public function getSalt()
+    {
+        // you *may* need a real salt depending on your encoder
+        // see section on salt below
+        return null;
+    }
+
+    public function getRoles()
+    {
+        $role = $this->roles;
+
+        if(count($role) > 0) {
+            return array($role->getRole());
+        }
+
+        return $this->roles;
+    }
+
+    public function setRoles($roles) {
+        $this->roles = $roles;
+    }
+
+    /** @see \Serializable::serialize() */
+    public function serialize()
+    {
+        return serialize(array(
+            $this->id,
+            $this->username,
+            $this->password,
+        ));
+    }
+
+    /** @see \Serializable::unserialize() */
+    public function unserialize($serialized)
+    {
+        list (
+            $this->id,
+            $this->username,
+            $this->password,
+            ) = unserialize($serialized);
+    }
+
+    public function eraseCredentials()
+    {
+    }
+
+    public function toArray() {
+        $entity = array(
+            "id" => $this->id,
+            "username" => $this->username,
+            "dernière connexion" => $this->lastConnexion->format("d/m/Y H:i:s"),
+            "level" => $this->level,
+            "xp" => $this->xp,
+            "avatar" => $this->avatar,
+            "badges" => $this->badges,
+            "games" => $this->games,
+            "challenges" => $this->challenges
+        );
+
+        return $entity;
     }
 }

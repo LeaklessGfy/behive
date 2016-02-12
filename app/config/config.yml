@@ -35,6 +35,8 @@ framework:
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
+    form:
+        resources: ['bootstrap_3_layout.html.twig']
 
 # Doctrine Configuration
 doctrine:
@@ -70,7 +72,7 @@ assetic:
     debug:          "%kernel.debug%"
     read_from:      %kernel.root_dir%/../web/
     write_to:       %kernel.root_dir%/../web/
-    use_controller: false
-    bundles:        [ ]
+    use_controller: true
+    bundles:        [ AppBundle ]
     filters:
         cssrewrite: ~
