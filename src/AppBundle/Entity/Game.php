@@ -354,7 +354,13 @@ class Game
         return $this->categories;
     }
 
-    public function toArray() {
+    public function toArray()
+    {
+        $categoriesArray = array();
+        foreach($this->categories as $cat) {
+            $categoriesArray[] = $cat->getName();
+        }
+
         $entity = array(
             "id" => $this->id,
             "name" => $this->name,
@@ -365,7 +371,7 @@ class Game
             "challenge" => $this->challenge,
             "editeur" => $this->editor,
             "pegi" => $this->pegi,
-            "categories" => $this->categories
+            "categories" => $categoriesArray
         );
 
         return $entity;

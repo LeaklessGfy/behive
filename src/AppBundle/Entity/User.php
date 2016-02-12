@@ -421,6 +421,21 @@ class User implements UserInterface, \Serializable
     }
 
     public function toArray() {
+        $badgesArray = array();
+        foreach($this->badges as $badge) {
+            $badgesArray[] = $badge->getName();
+        }
+
+        $gamesArray = array();
+        foreach($this->games as $game) {
+            $gamesArray[] = $game->getName();
+        }
+
+        $challengesArray = array();
+        foreach($this->challenges as $challenge) {
+            $challengesArray[] = $challenge->getName();
+        }
+
         $entity = array(
             "id" => $this->id,
             "username" => $this->username,
@@ -428,9 +443,9 @@ class User implements UserInterface, \Serializable
             "level" => $this->level,
             "xp" => $this->xp,
             "avatar" => $this->avatar,
-            "badges" => $this->badges,
-            "games" => $this->games,
-            "challenges" => $this->challenges
+            "badges" => $badgesArray,
+            "games" => $gamesArray,
+            "challenges" => $challengesArray
         );
 
         return $entity;

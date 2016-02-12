@@ -32,9 +32,11 @@
                             {% for entityField in entity %}
                                 {% if entityField is iterable %}
                                     <td>
-                                        {% for field in entityField %}
-                                            {{ field }}
-                                        {% endfor %}
+                                        <ul>
+                                            {% for field in entityField %}
+                                                <li>{{ field }}</li>
+                                            {% endfor %}
+                                        </ul>
                                     </td>
                                 {% else %}
                                     <td>{{ entityField }}</td>

@@ -56,6 +56,8 @@ class BackController extends BaseController
             $entitiesArray[] = $entity->toArray();
         }
 
+        dump($entitiesArray);
+
         return $this->render('pages/back/list.html.twig', array(
             "entities" => $entitiesArray,
             "ressourceHelper" => $ressourceHelper
@@ -85,7 +87,7 @@ class BackController extends BaseController
         if($form->isValid()) {
             $this->handleUserPassword($ressource, $entity);
             $this->handleImage($entity, $ressource);
-            //dump($entity);die;
+
             $em->persist($entity);
             $em->flush();
             $this->addFlash('success', "Votre '$ressource' à bien été créé");
@@ -125,7 +127,6 @@ class BackController extends BaseController
         if($form->isValid()) {
             $this->handleUserPassword($entity, $ressource);
             $this->handleImage($entity,$ressource);
-            //dump($entity);die;
 
             $em->flush();
             $this->addFlash('success', "Votre '$ressource' à bien été modifié");
