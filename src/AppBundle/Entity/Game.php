@@ -75,6 +75,13 @@ class Game
     private $editor;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="buy_link", type="string", length=255)
+     */
+    private $buy;
+
+    /**
      * @var int
      *
      * @ORM\Column(name="pegi", type="integer")
@@ -298,6 +305,29 @@ class Game
     }
 
     /**
+     * Set buy
+     *
+     * @param string $buy
+     * @return Game
+     */
+    public function setBuy($buy)
+    {
+        $this->buy = $buy;
+
+        return $this;
+    }
+
+    /**
+     * Get buy
+     *
+     * @return string
+     */
+    public function getBuy()
+    {
+        return $this->buy;
+    }
+
+    /**
      * Set pegi
      *
      * @param integer $pegi
@@ -361,6 +391,11 @@ class Game
             $categoriesArray[] = $cat->getName();
         }
 
+        $chal = $this->challenge;
+        if($chal) {
+            $chal = $this->challenge->getName();
+        }
+
         $entity = array(
             "id" => $this->id,
             "name" => $this->name,
@@ -368,8 +403,9 @@ class Game
             "description" => $this->description,
             "rating" => $this->rating,
             "cover" => $this->cover,
-            "challenge" => $this->challenge,
+            "challenge" => $chal,
             "editeur" => $this->editor,
+            "buy link" => $this->buy,
             "pegi" => $this->pegi,
             "categories" => $categoriesArray
         );

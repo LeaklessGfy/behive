@@ -88,7 +88,6 @@ class BackController extends BaseController
             $this->handleUserPassword($ressource, $entity);
             $this->handleImage($entity, $ressource);
             $this->handleChallenge($ressource, $entity, $em);
-            dump($entity);die;
 
             $em->persist($entity);
             $em->flush();
@@ -166,5 +165,26 @@ class BackController extends BaseController
         }
 
         return $response;
+    }
+
+    /**
+     * @Route("/api/{game}/search", name="back_api_search")
+     */
+    public function searchVideoGame($game = null)
+    {
+//        $apiUrl = "http://thegamesdb.net/api/GetGamesList.php?name=".$game;
+//        $rawGameList = file_get_contents($apiUrl);
+//        dump($rawGameList);die;
+
+        $apiUrl = "http://www.giantbomb.com/api/search/?";
+        $apiKey = "api_key=838b1d8ea15ef015b443db5049548da60c4ed8d8";
+        $format = "&format=json";
+        $query = "&query=\"$game\"";
+        $ressource = "&resources=game";
+
+        $url = $apiUrl . $apiKey . $format . $query . $ressource;
+
+        $rawGameList = file_get_contents($url);
+        dump(json_decode($rawGameList));die;
     }
 }

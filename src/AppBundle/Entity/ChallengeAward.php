@@ -136,4 +136,9 @@ class ChallengeAward
     {
         return $this->limits;
     }
+
+    public function hasImage()
+    {
+        return false;
+    }
 }

@@ -20,7 +20,7 @@ class BaseController extends Controller
         $this->apiId = "440";
     }
 
-    protected function callApi($interface, $method, $steamId)
+    protected function callSteamApi($interface, $method, $steamId)
     {
         $url = $this->apiBaseUrl . "/" . $interface . "/" . $method . "/" . $this->apiVersion . "/&key=" . $this->apiKey . "&steamid=" . $steamId;
     }
@@ -30,7 +30,7 @@ class BaseController extends Controller
         $interface = "ISteamUserStats";
         $method = "GetPlayerAchievements";
 
-        $response = $this->callApi($interface, $method, $steamId);
+        $response = $this->callSteamApi($interface, $method, $steamId);
     }
 
     protected function getRessourceName($ressource)
@@ -97,6 +97,7 @@ class BaseController extends Controller
     {
         if($ressource === "Challenge") {
             $limits = $entity->getLimits();
+
             foreach($limits as $limit) {
                 $limit->setChallenge($entity);
                 $em->persist($limit);

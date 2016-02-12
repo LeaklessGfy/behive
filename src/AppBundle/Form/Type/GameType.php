@@ -20,6 +20,7 @@ class GameType extends AbstractType
                         range(0,5)
                     )
                 ))
+                ->add('buy', 'text')
                 ->add('pegi', 'choice', array(
                     'choices' => array(
                         0 => 0,

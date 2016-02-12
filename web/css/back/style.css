@@ -1924,7 +1924,8 @@ i.pull-left.fa.fa-bolt.icon-rounded {
 .grow{
 	position: absolute;
     top:47%;
-    left:35%;
+	left: 50%;
+	transform: translateX(-50%);
     background:#8BC34A;
     width: 95px;
     height: 30px;
@@ -1938,9 +1939,6 @@ i.pull-left.fa.fa-bolt.icon-rounded {
 }
 .grow3 {
     background: #F44336;
-}
-.grow1,.grow3,.grow2 {
-    left: 36%;
 }
 .switch-right-grid h3{
 	color:#000;
@@ -2597,10 +2595,10 @@ h4.asd label {
 .r3_counter_box .fa-users {
 	color:#00BCD4;
 }
-.r3_counter_box .fa-usd {
+.r3_counter_box .fa-rocket {
 	color:#FFCA28;
 }
-.r3_counter_box .fa-eye {
+.r3_counter_box .fa-gamepad {
 	color:#F44336;
 }
 .stats span{
@@ -5285,7 +5283,8 @@ div#container-rpm1{
     font-size: 3em;
 }
 .grow {
-    left:32%;
+	left: 50%;
+	transform: translateX(-50%);
 }
 .r3_counter_box h5 {
     font-size: 2.2em;
@@ -5649,7 +5648,8 @@ div#container-rpm1{
     margin-left: 6px;
 }
 .grow {
-    left: 28%;
+	left: 50%;
+	transform: translateX(-50%);
     top: 41%;
 }
 .switch-right-grid ul {
@@ -6090,7 +6090,8 @@ div#char {
 		padding-top: 100px;
 	}
 	.grow {
-		left: 43%;
+		left: 50%;
+		transform: translateX(-50%);
 	}
 	.switch-right {
 		width: 100%;
