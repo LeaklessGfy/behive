@@ -290,7 +290,6 @@ header input{
 	width:				47%;
 	display:			inline-block;
 	text-align: 		left;
-	margin-right:		1%;
 	margin-top:			2%;
 }
 .item img{
@@ -414,7 +413,7 @@ header input{
 	max-width:		400px;
 	margin:			0 auto;
 	width:			auto;
-	overflow:		scroll;
+	overflow-y:		scroll;
 	max-height:		calc(90% - 90px);
 }
 
