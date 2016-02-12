@@ -82,7 +82,8 @@ class Game
     private $pegi;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Category", mappedBy="games")
+     * @ORM\ManyToMany(targetEntity="Category", inversedBy="games")
+     * @ORM\JoinTable(name="games_categories")
      */
     private $categories;
 
@@ -327,6 +328,7 @@ class Game
      */
     public function addCategory(\AppBundle\Entity\Category $categories)
     {
+        $categories->addGame($this);
         $this->categories[] = $categories;
 
         return $this;
