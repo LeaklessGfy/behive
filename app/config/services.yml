@@ -7,9 +7,9 @@ services:
 #    service_name:
 #        class: AppBundle\Directory\ClassName
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
-  cache:
+  cache.service:
       class: AppBundle\Service\CacheService
 
   api.game:
       class: AppBundle\Service\ApiGameService
-      arguments: [@cache]
+      arguments: [@cache.service]

@@ -1,0 +1,5 @@
+AppBundle\Entity\Badge:
+    badge_1:
+        name: Admin
+    badge_2:
+        name: Utilisateur

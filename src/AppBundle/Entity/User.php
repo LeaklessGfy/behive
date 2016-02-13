@@ -464,6 +464,7 @@ class User implements UserInterface, \Serializable
             "id" => $this->id,
             "username" => $this->username,
             "dernière connexion" => $this->lastConnexion->format("d/m/Y H:i:s"),
+            "role" => $this->roles ? $this->roles->getRole() : null,
             "level" => $this->level,
             "xp" => $this->xp,
             "avatar" => $this->avatar,

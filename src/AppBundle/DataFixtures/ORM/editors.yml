@@ -1,0 +1,5 @@
+AppBundle\Entity\Editor:
+    editor_1:
+        name: CD Projekt Sp. z o.o.
+    editor_2:
+        name: Microsoft

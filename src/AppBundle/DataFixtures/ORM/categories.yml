@@ -1,0 +1,5 @@
+AppBundle\Entity\Category:
+    category_1:
+        name: Role-Playing
+    category_2:
+        name: Action-Adventure

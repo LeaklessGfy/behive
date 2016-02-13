@@ -1,0 +1,7 @@
+AppBundle\Entity\RolesCustom:
+    role_1:
+        name: Admin
+        role: ROLE_ADMIN
+    role_2:
+        name: Utilisateur
+        role: ROLE_USER

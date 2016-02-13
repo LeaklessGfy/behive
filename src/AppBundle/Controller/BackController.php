@@ -117,6 +117,7 @@ class BackController extends BaseController
         $this->checkIfExist($ressourceHelper);
 
         $entity = $em->getRepository("AppBundle:".ucfirst($ressource))->find($id);
+        $this->checkIfExist($entity);
         $entityForm = $this->getForm($ressource);
         $form = $this->createForm(new $entityForm(), $entity);
 
