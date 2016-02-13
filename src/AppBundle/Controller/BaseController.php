@@ -80,8 +80,6 @@ class BaseController extends Controller
 
     protected function handleImage($entity, $ressource)
     {
-        $ressource = strtolower($ressource);
-
         if($hasImage = $entity->hasImage()) {
             $file = $hasImage["get"];
 
@@ -106,7 +104,7 @@ class BaseController extends Controller
 
     protected function handleChallenge($ressource, $entity, $em)
     {
-        if($ressource === "Challenge" || $ressource === "challenge") {
+        if($ressource === "challenge") {
             $limits = $entity->getLimits();
 
             foreach($limits as $limit) {

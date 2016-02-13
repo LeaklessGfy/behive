@@ -47,16 +47,12 @@ class BackController extends BaseController
     public function listAction($ressource)
     {
         $ressourceHelper = $this->getRessourceName($ressource);
-
-        if(!$ressourceHelper) {
-            $this->addFlash("danger", "Cette ressource n'existe pas");
-            return $this->redirectToRoute('back_home');
-        }
+        $this->checkIfExist($ressourceHelper);
 
         $em = $this->getDoctrine()->getManager();
         $ressource = ucfirst($ressource);
-
         $entities = $em->getRepository("AppBundle:".$ressource)->findAll();
+
         $entitiesArray = array();
         foreach($entities as $entity) {
             $entitiesArray[] = $entity->toArray();
@@ -176,7 +172,7 @@ class BackController extends BaseController
      * @Route("/helper", name="back_helper")
      * @Method("GET")
      */
-    public function getGameHelperAction(Request $request)
+    public function getGameFromApiAction(Request $request)
     {
         $games = array();
         $search = $request->get('search');
@@ -196,7 +192,7 @@ class BackController extends BaseController
      * @Route("/helper/save", name="back_helper_save")
      * @Method("POST")
      */
-    public function saveGameFromHelperAction(Request $request)
+    public function saveGameFromApiAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
