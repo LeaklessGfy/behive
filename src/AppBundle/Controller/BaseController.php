@@ -42,7 +42,8 @@ class BaseController extends Controller
             "challenge" => "challenge",
             "badge" => "badge",
             "category" => "categorie",
-            "challengeAward" => "récompense"
+            "challengeAward" => "récompense",
+            "rolesCustom" => "role"
         );
 
         if(!isset($nameHelp[$ressource])) {

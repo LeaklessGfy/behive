@@ -24,6 +24,9 @@ security:
             form_login:
                 login_path: back_login
                 check_path: back_login
+            logout:
+                path:   /logout
+                target: /
 
 #        back:
 #            pattern: ^/admin

@@ -18,9 +18,9 @@ class BackController extends BaseController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $users = $em->getRepository("AppBundle:User")->findBy(array(), array(), 5, 0);
-        $games = $em->getRepository("AppBundle:Game")->findBy(array(), array(), 5, 0);
-        $challenges = $em->getRepository("AppBundle:Challenge")->findBy(array(), array(), 5, 0);
+        $users = $em->getRepository("AppBundle:User")->findBy(array(), array("id" => "DESC"), 5, 0);
+        $games = $em->getRepository("AppBundle:Game")->findBy(array(), array("id" => "DESC"), 5, 0);
+        $challenges = $em->getRepository("AppBundle:Challenge")->findBy(array(), array("id" => "DESC"), 5, 0);
 
         $userTotal = $em->getRepository("AppBundle:User")->getCount();
         $gameTotal = $em->getRepository("AppBundle:Game")->getCount();
