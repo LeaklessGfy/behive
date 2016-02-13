@@ -110,22 +110,20 @@ class BaseController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $categories = $em->getRepository('AppBundle:Category')->findAll();
-        $editors = $em->getRepository('AppBundle:Editor')->findAll();
+        $editor = $em->getRepository('AppBundle:Editor')->findOneBy(array('name' => $response['publishers'][0]['name']));
 
         $categoriesArray = array();
         foreach($categories as $key=>$category) {
             $categoriesArray[$key] = $category->getName();
         }
 
-        $editorsArray = array();
-        foreach($editors as $key=>$editor) {
-            $editorsArray[$key] = $editor->getName();
-        }
-
         $game = new \AppBundle\Entity\Game();
-
         $game->setName($response['name']);
-        $game->setCover($response['image']['super_url']);
+
+        $filename = "api-".$response['id']."-img.jpg";
+        copy($response['image']['super_url'], 'uploads/game/'.$filename);
+        $game->setCover("uploads/game/$filename");
+
         $game->setDescription($response['deck']);
         $game->setRating(0);
 
@@ -155,14 +153,14 @@ class BaseController extends Controller
 
         $publisher = $response['publishers'][0]['name'];
 
-        if(!$id = array_search($publisher, $editorsArray)) {
+        if(!$editor) {
             $newEditor = new \AppBundle\Entity\Editor();
             $newEditor->setName($publisher);
 
             $game->setEditor($newEditor);
             $em->persist($newEditor);
         } else {
-            $game->setEditor($editors[$id]);
+            $game->setEditor($editor);
         }
 
         return $game;

@@ -67,7 +67,7 @@ class ApiGameService
     public function getVideoGame($url, $name)
     {
         $id = $this->idConstructor("game", $name);
-        $fieldList = "&field_list=name,image,deck,original_release_date,publishers,genres,original_game_rating";
+        $fieldList = "&field_list=name,image,deck,original_release_date,publishers,genres,original_game_rating,id";
         $url = $this->urlConstructor($url, '', '', '', $fieldList);
 
         return $this->callApi($id, $url);

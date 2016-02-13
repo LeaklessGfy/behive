@@ -198,8 +198,6 @@ class BackController extends BaseController
 
             $api = $this->get('api.game');
             $response = $api->getVideoGame($url, $name);
-
-            dump($response);
             $game = $this->createGame($response['results']);
 
             $em->persist($game);
