@@ -3,6 +3,7 @@ namespace AppBundle\Entity;
 
 use Symfony\Component\Security\Core\Role\RoleInterface;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
 * @ORM\Table(name="roles_custom")
@@ -17,10 +18,16 @@ class RolesCustom implements RoleInterface
     */
     private $id;
 
-    /** @ORM\Column(name="name", type="string", length=30) */
+    /**
+     * @ORM\Column(name="name", type="string", length=30)
+     * @Assert\NotBlank()
+     */
     private $name;
 
-    /** @ORM\Column(name="role", type="string", length=20, unique=true) */
+    /**
+     * @ORM\Column(name="role", type="string", length=20, unique=true)
+     * @Assert\NotBlank()
+     */
     private $role;
 
     /**

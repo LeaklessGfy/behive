@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * ChallengeAward
@@ -25,6 +26,7 @@ class ChallengeAward
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=40)
+     * @Assert\NotBlank()
      */
     private $name;
 
@@ -32,6 +34,7 @@ class ChallengeAward
      * @var int
      *
      * @ORM\Column(name="points", type="integer")
+     * @Assert\NotBlank()
      */
     private $points;
 

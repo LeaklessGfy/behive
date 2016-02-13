@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Game
@@ -26,6 +27,7 @@ class Game
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $name;
 
@@ -33,6 +35,7 @@ class Game
      * @var \DateTime
      *
      * @ORM\Column(name="date", type="date")
+     * @Assert\NotBlank()
      */
     private $date;
 
@@ -40,6 +43,7 @@ class Game
      * @var string
      *
      * @ORM\Column(name="description", type="text")
+     * @Assert\NotBlank()
      */
     private $description;
 
@@ -47,6 +51,7 @@ class Game
      * @var int
      *
      * @ORM\Column(name="rating", type="integer")
+     * @Assert\NotBlank()
      */
     private $rating;
 
@@ -85,6 +90,7 @@ class Game
      * @var int
      *
      * @ORM\Column(name="pegi", type="integer")
+     * @Assert\NotBlank()
      */
     private $pegi;
 

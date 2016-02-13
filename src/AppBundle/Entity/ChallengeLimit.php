@@ -25,6 +25,7 @@ class ChallengeLimit
      * @var int
      *
      * @ORM\Column(name="begin", type="integer")
+     * @Assert\NotBlank()
      */
     private $begin;
 
@@ -32,6 +33,7 @@ class ChallengeLimit
      * @var int
      *
      * @ORM\Column(name="end", type="integer")
+     * @Assert\NotBlank()
      */
     private $end;
 
@@ -39,6 +41,7 @@ class ChallengeLimit
      * @var int
      *
      * @ORM\Column(name="points", type="integer")
+     * @Assert\NotBlank()
      */
     private $points;
 
