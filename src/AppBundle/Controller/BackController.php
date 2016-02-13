@@ -175,11 +175,8 @@ class BackController extends BaseController
         $search = $request->get('search');
 
         if($search) {
-            $api = $this->get('api.giant');
+            $api = $this->get('api.game');
             $games = $api->searchVideoGame($search)['results'];
-
-            $session = $this->get('session');
-            $session->set("result", serialize($games));
         }
 
         return $this->render('pages/back/helper.html.twig', array(
@@ -189,40 +186,31 @@ class BackController extends BaseController
     }
 
     /**
-     * @Route("/helper/save/{id}", name="back_helper_save")
+     * @Route("/helper/save", name="back_helper_save")
      */
-    public function saveGameFromHelperAction($id)
+    public function saveGameFromHelperAction(Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
+        if($request->getMethod() === "POST") {
+            $em = $this->getDoctrine()->getManager();
 
-        $session = $this->get('session');
-        $helperArray = $session->get("result");
-        $helper = unserialize($helperArray)[$id];
+            $url = $request->get('url');
+            $name = $request->get('name');
 
-        $game = new Game();
-        $game->setName($helper['name']);
-        $game->setCover($helper['image']['super_url']);
-        $game->setDescription($helper['deck']);
-        $game->setRating(0);
+            $api = $this->get('api.game');
+            $response = $api->getVideoGame($url, $name);
 
-        foreach($helper['original_game_rating'] as $rating) {
-            if(strpos($rating['name'], "PEGI:") !== false) {
-                preg_match_all('!\d+!', $rating['name'], $matches);
-                $game->setPegi($matches[0][0]);
-                break;
-            }
+            dump($response);
+            $game = $this->createGame($response['results']);
+
+            $em->persist($game);
+            $em->flush();
+
+            $this->addFlash('success', 'Le jeu à bien été créé');
+
+            $id = $game->getId();
+            return $this->redirectToRoute('back_edit', array("ressource" => "game", "id" => $id));
         }
 
-        $date = $helper['original_release_date'];
-        $date = new \DateTime($date);
-        $game->setDate($date);
-
-        $em->persist($game);
-        $em->flush();
-
-        $this->addFlash('success', 'Le jeu à bien été créé');
-
-        $id = $game->getId();
-        return $this->redirectToRoute('back_edit', array("ressource" => "game", "id" => $id));
+        return $this->redirectToRoute('back_home');
     }
 }

@@ -22,10 +22,13 @@
 
                     <h3>{{ game.name }}</h3>
                     <p>{{ game.deck }}</p>
-                    <p>{{ game.original_release_date }}</p>
-                    <p>{{ game.api_detail_url }}</p>
 
-                    <a href="{{ path('back_helper_save', {id:loop.index0}) }}" class="btn btn-warning" data-id="{{ loop.index0 }}">Copier en base</a>
+                    <form action="{{ path('back_helper_save') }}" method="POST">
+                        <input type="hidden" value="{{ game.api_detail_url }}" name="url">
+                        <input type="hidden" value="{{ game.name }}" name="name">
+
+                        <input class="btn btn-warning" type="submit" value="Enregistrer en base">
+                    </form>
                 </li>
             {% endfor %}
         {% endif %}

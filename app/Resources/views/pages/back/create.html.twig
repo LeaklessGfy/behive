@@ -1,7 +1,7 @@
 {% extends "back_base.html.twig" %}
 
 {% block body %}
-    <h2>Créer un {{ ressourceHelper }}</h2>
+    <h2>Créer : {{ ressourceHelper }}</h2>
 
     {% if app.request.get('ressource') == "challenge" %}
         {% include "pages/back/partial/_limits-form.html.twig" %}

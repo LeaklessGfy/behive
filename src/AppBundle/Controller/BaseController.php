@@ -105,4 +105,66 @@ class BaseController extends Controller
             }
         }
     }
+
+    protected function createGame($response)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $categories = $em->getRepository('AppBundle:Category')->findAll();
+        $editors = $em->getRepository('AppBundle:Editor')->findAll();
+
+        $categoriesArray = array();
+        foreach($categories as $key=>$category) {
+            $categoriesArray[$key] = $category->getName();
+        }
+
+        $editorsArray = array();
+        foreach($editors as $key=>$editor) {
+            $editorsArray[$key] = $editor->getName();
+        }
+
+        $game = new \AppBundle\Entity\Game();
+
+        $game->setName($response['name']);
+        $game->setCover($response['image']['super_url']);
+        $game->setDescription($response['deck']);
+        $game->setRating(0);
+
+        foreach($response['original_game_rating'] as $rating) {
+            if(strpos($rating['name'], "PEGI:") !== false) {
+                preg_match_all('!\d+!', $rating['name'], $matches);
+                $game->setPegi($matches[0][0]);
+                break;
+            }
+        }
+
+        $date = $response['original_release_date'];
+        $date = new \DateTime($date);
+        $game->setDate($date);
+
+        foreach($response['genres'] as $genre) {
+            if(!$id = array_search($genre["name"], $categoriesArray)) {
+                $newCategory = new \AppBundle\Entity\Category();
+                $newCategory->setName($genre["name"]);
+
+                $game->addCategory($newCategory);
+                $em->persist($newCategory);
+            } else {
+                $game->addCategory($categories[$id]);
+            }
+        }
+
+        $publisher = $response['publishers'][0]['name'];
+
+        if(!$id = array_search($publisher, $editorsArray)) {
+            $newEditor = new \AppBundle\Entity\Editor();
+            $newEditor->setName($publisher);
+
+            $game->setEditor($newEditor);
+            $em->persist($newEditor);
+        } else {
+            $game->setEditor($editors[$id]);
+        }
+
+        return $game;
+    }
 }

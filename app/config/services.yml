@@ -8,8 +8,8 @@ services:
 #        class: AppBundle\Directory\ClassName
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
   cache:
-      class: Doctrine\Common\Cache\ApcCache
+      class: AppBundle\Service\CacheService
 
-  api.giant:
-      class: AppBundle\Service\ApiGiant
+  api.game:
+      class: AppBundle\Service\ApiGameService
       arguments: [@cache]

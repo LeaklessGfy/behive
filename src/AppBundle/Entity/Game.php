@@ -392,7 +392,7 @@ class Game
             "rating" => $this->rating,
             "cover" => $this->cover,
             "challenge" => $challengesArray,
-            "editeur" => $this->editor,
+            "editeur" => $this->editor ? $this->editor->getName() : null,
             "buy link" => $this->buy,
             "pegi" => $this->pegi,
             "categories" => $categoriesArray
