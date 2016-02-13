@@ -27,7 +27,9 @@ class Game
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255)
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(
+     *      message="Veuillez remplir ce champs"
+     * )
      */
     private $name;
 
@@ -35,7 +37,9 @@ class Game
      * @var \DateTime
      *
      * @ORM\Column(name="date", type="date")
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(
+     *      message="Veuillez remplir ce champs"
+     * )
      */
     private $date;
 
@@ -43,7 +47,9 @@ class Game
      * @var string
      *
      * @ORM\Column(name="description", type="text")
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(
+     *      message="Veuillez remplir ce champs"
+     * )
      */
     private $description;
 
@@ -51,7 +57,9 @@ class Game
      * @var int
      *
      * @ORM\Column(name="rating", type="integer")
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(
+     *      message="Veuillez remplir ce champs"
+     * )
      */
     private $rating;
 
@@ -59,6 +67,10 @@ class Game
      * @var string
      *
      * @ORM\Column(name="cover", type="string", length=255, nullable=true)
+     * @Assert\Image(
+     *      maxSize = "200k",
+     *      mimeTypesMessage = "Veuillez uploader une image valide"
+     * )
      */
     private $cover;
 

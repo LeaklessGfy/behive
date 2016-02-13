@@ -26,7 +26,9 @@ class ChallengeAward
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=40)
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(
+     *      message="Veuillez remplir ce champs"
+     * )
      */
     private $name;
 
@@ -34,7 +36,9 @@ class ChallengeAward
      * @var int
      *
      * @ORM\Column(name="points", type="integer")
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(
+     *      message="Veuillez remplir ce champs"
+     * )
      */
     private $points;
 

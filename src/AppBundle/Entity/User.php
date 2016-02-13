@@ -27,8 +27,10 @@ class User implements UserInterface, \Serializable
     /**
      * @var string
      *
-     * @ORM\Column(name="username", type="string", length=255)
-     * @Assert\NotBlank()
+     * @ORM\Column(name="username", type="string", length=255, unique=true)
+     * @Assert\NotBlank(
+     *      message="Veuillez remplir ce champs"
+     * )
      */
     private $username;
 
@@ -36,7 +38,9 @@ class User implements UserInterface, \Serializable
      * @var string
      *
      * @ORM\Column(name="password", type="string", length=255)
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(
+     *      message="Veuillez remplir ce champs"
+     * )
      */
     private $password;
 
@@ -44,7 +48,9 @@ class User implements UserInterface, \Serializable
      * @var int
      *
      * @ORM\Column(name="level", type="integer")
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(
+     *      message="Veuillez remplir ce champs"
+     * )
      */
     private $level;
 
@@ -52,7 +58,9 @@ class User implements UserInterface, \Serializable
      * @var float
      *
      * @ORM\Column(name="xp", type="float")
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(
+     *      message="Veuillez remplir ce champs"
+     * )
      */
     private $xp;
 
@@ -67,7 +75,13 @@ class User implements UserInterface, \Serializable
      * @var string
      *
      * @ORM\Column(name="email", type="string", length=255)
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(
+     *      message="Veuillez remplir ce champs"
+     * )
+     * @Assert\Email(
+     *     message = "L'email '{{ value }}' n'est pas valide",
+     *     checkMX = true
+     * )
      */
     private $email;
 
@@ -75,6 +89,10 @@ class User implements UserInterface, \Serializable
      * @var string
      *
      * @ORM\Column(name="avatar", type="string", length=255, nullable=true)
+     * @Assert\Image(
+     *      maxSize = "200k",
+     *      mimeTypesMessage = "Veuillez uploader une image valide"
+     * )
      */
     private $avatar;
 

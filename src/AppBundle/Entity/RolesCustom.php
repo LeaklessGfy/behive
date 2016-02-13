@@ -20,13 +20,17 @@ class RolesCustom implements RoleInterface
 
     /**
      * @ORM\Column(name="name", type="string", length=30)
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(
+     *      message="Veuillez remplir ce champs"
+     * )
      */
     private $name;
 
     /**
      * @ORM\Column(name="role", type="string", length=20, unique=true)
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(
+     *      message="Veuillez remplir ce champs"
+     * )
      */
     private $role;
 
