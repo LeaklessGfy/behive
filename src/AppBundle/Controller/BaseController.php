@@ -96,7 +96,7 @@ class BaseController extends Controller
 
     protected function handleChallenge($ressource, $entity, $em)
     {
-        if($ressource === "Challenge") {
+        if($ressource === "Challenge" || $ressource === "challenge") {
             $limits = $entity->getLimits();
 
             foreach($limits as $limit) {

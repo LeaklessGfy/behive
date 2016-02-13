@@ -63,7 +63,7 @@ class Game
     private $owners;
 
     /**
-     * @ORM\OneToOne(targetEntity="Challenge", inversedBy="game")
+     * @ORM\OneToMany(targetEntity="Challenge", mappedBy="game")
      * @ORM\JoinColumn(name="challenge_id", referencedColumnName="id")
      */
     private $challenge;
@@ -98,6 +98,7 @@ class Game
     {
         $this->owners = new ArrayCollection();
         $this->categories = new ArrayCollection();
+        $this->challenge = new ArrayCollection();
     }
 
     /**
@@ -259,19 +260,6 @@ class Game
     }
 
     /**
-     * Set challenge
-     *
-     * @param \AppBundle\Entity\Challenge $challenge
-     * @return Game
-     */
-    public function setChallenge(\AppBundle\Entity\Challenge $challenge = null)
-    {
-        $this->challenge = $challenge;
-
-        return $this;
-    }
-
-    /**
      * Get challenge
      *
      * @return \AppBundle\Entity\Challenge 
@@ -391,9 +379,9 @@ class Game
             $categoriesArray[] = $cat->getName();
         }
 
-        $challengeName = $this->challenge;
-        if($challengeName) {
-            $challengeName = $this->challenge->getName();
+        $challengesArray = array();
+        foreach($this->challenge as $cha) {
+            $challengesArray[] = $cha->getName();
         }
 
         $entity = array(
@@ -403,7 +391,7 @@ class Game
             "description" => $this->description,
             "rating" => $this->rating,
             "cover" => $this->cover,
-            "challenge" => $challengeName,
+            "challenge" => $challengesArray,
             "editeur" => $this->editor,
             "buy link" => $this->buy,
             "pegi" => $this->pegi,
@@ -419,5 +407,28 @@ class Game
             "get" => $this->getCover(),
             "set" => "setCover"
         );
+    }
+
+    /**
+     * Add challenge
+     *
+     * @param \AppBundle\Entity\Challenge $challenge
+     * @return Game
+     */
+    public function addChallenge(\AppBundle\Entity\Challenge $challenge)
+    {
+        $this->challenge[] = $challenge;
+
+        return $this;
+    }
+
+    /**
+     * Remove challenge
+     *
+     * @param \AppBundle\Entity\Challenge $challenge
+     */
+    public function removeChallenge(\AppBundle\Entity\Challenge $challenge)
+    {
+        $this->challenge->removeElement($challenge);
     }
 }

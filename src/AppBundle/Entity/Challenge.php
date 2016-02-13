@@ -49,12 +49,12 @@ class Challenge
     private $players;
 
     /**
-     * @ORM\OneToOne(targetEntity="Game", mappedBy="challenge")
+     * @ORM\ManyToOne(targetEntity="Game", inversedBy="challenge")
      */
     private $game;
 
     /**
-     * @ORM\OneToMany(targetEntity="ChallengeLimit", mappedBy="challenge")
+     * @ORM\OneToMany(targetEntity="ChallengeLimit", mappedBy="challenge", cascade={"persist"}, orphanRemoval=true)
      */
     private $limits;
 
@@ -191,8 +191,8 @@ class Challenge
      */
     public function setGame(\AppBundle\Entity\Game $game = null)
     {
+        $game->addChallenge($this);
         $this->game = $game;
-        $game->setChallenge($this);
 
         return $this;
     }
@@ -228,6 +228,7 @@ class Challenge
     public function removeLimit(\AppBundle\Entity\ChallengeLimit $limits)
     {
         $this->limits->removeElement($limits);
+        $limits->setChallenge(null);
     }
 
     /**
@@ -258,7 +259,7 @@ class Challenge
             "cover" => $this->cover,
             "description" => $this->description,
             "players" => $playersArray,
-            "game" => $this->game->getName(),
+            "game" => $this->game ? $this->game->getName() : null,
             "limits" => $limitsArray
         );
 

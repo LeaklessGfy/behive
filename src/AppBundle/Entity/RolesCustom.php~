@@ -73,6 +73,17 @@ class RolesCustom implements RoleInterface
         return $this;
     }
 
+    public function toArray()
+    {
+        $entity = array(
+            "id" => $this->id,
+            "name" => $this->name,
+            "role" => $this->role
+        );
+
+        return $entity;
+    }
+
     public function hasImage()
     {
         return false;
