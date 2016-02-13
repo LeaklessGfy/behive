@@ -1,10 +1,11 @@
 <?php
 namespace AppBundle\Controller;
 
-use AppBundle\Entity\Game;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 /**
  * @Route("/admin")
@@ -13,6 +14,8 @@ class BackController extends BaseController
 {
     /**
      * @Route("/", name="back_home")
+     * @Method("GET")
+     * @Template("pages/back/index.html.twig")
      */
     public function indexAction()
     {
@@ -26,18 +29,20 @@ class BackController extends BaseController
         $gameTotal = $em->getRepository("AppBundle:Game")->getCount();
         $challengeTotal = $em->getRepository("AppBundle:Challenge")->getCount();
 
-        return $this->render('pages/back/index.html.twig', array(
+        return array(
             "users" => $users,
             "games" => $games,
             "challenges" => $challenges,
             "userTotal" => $userTotal,
             "gameTotal" => $gameTotal,
             "challengeTotal" => $challengeTotal
-        ));
+        );
     }
 
     /**
      * @Route("/{ressource}/list", name="back_list")
+     * @Method("GET")
+     * @Template("pages/back/list.html.twig")
      */
     public function listAction($ressource)
     {
@@ -57,25 +62,24 @@ class BackController extends BaseController
             $entitiesArray[] = $entity->toArray();
         }
 
-        return $this->render('pages/back/list.html.twig', array(
+        return array(
             "entities" => $entitiesArray,
             "ressourceHelper" => $ressourceHelper
-        ));
+        );
     }
 
 
     /**
      * @Route("/{ressource}/create", name="back_create")
+     * @Method({"GET", "POST"})
+     * @Template("pages/back/create.html.twig")
      */
     public function createAction(Request $request, $ressource)
     {
         $ressourceHelper = $this->getRessourceName($ressource);
         $em = $this->getDoctrine()->getManager();
 
-        if(!$ressourceHelper) {
-            $this->addFlash("danger", "Cette ressource n'existe pas");
-            return $this->redirectToRoute('back_home');
-        }
+        $this->checkIfExist($ressourceHelper);
 
         $entity = $this->getNewEntity($ressource);
         $entityForm = $this->getForm($ressource);
@@ -92,36 +96,35 @@ class BackController extends BaseController
             $em->flush();
             $this->addFlash('success', "Votre '$ressource' à bien été créé");
 
-            return $this->redirectToRoute("back_home");
+            return $this->redirectToRoute("back_list", array("ressource" => $ressource));
         }
 
-        return $this->render('pages/back/create.html.twig', array(
+        return array(
             "form" => $form->createView(),
             "ressourceHelper" => $ressourceHelper
-        ));
+        );
     }
 
 
     /**
-     * @Route("/{ressource}/{id}/edit", name="back_edit")
+     * @Route("/{ressource}/{id}/edit", name="back_edit", requirements={
+     *     "id": "\d+"
+     * })
+     * @Method({"GET", "POST"})
+     * @Template("pages/back/edit.html.twig")
      */
     public function editAction(Request $request, $ressource, $id)
     {
         $ressourceHelper = $this->getRessourceName($ressource);
         $em = $this->getDoctrine()->getManager();
 
-        if(!$ressourceHelper) {
-            $this->addFlash("danger", "Cette ressource n'existe pas");
-            return $this->redirectToRoute('back_home');
-        }
+        $this->checkIfExist($ressourceHelper);
 
-        $ressource = ucfirst($ressource);
-        $entity = $em->getRepository("AppBundle:".$ressource)->find($id);
+        $entity = $em->getRepository("AppBundle:".ucfirst($ressource))->find($id);
         $entityForm = $this->getForm($ressource);
         $form = $this->createForm(new $entityForm(), $entity);
 
         $image = $entity->hasImage() ? $entity->hasImage()['get'] : null;
-
         $form->handleRequest($request);
 
         if($form->isValid()) {
@@ -132,18 +135,21 @@ class BackController extends BaseController
             $em->flush();
             $this->addFlash('success', "Votre '$ressource' à bien été modifié");
 
-            return $this->redirectToRoute("back_home");
+            return $this->redirectToRoute("back_list", array("ressource" => $ressource));
         }
 
-        return $this->render('pages/back/edit.html.twig', array(
+        return array(
             "form" => $form->createView(),
             "ressourceHelper" => $ressourceHelper,
             "image" => $image
-        ));
+        );
     }
 
     /**
-     * @Route("/{ressource}/{id}/delete", name="back_delete")
+     * @Route("/{ressource}/{id}/delete", name="back_delete", requirements={
+     *     "id": "\d+"
+     * })
+     * @Method("GET")
      */
     public function deleteAction($ressource, $id)
     {
@@ -168,6 +174,7 @@ class BackController extends BaseController
 
     /**
      * @Route("/helper", name="back_helper")
+     * @Method("GET")
      */
     public function getGameHelperAction(Request $request)
     {
@@ -187,28 +194,25 @@ class BackController extends BaseController
 
     /**
      * @Route("/helper/save", name="back_helper_save")
+     * @Method("POST")
      */
     public function saveGameFromHelperAction(Request $request)
     {
-        if($request->getMethod() === "POST") {
-            $em = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
 
-            $url = $request->get('url');
-            $name = $request->get('name');
+        $url = $request->get('url');
+        $name = $request->get('name');
 
-            $api = $this->get('api.game');
-            $response = $api->getVideoGame($url, $name);
-            $game = $this->createGame($response['results']);
+        $api = $this->get('api.game');
+        $response = $api->getVideoGame($url, $name);
+        $game = $this->createGame($response['results']);
 
-            $em->persist($game);
-            $em->flush();
+        $em->persist($game);
+        $em->flush();
 
-            $this->addFlash('success', 'Le jeu à bien été créé');
+        $this->addFlash('success', 'Le jeu à bien été créé');
 
-            $id = $game->getId();
-            return $this->redirectToRoute('back_edit', array("ressource" => "game", "id" => $id));
-        }
-
-        return $this->redirectToRoute('back_home');
+        $id = $game->getId();
+        return $this->redirectToRoute('back_edit', array("ressource" => "game", "id" => $id));
     }
 }

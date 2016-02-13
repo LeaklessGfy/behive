@@ -4,6 +4,8 @@ namespace AppBundle\Controller;
 
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class BaseController extends Controller
 {
@@ -51,6 +53,14 @@ class BaseController extends Controller
         }
 
         return $nameHelp[$ressource];
+    }
+
+    protected function checkIfExist($ressourceHelper)
+    {
+        if(!$ressourceHelper) {
+            $this->addFlash("danger", "Cette ressource n'existe pas");
+            throw new HttpException(307, null, null, array('Location' => $this->generateUrl('back_home')));
+        }
     }
 
     protected function getNewEntity($ressource)
