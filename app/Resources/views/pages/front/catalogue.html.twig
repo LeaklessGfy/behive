@@ -18,11 +18,24 @@
             <li><a href="challenges.html">Challenges</a></li>
         </ul>
         <a class="profil" href="profil.html"></a>
-        <div class="search"></div>
-        <input type="text" />
+        <form style="padding:0;" action="#" method="POST">
+            <input type="text" name="search" />
+            <input type="submit" class="search" />
+        </form>
         <h1><a href="index.html">Behive</a></h1>
     </header>
-
+    <div id="sideMenu">
+        <div class="contentMenu">
+            <img class="avatarMenu" src="avatar.jpg" />
+            <h4>Niveau : 32</h4>
+            <ul>
+                <li><a href="#">Profil</a></li>
+                <li><a href="#">Accueil</a></li>
+                <li><a href="#">Forum</a></li>
+                <li><a href="#">Challenges</a></li>
+            </ul>
+        </div>
+    </div>
     <div id="catalogue" class="main">
         <div class="flexContent">
         {% for game in games %}
@@ -34,11 +47,11 @@
                             <div class="bgImg"></div>
                         </div>
                         <h3>{{ game.name }}</h3>
-                        {% for category in game.categories %}
-                            <h4>
-                                <a href="">{{ category.name }}</a>
-                            </h4>
-                        {% endfor %}
+                        <h4>
+                            {% for category in game.categories %}
+                                {{ category.name }}
+                            {% endfor %}
+                        </h4>
                     </a>
                 </div>
             {% else %}
@@ -49,11 +62,11 @@
                             <div class="bgImg"></div>
                         </div>
                         <h3>{{ game.name }}</h3>
-                        {% for category in game.categories %}
-                            <h4>
-                                <a href="">{{ category.name }}</a>
-                            </h4>
-                        {% endfor %}
+                        <h4>
+                            {% for category in game.categories %}
+                                {{ category.name }}
+                            {% endfor %}
+                        </h4>
                     </a>
                 </div>
             {% endif %}
