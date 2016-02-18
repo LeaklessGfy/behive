@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Challenge
@@ -26,6 +27,9 @@ class Challenge
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255)
+     * @Assert\NotBlank(
+     *      message="Veuillez remplir ce champs"
+     * )
      */
     private $name;
 
@@ -33,6 +37,10 @@ class Challenge
      * @var string
      *
      * @ORM\Column(name="cover", type="string", length=255, nullable=true)
+     * @Assert\Image(
+     *      maxSize = "200k",
+     *      mimeTypesMessage = "Veuillez uploader une image valide"
+     * )
      */
     private $cover;
 
@@ -40,6 +48,9 @@ class Challenge
      * @var string
      *
      * @ORM\Column(name="description", type="text")
+     * @Assert\NotBlank(
+     *      message="Veuillez remplir ce champs"
+     * )
      */
     private $description;
 
@@ -49,13 +60,26 @@ class Challenge
     private $players;
 
     /**
-     * @ORM\OneToOne(targetEntity="Game", mappedBy="challenge")
+     * @ORM\ManyToOne(targetEntity="Game", inversedBy="challenge")
      */
     private $game;
+
+    /**
+     * @ORM\OneToMany(targetEntity="ChallengeLimit", mappedBy="challenge", cascade={"persist"}, orphanRemoval=true)
+     */
+    private $limits;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="is_daily", type="boolean")
+     */
+    private $isDaily;
 
     public function __construct()
     {
         $this->players = new ArrayCollection();
+        $this->limits = new ArrayCollection();
     }
 
     /**
@@ -178,6 +202,7 @@ class Challenge
      */
     public function setGame(\AppBundle\Entity\Game $game = null)
     {
+        $game->addChallenge($this);
         $this->game = $game;
 
         return $this;
@@ -193,9 +218,63 @@ class Challenge
         return $this->game;
     }
 
+    /**
+     * Add limits
+     *
+     * @param \AppBundle\Entity\ChallengeLimit $limits
+     * @return Challenge
+     */
+    public function addLimit(\AppBundle\Entity\ChallengeLimit $limits)
+    {
+        $this->limits[] = $limits;
+
+        return $this;
+    }
+
+    /**
+     * Remove limits
+     *
+     * @param \AppBundle\Entity\ChallengeLimit $limits
+     */
+    public function removeLimit(\AppBundle\Entity\ChallengeLimit $limits)
+    {
+        $this->limits->removeElement($limits);
+        $limits->setChallenge(null);
+    }
+
+    /**
+     * Get limits
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getLimits()
+    {
+        return $this->limits;
+    }
+
     public function toArray()
     {
+        $playersArray = array();
+        foreach($this->players as $player) {
+            $playersArray[] = $player->getUsername();
+        }
 
+        $limitsArray = array();
+        foreach($this->limits as $limit) {
+            $limitsArray[] = $limit->getBegin() . " - " . $limit->getEnd() . " - " . $limit->getPoints() . " points";
+        }
+
+        $entity = array(
+            "id" => $this->id,
+            "name" => $this->name,
+            "cover" => $this->cover,
+            "description" => $this->description,
+            "players" => $playersArray,
+            "game" => $this->game ? $this->game->getName() : null,
+            "limits" => $limitsArray
+        );
+
+        return $entity;
     }
 
     public function hasImage()
@@ -204,5 +283,28 @@ class Challenge
             "get" => $this->getCover(),
             "set" => "setCover"
         );
+    }
+
+    /**
+     * Set isDaily
+     *
+     * @param boolean $isDaily
+     * @return Challenge
+     */
+    public function setIsDaily($isDaily)
+    {
+        $this->isDaily = $isDaily;
+
+        return $this;
+    }
+
+    /**
+     * Get isDaily
+     *
+     * @return boolean 
+     */
+    public function getIsDaily()
+    {
+        return $this->isDaily;
     }
 }

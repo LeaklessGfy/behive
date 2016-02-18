@@ -4,8 +4,9 @@ namespace AppBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-class MainController extends BaseController
+class FrontController extends Controller
 {
     /**
      * @Route("/", name="homepage")
@@ -45,14 +46,6 @@ class MainController extends BaseController
             "challenge" => $challenge,
             "dailyChallenge" => $dailyChallenge
         ));
-    }
-
-    /**
-     * @Route("/forum", name="forum")
-     */
-    public function forumAction()
-    {
-        return $this->render('pages/front/forum.html.twig');
     }
 
     /**

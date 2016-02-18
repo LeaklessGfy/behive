@@ -27,7 +27,7 @@
             </div>
             <div class="col-md-3 widget widget1">
                 <div class="r3_counter_box">
-                    <i class="fa fa-eye"></i>
+                    <i class="fa fa-gamepad"></i>
                     <div class="stats">
                         <h5>{{ gameTotal }}</h5>
                         <div class="grow grow3">
@@ -38,7 +38,7 @@
             </div>
             <div class="col-md-3 widget">
                 <div class="r3_counter_box">
-                    <i class="fa fa-usd"></i>
+                    <i class="fa fa-rocket"></i>
                     <div class="stats">
                         <h5>{{ challengeTotal }}</h5>
                         <div class="grow grow2">
@@ -54,7 +54,8 @@
         <div class="col-md-4">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    Derniers utilisateurs <a href="{{ path('back_create', {ressource:"user"}) }}" class="btn btn-warning"><i class="fa fa-plus"></i></a>
+                    5 Derniers utilisateurs <a href="{{ path('back_create', {ressource:"user"}) }}" class="btn btn-warning"><i class="fa fa-plus"></i></a>
+                    <a href="{{ path('back_list', {ressource:"user"}) }}" class="btn btn-info"><i class="fa fa-list"></i></a>
                 </div>
                 <div class="panel-body">
                     <ul class="list-group">
@@ -65,7 +66,7 @@
                                         <p>{{ user.id }} - {{ user.username }}</p>
                                     </div>
                                     <div class="col-md-4">
-                                        <a href="{{ path('back_edit', {ressource:'user', id:user.id}) }}" class="btn btn-info"><i class="fa fa-info"></i></a>
+                                        <a href="{{ path('back_edit', {ressource:'user', id:user.id}) }}" class="btn btn-edit"><i class="fa fa-info"></i></a>
                                         <a href="{{ path('back_delete', {ressource:'user', id:user.id}) }}" class="btn btn-danger btn-delete"><i class="fa fa-remove"></i></a>
                                     </div>
                                 </div>
@@ -78,7 +79,8 @@
         <div class="col-md-4">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    Derniers jeux <a href="{{ path('back_create', {ressource:'game'}) }}" class="btn btn-warning"><i class="fa fa-plus"></i></a>
+                    5 Derniers jeux <a href="{{ path('back_create', {ressource:'game'}) }}" class="btn btn-warning"><i class="fa fa-plus"></i></a>
+                    <a href="{{ path('back_list', {ressource:"game"}) }}" class="btn btn-info"><i class="fa fa-list"></i></a>
                 </div>
                 <div class="panel-body">
                     <ul class="list-group">
@@ -89,7 +91,7 @@
                                         <p>{{ game.id }} - {{ game.name }}</p>
                                     </div>
                                     <div class="col-md-4">
-                                        <a href="{{ path('back_edit', {ressource:'game', id:game.id}) }}" class="btn btn-info"><i class="fa fa-info"></i></a>
+                                        <a href="{{ path('back_edit', {ressource:'game', id:game.id}) }}" class="btn btn-edit"><i class="fa fa-info"></i></a>
                                         <a href="{{ path('back_delete', {ressource:'game', id:game.id}) }}" class="btn btn-danger btn-delete"><i class="fa fa-remove"></i></a>
                                     </div>
                                 </div>
@@ -102,7 +104,8 @@
         <div class="col-md-4">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    Derniers challenges <a href="{{ path('back_create', {ressource:"challenge"}) }}" class="btn btn-warning"><i class="fa fa-plus"></i></a>
+                    5 Derniers challenges <a href="{{ path('back_create', {ressource:"challenge"}) }}" class="btn btn-warning"><i class="fa fa-plus"></i></a>
+                    <a href="{{ path('back_list', {ressource:"challenge"}) }}" class="btn btn-info"><i class="fa fa-list"></i></a>
                 </div>
                 <div class="panel-body">
                     <ul class="list-group">
@@ -113,7 +116,7 @@
                                         <p>{{ challenge.id }} - {{ challenge.name }}</p>
                                     </div>
                                     <div class="col-md-4">
-                                        <a href="{{ path('back_edit', {ressource:'challenge', id:challenge.id}) }}" class="btn btn-info"><i class="fa fa-info"></i></a>
+                                        <a href="{{ path('back_edit', {ressource:'challenge', id:challenge.id}) }}" class="btn btn-edit"><i class="fa fa-info"></i></a>
                                         <a href="{{ path('back_delete', {ressource:'challenge', id:challenge.id}) }}" class="btn btn-danger btn-delete"><i class="fa fa-remove"></i></a>
                                     </div>
                                 </div>

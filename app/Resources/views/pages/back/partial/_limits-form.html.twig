@@ -1,0 +1,42 @@
+{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+
+    {{ form_row(form.name) }}
+    {{ form_row(form.cover) }}
+    {{ form_row(form.description) }}
+    {{ form_row(form.game) }}
+
+    {{ form_row(form.isDaily) }}
+
+    {{ form_label(form.limits) }}
+
+    <div class="form-group">
+        <ul class="limits" data-prototype="{% filter escape %}{% include 'pages/back/partial/_prototype.html.twig' with {'form': form.limits.vars.prototype } %}{% endfilter %}">
+            {# iterate over each existing tag and render its only field: name #}
+            {% for limit in form.limits %}
+                <li class="former">
+                    <div class="content-box-wrapper">
+                        <div class="form-group">
+                            {{ form_row(limit.begin) }}
+                        </div>
+
+                        <div class="form-group">
+                            {{ form_row(limit.end) }}
+                        </div>
+
+                        <div class="form-group">
+                            {{ form_row(limit.points) }}
+                        </div>
+
+                        <div class="form-group">
+                            {{ form_row(limit.awards) }}
+                        </div>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div>
+        <input type="submit" class="btn btn-warning" value="Enregistrer">
+    </div>
+{{ form_end(form) }}

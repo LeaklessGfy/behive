@@ -5,6 +5,7 @@ namespace AppBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * User
@@ -26,7 +27,10 @@ class User implements UserInterface, \Serializable
     /**
      * @var string
      *
-     * @ORM\Column(name="username", type="string", length=255)
+     * @ORM\Column(name="username", type="string", length=255, unique=true)
+     * @Assert\NotBlank(
+     *      message="Veuillez remplir ce champs"
+     * )
      */
     private $username;
 
@@ -34,6 +38,9 @@ class User implements UserInterface, \Serializable
      * @var string
      *
      * @ORM\Column(name="password", type="string", length=255)
+     * @Assert\NotBlank(
+     *      message="Veuillez remplir ce champs"
+     * )
      */
     private $password;
 
@@ -41,6 +48,9 @@ class User implements UserInterface, \Serializable
      * @var int
      *
      * @ORM\Column(name="level", type="integer")
+     * @Assert\NotBlank(
+     *      message="Veuillez remplir ce champs"
+     * )
      */
     private $level;
 
@@ -48,6 +58,9 @@ class User implements UserInterface, \Serializable
      * @var float
      *
      * @ORM\Column(name="xp", type="float")
+     * @Assert\NotBlank(
+     *      message="Veuillez remplir ce champs"
+     * )
      */
     private $xp;
 
@@ -62,6 +75,13 @@ class User implements UserInterface, \Serializable
      * @var string
      *
      * @ORM\Column(name="email", type="string", length=255)
+     * @Assert\NotBlank(
+     *      message="Veuillez remplir ce champs"
+     * )
+     * @Assert\Email(
+     *     message = "L'email '{{ value }}' n'est pas valide",
+     *     checkMX = true
+     * )
      */
     private $email;
 
@@ -69,6 +89,10 @@ class User implements UserInterface, \Serializable
      * @var string
      *
      * @ORM\Column(name="avatar", type="string", length=255, nullable=true)
+     * @Assert\Image(
+     *      maxSize = "200k",
+     *      mimeTypesMessage = "Veuillez uploader une image valide"
+     * )
      */
     private $avatar;
 
@@ -421,16 +445,32 @@ class User implements UserInterface, \Serializable
     }
 
     public function toArray() {
+        $badgesArray = array();
+        foreach($this->badges as $badge) {
+            $badgesArray[] = $badge->getName();
+        }
+
+        $gamesArray = array();
+        foreach($this->games as $game) {
+            $gamesArray[] = $game->getName();
+        }
+
+        $challengesArray = array();
+        foreach($this->challenges as $challenge) {
+            $challengesArray[] = $challenge->getName();
+        }
+
         $entity = array(
             "id" => $this->id,
             "username" => $this->username,
             "dernière connexion" => $this->lastConnexion->format("d/m/Y H:i:s"),
+            "role" => $this->roles ? $this->roles->getRole() : null,
             "level" => $this->level,
             "xp" => $this->xp,
             "avatar" => $this->avatar,
-            "badges" => $this->badges,
-            "games" => $this->games,
-            "challenges" => $this->challenges
+            "badges" => $badgesArray,
+            "games" => $gamesArray,
+            "challenges" => $challengesArray
         );
 
         return $entity;

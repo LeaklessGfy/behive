@@ -1,7 +1,9 @@
 {% extends "back_base.html.twig" %}
 
+{% block title %}Edition{% endblock %}
+
 {% block body %}
-    <h2>Modifier {{ app.request.get('ressource') }}</h2>
+    <h2>Edition : {{ ressourceHelper }}</h2>
 
     <div class="row">
         <div class="col-md-12">
@@ -9,10 +11,9 @@
         </div>
     </div>
 
-    {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
-    {{ form_widget(form) }}
-    <div>
-        <input type="submit" class="btn btn-warning" value="Modifier">
-    </div>
-    {{ form_end(form) }}
+    {% if app.request.get('ressource') == "challenge" %}
+        {% include "pages/back/partial/_limits-form.html.twig" %}
+    {% else %}
+        {% include "pages/back/partial/_form.html.twig" %}
+    {% endif %}
 {% endblock %}

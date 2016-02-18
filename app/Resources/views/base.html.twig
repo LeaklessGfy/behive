@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>{% block title %}Welcome!{% endblock %}</title>
         {% block stylesheets %}
-            {% stylesheets 'css/beehive.css' 'css/font-awesome.min.css' filter='cssrewrite' %}
+            {% stylesheets 'css/front/beehive.css' 'css/font-awesome.min.css' filter='cssrewrite' %}
                 <link rel="stylesheet" href="{{ asset_url }}">
             {% endstylesheets %}
         {% endblock %}
@@ -16,7 +16,7 @@
     <body>
         {% block body %}{% endblock %}
         {% block javascripts %}
-            {% javascripts 'js/jquery-2.2.0.min.js' 'js/app.js' 'js/beehive.js' 'js/catalogue.js' %}
+            {% javascripts 'js/jquery-2.2.0.min.js' 'js/front/app.js' 'js/front/beehive.js' 'js/front/catalogue.js' %}
                 <script src="{{ asset_url }}"></script>
             {% endjavascripts %}
         {% endblock %}

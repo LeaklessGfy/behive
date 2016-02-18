@@ -54,7 +54,7 @@ class User implements UserInterface, \Serializable
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="lastConnexion", type="datetime")
+     * @ORM\Column(name="lastConnexion", type="datetime", nullable=true)
      */
     private $lastConnexion;
 
@@ -68,7 +68,7 @@ class User implements UserInterface, \Serializable
     /**
      * @var string
      *
-     * @ORM\Column(name="avatar", type="string", length=255)
+     * @ORM\Column(name="avatar", type="string", length=255, nullable=true)
      */
     private $avatar;
 
@@ -91,17 +91,17 @@ class User implements UserInterface, \Serializable
     private $challenges;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Group", inversedBy="users")
-     *
+     * @ORM\ManyToOne(targetEntity="RolesCustom")
+     * @ORM\JoinColumn(name="role_id", referencedColumnName="id")
      */
-    private $groups;
+    private $roles;
 
     public function __construct() {
         $this->badges = new ArrayCollection();
         $this->myGames = new ArrayCollection();
         $this->games = new ArrayCollection();
         $this->challenges = new ArrayCollection();
-        $this->groups = new ArrayCollection();
+        $this->xp = 10;
     }
 
     /**
@@ -383,7 +383,17 @@ class User implements UserInterface, \Serializable
 
     public function getRoles()
     {
-        return $this->groups;
+        $role = $this->roles;
+
+        if(count($role) > 0) {
+            return array($role->getRole());
+        }
+
+        return $this->roles;
+    }
+
+    public function setRoles($roles) {
+        $this->roles = $roles;
     }
 
     /** @see \Serializable::serialize() */
@@ -393,8 +403,6 @@ class User implements UserInterface, \Serializable
             $this->id,
             $this->username,
             $this->password,
-            // see section on salt below
-            // $this->salt,
         ));
     }
 
@@ -405,12 +413,49 @@ class User implements UserInterface, \Serializable
             $this->id,
             $this->username,
             $this->password,
-            // see section on salt below
-            // $this->salt
             ) = unserialize($serialized);
     }
 
     public function eraseCredentials()
     {
+    }
+
+    public function toArray() {
+        $badgesArray = array();
+        foreach($this->badges as $badge) {
+            $badgesArray[] = $badge->getName();
+        }
+
+        $gamesArray = array();
+        foreach($this->games as $game) {
+            $gamesArray[] = $game->getName();
+        }
+
+        $challengesArray = array();
+        foreach($this->challenges as $challenge) {
+            $challengesArray[] = $challenge->getName();
+        }
+
+        $entity = array(
+            "id" => $this->id,
+            "username" => $this->username,
+            "dernière connexion" => $this->lastConnexion->format("d/m/Y H:i:s"),
+            "level" => $this->level,
+            "xp" => $this->xp,
+            "avatar" => $this->avatar,
+            "badges" => $badgesArray,
+            "games" => $gamesArray,
+            "challenges" => $challengesArray
+        );
+
+        return $entity;
+    }
+
+    public function hasImage()
+    {
+        return array(
+            "get" => $this->getAvatar(),
+            "set" => "setAvatar"
+        );
     }
 }

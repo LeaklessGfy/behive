@@ -32,7 +32,7 @@ class Game
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="date", type="datetime")
+     * @ORM\Column(name="date", type="date")
      */
     private $date;
 
@@ -53,7 +53,7 @@ class Game
     /**
      * @var string
      *
-     * @ORM\Column(name="cover", type="string", length=255)
+     * @ORM\Column(name="cover", type="string", length=255, nullable=true)
      */
     private $cover;
 
@@ -63,7 +63,7 @@ class Game
     private $owners;
 
     /**
-     * @ORM\OneToOne(targetEntity="Challenge", inversedBy="game")
+     * @ORM\OneToMany(targetEntity="Challenge", mappedBy="game")
      * @ORM\JoinColumn(name="challenge_id", referencedColumnName="id")
      */
     private $challenge;
@@ -75,13 +75,22 @@ class Game
     private $editor;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Pegi", inversedBy="games")
-     * @ORM\JoinColumn(name="pegi_id", referencedColumnName="id")
+     * @var string
+     *
+     * @ORM\Column(name="buy_link", type="string", length=255, nullable=true)
+     */
+    private $buy;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="pegi", type="integer")
      */
     private $pegi;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Category", mappedBy="games")
+     * @ORM\ManyToMany(targetEntity="Category", inversedBy="games")
+     * @ORM\JoinTable(name="games_categories")
      */
     private $categories;
 
@@ -140,7 +149,7 @@ class Game
     /**
      * Get date
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getDate()
     {
@@ -296,12 +305,35 @@ class Game
     }
 
     /**
-     * Set pegi
+     * Set buy
      *
-     * @param \AppBundle\Entity\Pegi $pegi
+     * @param string $buy
      * @return Game
      */
-    public function setPegi(\AppBundle\Entity\Pegi $pegi = null)
+    public function setBuy($buy)
+    {
+        $this->buy = $buy;
+
+        return $this;
+    }
+
+    /**
+     * Get buy
+     *
+     * @return string
+     */
+    public function getBuy()
+    {
+        return $this->buy;
+    }
+
+    /**
+     * Set pegi
+     *
+     * @param integer $pegi
+     * @return Game
+     */
+    public function setPegi($pegi = null)
     {
         $this->pegi = $pegi;
 
@@ -311,7 +343,7 @@ class Game
     /**
      * Get pegi
      *
-     * @return \AppBundle\Entity\Pegi 
+     * @return integer
      */
     public function getPegi()
     {
@@ -326,6 +358,7 @@ class Game
      */
     public function addCategory(\AppBundle\Entity\Category $categories)
     {
+        $categories->addGame($this);
         $this->categories[] = $categories;
 
         return $this;
@@ -349,5 +382,42 @@ class Game
     public function getCategories()
     {
         return $this->categories;
+    }
+
+    public function toArray()
+    {
+        $categoriesArray = array();
+        foreach($this->categories as $cat) {
+            $categoriesArray[] = $cat->getName();
+        }
+
+        $challengeName = $this->challenge;
+        if($challengeName) {
+            $challengeName = $this->challenge->getName();
+        }
+
+        $entity = array(
+            "id" => $this->id,
+            "name" => $this->name,
+            "date" => $this->date->format("d/m/Y"),
+            "description" => $this->description,
+            "rating" => $this->rating,
+            "cover" => $this->cover,
+            "challenge" => $challengeName,
+            "editeur" => $this->editor,
+            "buy link" => $this->buy,
+            "pegi" => $this->pegi,
+            "categories" => $categoriesArray
+        );
+
+        return $entity;
+    }
+
+    public function hasImage()
+    {
+        return array(
+            "get" => $this->getCover(),
+            "set" => "setCover"
+        );
     }
 }

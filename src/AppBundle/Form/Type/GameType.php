@@ -20,6 +20,7 @@ class GameType extends AbstractType
                         range(0,5)
                     )
                 ))
+                ->add('buy', 'text')
                 ->add('pegi', 'choice', array(
                     'choices' => array(
                         0 => 0,
@@ -34,6 +35,11 @@ class GameType extends AbstractType
                     'choice_label' => 'name',
                     'multiple' => true,
                     'expanded' => true
+                ))
+                ->add('editor', 'entity', array(
+                    'class' => 'AppBundle:Editor',
+                    'choice_label' => 'name',
+                    'multiple' => false
                 ))
         ;
     }
