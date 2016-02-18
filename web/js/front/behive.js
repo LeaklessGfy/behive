@@ -135,7 +135,6 @@ $(document).scroll(function(e){
     }
 	*/
 });
-=======
 $( document ).ready( function(){
 	var compteur = 1;
 	var search;
