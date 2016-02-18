@@ -117,6 +117,7 @@ class Game
         $this->owners = new ArrayCollection();
         $this->categories = new ArrayCollection();
         $this->challenge = new ArrayCollection();
+        $this->pegi = 0;
     }
 
     /**

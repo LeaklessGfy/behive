@@ -22,7 +22,7 @@ security:
             security: false
 
         main:
-            pattern: /admin/.*
+            pattern: /admin
             anonymous: ~
             provider: users
             form_login:
