@@ -3,6 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="617c8061-b550-49a6-b081-b3f6e1c8a8b9" name="Default" comment="">
 <<<<<<< HEAD
+=======
+<<<<<<< HEAD
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Service/ApiGameService.php" afterPath="$PROJECT_DIR$/src/AppBundle/Service/ApiGameService.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Entity/Game.php" afterPath="$PROJECT_DIR$/src/AppBundle/Entity/Game.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/config/security.yml" afterPath="$PROJECT_DIR$/app/config/security.yml" />
@@ -51,37 +53,9 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/behiveProject.iml" afterPath="$PROJECT_DIR$/.idea/behiveProject.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
 >>>>>>> 5e27837c41c226c38a04d6a4314d51e1ff6029b7
+>>>>>>> 3a008b6d4e6c0dd71f6bd6ea36e17b9edc99c545
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/AppKernel.php" afterPath="$PROJECT_DIR$/app/AppKernel.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/base.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/base.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/pages/back/create.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/pages/back/create.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/pages/back/edit.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/pages/back/edit.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/pages/back/index.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/pages/back/index.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/pages/back/list.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/pages/back/list.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/pages/back/partial/left-nav.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/pages/back/partial/left-nav.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/pages/back/partial/top-bar.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/pages/back/partial/top-bar.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/config/routing.yml" afterPath="$PROJECT_DIR$/app/config/routing.yml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/config/security.yml" afterPath="$PROJECT_DIR$/app/config/security.yml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/config/services.yml" afterPath="$PROJECT_DIR$/app/config/services.yml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/composer.json" afterPath="$PROJECT_DIR$/composer.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/composer.lock" afterPath="$PROJECT_DIR$/composer.lock" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Controller/BackController.php" afterPath="$PROJECT_DIR$/src/AppBundle/Controller/BackController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Controller/BaseController.php" afterPath="$PROJECT_DIR$/src/AppBundle/Controller/BaseController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Entity/Badge.php" afterPath="$PROJECT_DIR$/src/AppBundle/Entity/Badge.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Entity/Category.php" afterPath="$PROJECT_DIR$/src/AppBundle/Entity/Category.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Entity/Challenge.php" afterPath="$PROJECT_DIR$/src/AppBundle/Entity/Challenge.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Entity/ChallengeAward.php" afterPath="$PROJECT_DIR$/src/AppBundle/Entity/ChallengeAward.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Entity/ChallengeLimit.php" afterPath="$PROJECT_DIR$/src/AppBundle/Entity/ChallengeLimit.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Entity/Editor.php" afterPath="$PROJECT_DIR$/src/AppBundle/Entity/Editor.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Entity/Game.php" afterPath="$PROJECT_DIR$/src/AppBundle/Entity/Game.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Entity/RolesCustom.php" afterPath="$PROJECT_DIR$/src/AppBundle/Entity/RolesCustom.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Entity/User.php" afterPath="$PROJECT_DIR$/src/AppBundle/Entity/User.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Form/Type/ChallengeType.php" afterPath="$PROJECT_DIR$/src/AppBundle/Form/Type/ChallengeType.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AppBundle/Form/Type/GameType.php" afterPath="$PROJECT_DIR$/src/AppBundle/Form/Type/GameType.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/css/back/bootstrap.min.css" afterPath="$PROJECT_DIR$/web/css/back/bootstrap.min.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/css/back/style.css" afterPath="$PROJECT_DIR$/web/css/back/style.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/css/front/beehive.css" afterPath="$PROJECT_DIR$/web/css/front/beehive.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/js/back/script.js" afterPath="$PROJECT_DIR$/web/js/back/script.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/js/front/behive.js" afterPath="$PROJECT_DIR$/web/js/front/behive.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/js/front/catalogue.js" afterPath="$PROJECT_DIR$/web/js/front/catalogue.js" />
     </list>
@@ -152,18 +126,43 @@
         <entry file="file://$PROJECT_DIR$/web/js/front/behive.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="274" column="0" selection-start-line="274" selection-start-column="0" selection-end-line="274" selection-end-column="0" />
+              <caret line="137" column="0" selection-start-line="137" selection-start-column="0" selection-end-line="137" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="catalogue.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="base.html.twig" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/Resources/views/base.html.twig">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-14.375">
+              <caret line="23" column="7" selection-start-line="23" selection-start-column="7" selection-end-line="23" selection-end-column="7" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ApiGameService.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/AppBundle/Service/ApiGameService.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.62086093">
+              <caret line="25" column="0" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="catalogue.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web/js/front/catalogue.js">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
+            <state vertical-scroll-proportion="0.0">
+              <caret line="47" column="0" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
+=======
             <state vertical-scroll-proportion="0.8566879">
               <caret line="94" column="0" selection-start-line="94" selection-start-column="0" selection-end-line="94" selection-end-column="0" />
 >>>>>>> 5e27837c41c226c38a04d6a4314d51e1ff6029b7
+>>>>>>> 3a008b6d4e6c0dd71f6bd6ea36e17b9edc99c545
               <folding />
             </state>
           </provider>
@@ -197,9 +196,14 @@
       <file leaf-file-name="AppKernel.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/AppKernel.php">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
+            <state vertical-scroll-proportion="-7.6666665">
+              <caret line="20" column="49" selection-start-line="20" selection-start-column="49" selection-end-line="20" selection-end-column="49" />
+=======
             <state vertical-scroll-proportion="0.0">
               <caret line="11" column="27" selection-start-line="11" selection-start-column="27" selection-end-line="11" selection-end-column="27" />
 >>>>>>> 5e27837c41c226c38a04d6a4314d51e1ff6029b7
+>>>>>>> 3a008b6d4e6c0dd71f6bd6ea36e17b9edc99c545
               <folding />
             </state>
           </provider>
@@ -335,9 +339,14 @@
         <option value="$PROJECT_DIR$/web/css/beehive.css" />
         <option value="$PROJECT_DIR$/web/js/beehive.js" />
         <option value="$PROJECT_DIR$/web/css/front/beehive.css" />
-        <option value="$PROJECT_DIR$/web/js/front/behive.js" />
         <option value="$PROJECT_DIR$/web/js/front/catalogue.js" />
+<<<<<<< HEAD
+        <option value="$PROJECT_DIR$/web/js/front/behive.js" />
+        <option value="$PROJECT_DIR$/app/Resources/views/base.html.twig" />
+        <option value="$PROJECT_DIR$/src/AppBundle/Service/ApiGameService.php" />
+=======
 >>>>>>> 5e27837c41c226c38a04d6a4314d51e1ff6029b7
+>>>>>>> 3a008b6d4e6c0dd71f6bd6ea36e17b9edc99c545
       </list>
     </option>
   </component>
@@ -431,46 +440,6 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="uploads" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="behiveProject" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="behiveProject" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="web" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="uploads" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="game" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="behiveProject" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="behiveProject" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="web" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="js" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -511,29 +480,11 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="css" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="behiveProject" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="behiveProject" />
+              <option name="myItemId" value="js" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="web" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="css" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="front" />
+              <option name="myItemId" value="back" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -587,7 +538,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Entity" />
+              <option name="myItemId" value="Service" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -703,6 +654,8 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+<<<<<<< HEAD
+=======
           <PATH>
             <PATH_ELEMENT>
               <option name="myItemId" value="behiveProject" />
@@ -783,6 +736,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+>>>>>>> 3a008b6d4e6c0dd71f6bd6ea36e17b9edc99c545
         </subPane>
       </pane>
 <<<<<<< HEAD
@@ -1107,6 +1061,8 @@
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
+=======
     <entry file="file://$PROJECT_DIR$/app/AppKernel.php">
       <provider selected="true" editor-type-id="text-editor">
 <<<<<<< HEAD
@@ -1146,6 +1102,7 @@
         </state>
       </provider>
     </entry>
+>>>>>>> 3a008b6d4e6c0dd71f6bd6ea36e17b9edc99c545
     <entry file="file://$PROJECT_DIR$/app/Resources/views/pages/front/challenge.html.twig">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1322,14 +1279,35 @@
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
+    <entry file="file://$PROJECT_DIR$/app/AppKernel.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-7.6666665">
+          <caret line="20" column="49" selection-start-line="20" selection-start-column="49" selection-end-line="20" selection-end-column="49" />
+=======
     <entry file="file://$PROJECT_DIR$/src/AppBundle/Service/SteamApiService.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.42105263">
           <caret line="12" column="29" selection-start-line="12" selection-start-column="29" selection-end-line="12" selection-end-column="29" />
+>>>>>>> 3a008b6d4e6c0dd71f6bd6ea36e17b9edc99c545
           <folding />
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
+    <entry file="file://$PROJECT_DIR$/web/js/front/catalogue.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="47" column="0" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/js/front/behive.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="137" column="0" selection-start-line="137" selection-start-column="0" selection-end-line="137" selection-end-column="0" />
+=======
     <entry file="file://$PROJECT_DIR$/app/config/security.yml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1340,10 +1318,25 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="274" column="0" selection-start-line="274" selection-start-column="0" selection-end-line="274" selection-end-column="0" />
 >>>>>>> 5e27837c41c226c38a04d6a4314d51e1ff6029b7
+>>>>>>> 3a008b6d4e6c0dd71f6bd6ea36e17b9edc99c545
           <folding />
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
+    <entry file="file://$PROJECT_DIR$/app/Resources/views/base.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-14.375">
+          <caret line="23" column="7" selection-start-line="23" selection-start-column="7" selection-end-line="23" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/AppBundle/Service/ApiGameService.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.62086093">
+          <caret line="25" column="0" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
+=======
 <<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/src/AppBundle/Service/ApiGameService.php">
       <provider selected="true" editor-type-id="text-editor">
@@ -1374,6 +1367,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.7368421">
           <caret line="119" column="24" selection-start-line="119" selection-start-column="24" selection-end-line="119" selection-end-column="24" />
+>>>>>>> 3a008b6d4e6c0dd71f6bd6ea36e17b9edc99c545
           <folding />
         </state>
       </provider>

@@ -45,7 +45,6 @@ $(document).ready( function(){
 		}
 	}
 });
-=======
 $(document).ready( function(){
 	var vHeight = 0;
 	var vWidth = 0;
