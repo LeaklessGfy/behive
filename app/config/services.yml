@@ -13,3 +13,6 @@ services:
   api.game:
       class: AppBundle\Service\ApiGameService
       arguments: [@cache.service]
+
+  steam.api:
+      class: AppBundle\Service\SteamApiService

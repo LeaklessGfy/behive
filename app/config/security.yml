@@ -22,6 +22,7 @@ security:
             security: false
 
         main:
+            pattern: /admin
             anonymous: ~
             provider: users
             form_login:
@@ -32,6 +33,7 @@ security:
                 target: /
 
         front:
+            pattern: /
             anonymous: ~
             provider: users
             form_login:

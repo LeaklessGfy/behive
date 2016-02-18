@@ -12,3 +12,6 @@
 /composer.phar
 /web/uploads/*
 .idea/*
+.idea/
+.idea
+.idea/workspace.xml
