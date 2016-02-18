@@ -134,11 +134,13 @@ class BaseController extends Controller
         $game->setDescription($response['deck']);
         $game->setRating(0);
 
-        foreach($response['original_game_rating'] as $rating) {
-            if(strpos($rating['name'], "PEGI:") !== false) {
-                preg_match_all('!\d+!', $rating['name'], $matches);
-                $game->setPegi($matches[0][0]);
-                break;
+        if($response['original_game_rating']){
+            foreach($response['original_game_rating'] as $rating) {
+                if(strpos($rating['name'], "PEGI:") !== false) {
+                    preg_match_all('!\d+!', $rating['name'], $matches);
+                    $game->setPegi($matches[0][0]);
+                    break;
+                }
             }
         }
 
