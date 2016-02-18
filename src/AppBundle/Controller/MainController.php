@@ -38,7 +38,13 @@ class MainController extends BaseController
     {
         $em = $this->getDoctrine()->getManager();
 
-        return $this->render('pages/front/challenge.html.twig');
+        $challenge = $em->getRepository("AppBundle:Challenge")->findAll();
+        $dailyChallenge = $em->getRepository("AppBundle:Challenge")->findOneBy(array('isDaily' => true));
+
+        return $this->render('pages/front/challenge.html.twig', array(
+            "challenge" => $challenge,
+            "dailyChallenge" => $dailyChallenge
+        ));
     }
 
     /**

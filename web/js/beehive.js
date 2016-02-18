@@ -9,6 +9,7 @@ $( document ).ready( function(){
 			$(".MenuDroite nav").toggleClass("open");
 		}
 		if(compteur == 1){
+			/*
 			$("header h1").css("opacity","0");
 			$(".profil").css("opacity","0");
 			$(".menu").css("width","90%");
@@ -18,9 +19,12 @@ $( document ).ready( function(){
 			setTimeout( function(){
 				$(".profil").css("display","none");
 			}, 100);
+			*/
+			$("#sideMenu").css('left','0');
 			compteur = 0;
 		}
 		else{
+			/*
 			$(".search").css("opacity","1");
 			$(".search").css("width","30px");
 			$(".search").css("margin-right","15px");
@@ -31,6 +35,8 @@ $( document ).ready( function(){
 				$("header h1").css("opacity","1");
 				$(".profil").css("opacity","1");
 			}, 100);
+			*/
+			$("#sideMenu").css('left','-25vw');
 			compteur = 1;
 		}
 	});
@@ -40,17 +46,12 @@ $( document ).ready( function(){
 	});
 	$(".day").click( function(){
 		$(this).toggleClass("open","close");
-	})
-	$(".search").click(function(){
-		clickSearch();
 	});
-	function clickSearch(){
-		$(".MenuDroite nav").toggleClass("open");
-		$(".search").toggleClass("closeSearch");
-		$("header a").toggleClass("closeA");
-		$("header input").toggleClass("openInput");
-		compteur = 0;
-	}
+	$(".search").click( function(){
+		alert('lol');
+		$("header input[type = text]").addClass("openInput");
+	});
+
 	$(".recompenses h3").click( function(){
 		$(this).height(0);
 		$(this).css("border","0");

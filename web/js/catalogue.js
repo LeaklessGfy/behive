@@ -4,6 +4,7 @@ $(document).ready( function(){
 	var vParent = 0;
 	var parent;
 	var canLoad = 0;
+	imgSize();
 	$(window).scroll(function(){
 		if  ($(window).scrollTop() == $(document).height() - $(window).height()){
 			lastPostFunc();

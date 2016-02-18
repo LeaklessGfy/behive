@@ -213,6 +213,7 @@ nav.open .burger > span:nth-last-child(1){
 	opacity:			1;
 	width:				30px;
 	height:				30px;
+	background:			red;
 	background-image:	url("../images/search.svg");
 	position:			relative;
 	float:				right;
@@ -223,7 +224,7 @@ nav.open .burger > span:nth-last-child(1){
 	margin-right:		15px;
 	cursor:				pointer;
 	transition:			all 0.3s;
-	background-repeat:no-repeat;
+	background-repeat:	no-repeat;
 	background-position:center;
 }
 header input{
@@ -649,6 +650,8 @@ div.round canvas{
 }
 .dayChallenge{
 	width:			100%;
+	max-height:		40%;
+	overflow:		hidden;
 	position:		relative;
 }
 .dayChallenge img{
@@ -1096,9 +1099,7 @@ label{
 }
 .closeSearch{
 	opacity:	1;
-	right:		0px;
 	transition:	all 0.3s;
-	width:		0;
 	margin-right:0;
 }
 .closeA{
@@ -1134,7 +1135,6 @@ header h1 a{
 	display: block;
 	height: 50px;
 	border-bottom: 1px solid #1f1f1f;
-
 }
 
 .flexContent{
@@ -1151,6 +1151,44 @@ header h1 a{
 }
 .item {
 	width:			18%;
+}
+
+#sideMenu{
+	position:		absolute;
+	left:			-25vw;
+	bottom:			0;
+	width:			25vw;
+	height:			calc(100vh - 65px);
+	background:		rgba(0,0,0,0.9);
+	z-index:		19000;
+	transition:		.5s;
+}
+.contentMenu h4{
+	text-align:		center;
+	text-transform: uppercase;
+}
+.contentMenu{
+	padding-top:	30px;
+	width:			85%;
+	margin:			0 auto;
+}
+.contentMenu ul{
+	margin-top:		15px;
+}
+.contentMenu ul li{
+	list-style-type:	none;
+	border-bottom:		1px solid rgba(255,255,255,0.5);
+	text-transform: 	uppercase;
+	padding:			5px;
+	font-size:			16px;
+}
+.avatarMenu{
+	display:		block;
+	border-radius:	50%;
+	background:		blue;
+	margin:			10px auto;
+	width:			30%;
+	height:			30%;
 }
 
 @media screen and (max-width: 700px){
