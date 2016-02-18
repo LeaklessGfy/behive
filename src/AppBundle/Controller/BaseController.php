@@ -77,7 +77,7 @@ class BaseController extends Controller
         return "AppBundle\\Form\\Type\\".$ressource."Type";
     }
 
-    protected function handleImage($entity, $ressource)
+    protected function handleImage($entity, $ressource, $image)
     {
         if($hasImage = $entity->hasImage()) {
             $file = $hasImage["get"];
@@ -88,6 +88,8 @@ class BaseController extends Controller
                 $file->move($fileDir, $fileName);
 
                 $entity->$hasImage["set"]("uploads/".$ressource."/".$fileName);
+            } else {
+                $entity->$hasImage["set"]($image);
             }
         }
     }
