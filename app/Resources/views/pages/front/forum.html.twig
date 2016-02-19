@@ -4,12 +4,6 @@
     Forum - Behive
 {% endblock %}
 
-{% block stylesheets %}
-    {% stylesheets 'css/back/bootstrap.min.css' 'css/front/behive.css' 'css/font-awesome.min.css' filter='cssrewrite' %}
-    <link rel="stylesheet" href="{{ asset_url }}">
-    {% endstylesheets %}
-{% endblock %}
-
 {% block body %}
     {% include "pages/front/partial/menu.html.twig" %}
 
@@ -147,25 +141,25 @@
         <nav class="footer-nav">
             <ul>
                 <li>
-                    <a href="forum.html" class="active">
+                    <a href="{{ path('forum_home') }}" class="active">
                         <i class="fa fa-user"></i>
                         <p>Récent</p>
                     </a>
                 </li>
                 <li>
-                    <a href="forum-private.html">
+                    <a href="{{ path('forum_prive') }}">
                         <i class="fa fa-comments"></i>
                         <p>Privé</p>
                     </a>
                 </li>
                 <li>
-                    <a href="forum-explore.html">
+                    <a href="{{ path('forum_explore') }}">
                         <i class="fa fa-search"></i>
                         <p>Explorer</p>
                     </a>
                 </li>
                 <li>
-                    <a href="forum-param.html">
+                    <a href="{{ path('forum_param') }}">
                         <i class="fa fa-cog"></i>
                         <p>Paramètres</p>
                     </a>
