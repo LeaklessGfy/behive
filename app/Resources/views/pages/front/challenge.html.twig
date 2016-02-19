@@ -5,26 +5,7 @@
 {% endblock %}
 
 {% block body %}
-    <header>
-        <div class="MenuDroite">
-            <nav class='home'>
-                <div class="burger">
-                    <span class="burger-1"></span>
-                    <span class="burger-2"></span>
-                    <span class="burger-3"></span>
-                </div>
-            </nav>
-        </div>
-        <ul class="menu">
-            <li><a href="index.html">Accueil</a></li>
-            <li><a href="forum.html">Forum</a></li>
-            <li><a href="catalogue.html">Catalogue</a></li>
-        </ul>
-        <a class="profil" href="profil.html"></a>
-        <div class="search"></div>
-        <input type="text" />
-        <h1><a href="index.html">Behive</a></h1>
-    </header>
+    {% include "pages/front/partial/menu.html.twig" %}
 
     <div id="challenges" class="main">
         {% if dailyChallenge|length %}
