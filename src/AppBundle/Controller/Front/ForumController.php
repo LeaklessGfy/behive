@@ -2,6 +2,8 @@
 
 namespace AppBundle\Controller\Front;
 
+use AppBundle\Entity\FSubject;
+use AppBundle\Form\Type\FSubjectType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -38,7 +40,7 @@ class ForumController extends Controller
      */
     public function exploreAction()
     {
-        return $this->render('pages/front/forum.html.twig');
+        return $this->render('pages/front/forum/explore.html.twig');
     }
 
     /**
@@ -50,18 +52,36 @@ class ForumController extends Controller
     }
 
     /**
+     * @Route("/sujet/créer", name="forum_subject_create")
+     */
+    public function createSubjectAction(Request $request)
+    {
+        $subject = new FSubject();
+        $form = $this->createForm(new FSubjectType(), $subject);
+
+        $form->handleRequest($request);
+
+        if($form->isValid()) {
+            $subject->setIsPrivate(false);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($subject);
+            $em->flush();
+
+            $this->addFlash('success', 'Sujet bien créé');
+            return $this->redirectToRoute('forum_subject', array('id' => $subject->getId()));
+        }
+
+        return $this->render('pages/front/forum/create.html.twig', array(
+            'form' => $form->createView()
+        ));
+    }
+
+    /**
      * @Route("/sujet/{id}", name="forum_subject")
      */
     public function subjectAction($id)
     {
-        return $this->render('pages/front/forum.html.twig');
-    }
-
-    /**
-     * @Route("/sujet/créer", name="forum_subject_create")
-     */
-    public function createSubjectAction($id)
-    {
-        return $this->render('pages/front/forum.html.twig');
+        dump($id);die;
+        //return $this->render('pages/front/forum.html.twig');
     }
 }

@@ -1,0 +1,17 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    Explorer le forum - Behive
+{% endblock %}
+
+{% block body %}
+    {% include "pages/front/partial/menu.html.twig" %}
+
+    <div class="push">
+        <div id="forum" class="main">
+            <h2>Explorer</h2>
+        </div>
+    </div>
+
+    {% include "pages/front/partial/forum_menu.html.twig" %}
+{% endblock %}

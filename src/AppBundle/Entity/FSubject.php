@@ -29,6 +29,13 @@ class FSubject
     private $name;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="content", type="text")
+     */
+    private $content;
+
+    /**
      * @var bool
      *
      * @ORM\Column(name="is_private", type="boolean")
@@ -85,6 +92,29 @@ class FSubject
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * Set content
+     *
+     * @param string $content
+     * @return FSubject
+     */
+    public function setContent($content)
+    {
+        $this->content = $content;
+
+        return $this;
+    }
+
+    /**
+     * Get content
+     *
+     * @return string
+     */
+    public function getContent()
+    {
+        return $this->content;
     }
 
     /**

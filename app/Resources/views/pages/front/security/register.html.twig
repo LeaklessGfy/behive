@@ -7,7 +7,11 @@
 {% block body %}
     {% include "pages/front/partial/menu.html.twig" %}
 
-    <div id="login" class="push">
+    <div id="log" class="push">
+        <img src="{{ asset('img/logo.png') }}" alt="logo" width="110px">
+    </div>
+
+    <div id="login">
         {{ form_start(form) }}
             <div>
                 {{ form_label(form.username, "Pseudo") }}

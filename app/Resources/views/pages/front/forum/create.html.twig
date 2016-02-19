@@ -1,0 +1,32 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    Créer un sujet - Forum
+{% endblock %}
+
+{% block body %}
+    {% include "pages/front/partial/menu.html.twig" %}
+
+    <div class="push">
+        {{ form_start(form) }}
+            <div>
+                {{ form_label(form.name, "Sujet") }}
+                {{ form_widget(form.name) }}
+            </div>
+
+            <div>
+                {{ form_label(form.content, "Contenu") }}
+                {{ form_widget(form.content) }}
+            </div>
+
+            <div>
+                {{ form_label(form.game, "Jeu associé") }}
+                {{ form_widget(form.game) }}
+            </div>
+
+            <div>
+                <input type="type" value="Créer" class="detail-button">
+            </div>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}
