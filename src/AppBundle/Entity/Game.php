@@ -112,11 +112,17 @@ class Game
      */
     private $categories;
 
+    /**
+     * @ORM\OneToMany(targetEntity="FSubject", mappedBy="game")
+     */
+    private $forums;
+
     public function __construct()
     {
         $this->owners = new ArrayCollection();
         $this->categories = new ArrayCollection();
         $this->challenge = new ArrayCollection();
+        $this->forums = new ArrayCollection();
         $this->pegi = 0;
     }
 
@@ -449,5 +455,38 @@ class Game
     public function removeChallenge(\AppBundle\Entity\Challenge $challenge)
     {
         $this->challenge->removeElement($challenge);
+    }
+
+    /**
+     * Add forums
+     *
+     * @param \AppBundle\Entity\FSubject $forums
+     * @return Game
+     */
+    public function addForum(\AppBundle\Entity\FSubject $forums)
+    {
+        $this->forums[] = $forums;
+
+        return $this;
+    }
+
+    /**
+     * Remove forums
+     *
+     * @param \AppBundle\Entity\FSubject $forums
+     */
+    public function removeForum(\AppBundle\Entity\FSubject $forums)
+    {
+        $this->forums->removeElement($forums);
+    }
+
+    /**
+     * Get forums
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getForums()
+    {
+        return $this->forums;
     }
 }

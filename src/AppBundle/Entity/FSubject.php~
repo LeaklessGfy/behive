@@ -31,14 +31,27 @@ class FSubject
     /**
      * @var bool
      *
-     * @ORM\Column(name="isPrivate", type="boolean")
+     * @ORM\Column(name="is_private", type="boolean")
      */
     private $isPrivate;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="last_update", type="datetime", nullable=true)
+     */
+    private $lastUpdate;
 
     /**
      * @ORM\OneToMany(targetEntity="FPost", mappedBy="subject")
      */
     private $posts;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Game", inversedBy="forums")
+     * @ORM\JoinColumn(name="game_id", referencedColumnName="id")
+     */
+    private $game;
 
 
     /**
@@ -95,5 +108,68 @@ class FSubject
     public function getIsPrivate()
     {
         return $this->isPrivate;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->posts = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add posts
+     *
+     * @param \AppBundle\Entity\FPost $posts
+     * @return FSubject
+     */
+    public function addPost(\AppBundle\Entity\FPost $posts)
+    {
+        $this->posts[] = $posts;
+
+        return $this;
+    }
+
+    /**
+     * Remove posts
+     *
+     * @param \AppBundle\Entity\FPost $posts
+     */
+    public function removePost(\AppBundle\Entity\FPost $posts)
+    {
+        $this->posts->removeElement($posts);
+    }
+
+    /**
+     * Get posts
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPosts()
+    {
+        return $this->posts;
+    }
+
+    /**
+     * Set game
+     *
+     * @param \AppBundle\Entity\Game $game
+     * @return FSubject
+     */
+    public function setGame(\AppBundle\Entity\Game $game = null)
+    {
+        $this->game = $game;
+
+        return $this;
+    }
+
+    /**
+     * Get game
+     *
+     * @return \AppBundle\Entity\Game 
+     */
+    public function getGame()
+    {
+        return $this->game;
     }
 }

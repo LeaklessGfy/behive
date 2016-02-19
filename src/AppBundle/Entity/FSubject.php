@@ -31,14 +31,27 @@ class FSubject
     /**
      * @var bool
      *
-     * @ORM\Column(name="isPrivate", type="boolean")
+     * @ORM\Column(name="is_private", type="boolean")
      */
     private $isPrivate;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="last_update", type="datetime", nullable=true)
+     */
+    private $lastUpdate;
 
     /**
      * @ORM\OneToMany(targetEntity="FPost", mappedBy="subject")
      */
     private $posts;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Game", inversedBy="forums")
+     * @ORM\JoinColumn(name="game_id", referencedColumnName="id")
+     */
+    private $game;
 
 
     /**
@@ -135,5 +148,51 @@ class FSubject
     public function getPosts()
     {
         return $this->posts;
+    }
+
+    /**
+     * Set game
+     *
+     * @param \AppBundle\Entity\Game $game
+     * @return FSubject
+     */
+    public function setGame(\AppBundle\Entity\Game $game = null)
+    {
+        $this->game = $game;
+
+        return $this;
+    }
+
+    /**
+     * Get game
+     *
+     * @return \AppBundle\Entity\Game 
+     */
+    public function getGame()
+    {
+        return $this->game;
+    }
+
+    /**
+     * Set lastUpdate
+     *
+     * @param \DateTime $lastUpdate
+     * @return FSubject
+     */
+    public function setLastUpdate($lastUpdate)
+    {
+        $this->lastUpdate = $lastUpdate;
+
+        return $this;
+    }
+
+    /**
+     * Get lastUpdate
+     *
+     * @return \DateTime 
+     */
+    public function getLastUpdate()
+    {
+        return $this->lastUpdate;
     }
 }

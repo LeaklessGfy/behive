@@ -67,7 +67,7 @@ class User implements UserInterface, \Serializable
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="lastConnexion", type="datetime", nullable=true)
+     * @ORM\Column(name="last_connexion", type="datetime", nullable=true)
      */
     private $lastConnexion;
 

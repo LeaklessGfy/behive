@@ -67,4 +67,27 @@ class FPost
     {
         return $this->content;
     }
+
+    /**
+     * Set subject
+     *
+     * @param \AppBundle\Entity\FSubject $subject
+     * @return FPost
+     */
+    public function setSubject(\AppBundle\Entity\FSubject $subject = null)
+    {
+        $this->subject = $subject;
+
+        return $this;
+    }
+
+    /**
+     * Get subject
+     *
+     * @return \AppBundle\Entity\FSubject 
+     */
+    public function getSubject()
+    {
+        return $this->subject;
+    }
 }
