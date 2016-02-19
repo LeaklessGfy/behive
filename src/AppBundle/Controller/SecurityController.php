@@ -28,7 +28,7 @@ class SecurityController extends Controller
     }
 
     /**
-     * @Route("/login", name="front_login")
+     * @Route("/connexion", name="front_login")
      */
     public function frontLoginAction(Request $request)
     {

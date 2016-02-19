@@ -18,8 +18,11 @@ class ForumController extends Controller
     {
         //$steam = $this->get('steam.api');
         //$steam->getApi();
+        $subjects = $this->getDoctrine()->getRepository("AppBundle:FSubject")->findBy(array(), array('lastUpdate' => 'DESC'), 8, 0);
 
-        return $this->render('pages/front/forum.html.twig');
+        return $this->render('pages/front/forum.html.twig', array(
+            "subjects" => $subjects
+        ));
     }
 
     /**
@@ -42,6 +45,14 @@ class ForumController extends Controller
      * @Route("/parametres", name="forum_param")
      */
     public function parametereAction()
+    {
+        return $this->render('pages/front/forum.html.twig');
+    }
+
+    /**
+     * @Route("/sujet/{id}", name="forum_subject")
+     */
+    public function subjectAction($id)
     {
         return $this->render('pages/front/forum.html.twig');
     }

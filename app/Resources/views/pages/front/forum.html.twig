@@ -7,165 +7,156 @@
 {% block body %}
     {% include "pages/front/partial/menu.html.twig" %}
 
-    <div class="container push">
-        <div class="col-md-12">
-            <div id="forum" class="main">
-                <h2>Récent</h2>
-                <div class="chat">
-                    <div class="message lighten">
-                        <a href="forum-chat.html">
-                            <div class="image">
-                                <div class="avatar">
-                                    <img src="images/rayman.png" alt="">
-                                </div>
+    <div class="push">
+        <div id="forum" class="main">
+            {% if app.user %}
+                <a href="#" class="detail-button">Créer un nouveau sujet</a>
+            {% else %}
+                <a href="#" class="detail-button">S'inscrire</a><a href="{{ path('front_login') }}" class="detail-button">Connexion</a>
+            {% endif %}
+
+            <h2>Récents</h2>
+
+            <div class="chat">
+                <div class="message lighten">
+                    <a href="forum-chat.html">
+                        <div class="image">
+                            <div class="avatar">
+                                <img src="images/rayman.png" alt="">
                             </div>
-                            <div class="content">
-                                <h3>League of Legends / Champions</h3>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                                <i>12h - Mar. 21</i>
-                            </div>
-                            <div class="clear"></div>
-                        </a>
-                    </div>
-                    <div class="message darken">
-                        <a href="forum-chat.html">
-                            <div class="image">
-                                <div class="avatar">
-                                    <img src="images/rayman.png" alt="">
-                                </div>
-                            </div>
-                            <div class="content">
-                                <h3>League of Legends / Champions</h3>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                                <i>12h - Mar. 21</i>
-                            </div>
-                            <div class="clear"></div>
-                        </a>
-                    </div>
-                    <div class="message lighten">
-                        <a href="forum-chat.html">
-                            <div class="image">
-                                <div class="avatar">
-                                    <img src="images/rayman.png" alt="">
-                                </div>
-                            </div>
-                            <div class="content">
-                                <h3>League of Legends / Champions</h3>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                                <i>12h - Mar. 21</i>
-                            </div>
-                            <div class="clear"></div>
-                        </a>
-                    </div>
-                    <div class="message darken">
-                        <a href="forum-chat.html">
-                            <div class="image">
-                                <div class="avatar">
-                                    <img src="images/rayman.png" alt="">
-                                </div>
-                            </div>
-                            <div class="content">
-                                <h3>League of Legends / Champions</h3>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                                <i>12h - Mar. 21</i>
-                            </div>
-                            <div class="clear"></div>
-                        </a>
-                    </div>
-                    <div class="message lighten">
-                        <a href="forum-chat.html">
-                            <div class="image">
-                                <div class="avatar">
-                                    <img src="images/rayman.png" alt="">
-                                </div>
-                            </div>
-                            <div class="content">
-                                <h3>League of Legends / Champions</h3>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                                <i>12h - Mar. 21</i>
-                            </div>
-                            <div class="clear"></div>
-                        </a>
-                    </div>
-                    <div class="message darken">
-                        <a href="forum-chat.html">
-                            <div class="image">
-                                <div class="avatar">
-                                    <img src="images/rayman.png" alt="">
-                                </div>
-                            </div>
-                            <div class="content">
-                                <h3>League of Legends / Champions</h3>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                                <i>12h - Mar. 21</i>
-                            </div>
-                            <div class="clear"></div>
-                        </a>
-                    </div>
-                    <div class="message lighten">
-                        <a href="forum-chat.html">
-                            <div class="image">
-                                <div class="avatar">
-                                    <img src="images/rayman.png" alt="">
-                                </div>
-                            </div>
-                            <div class="content">
-                                <h3>League of Legends / Champions</h3>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                                <i>12h - Mar. 21</i>
-                            </div>
-                            <div class="clear"></div>
-                        </a>
-                    </div>
-                    <div class="message darken">
-                        <a href="forum-chat.html">
-                            <div class="image">
-                                <div class="avatar">
-                                    <img src="images/rayman.png" alt="">
-                                </div>
-                            </div>
-                            <div class="content">
-                                <h3>League of Legends / Champions</h3>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                                <i>12h - Mar. 21</i>
-                            </div>
-                            <div class="clear"></div>
-                        </a>
-                    </div>
+                        </div>
+                        <div class="content">
+                            <h3>League of Legends / Champions</h3>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                            <i>12h - Mar. 21</i>
+                        </div>
+                        <div class="clear"></div>
+                    </a>
                 </div>
+                <div class="message darken">
+                    <a href="forum-chat.html">
+                        <div class="image">
+                            <div class="avatar">
+                                <img src="images/rayman.png" alt="">
+                            </div>
+                        </div>
+                        <div class="content">
+                            <h3>League of Legends / Champions</h3>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                            <i>12h - Mar. 21</i>
+                        </div>
+                        <div class="clear"></div>
+                    </a>
+                </div>
+                <div class="message lighten">
+                    <a href="forum-chat.html">
+                        <div class="image">
+                            <div class="avatar">
+                                <img src="images/rayman.png" alt="">
+                            </div>
+                        </div>
+                        <div class="content">
+                            <h3>League of Legends / Champions</h3>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                            <i>12h - Mar. 21</i>
+                        </div>
+                        <div class="clear"></div>
+                    </a>
+                </div>
+                <div class="message darken">
+                    <a href="forum-chat.html">
+                        <div class="image">
+                            <div class="avatar">
+                                <img src="images/rayman.png" alt="">
+                            </div>
+                        </div>
+                        <div class="content">
+                            <h3>League of Legends / Champions</h3>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                            <i>12h - Mar. 21</i>
+                        </div>
+                        <div class="clear"></div>
+                    </a>
+                </div>
+                <div class="message lighten">
+                    <a href="forum-chat.html">
+                        <div class="image">
+                            <div class="avatar">
+                                <img src="images/rayman.png" alt="">
+                            </div>
+                        </div>
+                        <div class="content">
+                            <h3>League of Legends / Champions</h3>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                            <i>12h - Mar. 21</i>
+                        </div>
+                        <div class="clear"></div>
+                    </a>
+                </div>
+                <div class="message darken">
+                    <a href="forum-chat.html">
+                        <div class="image">
+                            <div class="avatar">
+                                <img src="images/rayman.png" alt="">
+                            </div>
+                        </div>
+                        <div class="content">
+                            <h3>League of Legends / Champions</h3>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                            <i>12h - Mar. 21</i>
+                        </div>
+                        <div class="clear"></div>
+                    </a>
+                </div>
+                <div class="message lighten">
+                    <a href="forum-chat.html">
+                        <div class="image">
+                            <div class="avatar">
+                                <img src="images/rayman.png" alt="">
+                            </div>
+                        </div>
+                        <div class="content">
+                            <h3>League of Legends / Champions</h3>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                            <i>12h - Mar. 21</i>
+                        </div>
+                        <div class="clear"></div>
+                    </a>
+                </div>
+                <div class="message darken">
+                    <a href="forum-chat.html">
+                        <div class="image">
+                            <div class="avatar">
+                                <img src="images/rayman.png" alt="">
+                            </div>
+                        </div>
+                        <div class="content">
+                            <h3>League of Legends / Champions</h3>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                            <i>12h - Mar. 21</i>
+                        </div>
+                        <div class="clear"></div>
+                    </a>
+                </div>
+                {% for subject in subjects %}
+                    <div class="message {% if loop.index is odd %}lighten{% else %}darken{% endif %}">
+                        <a href="{{ path('forum_subject', {id:subject.id}) }}">
+                            <div class="image">
+                                <div class="avatar">
+                                    <img src="{{ subject.game.cover }}" alt="">
+                                </div>
+                            </div>
+                            <div class="content">
+                                <h3>{{ subject.name }} / {{ subject.game.name }}</h3>
+                                <i>{{ subject.lastUpdate }}</i>
+                            </div>
+                            <div class="clear"></div>
+                        </a>
+                    </div>
+                {% endfor %}
             </div>
         </div>
     </div>
 
-    <footer>
-        <nav class="footer-nav">
-            <ul>
-                <li>
-                    <a href="{{ path('forum_home') }}" class="active">
-                        <i class="fa fa-user"></i>
-                        <p>Récent</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ path('forum_prive') }}">
-                        <i class="fa fa-comments"></i>
-                        <p>Privé</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ path('forum_explore') }}">
-                        <i class="fa fa-search"></i>
-                        <p>Explorer</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ path('forum_param') }}">
-                        <i class="fa fa-cog"></i>
-                        <p>Paramètres</p>
-                    </a>
-                </li>
-                <div class="clear"></div>
-            </ul>
-        </nav>
-    </footer>
+    {% include "pages/front/partial/forum_menu.html.twig" %}
 {% endblock %}

@@ -964,10 +964,14 @@ div.round canvas{
 }
 #forum {
 	text-align: center;
+	width: 95%;
+	margin: 0 auto;
 }
 
 #forum h2 {
 	margin-top: 0;
+	padding-bottom: 5px;
+	border-bottom: 2px solid #e8e4de;
 }
 
 .forum-nav a {
@@ -975,12 +979,14 @@ div.round canvas{
 }
 
 #forum .chat {
-	padding-bottom: 90px;
+	padding-bottom: 95px;
 }
 
 #forum .chat .message {
 	height: auto;
 	padding: 10px;
+	border-left: 2px solid #e8e4de;
+	border-right: 2px solid #e8e4de;
 }
 
 #forum .chat .message a {
@@ -1135,6 +1141,14 @@ div.round canvas{
 
 .footer-nav ul li a.active {
 	color: #f7ca18;
+}
+
+.footer-nav ul li a.desactivate {
+	color: grey;
+	cursor: default;
+}
+.footer-nav ul li a.desactivate:hover {
+	color: grey;
 }
 
 .footer-nav ul li a i {

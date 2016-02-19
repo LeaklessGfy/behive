@@ -2,45 +2,20 @@ $( document ).ready( function(){
 	var isSearchOpen = false;
 	var compteur = 1;
 	var search;
+
 	$(".MenuDroite").click( function(){
-		search = $("header input").width();
-		$(".MenuDroite nav").toggleClass("open");
-		if(search > 1){
-			//clickSearch();
-			$(".MenuDroite nav").toggleClass("open");
-		}
-		if(compteur == 1){
-			/*
-			$("header h1").css("opacity","0");
-			$(".profil").css("opacity","0");
-			$(".menu").css("width","90%");
-			$(".search").css("opacity","0");
-			$(".search").css("width","0");
-			$(".search").css("margin-right","0");
-			setTimeout( function(){
-				$(".profil").css("display","none");
-			}, 100);
-			*/
-			$("#sideMenu").css('left','0');
-			compteur = 0;
-		}
-		else{
-			/*
-			$(".search").css("opacity","1");
-			$(".search").css("width","30px");
-			$(".search").css("margin-right","15px");
-			$("header h1").css("display","block");
-			$(".profil").css("display","block");
-			$(".menu").css("width","0");
-			setTimeout( function(){
-				$("header h1").css("opacity","1");
-				$(".profil").css("opacity","1");
-			}, 100);
-			*/
-			$("#sideMenu").css('left','-300px');
-			compteur = 1;
+		var menu = $('.MenuDroite nav'),
+		sidebar = $("#sideMenu");
+
+		if(menu.hasClass("open")) {
+			menu.removeClass("open");
+			sidebar.css('left', '-300px');
+		} else {
+			menu.addClass("open");
+			sidebar.css('left', '0px');
 		}
 	});
+
 	var canClose = false;
 	$(".itemFiltrer").click( function(){
 		$(this).toggleClass("filtreActif");
@@ -49,29 +24,25 @@ $( document ).ready( function(){
 		$(this).toggleClass("open","close");
 	});
 	$(".search").click( function(e) {
-		if ($(".textSearch").hasClass("openInput")) {
+		var elem = $(".textSearch");
+
+		if (elem.hasClass("openInput")) {
+			$(".textSearch").removeClass("openInput");
 		}
 		else {
-			if($(window).width() < 1000){
-				$("h1").fadeOut(300);
-				setTimeout(function(){
-					isSearchOpen = true;
-				}, 300);
-			}
 			e.preventDefault();
 			$(".closeSearchX").fadeIn(300);
-			$(".textSearch").addClass("openInput");
-			$(".textSearch").unbind("click");
+			elem.addClass("openInput");
+			elem.unbind("click");
 		}
 	});
-	$(".closeSearchX").on('click', function() {
-		if(isSearchOpen == true) {
-			isSearchOpen = false;
-			$(".textSearch").removeClass("openInput");
-			$("h1").fadeIn(300);
-			$(".closeSearchX").fadeOut(300);
-		}
+
+	$(".closeSearchX").click( function() {
+		$(".textSearch").removeClass("openInput");
+		$("h1").fadeIn(300);
+		$(".closeSearchX").fadeOut(300);
 	});
+
 	$(".recompenses h3").click( function(){
 		$(this).height(0);
 		$(this).css("border","0");

@@ -9,9 +9,9 @@
         </nav>
     </div>
     <form style="padding:0;" action="#" method="POST" class="searchForm">
-        <input type="text" name="search" class="textSearch"/>
-        <span class="closeSearchX"/>x</span>
-        <input type="submit" class="search" value="" />
+        <input type="text" name="search" class="textSearch">
+        <span class="closeSearchX">x</span>
+        <input type="submit" class="search" value="">
     </form>
     <h1><a href="{{ path('homepage') }}">Behive</a></h1>
 </header>
@@ -21,7 +21,7 @@
             <img class="avatarMenu" src="{{ app.user.avatar }}">
             <h4>{{ app.user.username }} : lvl {{ app.user.level }}</h4>
         {% else %}
-            <h4>Inscrivez-vous</h4>
+            <h4><a href="" class="detail-button">Inscrivez-vous</a></h4>
         {% endif %}
         <ul>
             <li><a href="{{ path('homepage') }}">Accueil</a></li>

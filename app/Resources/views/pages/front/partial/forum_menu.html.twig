@@ -1,0 +1,31 @@
+<footer>
+    <nav class="footer-nav">
+        <ul>
+            <li>
+                <a href="{{ path('forum_home') }}" class="active">
+                    <i class="fa fa-user"></i>
+                    <p>Récent</p>
+                </a>
+            </li>
+            <li>
+                <a href="{{ path('forum_explore') }}">
+                    <i class="fa fa-search"></i>
+                    <p>Explorer</p>
+                </a>
+            </li>
+            <li>
+                <a {% if app.user %}href="{{ path('forum_prive') }}"{% endif %} class="{% if app.user == null %}desactivate{% endif %}">
+                    <i class="fa fa-comments"></i>
+                    <p>Privé</p>
+                </a>
+            </li>
+            <li>
+                <a {% if app.user %}href="{{ path('forum_param') }}"{% endif %} class="{% if app.user == null %}desactivate{% endif %}">
+                    <i class="fa fa-cog"></i>
+                    <p>Paramètres</p>
+                </a>
+            </li>
+            <div class="clear"></div>
+        </ul>
+    </nav>
+</footer>
