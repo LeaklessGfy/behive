@@ -98,7 +98,7 @@ h1 a:hover{
 	width:100%;
 	background-size:cover;
 }
-@media screen and (max-width: 1003px){
+
 	.section{
 		height:			33.3%;
 		width:			100%;
@@ -171,9 +171,7 @@ h1 a:hover{
 		transition: all 0.2s;
 		color: white;
 	}
-}
 
-@media screen and (min-width: 1003px) {
 	.section {
 		height: 100%;
 		width: 33.3%;
@@ -253,7 +251,6 @@ h1 a:hover{
 		background-image: url("../../img/news.jpg");
 
 	}
-}
 .baseline{
 	text-align: 	center;
 	position:		absolute;
