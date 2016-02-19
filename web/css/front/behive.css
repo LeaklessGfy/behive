@@ -1238,6 +1238,36 @@ header h1 a{
 	height:			30%;
 }
 
+#catalogue .boutonSubmit:hover{
+	color:			#fff;
+}
+
+.titleCategorieCatalogue{
+	text-align:		left;
+	display:		inline-block;
+	float:			left;
+	padding:		10px;
+	text-transform:	uppercase;
+	background:		#f7ca18;
+	margin-top:		20px;
+	color:			#2f353a;
+	font-size:		20px;
+	position:		relative;
+}
+.titleCategorieCatalogue:after{
+	content:		'';
+	display:		block;
+	border-top:		23px solid #f7ca18;
+	border-bottom:	23px solid transparent;
+	border-left:	23px solid #f7ca18;
+	border-right:	23px solid transparent;
+	width:			0;
+	height:			0;
+	position:		absolute;
+	right:			-46px;
+	top:			0;
+}
+
 @media screen and (max-width: 700px) {
 	.item {
 		width: 47%;

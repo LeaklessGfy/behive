@@ -8,6 +8,7 @@
     {% include "pages/front/partial/menu.html.twig" %}
 
     <div id="catalogue" class="main">
+        <h2 class="titleCategorieCatalogue">Jeux du moment</h2>
         <div class="flexContent">
         {% for game in games %}
             {% if loop.index is odd %}
@@ -19,6 +20,9 @@
                         </div>
                         <h3>{{ game.name }}</h3>
                         <h4>
+                            {% for category in game.categories %}
+                                {{ category.name }}
+                            {% endfor %}
                             {% for category in game.categories %}
                                 {{ category.name }}
                             {% endfor %}
@@ -43,6 +47,45 @@
             {% endif %}
         {% endfor %}
         </div>
+        <div class="actionAventure">
+            <h2 class="titleCategorieCatalogue">Action / Aventure</h2>
+            <div class="flexContent">
+                {% for game in games %}
+                    {% if loop.index is odd %}
+                        <div class="item">
+                            <a href="">
+                                <div class="containImage">
+                                    <img src="{{ asset(game.cover)}}" />
+                                    <div class="bgImg"></div>
+                                </div>
+                                <h3>{{ game.name }}</h3>
+                                <h4>
+                                    {% for category in game.categories %}
+                                        {{ category.name }}
+                                    {% endfor %}
+                                </h4>
+                            </a>
+                        </div>
+                    {% else %}
+                        <div class="item right">
+                            <a href="">
+                                <div class="containImage">
+                                    <img src="{{ game.cover }}">
+                                    <div class="bgImg"></div>
+                                </div>
+                                <h3>{{ game.name }}</h3>
+                                <h4>
+                                    {% for category in game.categories %}
+                                        {{ category.name }}
+                                    {% endfor %}
+                                </h4>
+                            </a>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+                </div>
+            <h3 class="hover boutonSubmit">voir plus...</h3>
+        </div>
         <div class="filtrer">
             <i class="fa fa-filter fa-2x"></i>
             <h4>Filtrer</h4>
@@ -60,6 +103,8 @@
             </div>
         </div>
     </div>
-    <div class="loader"></div>
-    <div class="tuto"><h3>Tirez pour afficher la suite !</h3></div>
+    <!--
+        <div class="loader"></div>
+        <div class="tuto"><h3>Tirez pour afficher la suite !</h3></div>
+    -->
 {% endblock %}
