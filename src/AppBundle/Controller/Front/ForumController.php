@@ -20,7 +20,8 @@ class ForumController extends Controller
     {
         //$steam = $this->get('steam.api');
         //$steam->getApi();
-        $subjects = $this->getDoctrine()->getRepository("AppBundle:FSubject")->findBy(array(), array('lastUpdate' => 'DESC'), 8, 0);
+        $subjects = $this->getDoctrine()->getRepository("AppBundle:FSubject")
+                    ->findBy(array(), array('lastUpdate' => 'DESC'), 8, 0);
 
         return $this->render('pages/front/forum.html.twig', array(
             "subjects" => $subjects
@@ -30,9 +31,15 @@ class ForumController extends Controller
     /**
      * @Route("/privé", name="forum_prive")
      */
-    public function recentAction()
+    public function privateAction()
     {
-        return $this->render('pages/front/forum.html.twig');
+        $id = $this->getUser()->getId();
+        $subjects = $this->getDoctrine()->getRepository("AppBundle:FSubject")
+                    ->findBy(array('isPrivate' => true, 'owner' => $id), array('lastUpdate' => 'DESC'));
+
+        return $this->render('pages/front/forum/private.html.twig', array(
+            "subjects" => $subjects
+        ));
     }
 
     /**

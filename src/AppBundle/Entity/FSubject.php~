@@ -29,6 +29,13 @@ class FSubject
     private $name;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="content", type="text")
+     */
+    private $content;
+
+    /**
      * @var bool
      *
      * @ORM\Column(name="is_private", type="boolean")
@@ -52,6 +59,12 @@ class FSubject
      * @ORM\JoinColumn(name="game_id", referencedColumnName="id")
      */
     private $game;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     */
+    private $owner;
 
 
     /**
@@ -85,6 +98,29 @@ class FSubject
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * Set content
+     *
+     * @param string $content
+     * @return FSubject
+     */
+    public function setContent($content)
+    {
+        $this->content = $content;
+
+        return $this;
+    }
+
+    /**
+     * Get content
+     *
+     * @return string
+     */
+    public function getContent()
+    {
+        return $this->content;
     }
 
     /**
@@ -171,5 +207,28 @@ class FSubject
     public function getGame()
     {
         return $this->game;
+    }
+
+    /**
+     * Set lastUpdate
+     *
+     * @param \DateTime $lastUpdate
+     * @return FSubject
+     */
+    public function setLastUpdate($lastUpdate)
+    {
+        $this->lastUpdate = $lastUpdate;
+
+        return $this;
+    }
+
+    /**
+     * Get lastUpdate
+     *
+     * @return \DateTime 
+     */
+    public function getLastUpdate()
+    {
+        return $this->lastUpdate;
     }
 }
