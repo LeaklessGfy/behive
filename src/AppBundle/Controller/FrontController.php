@@ -23,7 +23,7 @@ class FrontController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $games = $em->getRepository("AppBundle:Game")->findAll();
+        $games = $em->getRepository("AppBundle:Game")->findBy(array(), array("id" => "DESC"), 8, 0);
         $categories = $em->getRepository("AppBundle:Category")->findAll();
 
         return $this->render('pages/front/catalogue.html.twig', array(
