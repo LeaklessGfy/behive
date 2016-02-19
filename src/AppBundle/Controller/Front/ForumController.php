@@ -21,4 +21,28 @@ class ForumController extends Controller
 
         return $this->render('pages/front/forum.html.twig');
     }
+
+    /**
+     * @Route("/privé", name="forum_prive")
+     */
+    public function recentAction()
+    {
+        return $this->render('pages/front/forum.html.twig');
+    }
+
+    /**
+     * @Route("/explorer", name="forum_explore")
+     */
+    public function exploreAction()
+    {
+        return $this->render('pages/front/forum.html.twig');
+    }
+
+    /**
+     * @Route("/parametres", name="forum_param")
+     */
+    public function parametereAction()
+    {
+        return $this->render('pages/front/forum.html.twig');
+    }
 }
