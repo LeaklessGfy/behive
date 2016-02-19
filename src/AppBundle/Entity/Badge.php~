@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Badge
@@ -26,6 +27,9 @@ class Badge
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255)
+     * @Assert\NotBlank(
+     *      message="Veuillez remplir ce champs"
+     * )
      */
     private $name;
 
@@ -33,6 +37,10 @@ class Badge
      * @var string
      *
      * @ORM\Column(name="logo", type="string", length=255, nullable=true)
+     * @Assert\Image(
+     *      maxSize = "200k",
+     *      mimeTypesMessage = "Veuillez uploader une image valide"
+     * )
      */
     private $logo;
 
