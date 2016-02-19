@@ -5,41 +5,8 @@
 {% endblock %}
 
 {% block body %}
-    <header>
-        <div class="MenuDroite">
-            <nav class='home'>
-                <div class="burger">
-                    <span class="burger-1"></span>
-                    <span class="burger-2"></span>
-                    <span class="burger-3"></span>
-                </div>
-            </nav>
-        </div>
-        <ul class="menu">
-            <li><a href="index.html">Accueil</a></li>
-            <li><a href="forum.html">Forum</a></li>
-            <li><a href="challenges.html">Challenges</a></li>
-        </ul>
-        <a class="profil" href="profil.html"></a>
-        <form style="padding:0;" action="#" method="POST" class="searchForm">
-            <input type="text" name="search" class="textSearch"/>
-            <span class="closeSearchX" />x</span>
-            <input type="submit" class="search" value="" />
-        </form>
-        <h1><a href="index.html">Behive</a></h1>
-    </header>
-    <div id="sideMenu">
-        <div class="contentMenu">
-            <img class="avatarMenu" src="../../img/avatar.gif" />
-            <h4>Niveau : 32</h4>
-            <ul>
-                <li><a href="#">Profil</a></li>
-                <li><a href="#">Accueil</a></li>
-                <li><a href="#">Forum</a></li>
-                <li><a href="#">Challenges</a></li>
-            </ul>
-        </div>
-    </div>
+    {% include "pages/front/partial/menu.html.twig" %}
+
     <div id="catalogue" class="main">
         <div class="flexContent">
         {% for game in games %}
