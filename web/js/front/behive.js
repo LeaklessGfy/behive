@@ -6,7 +6,7 @@ $( document ).ready( function(){
 		search = $("header input").width();
 		$(".MenuDroite nav").toggleClass("open");
 		if(search > 1){
-			clickSearch();
+			//clickSearch();
 			$(".MenuDroite nav").toggleClass("open");
 		}
 		if(compteur == 1){
@@ -70,7 +70,6 @@ $( document ).ready( function(){
 			$(".textSearch").removeClass("openInput");
 			$("h1").fadeIn(300);
 			$(".closeSearchX").fadeOut(300);
-			console.log('ici');
 		}
 	});
 	$(".recompenses h3").click( function(){
