@@ -1,0 +1,79 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Profil{% endblock %}
+
+{% block body %}
+
+    <div id="profil" class="main">
+        <h2 class="name">Max</h2>
+        <div class="canvas">
+            <h2 class="level">47</h2>
+            <input type="text" class="round" data-max="50" data-min="0" value="60" readonly="readonly" style="visibility:hidden" />
+        </div>
+        <h2 class="rang">Légionnaire</h2>
+        <h3 class="littleTitle commentaires">Commentaires: 752</h3>
+        <h3 class="littleTitle connexion">Dernière connexion: Il y a 15h</h3>
+        <div class="recompenses">
+            <h2>Récompenses</h2>
+            <ul>
+                <li class="jeuGG"><img src="images/candy.png" /><p>Jeu gagné : Candy Crush</p></li>
+                <li class="tropheeGG"><img src="images/trophee.svg" /><p>Challenge FIFA 16 : 3000 expérience - #1</p></li>
+                <li class="jeuGG"><img src="images/clash.png" /><p>Jeu gagné : Clash of Clans</p></li>
+            </ul>
+            <h3 class="hover boutonSubmit">voir plus...</h3>
+            <div class="voirPlus">
+                <ul>
+                    <li class="tropheeGG"><img src="images/trophee.svg" /><p>Challenge Rayman : 1000 expérience - #37</p></li>
+                    <li class="tropheeGG"><img src="images/trophee.svg" /><p>Challenge Songpop : 1000 expérience - #24</p></li>
+                    <li class="jeuGG"><img src="images/rayman.png" /><p>Jeu gagné : Rayman Adventures</p></li>
+                </ul>
+                <ul>
+                    <li class="jeuGG"><img src="images/rayman.png" /><p>Jeu gagné : Rayman Adventures</p></li>
+                    <li class="tropheeGG"><img src="images/trophee.svg" /><p>Challenge King of Thieves : 3200 expérience - #89</p></li>
+                    <li class="jeuGG"><img src="images/clash.png" /><p>Jeu gagné : Clash of Clans</p></li>
+                </ul>
+                <ul>
+                    <li class="tropheeGG"><img src="images/trophee.svg" /><p>Challenge Clash of Clans : 2000 expérience - #121</p></li>
+                    <li class="jeuGG"><img src="images/candy.png" /><p>Jeu gagné : Candy Crush</p></li>
+                    <li class="tropheeGG"><img src="images/trophee.svg" /><p>Challenge Rayman : 1500 expérience - #143</p></li>
+                </ul>
+                <ul>
+                    <li class="tropheeGG"><img src="images/trophee.svg" /><p>Challenge Candy Crush : 2000 expérience - #12</p></li>
+                </ul>
+            </div>
+        </div>
+        <div class="challenges">
+            <h2>Challenges (18)</h2>
+            <div class="contentText">
+                <h3><span class="position">#253</span><span class="title">Candy Crush Saga<span><span class="date">10/12/15</span></h3>
+                <h3><span class="position">#12</span><span class="title">Rayman Adventures<span><span class="date">09/12/15</span></h3>
+                <h3><span class="position">#45</span><span class="title">Clash of Clans<span><span class="date">08/12/15</span></h3>
+                <h3><span class="position">#789</span><span class="title">FIFA 16<span><span class="date">04/12/15</span></h3>
+                <h3><span class="position">#1253</span><span class="title">Guitar Hero<span><span class="date">28/11/15</span></h3>
+                <h3><span class="position">#231</span><span class="title">Tap Tap Revenge<span><span class="date">20/11/15</span></h3>
+                <h3><span class="position">#1</span><span class="title">Might And Magic V<span><span class="date">10/11/15</span></h3>
+                <h3><span class="position">#4</span><span class="title">Flappy Bird<span><span class="date">14/10/15</span></h3>
+                <h3><span class="position">#87</span><span class="title">King of Thieves<span><span class="date">12/10/15</span></h3>
+                <h3><a class="boutonSubmit" href="challenges.html">Voir tous les challenges...</a></h3>
+            </div>
+        </div>
+        <div class="jeux">
+            <h2>Jeux (34)</h2>
+            <div class="contentText">
+                <h3><a href="detail.html">Candy Crush Saga</a></h3>
+                <h3><a href="detail.html">Clash of Clans</a></h3>
+                <h3><a href="detail.html">Rayman Adventures</a></h3>
+                <h3><a href="detail.html">King of Thieves</a></h3>
+                <h3><a href="detail.html">Guitar Hero</a></h3>
+                <h3><a href="detail.html">Tap Tap Revenge</a></h3>
+                <h3><a href="detail.html">Doodle Jump</a></h3>
+                <h3><a href="detail.html">Flappy Bird</a></h3>
+                <h3><a href="detail.html">Might and Magic V</a></h3>
+                <h3><a href="catalogue.html" class="boutonSubmit">Voir tous les jeux...</a></h3>
+            </div>
+        </div>
+    </div>
+    <a class="deco" href="login.html">DECONNEXION</a>
+
+
+{% endblock %}

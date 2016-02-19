@@ -49,6 +49,22 @@ class FrontController extends Controller
     }
 
     /**
+     * @Route("/profil", name="profil")
+     */
+    public function profilAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $games = $em->getRepository("AppBundle:Game")->findAll();
+        $categories = $em->getRepository("AppBundle:Category")->findAll();
+
+        return $this->render('pages/front/profil.html.twig', array(
+            "games" => $games,
+            "categories" => $categories
+        ));
+    }
+
+    /**
      * @Route("/utilisateur", name="user")
      */
     public function userAction()

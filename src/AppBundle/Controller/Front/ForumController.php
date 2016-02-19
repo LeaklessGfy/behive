@@ -16,8 +16,8 @@ class ForumController extends Controller
      */
     public function indexAction()
     {
-        $steam = $this->get('steam.api');
-        $steam->getApi();
+        //$steam = $this->get('steam.api');
+        //$steam->getApi();
 
         return $this->render('pages/front/forum.html.twig');
     }
