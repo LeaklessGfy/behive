@@ -792,7 +792,6 @@ div.round canvas{
 	width:			150px;
 	margin:			0 auto;
 	height:			40px;
-	line-height:	40px;
 	text-align: 	center;
 	margin-top:		20px;
 	position:		relative;
@@ -1205,6 +1204,7 @@ label{
 }
 #log{
 	text-align: center;
+	padding-top: 80px;
 }
 
 #challenges .detail-title{

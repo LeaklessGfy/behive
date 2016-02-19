@@ -16,23 +16,29 @@
             <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
         {% endif %}
 
+        {% for label, flashes in app.session.flashbag.all %}
+            {% for flash in flashes %}
+                <div class="alert alert-{{ label }}">
+                    {{ flash }}
+                </div>
+            {% endfor %}
+        {% endfor %}
+
         <form action="{{ path('front_login') }}" method="post">
             <label for="logins">Login</label>
-            <input id="logins" name="_username" type="text">
-
+            <input id="logins" name="_username" type="text" value="{{ last_username }}">
 
             <label for="password">Mot de passe</label>
             <input id="password" name="_password" type="password">
 
             <div>
-                <input type="submit" value="Valider">
+                <input type="submit" value="Valider" class="boutonSubmit">
             </div>
         </form>
 
-        <a href="inscription.html"class="boutonSubmit">S'inscrire</a>
-
         <div style="text-align:center;margin-top:10px;">
-            <a href="#">Mot de passe de perdu ?</a>
+            <p><a href="{{ path('register') }}">S'inscrire</a></p>
+            <p><a href="#">Mot de passe de perdu ?</a></p>
         </div>
     </div>
 {% endblock %}

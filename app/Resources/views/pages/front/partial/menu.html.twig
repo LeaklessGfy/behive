@@ -19,9 +19,9 @@
     <div class="contentMenu">
         {% if app.user %}
             <img class="avatarMenu" src="{{ app.user.avatar }}">
-            <h4>{{ app.user.username }} : lvl {{ app.user.level }}</h4>
+            <h4>{{ app.user.username }} - lvl {{ app.user.level }}</h4>
         {% else %}
-            <h4><a href="" class="detail-button">Inscrivez-vous</a></h4>
+            <h4><a href="{{ path('register') }}" class="detail-button">Inscrivez-vous</a></h4>
         {% endif %}
         <ul>
             <li><a href="{{ path('homepage') }}">Accueil</a></li>
@@ -30,5 +30,6 @@
             <li><a href="{{ path('challenge') }}">Challenges</a></li>
             <li><a href="{{ path('forum_home') }}">Forum</a></li>
         </ul>
+        {% if app.user %}<p><a href="{{ path('logout') }}">Déconnexion</a></p>{% endif %}
     </div>
 </div>

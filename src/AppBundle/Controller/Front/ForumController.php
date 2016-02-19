@@ -56,4 +56,12 @@ class ForumController extends Controller
     {
         return $this->render('pages/front/forum.html.twig');
     }
+
+    /**
+     * @Route("/sujet/créer", name="forum_subject_create")
+     */
+    public function createSubjectAction($id)
+    {
+        return $this->render('pages/front/forum.html.twig');
+    }
 }

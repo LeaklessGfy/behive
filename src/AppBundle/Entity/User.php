@@ -48,9 +48,6 @@ class User implements UserInterface, \Serializable
      * @var int
      *
      * @ORM\Column(name="level", type="integer")
-     * @Assert\NotBlank(
-     *      message="Veuillez remplir ce champs"
-     * )
      */
     private $level;
 
@@ -125,7 +122,8 @@ class User implements UserInterface, \Serializable
         $this->myGames = new ArrayCollection();
         $this->games = new ArrayCollection();
         $this->challenges = new ArrayCollection();
-        $this->xp = 10;
+        $this->xp = 0;
+        $this->level = 0;
     }
 
     /**
