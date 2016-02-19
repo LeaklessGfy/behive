@@ -1,48 +1,35 @@
 {% extends "base.html.twig" %}
 
+{% block title %}
+    Challenge - Behive
+{% endblock %}
+
 {% block body %}
-    <header>
-        <div class="MenuDroite">
-            <nav class='home'>
-                <div class="burger">
-                    <span class="burger-1"></span>
-                    <span class="burger-2"></span>
-                    <span class="burger-3"></span>
-                </div>
-            </nav>
-        </div>
-        <ul class="menu">
-            <li><a href="index.html">Accueil</a></li>
-            <li><a href="forum.html">Forum</a></li>
-            <li><a href="catalogue.html">Catalogue</a></li>
-        </ul>
-        <a class="profil" href="profil.html"></a>
-        <div class="search"></div>
-        <input type="text" />
-        <h1><a href="index.html">Behive</a></h1>
-    </header>
+    {% include "pages/front/partial/menu.html.twig" %}
 
     <div id="challenges" class="main">
-        <h2>Challenge du jour</h2>
-        <div class="cDay">
-            <h3 class="titleDay">{{ dailyChallenge.game.name }}</h3>
-            <div class="dayChallenge">
-                <img src="{{ dailyChallenge.cover }}">
-                <h2 class="detail-title">{{ dailyChallenge.name }}</h2>
-            </div>
-            <div class="descriptionChallenge">
-                <h3>Seuils d'expérience:</h3>
-                <div class="contentText">
-                    <h3><span class="position">#1</span> <span class="date">3000 points</span></h3>
-                    <h3><span class="position">#2 - #150</span> <span class="date">1000 points</span></h3>
-                    <h3><span class="position">#150 - #1200</span> <span class="date">800 points</span></h3>
-                    <h3><span class="position">#1200 - #3000</span> <span class="date">200 points</span></h3>
+        {% if dailyChallenge|length %}
+            <h2>Challenge du jour</h2>
+            <div class="cDay">
+                <h3 class="titleDay">{{ dailyChallenge.game.name }}</h3>
+                <div class="dayChallenge">
+                    <img src="{{ dailyChallenge.cover }}">
+                    <h2 class="detail-title">{{ dailyChallenge.name }}</h2>
                 </div>
-                <div class="boutonSubmit">
-                    S'INSCRIRE
+                <div class="descriptionChallenge">
+                    <h3>Seuils d'expérience:</h3>
+                    <div class="contentText">
+                        <h3><span class="position">#1</span> <span class="date">3000 points</span></h3>
+                        <h3><span class="position">#2 - #150</span> <span class="date">1000 points</span></h3>
+                        <h3><span class="position">#150 - #1200</span> <span class="date">800 points</span></h3>
+                        <h3><span class="position">#1200 - #3000</span> <span class="date">200 points</span></h3>
+                    </div>
+                    <div class="boutonSubmit">
+                        S'INSCRIRE
+                    </div>
                 </div>
             </div>
-        </div>
+        {% endif %}
 
         <h2>Autres challenges</h2>
         {% for challenge in challenges %}

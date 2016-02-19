@@ -1,0 +1,40 @@
+<header>
+    <div class="MenuDroite">
+        <nav class='home'>
+            <div class="burger">
+                <span class="burger-1"></span>
+                <span class="burger-2"></span>
+                <span class="burger-3"></span>
+            </div>
+        </nav>
+    </div>
+    <ul class="menu">
+        <li><a href="index.html">Accueil</a></li>
+        <li><a href="forum.html">Forum</a></li>
+        <li><a href="challenges.html">Challenges</a></li>
+    </ul>
+    <a class="profil" href="profil.html"></a>
+    <form style="padding:0;" action="#" method="POST" class="searchForm">
+        <input type="text" name="search" class="textSearch"/>
+        <span class="closeSearchX" />x</span>
+        <input type="submit" class="search" value="" />
+    </form>
+    <h1><a href="index.html">Behive</a></h1>
+</header>
+<div id="sideMenu">
+    <div class="contentMenu">
+        {% if app.user %}
+            <img class="avatarMenu" src="{{ app.user.avatar }}">
+            <h4>{{ app.user.username }} : lvl {{ app.user.level }}</h4>
+        {% else %}
+            <h4>Inscrivez-vous</h4>
+        {% endif %}
+        <ul>
+            <li><a href="#">Accueil</a></li>
+            {% if app.user %}<li><a href="#">Profil</a></li>{% endif %}
+            <li><a href="#">Catalogue</a></li>
+            <li><a href="#">Challenges</a></li>
+            <li><a href="#">Forum</a></li>
+        </ul>
+    </div>
+</div>

@@ -5,13 +5,18 @@ $(document).ready( function(){
 	var parent;
 	var canLoad = 0;
 	imgSize();
+	/*
 	$(window).scroll(function(){
 		imgSize();
 		if  ($(window).scrollTop() == $(document).height() - $(window).height()){
 			lastPostFunc();
 		}
 	});
+	*/
 	$(window).load(function(){
+		imgSize();
+	});
+	$(window).resize(function(){
 		imgSize();
 	});
 	function imgSize(){

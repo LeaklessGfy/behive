@@ -1,43 +1,14 @@
 {% extends "base.html.twig" %}
 
+{% block title %}
+    Catalogue - Behive
+{% endblock %}
 
 {% block body %}
-    <header>
-        <div class="MenuDroite">
-            <nav class='home'>
-                <div class="burger">
-                    <span class="burger-1"></span>
-                    <span class="burger-2"></span>
-                    <span class="burger-3"></span>
-                </div>
-            </nav>
-        </div>
-        <ul class="menu">
-            <li><a href="index.html">Accueil</a></li>
-            <li><a href="forum.html">Forum</a></li>
-            <li><a href="challenges.html">Challenges</a></li>
-        </ul>
-        <a class="profil" href="profil.html"></a>
-        <form style="padding:0;" action="#" method="POST" class="searchForm">
-            <input type="text" name="search" class="textSearch"/>
-            <span class="closeSearchX" />x</span>
-            <input type="submit" class="search" value="" />
-        </form>
-        <h1><a href="index.html">Behive</a></h1>
-    </header>
-    <div id="sideMenu">
-        <div class="contentMenu">
-            <img class="avatarMenu" src="../../img/avatar.gif" />
-            <h4>Niveau : 32</h4>
-            <ul>
-                <li><a href="#">Profil</a></li>
-                <li><a href="#">Accueil</a></li>
-                <li><a href="#">Forum</a></li>
-                <li><a href="#">Challenges</a></li>
-            </ul>
-        </div>
-    </div>
+    {% include "pages/front/partial/menu.html.twig" %}
+
     <div id="catalogue" class="main">
+        <h2 class="titleCategorieCatalogue">Jeux du moment</h2>
         <div class="flexContent">
         {% for game in games %}
             {% if loop.index is odd %}
@@ -49,6 +20,9 @@
                         </div>
                         <h3>{{ game.name }}</h3>
                         <h4>
+                            {% for category in game.categories %}
+                                {{ category.name }}
+                            {% endfor %}
                             {% for category in game.categories %}
                                 {{ category.name }}
                             {% endfor %}
@@ -73,6 +47,45 @@
             {% endif %}
         {% endfor %}
         </div>
+        <div class="actionAventure">
+            <h2 class="titleCategorieCatalogue">Action / Aventure</h2>
+            <div class="flexContent">
+                {% for game in games %}
+                    {% if loop.index is odd %}
+                        <div class="item">
+                            <a href="">
+                                <div class="containImage">
+                                    <img src="{{ asset(game.cover)}}" />
+                                    <div class="bgImg"></div>
+                                </div>
+                                <h3>{{ game.name }}</h3>
+                                <h4>
+                                    {% for category in game.categories %}
+                                        {{ category.name }}
+                                    {% endfor %}
+                                </h4>
+                            </a>
+                        </div>
+                    {% else %}
+                        <div class="item right">
+                            <a href="">
+                                <div class="containImage">
+                                    <img src="{{ game.cover }}">
+                                    <div class="bgImg"></div>
+                                </div>
+                                <h3>{{ game.name }}</h3>
+                                <h4>
+                                    {% for category in game.categories %}
+                                        {{ category.name }}
+                                    {% endfor %}
+                                </h4>
+                            </a>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+                </div>
+            <h3 class="hover boutonSubmit">voir plus...</h3>
+        </div>
         <div class="filtrer">
             <i class="fa fa-filter fa-2x"></i>
             <h4>Filtrer</h4>
@@ -90,6 +103,8 @@
             </div>
         </div>
     </div>
-    <div class="loader"></div>
-    <div class="tuto"><h3>Tirez pour afficher la suite !</h3></div>
+    <!--
+        <div class="loader"></div>
+        <div class="tuto"><h3>Tirez pour afficher la suite !</h3></div>
+    -->
 {% endblock %}

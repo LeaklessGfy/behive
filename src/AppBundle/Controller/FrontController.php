@@ -39,11 +39,11 @@ class FrontController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $challenge = $em->getRepository("AppBundle:Challenge")->findAll();
+        $challenges = $em->getRepository("AppBundle:Challenge")->findAll();
         $dailyChallenge = $em->getRepository("AppBundle:Challenge")->findOneBy(array('isDaily' => true));
 
         return $this->render('pages/front/challenge.html.twig', array(
-            "challenge" => $challenge,
+            "challenges" => $challenges,
             "dailyChallenge" => $dailyChallenge
         ));
     }

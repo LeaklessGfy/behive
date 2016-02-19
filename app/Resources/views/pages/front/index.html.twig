@@ -5,18 +5,22 @@
 {% endblock %}
 
 {% block body %}
-
     <div class="home_logo"></div>
+<<<<<<< HEAD
     <div id="main" class="home_main">
         <a href="" class="section first">
+=======
+    <div id="main" class="main">
+        <a href="{{ path('catalogue') }}" class="section first">
+>>>>>>> d33d9be1b5e4f5950ae7249e288fbbbab15ddbf9
             <h2 class="nameCategorie">Catalogue</h2>
             <p class="home_decouvrir">Découvrir</p>
         </a>
-        <a href="" class="section second">
+        <a href="{{ path('challenge') }}" class="section second">
             <h2 class="nameCategorie">Challenges</h2>
             <p class="home_decouvrir">Découvrir</p>
         </a>
-        <a href="" class="section third">
+        <a href="{{ path('forum_home') }}" class="section third">
             <h2 class="nameCategorie">Forum</h2>
             <p class="home_decouvrir">Découvrir</p>
         </a>
