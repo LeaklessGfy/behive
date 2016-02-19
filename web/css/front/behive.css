@@ -54,7 +54,6 @@ h1 a:hover{
 #main{
 	height:			100%;
 	overflow:		hidden;
-
 }
 
 .loader{
@@ -98,6 +97,10 @@ h1 a:hover{
 	background-repeat:no-repeat;
 	width:100%;
 	background-size:cover;
+}
+
+.push {
+	padding-top: 70px;
 }
 
 .section{
@@ -910,9 +913,11 @@ div.round canvas{
 }
 
 #forum h2 {
-	padding-top: 20px;
-	margin-bottom: 20px;
-	text-transform: uppercase;
+	margin-top: 0;
+}
+
+.forum-nav a {
+	color: black;
 }
 
 #forum .chat {
@@ -1057,6 +1062,10 @@ div.round canvas{
 	width: 100%;
 }
 
+.footer-nav ul {
+	margin-bottom: 0;
+}
+
 .footer-nav ul li {
 	text-align: center;
 	display: inline-block;
@@ -1081,6 +1090,7 @@ div.round canvas{
 
 .footer-nav ul li a p {
 	margin-top: 10px;
+	margin-bottom: 0;
 	font-size: 0.8em;
 }
 
