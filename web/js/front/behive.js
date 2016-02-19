@@ -271,3 +271,17 @@ $(document).scroll(function(e){
     }
 	*/
 });
+$(document).ready(function(){
+
+	$('.first').hover(function(){
+		$('.main').css("background-image", "url(../img/catalogue.jpg)");
+	});
+
+	$('.second').hover(function(){
+		$('.main').css("background-image", "url(../img/challenges.jpg)");
+	});
+
+	$('.third').hover(function(){
+		$('.main').css("background-image", "url(../img/forum.jpg)");
+	});
+});

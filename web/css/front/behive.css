@@ -52,8 +52,9 @@ h1 a:hover{
 	color:				#2f353a;
 }
 #main{
-	height:			calc(100% - 65px);
+	height:			100%;
 	overflow:		hidden;
+
 }
 
 .loader{
@@ -83,56 +84,76 @@ h1 a:hover{
 	margin-top:		20px;
 }
 
+.home_logo{
+	background-image:url("../../img/logo2.png");
+	width:		176px;
+	height:		58px;
+	position: absolute;
+	top:6px;
+	left:10px;
+}
+
 .main{
-	padding-top:	65px;
+	background-image: url("../../img/challenges.jpg");
+	background-repeat:no-repeat;
+	width:100%;
+	background-size:cover;
 }
 
 .section{
-	height:			34%;
-	background-size:100%;
-	margin:			0;
-	line-height:	100px;
-	position:		relative;
-	background-position:50%;
+	height:			100%;
+	width:			33.3%;
+	margin:			O;
 	transition:		all 0.2s;
-	display:		flex;
-	display:		-webkit-flex;
-	display:		-moz-flex;
+	display:		inline-block;
+	float:			left;
 	justify-content:center;
 	align-items:	center;
 	-webkit-justify-content:center;
 	-webkit-align-items:	center;
-	width:			100%;
+	border-right:	solid 1px #f7ca18;
 }
-.section:before{
-	display:		block;
-	background:		#000;
-	opacity:		0.5;
-	content:		"";
-	width:			100%;
-	height:			100%;
-	border-top:		5px solid rgba(255,255,255,0.5);
-	position:		absolute;
-	left:			0;
-	top:			0;
-	z-index:		9000;
-}
+
 .section .nameCategorie{
-	/*text-align: 	center;
+	text-align: 	center;
 	text-transform: uppercase;
-	color:			#fff;
-	position:		absolute;
-	left:			0;
-	right:			0;*/
-	text-align:		center;
+	font-size:		45px;
 	color:			#fff;
 	z-index:		9000;
+	margin:			0 auto;
+	position:relative;
+	top:	60%;
+	transition:		all 0.2s;
+
 }
+.home_decouvrir{
+	text-align: 	center;
+	font-size:	22px;
+	margin:	0 auto;
+	position: relative;
+	top:	55%;
+	opacity : 0;
+	transition:		all 0.2s;
+}
+
+.section:hover .home_decouvrir{
+	opacity:1;
+	transition:		all 0.2s;
+	color:		white;
+}
+
+.section:hover .nameCategorie{
+	top:	55%;
+	color:		white;
+	transform: translateY(-30px);
+	transition: all 0.2s ease 0s;
+}
+
 .first{
-	background-image:url("../images/catalogue.jpg");
+
 }
 .second {
-	background-image:url("../images/esport.jpg");
+
 }
 .first:hover,
 .second:hover,
@@ -141,10 +162,11 @@ h1 a:hover{
 	background-size:110%;
 }
 .third {
-	background-image:url("../images/forum.jpg");
+	width: 33.2%;
+	border-right:	none;
 }
 .fourth {
-	background-image:url("../images/news.jpg");
+
 }
 .baseline{
 	text-align: 	center;
