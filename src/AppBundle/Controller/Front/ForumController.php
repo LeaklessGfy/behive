@@ -21,7 +21,7 @@ class ForumController extends Controller
         //$steam = $this->get('steam.api');
         //$steam->getApi();
         $subjects = $this->getDoctrine()->getRepository("AppBundle:FSubject")
-                    ->findBy(array(), array('lastUpdate' => 'DESC'), 8, 0);
+                    ->findBy(array('isPrivate' => false), array('lastUpdate' => 'DESC'), 8, 0);
 
         return $this->render('pages/front/forum.html.twig', array(
             "subjects" => $subjects
@@ -70,6 +70,7 @@ class ForumController extends Controller
 
         if($form->isValid()) {
             $subject->setIsPrivate(false);
+            $subject->setOwner($this->getUser());
             $em = $this->getDoctrine()->getManager();
             $em->persist($subject);
             $em->flush();
