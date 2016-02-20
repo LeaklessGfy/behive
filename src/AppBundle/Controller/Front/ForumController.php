@@ -105,7 +105,10 @@ class ForumController extends Controller
      */
     public function subjectAction($id)
     {
-        dump($id);die;
-        //return $this->render('pages/front/forum.html.twig');
+        $subject = $this->getDoctrine()->getRepository('AppBundle:FSubject')->find($id);
+
+        return $this->render('pages/front/forum/subject.html.twig', array(
+            "subject" => $subject
+        ));
     }
 }

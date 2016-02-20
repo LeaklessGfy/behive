@@ -9,11 +9,7 @@
 
     <div class="push">
         <div id="forum" class="main">
-            {% if app.user %}
-                <a href="{{ path('forum_subject_create') }}" class="detail-button">Créer un nouveau sujet</a>
-            {% else %}
-                <a href="{{ path('register') }}" class="detail-button">S'inscrire</a><a href="{{ path('front_login') }}" class="detail-button">Connexion</a>
-            {% endif %}
+            {% include "pages/front/partial/_forum_button.html.twig" %}
 
             <h2>Récents</h2>
 
