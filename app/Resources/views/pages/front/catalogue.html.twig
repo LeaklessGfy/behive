@@ -9,13 +9,13 @@
 
     <div id="catalogue" class="main">
         <h2 class="titleCategorieCatalogue">Jeux du moment</h2>
+
         <div class="flexContent">
-        {% for game in games %}
-            {% if loop.index is odd %}
+            {% for game in games %}
                 <div class="item">
                     <a href="">
                         <div class="containImage">
-                            <img src="{{ asset(game.cover)}}" />
+                            <img src="{{ asset(game.cover)}}" alt="">
                             <div class="bgImg"></div>
                         </div>
                         <h3>{{ game.name }}</h3>
@@ -26,120 +26,69 @@
                         </h4>
                     </a>
                 </div>
-            {% else %}
-                <div class="item right">
-                    <a href="">
-                        <div class="containImage">
-                            <img src="{{ game.cover }}">
-                            <div class="bgImg"></div>
-                        </div>
-                        <h3>{{ game.name }}</h3>
-                        <h4>
-                            {% for category in game.categories %}
-                                {{ category.name }}
-                            {% endfor %}
-                        </h4>
-                    </a>
-                </div>
-            {% endif %}
-        {% endfor %}
+            {% endfor %}
         </div>
+
         <div class="sectionCatalogue">
             <h2 class="titleCategorieCatalogue">Action / Aventure</h2>
             <div class="bgSectionCatalogue sectionAction"></div>
             <div class="flexContent">
                 {% for game in games %}
-                    {% if loop.index is odd %}
-                        <div class="item">
-                            <a href="">
-                                <h3>{{ game.name }}</h3>
-                                <h4>
-                                    {% for category in game.categories %}
-                                        {{ category.name }}
-                                    {% endfor %}
-                                </h4>
-                            </a>
-                        </div>
-                    {% else %}
-                        <div class="item right">
-                            <a href="">
-                                <h3>{{ game.name }}</h3>
-                                <h4>
-                                    {% for category in game.categories %}
-                                        {{ category.name }}
-                                    {% endfor %}
-                                </h4>
-                            </a>
-                        </div>
-                    {% endif %}
+                    <div class="item">
+                        <a href="">
+                            <h3>{{ game.name }}</h3>
+                            <h4>
+                                {% for category in game.categories %}
+                                    {{ category.name }}
+                                {% endfor %}
+                            </h4>
+                        </a>
+                    </div>
                 {% endfor %}
                 </div>
             <h3 class="hover boutonSubmit">voir plus...</h3>
         </div>
+
         <div class="sectionCatalogue">
             <h2 class="titleCategorieCatalogue">Plateforme</h2>
             <div class="bgSectionCatalogue sectionPlateforme"></div>
             <div class="flexContent">
                 {% for game in games %}
-                    {% if loop.index is odd %}
-                        <div class="item">
-                            <a href="">
-                                <h3>{{ game.name }}</h3>
-                                <h4>
-                                    {% for category in game.categories %}
-                                        {{ category.name }}
-                                    {% endfor %}
-                                </h4>
-                            </a>
-                        </div>
-                    {% else %}
-                        <div class="item right">
-                            <a href="">
-                                <h3>{{ game.name }}</h3>
-                                <h4>
-                                    {% for category in game.categories %}
-                                        {{ category.name }}
-                                    {% endfor %}
-                                </h4>
-                            </a>
-                        </div>
-                    {% endif %}
+                    <div class="item">
+                        <a href="">
+                            <h3>{{ game.name }}</h3>
+                            <h4>
+                                {% for category in game.categories %}
+                                    {{ category.name }}
+                                {% endfor %}
+                            </h4>
+                        </a>
+                    </div>
                 {% endfor %}
             </div>
             <h3 class="hover boutonSubmit">voir plus...</h3>
         </div>
+
         <div class="sectionCatalogue">
             <h2 class="titleCategorieCatalogue">Driving</h2>
             <div class="bgSectionCatalogue sectionVoiture"></div>
             <div class="flexContent">
                 {% for game in games %}
-                    {% if loop.index is odd %}
-                        <div class="item">
-                            <a href="">
-                                <h3>{{ game.name }}</h3>
-                                <h4>
-                                    {% for category in game.categories %}
-                                        {{ category.name }}
-                                    {% endfor %}
-                                </h4>
-                            </a>
-                        </div>
-                    {% else %}
-                        <div class="item right">
-                            <a href="">
-                                <h3>{{ game.name }}</h3>
-                                <h4>
-                                    {% for category in game.categories %}
-                                        {{ category.name }}
-                                    {% endfor %}
-                                </h4>
-                            </a>
-                        </div>
-                    {% endif %}
+                    <div class="item">
+                        <a href="">
+                            <h3>{{ game.name }}</h3>
+                            <h4>
+                                {% for category in game.categories %}
+                                    {{ category.name }}
+                                {% endfor %}
+                            </h4>
+                        </a>
+                    </div>
                 {% endfor %}
             </div>
             <h3 class="hover boutonSubmit">voir plus...</h3>
         </div>
+
         <div class="filtrer">
             <i class="fa fa-filter fa-2x"></i>
             <h4>Filtrer</h4>

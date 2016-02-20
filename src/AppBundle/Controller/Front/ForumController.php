@@ -47,7 +47,23 @@ class ForumController extends Controller
      */
     public function exploreAction()
     {
-        return $this->render('pages/front/forum/explore.html.twig');
+        $games = $this->getDoctrine()->getRepository("AppBundle:Game")->findBy(array(), array('id' => 'DESC'), 8, 0);
+
+        return $this->render('pages/front/forum/explore.html.twig', array(
+            "games" => $games
+        ));
+    }
+
+    /**
+     * @Route("/explorer/{id}", name="forum_explore_game")
+     */
+    public function exploreByGameAction($id)
+    {
+        $game = $this->getDoctrine()->getRepository("AppBundle:Game")->find($id);
+
+        return $this->render('pages/front/forum/explore_game.html.twig', array(
+            "game" => $game
+        ));
     }
 
     /**
