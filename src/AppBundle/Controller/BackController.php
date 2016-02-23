@@ -212,4 +212,23 @@ class BackController extends BaseController
         $id = $game->getId();
         return $this->redirectToRoute('back_edit', array("ressource" => "game", "id" => $id));
     }
+
+    /**
+     * @Route("/helper/from_cache", name="back_helper_from_cache")
+     * @Method("GET")
+     */
+    public function everyGameFromCacheAction()
+    {
+        $cache = $this->get('cache.service');
+        $result = $cache->getEverythingFromCache();
+
+        $em = $this->getDoctrine()->getManager();
+        foreach($result as $game) {
+            $game = $this->createGame($game);
+            $em->persist($game);
+            $em->flush();
+        }
+
+        return $this->redirectToRoute('back_home');
+    }
 }

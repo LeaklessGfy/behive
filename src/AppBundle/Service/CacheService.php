@@ -34,4 +34,18 @@ class CacheService
         catch(IOException $e) {
         }
     }
+
+    public function getEverythingFromCache()
+    {
+        $finder = new \Symfony\Component\Finder\Finder();
+        $finder->files()->in(__DIR__.'/../Cache/ApiGiant/')->name('game-*.json');
+
+        $contents = array();
+        foreach ($finder as $file) {
+            $raw = $file->getContents();
+            $contents[] = json_decode($raw, true)['results'];
+        }
+
+        return $contents;
+    }
 }
