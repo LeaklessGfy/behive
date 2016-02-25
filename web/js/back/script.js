@@ -68,7 +68,6 @@ $(document).ready(function() {
             method: "GET",
             success: function() {
                 handleResponse("success", "La ressource à bien été supprimé");
-                console.log(ressourceToDelete);
                 ressourceToDelete.remove();
             },
             error: function() {

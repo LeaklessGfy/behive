@@ -44,9 +44,14 @@
 
         {% if hasIt != true %}
             <div class="center">
-                <a href="{{ game.buy }}" class="detail-button">
+                <a href="{{ game.buy }}" class="margin-r-5 detail-button">
                     <i class="fa fa-download"></i> Télécharger
                 </a>
+                {% if app.user %}
+                    <a href="{{ path('game_add', {id:game.id}) }}" class="margin-l-5 detail-button ajax-link">
+                        <i class="fa fa-plus"></i> J'ai déjà ce jeu
+                    </a>
+                {% endif %}
             </div>
         {% endif %}
 
