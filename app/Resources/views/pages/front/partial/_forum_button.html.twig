@@ -1,0 +1,6 @@
+{% if app.user %}
+    <a href="{{ path('forum_subject_create') }}" class="detail-button">Créer un nouveau sujet</a>
+{% else %}
+    <p>Pour participer : </p>
+    <a href="{{ path('register') }}" class="detail-button">S'inscrire</a><span> Ou </span><a href="{{ path('front_login') }}" class="detail-button">Se connecter</a>
+{% endif %}

@@ -1,0 +1,19 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    Forum - Behive
+{% endblock %}
+
+{% block body %}
+    {% include "pages/front/partial/menu.html.twig" %}
+
+    <div class="push">
+        <div id="forum" class="main">
+            <h2>Privé</h2>
+
+            {% include "pages/front/partial/_module_chat.html.twig" %}
+        </div>
+    </div>
+
+    {% include "pages/front/partial/forum_menu.html.twig" %}
+{% endblock %}

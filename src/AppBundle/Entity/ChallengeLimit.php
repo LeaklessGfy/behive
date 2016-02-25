@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * ChallengeLimit
@@ -25,6 +26,9 @@ class ChallengeLimit
      * @var int
      *
      * @ORM\Column(name="begin", type="integer")
+     * @Assert\NotBlank(
+     *      message="Veuillez remplir ce champs"
+     * )
      */
     private $begin;
 
@@ -32,6 +36,9 @@ class ChallengeLimit
      * @var int
      *
      * @ORM\Column(name="end", type="integer")
+     * @Assert\NotBlank(
+     *      message="Veuillez remplir ce champs"
+     * )
      */
     private $end;
 
@@ -39,6 +46,9 @@ class ChallengeLimit
      * @var int
      *
      * @ORM\Column(name="points", type="integer")
+     * @Assert\NotBlank(
+     *      message="Veuillez remplir ce champs"
+     * )
      */
     private $points;
 

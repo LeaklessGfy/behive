@@ -1,0 +1,11 @@
+AppBundle\Entity\Game:
+    game_1:
+        name: The Witcher 3: Wild Hunt
+        date: <(new \DateTime('2014-02-02'))>
+        description: CD Projekt RED's third Witcher combines the series' non-linear storytelling with a sprawling open world that concludes the saga of Geralt of Rivia.
+        rating: <numberBetween(0, 5)>
+        cover: uploads/game/api-41484-img.jpg
+        pegi: 18
+        buy: http://store.steampowered.com/app/292030/
+        categories: [@category_1, @category_2]
+        editor: @editor_1

@@ -1,0 +1,111 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+     {{ subject.name }} - Behive
+{% endblock %}
+
+{% block body %}
+    {% include "pages/front/partial/menu.html.twig" %}
+
+    <div id="forum" class="push main">
+        <h2>{{ subject.name }}</h2>
+
+        <p>{{ subject.content }}</p>
+        <div class="discussion">
+            <div class="message reciever">
+                <div class="content">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                </div>
+                <div class="image">
+                    <div class="avatar">
+                        <img src="images/rayman.png" alt="">
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+            <div class="message sender">
+                <div class="image">
+                    <div class="avatar">
+                        <img src="images/rayman.png" alt="">
+                    </div>
+                </div>
+                <div class="content">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="message reciever">
+                <div class="content">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                </div>
+                <div class="image">
+                    <div class="avatar">
+                        <img src="images/rayman.png" alt="">
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+            <div class="message sender">
+                <div class="image">
+                    <div class="avatar">
+                        <img src="images/rayman.png" alt="">
+                    </div>
+                </div>
+                <div class="content">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="message reciever">
+                <div class="content">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                </div>
+                <div class="image">
+                    <div class="avatar">
+                        <img src="images/rayman.png" alt="">
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+            <div class="message sender">
+                <div class="image">
+                    <div class="avatar">
+                        <img src="images/rayman.png" alt="">
+                    </div>
+                </div>
+                <div class="content">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="message reciever">
+                <div class="content">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                </div>
+                <div class="image">
+                    <div class="avatar">
+                        <img src="images/rayman.png" alt="">
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+            <div class="message sender">
+                <div class="image">
+                    <div class="avatar">
+                        <img src="images/rayman.png" alt="">
+                    </div>
+                </div>
+                <div class="content">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+
+    {% include "pages/front/partial/forum_menu.html.twig" %}
+{% endblock %}

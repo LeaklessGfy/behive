@@ -4,8 +4,9 @@ namespace AppBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-class FrontController extends BaseController
+class FrontController extends Controller
 {
     /**
      * @Route("/", name="homepage")
@@ -22,7 +23,7 @@ class FrontController extends BaseController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $games = $em->getRepository("AppBundle:Game")->findAll();
+        $games = $em->getRepository("AppBundle:Game")->findBy(array(), array("id" => "DESC"), 8, 0);
         $categories = $em->getRepository("AppBundle:Category")->findAll();
 
         return $this->render('pages/front/catalogue.html.twig', array(
@@ -38,15 +39,29 @@ class FrontController extends BaseController
     {
         $em = $this->getDoctrine()->getManager();
 
-        return $this->render('pages/front/challenge.html.twig');
+        $challenges = $em->getRepository("AppBundle:Challenge")->findAll();
+        $dailyChallenge = $em->getRepository("AppBundle:Challenge")->findOneBy(array('isDaily' => true));
+
+        return $this->render('pages/front/challenge.html.twig', array(
+            "challenges" => $challenges,
+            "dailyChallenge" => $dailyChallenge
+        ));
     }
 
     /**
-     * @Route("/forum", name="forum")
+     * @Route("/profil", name="profil")
      */
-    public function forumAction()
+    public function profilAction()
     {
-        return $this->render('pages/front/forum.html.twig');
+        $em = $this->getDoctrine()->getManager();
+
+        $games = $em->getRepository("AppBundle:Game")->findAll();
+        $categories = $em->getRepository("AppBundle:Category")->findAll();
+
+        return $this->render('pages/front/profil.html.twig', array(
+            "games" => $games,
+            "categories" => $categories
+        ));
     }
 
     /**

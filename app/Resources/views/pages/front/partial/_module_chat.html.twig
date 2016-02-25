@@ -1,0 +1,19 @@
+<div class="chat">
+    {% for subject in subjects %}
+        <div class="message {% if loop.index is odd %}lighten{% else %}darken{% endif %}">
+            <a href="{{ path('forum_subject', {id:subject.id}) }}">
+                <div class="image">
+                    <div class="avatar">
+                        <img src="{{ subject.game.cover }}" alt="">
+                    </div>
+                </div>
+                <div class="content">
+                    <h3>{{ subject.name }} / {{ subject.game.name }}</h3>
+                    <p>{{ subject.owner }} - {{ subject.content }}</p>
+                    <i>{{ subject.lastUpdate }}</i>
+                </div>
+                <div class="clear"></div>
+            </a>
+        </div>
+    {% endfor %}
+</div>

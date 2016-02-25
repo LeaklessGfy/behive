@@ -36,6 +36,11 @@ class GameType extends AbstractType
                     'multiple' => true,
                     'expanded' => true
                 ))
+                ->add('editor', 'entity', array(
+                    'class' => 'AppBundle:Editor',
+                    'choice_label' => 'name',
+                    'multiple' => false
+                ))
         ;
     }
 

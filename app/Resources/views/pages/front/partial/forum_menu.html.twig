@@ -1,0 +1,36 @@
+<footer>
+    <nav class="footer-nav">
+        {% set rt = app.request.attributes.get('_route') %}
+        <ul>
+            <li>
+                <a href="{{ path('forum_home') }}"
+                   class="{% if rt == 'forum_home' %}active{% endif %}">
+                    <i class="fa fa-user"></i>
+                    <p>Récent</p>
+                </a>
+            </li>
+            <li>
+                <a href="{{ path('forum_explore') }}"
+                   class="{% if rt == 'forum_explore' %}active{% endif %}">
+                    <i class="fa fa-search"></i>
+                    <p>Explorer</p>
+                </a>
+            </li>
+            <li>
+                <a {% if app.user %}href="{{ path('forum_prive') }}"{% endif %}
+                   class="{% if app.user == null %}desactivate{% endif %}{% if rt == 'forum_prive' %}active{% endif %}">
+                    <i class="fa fa-comments"></i>
+                    <p>Privé</p>
+                </a>
+            </li>
+            <li>
+                <a {% if app.user %}href="{{ path('forum_param') }}"{% endif %}
+                   class="{% if app.user == null %}desactivate{% endif %}{% if rt == 'forum_param' %}active{% endif %}">
+                    <i class="fa fa-cog"></i>
+                    <p>Paramètres</p>
+                </a>
+            </li>
+            <div class="clear"></div>
+        </ul>
+    </nav>
+</footer>

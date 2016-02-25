@@ -1,0 +1,17 @@
+AppBundle\Entity\User:
+    user_1:
+        username: admin
+        password: $2y$13$bo.8OdHXy9Ea5j4TUJvSP.sJXPE.7kjVzEIf4/mh3aTAyQFjkTWze
+        level: <numberBetween(0, 50)>
+        xp: <numberBetween(0, 1500)>
+        email: <email()>
+        roles: @role_1
+        lastConnexion: <(new \DateTime('2014-02-02'))>
+    user_2:
+        username: user
+        password: $2y$13$bo.8OdHXy9Ea5j4TUJvSP.sJXPE.7kjVzEIf4/mh3aTAyQFjkTWze
+        level: <numberBetween(0, 50)>
+        xp: <numberBetween(0, 1500)>
+        email: <email()>
+        roles: @role_2
+        lastConnexion: <(new \DateTime('2014-02-02'))>

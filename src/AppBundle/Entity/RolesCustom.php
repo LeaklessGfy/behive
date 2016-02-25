@@ -3,6 +3,7 @@ namespace AppBundle\Entity;
 
 use Symfony\Component\Security\Core\Role\RoleInterface;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
 * @ORM\Table(name="roles_custom")
@@ -17,10 +18,20 @@ class RolesCustom implements RoleInterface
     */
     private $id;
 
-    /** @ORM\Column(name="name", type="string", length=30) */
+    /**
+     * @ORM\Column(name="name", type="string", length=30)
+     * @Assert\NotBlank(
+     *      message="Veuillez remplir ce champs"
+     * )
+     */
     private $name;
 
-    /** @ORM\Column(name="role", type="string", length=20, unique=true) */
+    /**
+     * @ORM\Column(name="role", type="string", length=20, unique=true)
+     * @Assert\NotBlank(
+     *      message="Veuillez remplir ce champs"
+     * )
+     */
     private $role;
 
     /**
@@ -71,6 +82,17 @@ class RolesCustom implements RoleInterface
         $this->role = $role;
 
         return $this;
+    }
+
+    public function toArray()
+    {
+        $entity = array(
+            "id" => $this->id,
+            "name" => $this->name,
+            "role" => $this->role
+        );
+
+        return $entity;
     }
 
     public function hasImage()

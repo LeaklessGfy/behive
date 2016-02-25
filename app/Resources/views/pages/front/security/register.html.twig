@@ -1,0 +1,45 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    Inscription - Behive
+{% endblock %}
+
+{% block body %}
+    {% include "pages/front/partial/menu.html.twig" %}
+
+    <div id="log" class="push">
+        <img src="{{ asset('img/logo.png') }}" alt="logo" width="110px">
+    </div>
+
+    <div id="login">
+        {{ form_start(form) }}
+            <div>
+                {{ form_label(form.username, "Pseudo") }}
+                {{ form_widget(form.username) }}
+            </div>
+
+            <div>
+                {{ form_label(form.password, "Mot de passe") }}
+                {{ form_widget(form.password) }}
+            </div>
+
+            <div>
+                {{ form_label(form.email, "Email") }}
+                {{ form_widget(form.email) }}
+            </div>
+
+            <div>
+                {{ form_label(form.avatar, "Avatar") }}
+                {{ form_widget(form.avatar) }}
+            </div>
+
+            <div>
+                <input type="submit" class="boutonSubmit" value="S'inscrire">
+            </div>
+        {{ form_end(form) }}
+
+        <div style="text-align:center;margin-top:10px;">
+            <p><a href="{{ path('front_login') }}">Déjà un compte ?</a></p>
+        </div>
+    </div>
+{% endblock %}

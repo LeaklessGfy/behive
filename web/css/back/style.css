@@ -556,7 +556,7 @@ footer  p a:hover{
 }
 
 .sticky-left-side .custom-nav {
-    margin-top: 59px;
+    margin-top: 40px;
 	background: #000;
 }
 
@@ -570,6 +570,7 @@ footer  p a:hover{
     text-decoration: none;
     display: inline-block;
     text-transform: capitalize;
+	padding-top: 10px;
 }
 .logo a span{
 	color:#000;
@@ -1842,7 +1843,6 @@ ul.dropdown-menu.drp-mnu li a i {
 .main-content {
     margin-left: 200px;
     background:#F8F8F8;
-    min-height: 1000px;
 }
 .main-content2{
 	min-height: 1250px !important;

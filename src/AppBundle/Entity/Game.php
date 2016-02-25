@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Game
@@ -26,6 +27,9 @@ class Game
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255)
+     * @Assert\NotBlank(
+     *      message="Veuillez remplir ce champs"
+     * )
      */
     private $name;
 
@@ -33,6 +37,9 @@ class Game
      * @var \DateTime
      *
      * @ORM\Column(name="date", type="date")
+     * @Assert\NotBlank(
+     *      message="Veuillez remplir ce champs"
+     * )
      */
     private $date;
 
@@ -40,6 +47,9 @@ class Game
      * @var string
      *
      * @ORM\Column(name="description", type="text")
+     * @Assert\NotBlank(
+     *      message="Veuillez remplir ce champs"
+     * )
      */
     private $description;
 
@@ -47,6 +57,9 @@ class Game
      * @var int
      *
      * @ORM\Column(name="rating", type="integer")
+     * @Assert\NotBlank(
+     *      message="Veuillez remplir ce champs"
+     * )
      */
     private $rating;
 
@@ -54,6 +67,10 @@ class Game
      * @var string
      *
      * @ORM\Column(name="cover", type="string", length=255, nullable=true)
+     * @Assert\Image(
+     *      maxSize = "200k",
+     *      mimeTypesMessage = "Veuillez uploader une image valide"
+     * )
      */
     private $cover;
 
@@ -63,7 +80,7 @@ class Game
     private $owners;
 
     /**
-     * @ORM\OneToOne(targetEntity="Challenge", inversedBy="game")
+     * @ORM\OneToMany(targetEntity="Challenge", mappedBy="game")
      * @ORM\JoinColumn(name="challenge_id", referencedColumnName="id")
      */
     private $challenge;
@@ -77,7 +94,7 @@ class Game
     /**
      * @var string
      *
-     * @ORM\Column(name="buy_link", type="string", length=255)
+     * @ORM\Column(name="buy_link", type="string", length=255, nullable=true)
      */
     private $buy;
 
@@ -85,6 +102,7 @@ class Game
      * @var int
      *
      * @ORM\Column(name="pegi", type="integer")
+     * @Assert\NotBlank()
      */
     private $pegi;
 
@@ -94,10 +112,18 @@ class Game
      */
     private $categories;
 
+    /**
+     * @ORM\OneToMany(targetEntity="FSubject", mappedBy="game")
+     */
+    private $forums;
+
     public function __construct()
     {
         $this->owners = new ArrayCollection();
         $this->categories = new ArrayCollection();
+        $this->challenge = new ArrayCollection();
+        $this->forums = new ArrayCollection();
+        $this->pegi = 0;
     }
 
     /**
@@ -259,19 +285,6 @@ class Game
     }
 
     /**
-     * Set challenge
-     *
-     * @param \AppBundle\Entity\Challenge $challenge
-     * @return Game
-     */
-    public function setChallenge(\AppBundle\Entity\Challenge $challenge = null)
-    {
-        $this->challenge = $challenge;
-
-        return $this;
-    }
-
-    /**
      * Get challenge
      *
      * @return \AppBundle\Entity\Challenge 
@@ -391,9 +404,9 @@ class Game
             $categoriesArray[] = $cat->getName();
         }
 
-        $chal = $this->challenge;
-        if($chal) {
-            $chal = $this->challenge->getName();
+        $challengesArray = array();
+        foreach($this->challenge as $cha) {
+            $challengesArray[] = $cha->getName();
         }
 
         $entity = array(
@@ -403,8 +416,8 @@ class Game
             "description" => $this->description,
             "rating" => $this->rating,
             "cover" => $this->cover,
-            "challenge" => $chal,
-            "editeur" => $this->editor,
+            "challenge" => $challengesArray,
+            "editeur" => $this->editor ? $this->editor->getName() : null,
             "buy link" => $this->buy,
             "pegi" => $this->pegi,
             "categories" => $categoriesArray
@@ -419,5 +432,61 @@ class Game
             "get" => $this->getCover(),
             "set" => "setCover"
         );
+    }
+
+    /**
+     * Add challenge
+     *
+     * @param \AppBundle\Entity\Challenge $challenge
+     * @return Game
+     */
+    public function addChallenge(\AppBundle\Entity\Challenge $challenge)
+    {
+        $this->challenge[] = $challenge;
+
+        return $this;
+    }
+
+    /**
+     * Remove challenge
+     *
+     * @param \AppBundle\Entity\Challenge $challenge
+     */
+    public function removeChallenge(\AppBundle\Entity\Challenge $challenge)
+    {
+        $this->challenge->removeElement($challenge);
+    }
+
+    /**
+     * Add forums
+     *
+     * @param \AppBundle\Entity\FSubject $forums
+     * @return Game
+     */
+    public function addForum(\AppBundle\Entity\FSubject $forums)
+    {
+        $this->forums[] = $forums;
+
+        return $this;
+    }
+
+    /**
+     * Remove forums
+     *
+     * @param \AppBundle\Entity\FSubject $forums
+     */
+    public function removeForum(\AppBundle\Entity\FSubject $forums)
+    {
+        $this->forums->removeElement($forums);
+    }
+
+    /**
+     * Get forums
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getForums()
+    {
+        return $this->forums;
     }
 }

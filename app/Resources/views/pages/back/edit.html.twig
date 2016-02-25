@@ -1,7 +1,9 @@
 {% extends "back_base.html.twig" %}
 
+{% block title %}Edition{% endblock %}
+
 {% block body %}
-    <h2>Modifier {{ app.request.get('ressource') }}</h2>
+    <h2>Edition : {{ ressourceHelper }}</h2>
 
     <div class="row">
         <div class="col-md-12">

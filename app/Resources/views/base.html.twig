@@ -5,18 +5,18 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>{% block title %}Welcome!{% endblock %}</title>
         {% block stylesheets %}
-            {% stylesheets 'css/beehive.css' 'css/font-awesome.min.css' filter='cssrewrite' %}
+            {% stylesheets 'css/front/behive.css' 'css/font-awesome.min.css' filter='cssrewrite' %}
                 <link rel="stylesheet" href="{{ asset_url }}">
             {% endstylesheets %}
         {% endblock %}
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
+        <link rel="icon" type="image/x-icon" href="{{ asset('img/favicon.png') }}">
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,300,700' rel='stylesheet' type='text/css'>
         <link href='https://fonts.googleapis.com/css?family=Lato:300,400' rel='stylesheet' type='text/css'>
     </head>
     <body>
         {% block body %}{% endblock %}
         {% block javascripts %}
-            {% javascripts 'js/jquery-2.2.0.min.js' 'js/app.js' 'js/beehive.js' 'js/catalogue.js' %}
+            {% javascripts 'js/jquery-2.2.0.min.js' 'js/front/app.js' 'js/front/behive.js' 'js/front/catalogue.js' %}
                 <script src="{{ asset_url }}"></script>
             {% endjavascripts %}
         {% endblock %}

@@ -5,20 +5,20 @@
 {% endblock %}
 
 {% block body %}
-    <header>
-        <a class="profil" href="profil.html"></a>
-        <h1><a href="index.html">Behive</a></h1>
-    </header>
+    <div class="home_logo"></div>
 
-    <div id="main" class="main">
-        <a href="" class="section first">
+    <div id="main" class="home_main">
+        <a href="{{ path('catalogue') }}" class="section first">
             <h2 class="nameCategorie">Catalogue</h2>
+            <p class="home_decouvrir">Découvrir</p>
         </a>
-        <a href="" class="section second">
+        <a href="{{ path('challenge') }}" class="section second">
             <h2 class="nameCategorie">Challenges</h2>
+            <p class="home_decouvrir">Découvrir</p>
         </a>
-        <a href="" class="section third">
+        <a href="{{ path('forum_home') }}" class="section third">
             <h2 class="nameCategorie">Forum</h2>
+            <p class="home_decouvrir">Découvrir</p>
         </a>
     </div>
 {% endblock %}

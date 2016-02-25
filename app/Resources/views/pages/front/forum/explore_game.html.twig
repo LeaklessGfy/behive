@@ -1,0 +1,19 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    Explorer {{ game.name }} - Behive
+{% endblock %}
+
+{% block body %}
+    {% include "pages/front/partial/menu.html.twig" %}
+
+    <div id="forum" class="push main">
+        {% include "pages/front/partial/_forum_button.html.twig" %}
+
+        <h2>{{ game.name }}</h2>
+
+        {% include "pages/front/partial/_module_chat.html.twig" with {subjects:game.forums}  %}
+    </div>
+
+    {% include "pages/front/partial/forum_menu.html.twig" %}
+{% endblock %}

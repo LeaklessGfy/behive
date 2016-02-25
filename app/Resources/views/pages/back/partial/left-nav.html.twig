@@ -1,6 +1,11 @@
 <div class="left-side sticky-left-side">
-    <div class="logo">
-        <h1><a href="{{ path('back_home') }}">Behive Back</a></h1>
+    <div class="logo text-center">
+        <h1>
+            <a href="{{ path('back_home') }}">
+                Behive<br>
+                <img src="{{ asset('img/logo.png') }}" alt="" width="50px">
+            </a>
+        </h1>
     </div>
 
     <div class="left-side-inner">
@@ -8,24 +13,68 @@
             {% set route = app.request.attributes.get('_route') %}
             {% set re = app.request.get('ressource') %}
 
-            <li {% if route == "back_home" %}class="active"{% endif %}><a href="{{ path('back_home') }}"><i class="lnr lnr-power-switch"></i><span>Dashboard</span></a></li>
+            <li {% if route == "back_home" %}class="active"{% endif %}>
+                <a href="{{ path('back_home') }}">
+                    <i class="fa fa-home"></i><span>Dashboard</span>
+                </a>
+            </li>
 
-            <li {% if re == "user" %}class="active"{% endif %}><a href="{{ path('back_list', {ressource:'user'}) }}"><i class="lnr lnr-spell-check"></i> <span>Utilisateurs</span></a></li>
+            <li {% if re == "user" %}class="active"{% endif %}>
+                <a href="{{ path('back_list', {ressource:'user'}) }}">
+                    <i class="fa fa-users"></i> <span>Utilisateurs</span>
+                </a>
+            </li>
 
-            <li {% if re == "game" %}class="active"{% endif %}><a href="{{ path('back_list', {ressource:'game'}) }}"><i class="lnr lnr-spell-check"></i> <span>Jeux vidéos</span></a></li>
+            <li {% if re == "game" %}class="active"{% endif %}>
+                <a href="{{ path('back_list', {ressource:'game'}) }}">
+                    <i class="fa fa-gamepad"></i> <span>Jeux vidéos</span>
+                </a>
+            </li>
 
-            <li {% if re == "category" %}class="active"{% endif %}><a href="{{ path('back_list', {ressource:'category'}) }}"><i class="lnr lnr-spell-check"></i> <span>Categories</span></a></li>
+            <li {% if re == "category" %}class="active"{% endif %}>
+                <a href="{{ path('back_list', {ressource:'category'}) }}">
+                    <i class="fa fa-tags"></i> <span>Categories</span>
+                </a>
+            </li>
 
-            <li {% if re == "editor" %}class="active"{% endif %}><a href="{{ path('back_list', {ressource:'editor'}) }}"><i class="lnr lnr-spell-check"></i> <span>Editeurs</span></a></li>
+            <li {% if re == "editor" %}class="active"{% endif %}>
+                <a href="{{ path('back_list', {ressource:'editor'}) }}">
+                    <i class="fa fa-suitcase"></i> <span>Editeurs</span>
+                </a>
+            </li>
 
-            <li class="menu-list {% if re == "challenge" or re == "challengeAward"  %}active{% endif %}"><a href="{{ path('back_list', {ressource:'challenge'}) }}"><i class="lnr lnr-indent-increase"></i> <span>Challenges</span></a>
+            <li class="menu-list {% if re == "challenge" or re == "challengeAward"  %}active{% endif %}">
+                <a href="{{ path('back_list', {ressource:'challenge'}) }}">
+                    <i class="fa fa-rocket"></i> <span>Challenges</span>
+                </a>
+
                 <ul class="sub-menu-list">
-                    <li {% if re == "challenge" %}class="active"{% endif %}><a href="{{ path('back_list', {ressource:'challenge'}) }}">Challenges</a></li>
-                    <li {% if re == "challengeAward" %}class="active"{% endif %}><a href="{{ path('back_list', {ressource:'challengeAward'}) }}">Récompenses</a></li>
+                    <li {% if re == "challenge" %}class="active"{% endif %}>
+                        <a href="{{ path('back_list', {ressource:'challenge'}) }}">Challenges</a>
+                    </li>
+                    <li {% if re == "challengeAward" %}class="active"{% endif %}>
+                        <a href="{{ path('back_list', {ressource:'challengeAward'}) }}">Récompenses</a>
+                    </li>
                 </ul>
             </li>
 
-            <li {% if re == "badge" %}class="active"{% endif %}><a href="{{ path('back_list', {ressource:'badge'}) }}"><i class="lnr lnr-pencil"></i> <span>Badges</span></a></li>
+            <li {% if re == "badge" %}class="active"{% endif %}>
+                <a href="{{ path('back_list', {ressource:'badge'}) }}">
+                    <i class="fa fa-bug"></i> <span>Badges</span>
+                </a>
+            </li>
+
+            <li {% if re == "rolesCustom" %}class="active"{% endif %}>
+                <a href="{{ path('back_list', {ressource:'rolesCustom'}) }}">
+                    <i class="fa fa-flag"></i> <span>Role</span>
+                </a>
+            </li>
+
+            <li {% if route == "back_helper" %}class="active"{% endif %}>
+                <a href="{{ path('back_helper') }}">
+                    <i class="fa fa-question"></i> <span>Helper</span>
+                </a>
+            </li>
         </ul>
     </div>
 </div>

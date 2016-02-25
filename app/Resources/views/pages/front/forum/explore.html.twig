@@ -1,0 +1,45 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    Explorer - Behive
+{% endblock %}
+
+{% block body %}
+    {% include "pages/front/partial/menu.html.twig" %}
+
+    <div class="push">
+        <div id="forum" class="main">
+            <h2>Explorer</h2>
+
+            <form>
+                <div>
+                    <input type="text" name="search" placeholder="Nom d'un jeu">
+                </div>
+
+                <input type="submit" value="Rechercher">
+            </form>
+
+            <h2 class="titleCategorieCatalogue">Par jeux</h2>
+            <div class="flexContent">
+                {% for game in games %}
+                    <div class="item">
+                        <a href="{{ path('forum_explore_game', {id:game.id}) }}">
+                            <div class="containImage">
+                                <img src="{{ asset(game.cover) }}" alt="">
+                                <div class="bgImg"></div>
+                            </div>
+                            <h3>{{ game.name }}</h3>
+                            <h4>
+                                {% for category in game.categories %}
+                                    {{ category.name }}
+                                {% endfor %}
+                            </h4>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    {% include "pages/front/partial/forum_menu.html.twig" %}
+{% endblock %}

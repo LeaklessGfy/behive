@@ -1,0 +1,38 @@
+{% extends "back_base.html.twig" %}
+
+{% block title %}Helper{% endblock %}
+
+{% block body %}
+    <h2>Helper</h2>
+
+    <form action="{{ path('back_helper') }}" method="GET">
+        <div class="form-group">
+            <input name="search" class="form-control" type="text" placeholder="Game name" value="{{ search }}">
+        </div>
+        <div class="form-group">
+            <input class="btn btn-warning" type="submit" value="Search">
+        </div>
+    </form>
+
+    <ul class="list-group">
+        {% if games is defined %}
+            {% for game in games %}
+                <li class="list-group-item">
+                    {% if game.image.super_url is defined %}
+                        <img src="{{ game.image.super_url }}" alt="" width="200px">
+                    {% endif %}
+
+                    <h3>{{ game.name }}</h3>
+                    <p>{{ game.deck }}</p>
+
+                    <form action="{{ path('back_helper_save') }}" method="POST">
+                        <input type="hidden" value="{{ game.api_detail_url }}" name="url">
+                        <input type="hidden" value="{{ game.name }}" name="name">
+
+                        <input class="btn btn-warning" type="submit" value="Enregistrer en base">
+                    </form>
+                </li>
+            {% endfor %}
+        {% endif %}
+    </ul>
+{% endblock %}

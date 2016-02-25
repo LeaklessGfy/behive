@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Challenge
@@ -26,6 +27,9 @@ class Challenge
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255)
+     * @Assert\NotBlank(
+     *      message="Veuillez remplir ce champs"
+     * )
      */
     private $name;
 
@@ -33,6 +37,10 @@ class Challenge
      * @var string
      *
      * @ORM\Column(name="cover", type="string", length=255, nullable=true)
+     * @Assert\Image(
+     *      maxSize = "200k",
+     *      mimeTypesMessage = "Veuillez uploader une image valide"
+     * )
      */
     private $cover;
 
@@ -40,6 +48,9 @@ class Challenge
      * @var string
      *
      * @ORM\Column(name="description", type="text")
+     * @Assert\NotBlank(
+     *      message="Veuillez remplir ce champs"
+     * )
      */
     private $description;
 
@@ -49,12 +60,12 @@ class Challenge
     private $players;
 
     /**
-     * @ORM\OneToOne(targetEntity="Game", mappedBy="challenge")
+     * @ORM\ManyToOne(targetEntity="Game", inversedBy="challenge")
      */
     private $game;
 
     /**
-     * @ORM\OneToMany(targetEntity="ChallengeLimit", mappedBy="challenge")
+     * @ORM\OneToMany(targetEntity="ChallengeLimit", mappedBy="challenge", cascade={"persist"}, orphanRemoval=true)
      */
     private $limits;
 
@@ -191,6 +202,7 @@ class Challenge
      */
     public function setGame(\AppBundle\Entity\Game $game = null)
     {
+        $game->addChallenge($this);
         $this->game = $game;
 
         return $this;
@@ -227,6 +239,7 @@ class Challenge
     public function removeLimit(\AppBundle\Entity\ChallengeLimit $limits)
     {
         $this->limits->removeElement($limits);
+        $limits->setChallenge(null);
     }
 
     /**
@@ -248,7 +261,7 @@ class Challenge
 
         $limitsArray = array();
         foreach($this->limits as $limit) {
-            $limitsArray[] = $limit->getBegin() . " - " . $limit->getEnd();
+            $limitsArray[] = $limit->getBegin() . " - " . $limit->getEnd() . " - " . $limit->getPoints() . " points";
         }
 
         $entity = array(
@@ -257,7 +270,7 @@ class Challenge
             "cover" => $this->cover,
             "description" => $this->description,
             "players" => $playersArray,
-            "game" => $this->game,
+            "game" => $this->game ? $this->game->getName() : null,
             "limits" => $limitsArray
         );
 
