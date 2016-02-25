@@ -1389,6 +1389,53 @@ header h1 a{
 	background:		url('../../img/drivingSection.jpg') no-repeat center /cover;
 }
 
+.liste{
+	padding-top:	65px;
+	width:			60%;
+	margin:			0 auto;
+	max-width:		900px;
+}
+.liste h3{
+	width:			60%;
+	display:		inline-block;
+}
+.liste h4{
+	font-size:		14px;
+}
+.liste p{
+	width:			60%;
+	font-size:		12px;
+	max-height:		50px;
+	overflow:		hidden;
+}
+.itemListe{
+	height:			120px;
+	width:			100%;
+	overflow:		hidden;
+	background:		#252a2e;
+	border-bottom:	1px solid #fff;
+	padding:		20px;
+}
+.imgListe{
+	width:			200px;
+	float:			right;
+	height:			120px;
+	overflow:		hidden;
+}
+.imgListe img{
+	width:			200px;
+}
+.listeCategorie{
+
+}
+.titleListe{
+	padding-top:	85px;
+	padding-bottom:	20px;
+	margin-bottom:	20px;
+	text-align:		center;
+	background:		#252a2e;
+}
+
 @media screen and (max-width: 700px) {
 	.item {
 		width: 47%;
