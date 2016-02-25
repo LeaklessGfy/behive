@@ -106,10 +106,9 @@ class FrontController extends Controller
         $hasIt = false;
         $user = $this->getUser();
         if($user) {
-            $userGames = $user->getGames();
-            dump($userGames);die;
+            $userGames = $user->getGameContent();
             foreach($userGames as $game) {
-                if($game->getId() === $id) {
+                if($game->getId() == $id) {
                     $hasIt = true;
                 }
             }
