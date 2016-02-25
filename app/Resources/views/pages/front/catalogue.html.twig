@@ -88,15 +88,18 @@
             </div>
             <h3 class="hover boutonSubmit">voir plus...</h3>
         </div>
-
-        <ul>
-            {% for category in categories %}
-                <li>
-                    <img src="{{ category.logo }}">
-                    <h5>{{ category.name }}</h5>
-                </li>
-            {% endfor %}
-        </ul>
+        <div class="sectionCatalogue autresCat">
+            <h2 class="titleCategorieCatalogue">Autres catégories</h2>
+            <ul>
+                {% for category in categories %}
+                    <li>
+                        <a href="{{ path('search', {filter: category.name|lower|url_encode}) }}">
+                            <h5>{{ category.name }}</h5>
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
         <!--
         <div class="filtrer">
             <i class="fa fa-filter fa-2x"></i>
