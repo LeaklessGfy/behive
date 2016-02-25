@@ -34,11 +34,10 @@
         <h2>Autres challenges</h2>
         {% for challenge in challenges %}
             <div class="day">
-                <h3>{{ challenge.name|capitalize }}</h3>
-                <h4 class="center"><a href="{{ path('game', {id: challenge.game.id}) }}">{{ challenge.game.name }}</a></h4>
                 <div class="dayChallenge">
                     <img src="{{ challenge.cover }}" alt="">
-                    <h2 class="detail-title">{{ challenge.name }}}</h2>
+                    <h2 class="detail-title">{{ challenge.name }}</h2>
+                    <h4 class="center"><a href="{{ path('game', {id: challenge.game.id}) }}">{{ challenge.game.name }}</a></h4>
                 </div>
                 <div class="descriptionChallenge">
                     <h3>Seuils d'expérience:</h3>
