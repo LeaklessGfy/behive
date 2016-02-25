@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -26,6 +27,9 @@ class FrontController extends Controller
         $games = $em->getRepository("AppBundle:Game")->findBy(array(), array("id" => "DESC"), 8, 0);
         $categories = $em->getRepository("AppBundle:Category")->findAll();
 
+        $action = null;
+        $fps = null;
+        $rpg= null;
         foreach($categories as $category) {
             if($category->getName() === "Action-Adventure") {
                 $action = $category;
@@ -54,8 +58,6 @@ class FrontController extends Controller
 
         $challenges = $em->getRepository("AppBundle:Challenge")->findAll();
         $dailyChallenge = $em->getRepository("AppBundle:Challenge")->findOneBy(array('isDaily' => true));
-
-        dump($challenges);
 
         return $this->render('pages/front/challenge.html.twig', array(
             "challenges" => $challenges,
@@ -89,22 +91,59 @@ class FrontController extends Controller
     }
 
     /**
-     * @Route("/jeux/{id}", name="game")
+     * @Route("/jeux/{id}", name="game", requirements={
+     *     "id": "\d+"
+     * })
      */
     public function gameAction($id)
     {
         $game = $this->getDoctrine()->getRepository("AppBundle:Game")->find($id);
 
-        $user = $this->getUser();
-        if($user) {
-            $userGames = $user->getGames();dump($userGames);
+        if(!$game) {
+            return $this->redirectToRoute('catalogue');
         }
 
         $hasIt = false;
+        $user = $this->getUser();
+        if($user) {
+            $userGames = $user->getGames();
+            dump($userGames);die;
+            foreach($userGames as $game) {
+                if($game->getId() === $id) {
+                    $hasIt = true;
+                }
+            }
+        }
+
         return $this->render('pages/front/game.html.twig', array(
             "game" => $game,
             "hasIt" => $hasIt
         ));
+    }
+
+    /**
+     * @Route("/jeux/ajout/{id}", name="game_add", requirements={
+     *     "id": "\d+"
+     * })
+     */
+    public function gameAddAction($id)
+    {
+        $response = new JsonResponse();
+        $response->setStatusCode(400);
+
+        if($user = $this->getUser()) {
+            $em = $this->getDoctrine()->getManager();
+            $game = $em->getRepository("AppBundle:Game")->find($id);
+            $response->setStatusCode(404);
+
+            if($game) {
+                $user->addGame($game);
+                $em->flush();
+                $response->setStatusCode(200);
+            }
+        }
+
+        return $response;
     }
 
     /**

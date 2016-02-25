@@ -19,13 +19,12 @@
                 <div class="descriptionChallenge">
                     <h3>Seuils d'expérience:</h3>
                     <div class="contentText">
-                        <h3><span class="position">#1</span> <span class="date">3000 points</span></h3>
-                        <h3><span class="position">#2 - #150</span> <span class="date">1000 points</span></h3>
-                        <h3><span class="position">#150 - #1200</span> <span class="date">800 points</span></h3>
-                        <h3><span class="position">#1200 - #3000</span> <span class="date">200 points</span></h3>
+                        {% for limit in challenge.limits %}
+                            <p><span class="position">{{ limit.begin }} - {{ limit.end }}</span> <span class="date">{{ limit.points }} points</span></p>
+                        {% endfor %}
                     </div>
-                    <a class="detail-button">
-                        S'INSCRIRE
+                    <a class="boutonSubmit detail-button" href="{{ path('homepage') }}">
+                        Participer
                     </a>
                 </div>
             </div>
@@ -37,7 +36,7 @@
                 <div class="dayChallenge">
                     <img src="{{ challenge.cover }}" alt="">
                     <h2 class="detail-title">{{ challenge.name }}</h2>
-                    <h4 class="center"><a href="{{ path('game', {id: challenge.game.id}) }}">{{ challenge.game.name }}</a></h4>
+                    <h4 class="center detail-title"><a href="{{ path('game', {id: challenge.game.id}) }}">{{ challenge.game.name }}</a></h4>
                 </div>
                 <div class="descriptionChallenge">
                     <h3>Seuils d'expérience:</h3>
@@ -46,9 +45,19 @@
                             <p><span class="position">{{ limit.begin }} - {{ limit.end }}</span> <span class="date">{{ limit.points }} points</span></p>
                         {% endfor %}
                     </div>
-                    <a class="boutonSubmit detail-button" href="{{ path('homepage') }}">
-                        Participer
-                    </a>
+                    {% if app.user %}
+                        <a class="boutonSubmit detail-button" href="{{ path('homepage') }}">
+                            Participer
+                        </a>
+                    {% else %}
+                        <p class="center">Pour participer ?</p>
+                        <a class="boutonSubmit detail-button" href="{{ path('homepage') }}">
+                            S'inscrire
+                        </a>
+                        <a class="boutonSubmit detail-button" href="{{ path('homepage') }}">
+                            Connexion
+                        </a>
+                    {% endif %}
                 </div>
             </div>
         {% endfor %}

@@ -16,8 +16,7 @@ class AppFixtures extends DataFixtureLoader
             __DIR__ . '/users.yml',
             __DIR__ . '/categories.yml',
             __DIR__ . '/editors.yml',
-            __DIR__ . '/games.yml',
-            __DIR__ . '/badges.yml',
+            __DIR__ . '/badges.yml'
         );
     }
 }

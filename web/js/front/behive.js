@@ -3,6 +3,21 @@ $( document ).ready( function(){
 	var compteur = 1;
 	var search;
 
+	$(".ajax-link").click(function(e) {
+		e.preventDefault();
+
+		$.ajax({
+			url: $(this).attr('href'),
+			method: "GET",
+			success: function() {
+				alert("add");
+			},
+			error: function() {
+				alert("error");
+			}
+		});
+	});
+
 	$(".MenuDroite").click( function(){
 		var menu = $('.MenuDroite nav'),
 		sidebar = $("#sideMenu");
@@ -20,6 +35,7 @@ $( document ).ready( function(){
 	$(".itemFiltrer").click( function(){
 		$(this).toggleClass("filtreActif");
 	});
+
 	$(".search").click( function(e) {
 		var elem = $(".textSearch");
 
@@ -33,7 +49,6 @@ $( document ).ready( function(){
 			}
 			$(".closeSearchX").fadeIn(300);
 			elem.addClass("openInput");
-			elem.unbind("click");
 		}
 	});
 

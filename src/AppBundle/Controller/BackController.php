@@ -202,33 +202,24 @@ class BackController extends BaseController
 
         $api = $this->get('api.game');
         $response = $api->getVideoGame($url, $name);
-        $game = $this->createGame($response['results']);
 
-        $em->persist($game);
+        $categories = $em->getRepository('AppBundle:Category')->findAll();
+        $editor = $em->getRepository('AppBundle:Editor')->findOneBy(array('name' => $response['results']['publishers'][0]['name']));
+
+        $return = $this->get('load.game.service')->createGame($categories, $editor, $response['results']);
+
+        foreach($return['categories'] as $category) {
+            $em->persist($category);
+        }
+        if($return['editor']) {
+            $em->persist($return['editor']);
+        }
+        $em->persist($return['game']);
         $em->flush();
 
         $this->addFlash('success', 'Le jeu à bien été créé');
+        $id = $return['game']->getId();
 
-        $id = $game->getId();
         return $this->redirectToRoute('back_edit', array("ressource" => "game", "id" => $id));
-    }
-
-    /**
-     * @Route("/helper/from_cache", name="back_helper_from_cache")
-     * @Method("GET")
-     */
-    public function everyGameFromCacheAction()
-    {
-        $cache = $this->get('cache.service');
-        $result = $cache->getEverythingFromCache();
-
-        $em = $this->getDoctrine()->getManager();
-        foreach($result as $game) {
-            $game = $this->createGame($game);
-            $em->persist($game);
-            $em->flush();
-        }
-
-        return $this->redirectToRoute('back_home');
     }
 }

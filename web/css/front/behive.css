@@ -99,9 +99,21 @@ h1 a:hover{
 	background-size:cover;
 }
 
-	.push {
-		padding-top: 70px;
-	}
+.push {
+	padding-top: 70px;
+}
+
+.little-push {
+	padding-top: 20px;
+}
+
+.margin-l-5 {
+	margin-left: 5px;
+}
+
+.margin-r-5 {
+	margin-right: 5px;
+}
 
 	.section{
 		height:			100%;
@@ -834,7 +846,7 @@ div.round canvas{
 .detail-title{
 	display: inline-block;
 	width: 100%;
-	background: rgba(0,0,0,0.5);
+	background: rgba(0,0,0,1);
 	text-align: center;
 	font-size: 24px;
 	text-transform: uppercase;

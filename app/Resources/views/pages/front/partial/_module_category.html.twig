@@ -1,0 +1,23 @@
+{% if category %}
+    <div class="sectionCatalogue">
+        <h2 class="titleCategorieCatalogue">{{ category.name }}</h2>
+
+        <div class="bgSectionCatalogue section{{ class }}"></div>
+        <div class="flexContent">
+            {% for game in category.games %}
+                <div class="item">
+                    <a href="{{ path('game', {id:game.id}) }}">
+                        <h3>{{ game.name }}</h3>
+                        <h4>
+                            {% for category in game.categories %}
+                                {{ category.name }}
+                            {% endfor %}
+                        </h4>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+
+        <a href="{{ path('search', {filter:category.name|lower|url_encode}) }}" class="hover boutonSubmit">voir plus...</a>
+    </div>
+{% endif %}
