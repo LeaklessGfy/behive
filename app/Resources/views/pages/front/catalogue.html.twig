@@ -89,16 +89,19 @@
             <h3 class="hover boutonSubmit">voir plus...</h3>
         </div>
 
+        <ul>
+            {% for category in categories %}
+                <li>
+                    <img src="{{ category.logo }}">
+                    <h5>{{ category.name }}</h5>
+                </li>
+            {% endfor %}
+        </ul>
+
         <div class="filtrer">
             <i class="fa fa-filter fa-2x"></i>
             <h4>Filtrer</h4>
             <div class="tableauFiltrer">
-                {% for category in categories %}
-                    <div class="itemFiltrer">
-                        <img src="{{ category.logo }}">
-                        <h5>{{ category.name }}</h5>
-                    </div>
-                {% endfor %}
                 <div style="clear:both"></div>
             </div>
             <div class="closeFiltre">
