@@ -86,7 +86,7 @@ class FrontController extends Controller
     }
 
     /**
-     * @Route("/list/{search}", name="search")
+     * @Route("/list/{search}", name="search", defaults={"search" = null})
      */
     public function searchAction($search)
     {
