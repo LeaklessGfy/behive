@@ -28,6 +28,9 @@ $( document ).ready( function(){
 		}
 		else {
 			e.preventDefault();
+			if( $(window).width() < 700 ) {
+				$("h1").fadeOut(300);
+			}
 			$(".closeSearchX").fadeIn(300);
 			elem.addClass("openInput");
 			elem.unbind("click");

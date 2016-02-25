@@ -341,7 +341,7 @@ header input{
 	position:		absolute;
 	font-size: 		20px;
 	color:			#2f353a;
-	right:			75px;
+	right:			45px;
 	top: 			16px;
 	z-index:		10000;
 }
@@ -1368,17 +1368,16 @@ header h1 a{
 	background:		url('../../img/actionSection.jpg') no-repeat center /cover;
 }
 .sectionPlateforme{
-	background:		url('../../img/plateformeSection.jpg') no-repeat center /cover;
+	background:		url('../../img/fpsSection.jpg') no-repeat center /cover;
 }
 .sectionVoiture{
-	background:		url('../../img/drivingSection.jpg') no-repeat center /cover;
+	background:		url('../../img/rpgSection.jpg') no-repeat center /cover;
 }
 
 .liste{
 	padding-top:	65px;
-	width:			60%;
-	margin:			0 auto;
-	max-width:		900px;
+	width:			65%;
+	margin-left:	4.5%;
 }
 .liste h3{
 	width:			60%;
@@ -1410,8 +1409,20 @@ header h1 a{
 .imgListe img{
 	width:			200px;
 }
-.listeCategorie{
+.listeCategories li{
+	list-style-type:none;
+	text-transform:	uppercase;
+	border-bottom:	1px solid #fff;
+	padding:		3px;
+}
 
+.listeCategories{
+	position:		fixed;
+	top:			65px;
+	background:		#252a2e;
+	width:			20%;
+	right:			0;
+	padding:		20px;
 }
 .titleListe{
 	padding-top:	85px;
@@ -1419,6 +1430,15 @@ header h1 a{
 	margin-bottom:	20px;
 	text-align:		center;
 	background:		#252a2e;
+}
+.deco{
+	text-transform: uppercase;
+	margin:			10px auto;
+	text-align:		center;
+	display:		block;
+	padding:		5px;
+	width:			50%;
+	border:			2px solid #f7ca18;
 }
 
 @media screen and (max-width: 700px) {
