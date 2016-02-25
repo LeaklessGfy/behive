@@ -7,7 +7,7 @@
 {% block body %}
     {% include "pages/front/partial/menu.html.twig" %}
 
-    <div id="challenges" class="main">
+    <div id="challenges" class="main push">
         {% if dailyChallenge|length %}
             <h2>Challenge du jour</h2>
             <div class="cDay">
@@ -19,14 +19,13 @@
                 <div class="descriptionChallenge">
                     <h3>Seuils d'expérience:</h3>
                     <div class="contentText">
-                        <h3><span class="position">#1</span> <span class="date">3000 points</span></h3>
-                        <h3><span class="position">#2 - #150</span> <span class="date">1000 points</span></h3>
-                        <h3><span class="position">#150 - #1200</span> <span class="date">800 points</span></h3>
-                        <h3><span class="position">#1200 - #3000</span> <span class="date">200 points</span></h3>
+                        {% for limit in challenge.limits %}
+                            <p><span class="position">{{ limit.begin }} - {{ limit.end }}</span> <span class="date">{{ limit.points }} points</span></p>
+                        {% endfor %}
                     </div>
-                    <div class="boutonSubmit">
-                        S'INSCRIRE
-                    </div>
+                    <a class="boutonSubmit detail-button" href="{{ path('homepage') }}">
+                        Participer
+                    </a>
                 </div>
             </div>
         {% endif %}
@@ -34,23 +33,31 @@
         <h2>Autres challenges</h2>
         {% for challenge in challenges %}
             <div class="day">
-                <h3 class="titleDay">{{ challenge.game.name }}</h3>
                 <div class="dayChallenge">
-                    <img src="{{ challenge.cover }}" />
-                    <h2 class="detail-title">{{ challenge.name }}}</h2>
-                </div></h2>
+                    <img src="{{ challenge.cover }}" alt="">
+                    <h2 class="detail-title">{{ challenge.name }}</h2>
+                    <h4 class="center detail-title"><a href="{{ path('game', {id: challenge.game.id}) }}">{{ challenge.game.name }}</a></h4>
                 </div>
                 <div class="descriptionChallenge">
                     <h3>Seuils d'expérience:</h3>
                     <div class="contentText">
-                        <h3><span class="position">#1</span> <span class="date">5000 points</span></h3>
-                        <h3><span class="position">#2 - #150</span> <span class="date">1200 points</span></h3>
-                        <h3><span class="position">#150 - #1200</span> <span class="date">500 points</span></h3>
-                        <h3><span class="position">#1200 - #3000</span> <span class="date">100 points</span></h3>
+                        {% for limit in challenge.limits %}
+                            <p><span class="position">{{ limit.begin }} - {{ limit.end }}</span> <span class="date">{{ limit.points }} points</span></p>
+                        {% endfor %}
                     </div>
-                    <div class="boutonSubmit">
-                        S'INSCRIRE
-                    </div>
+                    {% if app.user %}
+                        <a class="boutonSubmit detail-button" href="{{ path('homepage') }}">
+                            Participer
+                        </a>
+                    {% else %}
+                        <p class="center">Pour participer ?</p>
+                        <a class="boutonSubmit detail-button" href="{{ path('homepage') }}">
+                            S'inscrire
+                        </a>
+                        <a class="boutonSubmit detail-button" href="{{ path('homepage') }}">
+                            Connexion
+                        </a>
+                    {% endif %}
                 </div>
             </div>
         {% endfor %}

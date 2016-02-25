@@ -63,9 +63,20 @@ class SecurityController extends Controller
             $em = $this->getDoctrine()->getManager();
             $newUser->setLastConnexion(new \DateTime('now'));
 
+            //Image
+            if($file = $newUser->getAvatar()) {
+                $fileName = "user-".time()."-img.jpg";
+                $fileDir = $this->container->getParameter('kernel.root_dir').'/../web/uploads/user';
+                $file->move($fileDir, $fileName);
+
+                $newUser->setAvatar("uploads/user/".$fileName);
+            }
+
+            //Role
             $role = $em->getRepository('AppBundle:RolesCustom')->findOneBy(array('role' => 'ROLE_USER'));
             $newUser->setRoles($role);
 
+            //Password
             $plainPassword = $newUser->getPassword();
             $encoder = $this->container->get('security.password_encoder');
             $encoded = $encoder->encodePassword($newUser, $plainPassword);

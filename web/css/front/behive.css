@@ -99,9 +99,21 @@ h1 a:hover{
 	background-size:cover;
 }
 
-	.push {
-		padding-top: 70px;
-	}
+.push {
+	padding-top: 70px;
+}
+
+.little-push {
+	padding-top: 20px;
+}
+
+.margin-l-5 {
+	margin-left: 5px;
+}
+
+.margin-r-5 {
+	margin-right: 5px;
+}
 
 	.section{
 		height:			100%;
@@ -341,7 +353,7 @@ header input{
 	position:		absolute;
 	font-size: 		20px;
 	color:			#2f353a;
-	right:			75px;
+	right:			45px;
 	top: 			16px;
 	z-index:		10000;
 }
@@ -712,9 +724,12 @@ div.round canvas{
 	margin:			0 auto;
 	overflow:		hidden;
 }
-.contentText h3{
+.contentText p{
 	text-align:		left;
 	margin-top:		10px;
+	font-family: "Lato";
+	font-weight: 300;
+	overflow: hidden;
 }
 .position{
 	font-size:		19px;
@@ -728,9 +743,6 @@ div.round canvas{
 	padding-bottom:	5%;
 }
 .day{
-	height:			42px;
-	overflow:		hidden;
-	transition:		all 0.3s;
 	border-bottom:	1px solid #444444;
 }
 .cDay{
@@ -741,17 +753,6 @@ div.round canvas{
 	background:		#2f353a;
 	color:			#fff;
 	padding:		10px 0;
-}
-.day h3{
-	cursor:			pointer;
-}
-.day h3:hover{
-	transition:		all 0.2s;
-	transform: scale(1.05);
-	-ms-transform: scale(1.05);
-	-webkit-transform: scale(1.05);
-	-o-transform: scale(1.05);
-	-moz-transform: scale(1.05);
 }
 .dayChallenge{
 	width:			100%;
@@ -792,7 +793,6 @@ div.round canvas{
 	background:		transparent;
 	width:			150px;
 	margin:			0 auto;
-	height:			40px;
 	text-align: 	center;
 	margin-top:		20px;
 	position:		relative;
@@ -839,16 +839,15 @@ div.round canvas{
 }
 
 .detail-img{
-	width: 100%;
-	height:auto;
+	width: 300px;
+	margin: 0 auto;
+	display: block;
 }
 
 .detail-title{
-	position: absolute;
 	display: inline-block;
-	bottom: 5px;
 	width: 100%;
-	background: rgba(0,0,0,0.5);
+	background: rgba(0,0,0,1);
 	text-align: center;
 	font-size: 24px;
 	text-transform: uppercase;
@@ -856,7 +855,6 @@ div.round canvas{
 	height: 50px;
 	line-height: 50px;
 	letter-spacing: 0.1em;
-	left:	0;
 }
 
 .detail-tags{
@@ -902,7 +900,6 @@ div.round canvas{
 
 .detail-button{
 	text-align: center;
-	display: inline-block;
 	font-size: 18px;
 	padding:10px 15px;
 	border: 1px solid #f7ca18;
@@ -1384,10 +1381,104 @@ header h1 a{
 	background:		url('../../img/actionSection.jpg') no-repeat center /cover;
 }
 .sectionPlateforme{
-	background:		url('../../img/plateformeSection.jpg') no-repeat center /cover;
+	background:		url('../../img/fpsSection.jpg') no-repeat center /cover;
 }
 .sectionVoiture{
-	background:		url('../../img/drivingSection.jpg') no-repeat center /cover;
+	background:		url('../../img/rpgSection.jpg') no-repeat center /cover;
+}
+
+.liste{
+	padding-top:	65px;
+	width:			65%;
+	margin-left:	4.5%;
+}
+.liste h3{
+	width:			60%;
+	display:		inline-block;
+}
+.liste h4{
+	font-size:		14px;
+}
+.liste p{
+	width:			60%;
+	font-size:		12px;
+	max-height:		50px;
+	overflow:		hidden;
+}
+.itemListe{
+	height:			120px;
+	width:			100%;
+	overflow:		hidden;
+	background:		#252a2e;
+	border-bottom:	1px solid #fff;
+	padding:		20px;
+}
+.imgListe{
+	width:			200px;
+	float:			right;
+	height:			120px;
+	overflow:		hidden;
+}
+.imgListe img{
+	width:			200px;
+}
+.autresCat{
+	width:			92%;
+	border:			none;
+}
+.autresCat h2{
+	color:			#fff;
+	background:		none;
+	border-bottom:	1px solid #f7ca18;
+	padding-left:	0;
+}
+.autresCat h2:after{
+	display:		none;
+}
+.autresCat ul{
+	padding-top:	60px;
+}
+.autresCat li{
+	list-style-type:none;
+	display:		inline-block;
+	text-transform:	uppercase;
+	background:		#2f353a;
+	border:			1px solid #f7ca18;
+	padding:		5px;
+	margin:			15px;
+}
+.listeCategories li{
+	list-style-type:none;
+	text-transform:	uppercase;
+	border-bottom:	1px solid #fff;
+}
+
+.listeCategories{
+	position:		fixed;
+	top:			65px;
+	background:		#252a2e;
+	width:			20%;
+	right:			0;
+	padding:		20px;
+}
+.titleListe{
+	padding-top:	85px;
+	padding-bottom:	20px;
+	margin-bottom:	20px;
+	text-align:		center;
+	background:		#252a2e;
+}
+.deco{
+	text-transform: uppercase;
+	margin:			10px auto;
+	text-align:		center;
+	display:		block;
+	padding:		5px;
+	width:			50%;
+	border:			2px solid #f7ca18;
+}
+.alert{
+	text-align:		center;
 }
 
 .profil_header{
@@ -1526,6 +1617,9 @@ header h1 a{
 }
 
 @media screen and (max-width: 990px) {
+	.sectionCatalogue{
+		width: calc(90% - 30px);
+	}
 
 	.section{
 		height:			33.3%;

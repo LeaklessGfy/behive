@@ -13,7 +13,7 @@
         <div class="flexContent">
             {% for game in games %}
                 <div class="item">
-                    <a href="">
+                    <a href="{{ path('game', {id:game.id}) }}">
                         <div class="containImage">
                             <img src="{{ asset(game.cover)}}" alt="">
                             <div class="bgImg"></div>
@@ -29,85 +29,24 @@
             {% endfor %}
         </div>
 
-        <div class="sectionCatalogue">
-            <h2 class="titleCategorieCatalogue">Action / Aventure</h2>
-            <div class="bgSectionCatalogue sectionAction"></div>
-            <div class="flexContent">
-                {% for game in games %}
-                    <div class="item">
-                        <a href="">
-                            <h3>{{ game.name }}</h3>
-                            <h4>
-                                {% for category in game.categories %}
-                                    {{ category.name }}
-                                {% endfor %}
-                            </h4>
-                        </a>
-                    </div>
-                {% endfor %}
-                </div>
-            <h3 class="hover boutonSubmit">voir plus...</h3>
-        </div>
+        {% include "pages/front/partial/_module_category.html.twig" with {category: action, class: "Action"} %}
 
-        <div class="sectionCatalogue">
-            <h2 class="titleCategorieCatalogue">Plateforme</h2>
-            <div class="bgSectionCatalogue sectionPlateforme"></div>
-            <div class="flexContent">
-                {% for game in games %}
-                    <div class="item">
-                        <a href="">
-                            <h3>{{ game.name }}</h3>
-                            <h4>
-                                {% for category in game.categories %}
-                                    {{ category.name }}
-                                {% endfor %}
-                            </h4>
-                        </a>
-                    </div>
-                {% endfor %}
-            </div>
-            <h3 class="hover boutonSubmit">voir plus...</h3>
-        </div>
+        {% include "pages/front/partial/_module_category.html.twig" with {category: fps, class: "Plateforme"} %}
 
-        <div class="sectionCatalogue">
-            <h2 class="titleCategorieCatalogue">Driving</h2>
-            <div class="bgSectionCatalogue sectionVoiture"></div>
-            <div class="flexContent">
-                {% for game in games %}
-                    <div class="item">
-                        <a href="">
-                            <h3>{{ game.name }}</h3>
-                            <h4>
-                                {% for category in game.categories %}
-                                    {{ category.name }}
-                                {% endfor %}
-                            </h4>
-                        </a>
-                    </div>
-                {% endfor %}
-            </div>
-            <h3 class="hover boutonSubmit">voir plus...</h3>
-        </div>
+        {% include "pages/front/partial/_module_category.html.twig" with {category: rpg, class: "Voiture"} %}
 
-        <div class="filtrer">
-            <i class="fa fa-filter fa-2x"></i>
-            <h4>Filtrer</h4>
-            <div class="tableauFiltrer">
+        <div class="sectionCatalogue autresCat">
+            <h2 class="titleCategorieCatalogue">Autres catégories</h2>
+            <ul>
                 {% for category in categories %}
-                    <div class="itemFiltrer">
-                        <img src="{{ category.logo }}">
-                        <h5>{{ category.name }}</h5>
-                    </div>
+                    <li>
+                        <a href="{{ path('search', {filter: category.name|lower|url_encode}) }}">
+                            <h5>{{ category.name }}</h5>
+                        </a>
+                    </li>
                 {% endfor %}
-                <div style="clear:both"></div>
-            </div>
-            <div class="closeFiltre">
-                VALIDER
-            </div>
+            </ul>
         </div>
+
     </div>
-    <!--
-        <div class="loader"></div>
-        <div class="tuto"><h3>Tirez pour afficher la suite !</h3></div>
-    -->
 {% endblock %}

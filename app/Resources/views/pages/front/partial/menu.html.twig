@@ -8,7 +8,7 @@
             </div>
         </nav>
     </div>
-    <form style="padding:0;" action="#" method="POST" class="searchForm">
+    <form style="padding:0;" action="{{ path('search') }}" method="GET" class="searchForm">
         <input type="text" name="search" class="textSearch">
         <span class="closeSearchX">x</span>
         <input type="submit" class="search" value="">
@@ -21,15 +21,16 @@
             <img class="avatarMenu" src="{{ app.user.avatar }}">
             <h4>{{ app.user.username }} - lvl {{ app.user.level }}</h4>
         {% else %}
-            <h4><a href="{{ path('register') }}" class="detail-button">Inscrivez-vous</a></h4>
+            <h4><a href="{{ path('register') }}" class="detail-button">Inscrivez-vous!</a></h4>
+            <p class="center little-push">ou <a href="{{ path('front_login') }}">Connectez-vous!</a></p>
         {% endif %}
         <ul>
             <li><a href="{{ path('homepage') }}">Accueil</a></li>
             {% if app.user %}<li><a href="#">Profil</a></li>{% endif %}
             <li><a href="{{ path('catalogue') }}">Catalogue</a></li>
-            <li><a href="{{ path('challenge') }}">Challenges</a></li>
+            <li><a href="{{ path('challenge') }}">Challenge</a></li>
             <li><a href="{{ path('forum_home') }}">Forum</a></li>
         </ul>
-        {% if app.user %}<p><a href="{{ path('logout') }}">Déconnexion</a></p>{% endif %}
+        {% if app.user %}<p class="center little-push"><a href="{{ path('logout') }}" class="deco">Déconnexion</a></p>{% endif %}
     </div>
 </div>

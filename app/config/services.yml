@@ -16,3 +16,10 @@ services:
 
   steam.api:
       class: AppBundle\Service\SteamApiService
+
+  load.game.service:
+      class: AppBundle\Service\GameService
+      arguments:
+          - array
+          - array
+          - array
