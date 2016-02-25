@@ -26,9 +26,22 @@ class FrontController extends Controller
         $games = $em->getRepository("AppBundle:Game")->findBy(array(), array("id" => "DESC"), 8, 0);
         $categories = $em->getRepository("AppBundle:Category")->findAll();
 
+        foreach($categories as $category) {
+            if($category->getName() === "Action-Adventure") {
+                $action = $category;
+            } elseif($category->getName() === "First-Person Shooter") {
+                $fps = $category;
+            } elseif($category->getName() === "Role-Playing") {
+                $rpg = $category;
+            }
+        }
+
         return $this->render('pages/front/catalogue.html.twig', array(
             "games" => $games,
-            "categories" => $categories
+            "categories" => $categories,
+            "action" => $action,
+            "fps" => $fps,
+            "rpg" => $rpg
         ));
     }
 
@@ -70,5 +83,26 @@ class FrontController extends Controller
     public function userAction()
     {
         return $this->render('pages/front/user.html.twig');
+    }
+
+    /**
+     * @Route("/list/{search}", name="search")
+     */
+    public function searchAction($search)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        if($search) {
+            $games = $em->getRepository('AppBundle:Game')->findBy(array("name" => $search));
+        } else {
+            $games = $em->getRepository('AppBundle:Game')->findBy(array(), array(), 8, 0);
+        }
+
+        $categories = $em->getRepository("AppBundle:Category")->findAll();
+
+        return $this->render('pages/front/listing.html.twig', array(
+            "games" => $games,
+            "categories" => $categories
+        ));
     }
 }

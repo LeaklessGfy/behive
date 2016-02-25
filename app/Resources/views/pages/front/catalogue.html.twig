@@ -30,10 +30,10 @@
         </div>
 
         <div class="sectionCatalogue">
-            <h2 class="titleCategorieCatalogue">Action / Aventure</h2>
+            <h2 class="titleCategorieCatalogue">Action - Aventure</h2>
             <div class="bgSectionCatalogue sectionAction"></div>
             <div class="flexContent">
-                {% for game in games %}
+                {% for game in action.games %}
                     <div class="item">
                         <a href="">
                             <h3>{{ game.name }}</h3>
@@ -50,10 +50,10 @@
         </div>
 
         <div class="sectionCatalogue">
-            <h2 class="titleCategorieCatalogue">Plateforme</h2>
+            <h2 class="titleCategorieCatalogue">FPS</h2>
             <div class="bgSectionCatalogue sectionPlateforme"></div>
             <div class="flexContent">
-                {% for game in games %}
+                {% for game in fps.games %}
                     <div class="item">
                         <a href="">
                             <h3>{{ game.name }}</h3>
@@ -70,10 +70,10 @@
         </div>
 
         <div class="sectionCatalogue">
-            <h2 class="titleCategorieCatalogue">Driving</h2>
+            <h2 class="titleCategorieCatalogue">RPG</h2>
             <div class="bgSectionCatalogue sectionVoiture"></div>
             <div class="flexContent">
-                {% for game in games %}
+                {% for game in rpg.games %}
                     <div class="item">
                         <a href="">
                             <h3>{{ game.name }}</h3>
