@@ -29,65 +29,11 @@
             {% endfor %}
         </div>
 
-        <div class="sectionCatalogue">
-            <h2 class="titleCategorieCatalogue">Action - Aventure</h2>
-            <div class="bgSectionCatalogue sectionAction"></div>
-            <div class="flexContent">
-                {% for game in action.games %}
-                    <div class="item">
-                        <a href="">
-                            <h3>{{ game.name }}</h3>
-                            <h4>
-                                {% for category in game.categories %}
-                                    {{ category.name }}
-                                {% endfor %}
-                            </h4>
-                        </a>
-                    </div>
-                {% endfor %}
-                </div>
-            <h3 class="hover boutonSubmit">voir plus...</h3>
-        </div>
+        {% include "pages/front/partial/_module_category.html.twig" with {category: action} %}
 
-        <div class="sectionCatalogue">
-            <h2 class="titleCategorieCatalogue">FPS</h2>
-            <div class="bgSectionCatalogue sectionPlateforme"></div>
-            <div class="flexContent">
-                {% for game in fps.games %}
-                    <div class="item">
-                        <a href="">
-                            <h3>{{ game.name }}</h3>
-                            <h4>
-                                {% for category in game.categories %}
-                                    {{ category.name }}
-                                {% endfor %}
-                            </h4>
-                        </a>
-                    </div>
-                {% endfor %}
-            </div>
-            <h3 class="hover boutonSubmit">voir plus...</h3>
-        </div>
+        {% include "pages/front/partial/_module_category.html.twig" with {category: fps} %}
 
-        <div class="sectionCatalogue">
-            <h2 class="titleCategorieCatalogue">RPG</h2>
-            <div class="bgSectionCatalogue sectionVoiture"></div>
-            <div class="flexContent">
-                {% for game in rpg.games %}
-                    <div class="item">
-                        <a href="">
-                            <h3>{{ game.name }}</h3>
-                            <h4>
-                                {% for category in game.categories %}
-                                    {{ category.name }}
-                                {% endfor %}
-                            </h4>
-                        </a>
-                    </div>
-                {% endfor %}
-            </div>
-            <h3 class="hover boutonSubmit">voir plus...</h3>
-        </div>
+        {% include "pages/front/partial/_module_category.html.twig" with {category: rpg} %}
 
         <ul>
             {% for category in categories %}
@@ -97,20 +43,5 @@
                 </li>
             {% endfor %}
         </ul>
-
-        <div class="filtrer">
-            <i class="fa fa-filter fa-2x"></i>
-            <h4>Filtrer</h4>
-            <div class="tableauFiltrer">
-                <div style="clear:both"></div>
-            </div>
-            <div class="closeFiltre">
-                VALIDER
-            </div>
-        </div>
     </div>
-    <!--
-        <div class="loader"></div>
-        <div class="tuto"><h3>Tirez pour afficher la suite !</h3></div>
-    -->
 {% endblock %}

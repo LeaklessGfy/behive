@@ -26,6 +26,9 @@ class FrontController extends Controller
         $games = $em->getRepository("AppBundle:Game")->findBy(array(), array("id" => "DESC"), 8, 0);
         $categories = $em->getRepository("AppBundle:Category")->findAll();
 
+        $action = null;
+        $fps = null;
+        $rpg= null;
         foreach($categories as $category) {
             if($category->getName() === "Action-Adventure") {
                 $action = $category;
@@ -35,6 +38,8 @@ class FrontController extends Controller
                 $rpg = $category;
             }
         }
+
+        dump($action);
 
         return $this->render('pages/front/catalogue.html.twig', array(
             "games" => $games,
