@@ -90,7 +90,7 @@ class BackController extends BaseController
 
             $em->persist($entity);
             $em->flush();
-            $this->addFlash('success', "Votre '$ressource' à bien été créé");
+            $this->addFlash('success', "Votre $ressourceHelper à bien été créé");
 
             return $this->redirectToRoute("back_list", array("ressource" => $ressource));
         }
@@ -130,7 +130,7 @@ class BackController extends BaseController
             $this->handleChallenge($ressource, $entity, $em);
 
             $em->flush();
-            $this->addFlash('success', "Votre '$ressource' à bien été modifié");
+            $this->addFlash('success', "Votre $ressourceHelper à bien été modifié");
 
             return $this->redirectToRoute("back_list", array("ressource" => $ressource));
         }

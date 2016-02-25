@@ -144,6 +144,17 @@ class ChallengeAward
         return $this->limits;
     }
 
+    public function toArray()
+    {
+        $entity = array(
+            "id" => $this->id,
+            "name" => $this->name,
+            "points" => $this->points
+        );
+
+        return $entity;
+    }
+
     public function hasImage()
     {
         return false;

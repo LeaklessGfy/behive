@@ -20,9 +20,6 @@ $( document ).ready( function(){
 	$(".itemFiltrer").click( function(){
 		$(this).toggleClass("filtreActif");
 	});
-	$(".day").click( function(){
-		$(this).toggleClass("open","close");
-	});
 	$(".search").click( function(e) {
 		var elem = $(".textSearch");
 

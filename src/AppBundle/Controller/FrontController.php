@@ -55,6 +55,8 @@ class FrontController extends Controller
         $challenges = $em->getRepository("AppBundle:Challenge")->findAll();
         $dailyChallenge = $em->getRepository("AppBundle:Challenge")->findOneBy(array('isDaily' => true));
 
+        dump($challenges);
+
         return $this->render('pages/front/challenge.html.twig', array(
             "challenges" => $challenges,
             "dailyChallenge" => $dailyChallenge
@@ -84,6 +86,25 @@ class FrontController extends Controller
     public function userAction()
     {
         return $this->render('pages/front/user.html.twig');
+    }
+
+    /**
+     * @Route("/jeux/{id}", name="game")
+     */
+    public function gameAction($id)
+    {
+        $game = $this->getDoctrine()->getRepository("AppBundle:Game")->find($id);
+
+        $user = $this->getUser();
+        if($user) {
+            $userGames = $user->getGames();dump($userGames);
+        }
+
+        $hasIt = false;
+        return $this->render('pages/front/game.html.twig', array(
+            "game" => $game,
+            "hasIt" => $hasIt
+        ));
     }
 
     /**
