@@ -108,17 +108,20 @@ class FrontController extends Controller
     }
 
     /**
-     * @Route("/liste/{search}/{filter}", name="search", defaults={"search" = null, "filter" = null})
+     * @Route("/liste/{search}", name="search", defaults={"search" = null})
      */
-    public function searchAction($search, $filter)
+    public function searchAction($search)
     {
         $em = $this->getDoctrine()->getManager();
 
+        $filter = $this->getRequest()->get('filter');
         if($search) {
             $games = $em->getRepository('AppBundle:Game')->search($search, $filter);
         } elseif($filter) {
             $games = $em->getRepository('AppBundle:Category')->findOneBy(array("name" => $filter));
-            $games = $games->getGames();
+            if($games) {
+                $games = $games->getGames();
+            }
         } else {
             $games = $em->getRepository('AppBundle:Game')->findBy(array(), array(), 8, 0);
         }
