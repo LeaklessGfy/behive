@@ -12,10 +12,21 @@ use Doctrine\ORM\EntityRepository;
  */
 class GameRepository extends EntityRepository
 {
-    public function getCount() {
+    public function getCount()
+    {
         return $this->createQueryBuilder('a')
             ->select('COUNT(a)')
             ->getQuery()
             ->getSingleScalarResult();
+    }
+
+    public function search($queryString)
+    {
+        dump($queryString);
+        $qb = $this->createQueryBuilder('a')  //add select and array for JSON
+        ->where('a.name LIKE :string')
+            ->setParameter('string', "%". $queryString ."%");
+
+        return $qb->getQuery()->getResult();
     }
 }

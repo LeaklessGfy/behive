@@ -94,7 +94,7 @@ class FrontController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         if($search) {
-            $games = $em->getRepository('AppBundle:Game')->findBy(array("name" => $search));
+            $games = $em->getRepository('AppBundle:Game')->search($search);
         } else {
             $games = $em->getRepository('AppBundle:Game')->findBy(array(), array(), 8, 0);
         }
