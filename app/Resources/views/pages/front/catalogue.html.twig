@@ -35,12 +35,18 @@
 
         {% include "pages/front/partial/_module_category.html.twig" with {category: rpg, class: "Voiture"} %}
 
-        <ul>
-            {% for category in categories %}
-                <li>
-                    <h5>{{ category.name }}</h5>
-                </li>
-            {% endfor %}
-        </ul>
+        <div class="sectionCatalogue autresCat">
+            <h2 class="titleCategorieCatalogue">Autres catégories</h2>
+            <ul>
+                {% for category in categories %}
+                    <li>
+                        <a href="{{ path('search', {filter: category.name|lower|url_encode}) }}">
+                            <h5>{{ category.name }}</h5>
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+
     </div>
 {% endblock %}
