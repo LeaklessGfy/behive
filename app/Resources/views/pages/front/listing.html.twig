@@ -37,7 +37,7 @@
     <div class="listeCategories">
         <ul>
             {% for category in categories %}
-                <li><a href="{{ path('search', {search: 'rr'}) }}">{{ category.name }}</a></li>
+                <li><a href="{{ path('search', {filter: category.name|lower|url_encode}) }}">{{ category.name }}</a></li>
             {% endfor %}
         </ul>
     </div>

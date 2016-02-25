@@ -114,7 +114,7 @@ class FrontController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $filter = $this->getRequest()->get('filter');
+        $filter = urldecode($this->getRequest()->get('filter'));
         if($search) {
             $games = $em->getRepository('AppBundle:Game')->search($search, $filter);
         } elseif($filter) {
