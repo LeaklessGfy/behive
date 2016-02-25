@@ -1,0 +1,63 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    {{ game.name }} - Behive
+{% endblock %}
+
+{% block body %}
+    {% include "pages/front/partial/menu.html.twig" %}
+
+    <div id="detail" class="push">
+        <div class="detail-header">
+            <img src="{{ asset(game.cover) }}" alt="" class="detail-img">
+            <h2 class="detail-title">
+                {{ game.name }}
+            </h2>
+        </div>
+
+        <p class="detail-tags">
+            {% for category in game.categories %}
+                {{ category.name }} {% if(loop.index != game.categories|length) %},{% endif %}
+            {% endfor %}
+        </p>
+
+        <div class="detail-infos">
+            <p>
+                Pegi {{ game.pegi }}
+            </p>
+
+            <ul class="detail-heart">
+                {% for i in 1..5 %}
+                    {% if game.rating >= loop.index %}
+                        <li><i class="fa fa-heart actif"></i></li>
+                    {% else %}
+                        <li><i class="fa fa-heart"></i></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+            <div class="clear"></div>
+        </div>
+
+        <p class="detail-text">
+            {{ game.description }}
+        </p>
+
+        {% if hasIt != true %}
+            <div class="center">
+                <a href="{{ game.buy }}" class="detail-button">
+                    <i class="fa fa-download"></i> Télécharger
+                </a>
+            </div>
+        {% endif %}
+
+        <div class="push">
+            <p class="center">
+                Expérience à gagner: 1300 points
+            </p>
+            <div class="detail-bar"></div>
+
+            <a href="#" class="detail-com"><i class="fa fa-comments"></i>Laisser un commentaire</a>
+        </div>
+    </div>
+
+{% endblock %}

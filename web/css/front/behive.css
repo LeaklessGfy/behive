@@ -710,9 +710,12 @@ div.round canvas{
 	margin:			0 auto;
 	overflow:		hidden;
 }
-.contentText h3{
+.contentText p{
 	text-align:		left;
 	margin-top:		10px;
+	font-family: "Lato";
+	font-weight: 300;
+	overflow: hidden;
 }
 .position{
 	font-size:		19px;
@@ -726,9 +729,6 @@ div.round canvas{
 	padding-bottom:	5%;
 }
 .day{
-	height:			42px;
-	overflow:		hidden;
-	transition:		all 0.3s;
 	border-bottom:	1px solid #444444;
 }
 .cDay{
@@ -739,17 +739,6 @@ div.round canvas{
 	background:		#2f353a;
 	color:			#fff;
 	padding:		10px 0;
-}
-.day h3{
-	cursor:			pointer;
-}
-.day h3:hover{
-	transition:		all 0.2s;
-	transform: scale(1.05);
-	-ms-transform: scale(1.05);
-	-webkit-transform: scale(1.05);
-	-o-transform: scale(1.05);
-	-moz-transform: scale(1.05);
 }
 .dayChallenge{
 	width:			100%;
@@ -791,7 +780,6 @@ div.round canvas{
 	background:		transparent;
 	width:			150px;
 	margin:			0 auto;
-	height:			40px;
 	text-align: 	center;
 	margin-top:		20px;
 	position:		relative;
@@ -838,14 +826,13 @@ div.round canvas{
 }
 
 .detail-img{
-	width: 100%;
-	height:auto;
+	width: 300px;
+	margin: 0 auto;
+	display: block;
 }
 
 .detail-title{
-	position: absolute;
 	display: inline-block;
-	bottom: 5px;
 	width: 100%;
 	background: rgba(0,0,0,0.5);
 	text-align: center;
@@ -855,7 +842,6 @@ div.round canvas{
 	height: 50px;
 	line-height: 50px;
 	letter-spacing: 0.1em;
-	left:	0;
 }
 
 .detail-tags{
@@ -901,7 +887,6 @@ div.round canvas{
 
 .detail-button{
 	text-align: center;
-	display: inline-block;
 	font-size: 18px;
 	padding:10px 15px;
 	border: 1px solid #f7ca18;

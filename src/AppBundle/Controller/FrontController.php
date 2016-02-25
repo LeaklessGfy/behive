@@ -55,6 +55,8 @@ class FrontController extends Controller
         $challenges = $em->getRepository("AppBundle:Challenge")->findAll();
         $dailyChallenge = $em->getRepository("AppBundle:Challenge")->findOneBy(array('isDaily' => true));
 
+        dump($challenges);
+
         return $this->render('pages/front/challenge.html.twig', array(
             "challenges" => $challenges,
             "dailyChallenge" => $dailyChallenge
@@ -87,14 +89,39 @@ class FrontController extends Controller
     }
 
     /**
+     * @Route("/jeux/{id}", name="game")
+     */
+    public function gameAction($id)
+    {
+        $game = $this->getDoctrine()->getRepository("AppBundle:Game")->find($id);
+
+        $user = $this->getUser();
+        if($user) {
+            $userGames = $user->getGames();dump($userGames);
+        }
+
+        $hasIt = false;
+        return $this->render('pages/front/game.html.twig', array(
+            "game" => $game,
+            "hasIt" => $hasIt
+        ));
+    }
+
+    /**
      * @Route("/liste/{search}", name="search", defaults={"search" = null})
      */
     public function searchAction($search)
     {
         $em = $this->getDoctrine()->getManager();
 
+        $filter = $this->getRequest()->get('filter');
         if($search) {
-            $games = $em->getRepository('AppBundle:Game')->findBy(array("name" => $search));
+            $games = $em->getRepository('AppBundle:Game')->search($search, $filter);
+        } elseif($filter) {
+            $games = $em->getRepository('AppBundle:Category')->findOneBy(array("name" => $filter));
+            if($games) {
+                $games = $games->getGames();
+            }
         } else {
             $games = $em->getRepository('AppBundle:Game')->findBy(array(), array(), 8, 0);
         }
