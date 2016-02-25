@@ -34,17 +34,6 @@ class Category
     private $name;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="logo", type="string", length=255, nullable=true)
-     * @Assert\Image(
-     *      maxSize = "200k",
-     *      mimeTypesMessage = "Veuillez uploader une image valide"
-     * )
-     */
-    private $logo;
-
-    /**
      * @ORM\ManyToMany(targetEntity="Game", mappedBy="categories")
      */
     private $games;
@@ -88,29 +77,6 @@ class Category
     }
 
     /**
-     * Set logo
-     *
-     * @param string $logo
-     * @return Category
-     */
-    public function setLogo($logo)
-    {
-        $this->logo = $logo;
-
-        return $this;
-    }
-
-    /**
-     * Get logo
-     *
-     * @return string 
-     */
-    public function getLogo()
-    {
-        return $this->logo;
-    }
-
-    /**
      * Add games
      *
      * @param \AppBundle\Entity\Game $games
@@ -146,8 +112,7 @@ class Category
     public function toArray() {
         $entity = array(
             "id" => $this->id,
-            "name" => $this->name,
-            "logo" => $this->logo
+            "name" => $this->name
         );
 
         return $entity;
@@ -155,9 +120,6 @@ class Category
 
     public function hasImage()
     {
-        return array(
-            "get" => $this->getLogo(),
-            "set" => "setLogo"
-        );
+        return false;
     }
 }

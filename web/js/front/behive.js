@@ -20,6 +20,7 @@ $( document ).ready( function(){
 	$(".itemFiltrer").click( function(){
 		$(this).toggleClass("filtreActif");
 	});
+
 	$(".search").click( function(e) {
 		var elem = $(".textSearch");
 
@@ -33,7 +34,6 @@ $( document ).ready( function(){
 			}
 			$(".closeSearchX").fadeIn(300);
 			elem.addClass("openInput");
-			elem.unbind("click");
 		}
 	});
 

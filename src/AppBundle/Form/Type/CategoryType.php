@@ -9,11 +9,7 @@ class CategoryType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('name', 'text')
-                ->add('logo', 'file', array(
-                    'data_class' => null
-                ))
-        ;
+        $builder->add('name', 'text');
     }
 
     public function configureOptions(OptionsResolver $resolver)

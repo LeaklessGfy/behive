@@ -13,7 +13,7 @@
         <div class="flexContent">
             {% for game in games %}
                 <div class="item">
-                    <a href="">
+                    <a href="{{ path('game', {id:game.id}) }}">
                         <div class="containImage">
                             <img src="{{ asset(game.cover)}}" alt="">
                             <div class="bgImg"></div>
@@ -29,16 +29,15 @@
             {% endfor %}
         </div>
 
-        {% include "pages/front/partial/_module_category.html.twig" with {category: action} %}
+        {% include "pages/front/partial/_module_category.html.twig" with {category: action, class: "Action"} %}
 
-        {% include "pages/front/partial/_module_category.html.twig" with {category: fps} %}
+        {% include "pages/front/partial/_module_category.html.twig" with {category: fps, class: "Platforme"} %}
 
-        {% include "pages/front/partial/_module_category.html.twig" with {category: rpg} %}
+        {% include "pages/front/partial/_module_category.html.twig" with {category: rpg, class: "Voiture"} %}
 
         <ul>
             {% for category in categories %}
                 <li>
-                    <img src="{{ category.logo }}">
                     <h5>{{ category.name }}</h5>
                 </li>
             {% endfor %}

@@ -2,7 +2,7 @@
     <div class="sectionCatalogue">
         <h2 class="titleCategorieCatalogue">{{ category.name }}</h2>
 
-        <div class="bgSectionCatalogue sectionVoiture"></div>
+        <div class="bgSectionCatalogue section{{ class }}"></div>
         <div class="flexContent">
             {% for game in category.games %}
                 <div class="item">

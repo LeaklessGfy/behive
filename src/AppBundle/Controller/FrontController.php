@@ -39,8 +39,6 @@ class FrontController extends Controller
             }
         }
 
-        dump($action);
-
         return $this->render('pages/front/catalogue.html.twig', array(
             "games" => $games,
             "categories" => $categories,
@@ -59,8 +57,6 @@ class FrontController extends Controller
 
         $challenges = $em->getRepository("AppBundle:Challenge")->findAll();
         $dailyChallenge = $em->getRepository("AppBundle:Challenge")->findOneBy(array('isDaily' => true));
-
-        dump($challenges);
 
         return $this->render('pages/front/challenge.html.twig', array(
             "challenges" => $challenges,
