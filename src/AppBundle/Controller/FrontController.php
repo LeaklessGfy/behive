@@ -59,6 +59,7 @@ class FrontController extends Controller
             "challenges" => $challenges,
             "dailyChallenge" => $dailyChallenge
         ));
+
     }
 
     /**
@@ -86,7 +87,7 @@ class FrontController extends Controller
     }
 
     /**
-     * @Route("/list/{search}", name="search", defaults={"search" = null})
+     * @Route("/liste/{search}", name="search", defaults={"search" = null})
      */
     public function searchAction($search)
     {

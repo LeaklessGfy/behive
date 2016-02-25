@@ -1,0 +1,33 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    Liste - Behive
+{% endblock %}
+
+{% block body %}
+    {% include "pages/front/partial/menu.html.twig" %}
+
+    <div class="liste">
+        {% for game in games %}
+            <div class="itemListe">
+                <a href="">
+                    <h3>{{ game.name }}</h3>
+                    <div class="imgListe">
+                        <img src="{{ asset(game.cover)}}" alt="">
+                    </div>
+                    <h4>
+                        {% for category in game.categories %}
+                            {{ category.name }}
+                        {% endfor %}
+                    </h4>
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+
+    <div class="listeCategories">
+        {% for category in categories %}
+            {{ category.name }}
+        {% endfor %}
+    </div>
+{% endblock %}
