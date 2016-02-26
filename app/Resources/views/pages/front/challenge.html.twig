@@ -12,7 +12,9 @@
             <h2>Challenge du jour</h2>
             <div class="cDay">
                 <div class="dayChallenge">
-                    <img src="{{ dailyChallenge.cover }}" alt="">
+                    <div class="containerImgChallenge">
+                        <img src="{{ dailyChallenge.cover }}" alt="">
+                    </div>
                     <h2 class="detail-title">{{ dailyChallenge.name }}</h2>
                     <h4 class="center detail-title"><a href="{{ path('game', {id: dailyChallenge.game.id}) }}">{{ dailyChallenge.game.name }}</a></h4>
                 </div>

@@ -100,7 +100,7 @@ h1 a:hover{
 }
 
 .push {
-	padding-top: 70px;
+	padding-top: 65px;
 }
 
 .little-push {
@@ -1499,8 +1499,39 @@ header h1 a{
 	background:		#252a2e;
 }
 #detail .detail-button{
-	position:	relative;
-	top:		25px;
+	position:		relative;
+	top:			25px;
+}
+#detail .autresCat{
+	margin:			0;
+	padding:		30px;
+	background:		#252a2e;
+}
+#detail .center{
+	height:			100px;
+}
+
+#login{
+	text-align:		center;
+}
+
+#challenges h2{
+	text-align:		center;
+	width:			100%;
+	margin:			0 auto;
+}
+#challenges h4{
+	width:			100%;
+	margin:			0 auto;
+	border-top:		1px solid rgba(255,255,255,0.3) !important;
+}
+#challenges img{
+	display:		block;
+	width:			100%;
+}
+.containerImgChallenge{
+	max-height:		50vh;
+	overflow:		hidden;
 }
 
 .profil_header{
@@ -1639,6 +1670,11 @@ header h1 a{
 }
 
 @media screen and (max-width: 990px) {
+	.contentText{
+		padding:			0;
+		width:				75%;
+		margin:				0 auto;
+	}
 	.sectionCatalogue{
 		width: 		calc(90% - 30px);
 	}
