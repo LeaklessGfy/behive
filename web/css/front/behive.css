@@ -1574,15 +1574,17 @@ header h1 a{
 
 .img_profil{
 	float: left;
-	margin-right: 18px;
+	margin-right: 30px;
 	position: relative;
-	width: 164px;
-	height: 164px;
+	width: 150px;
+	height: 150px;
 }
 
 .img_profil img{
 	margin-left:10px;
 	margin-top: 34px;
+	width:		100%;
+	height:		auto;
 }
 
 .profil_lvl{
