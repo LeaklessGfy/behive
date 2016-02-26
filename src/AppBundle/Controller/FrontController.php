@@ -13,7 +13,6 @@ class FrontController extends Controller
      */
     public function indexAction()
     {
-        dump($this->container->getParameter('upload.dir'));
         return $this->render('pages/front/index.html.twig');
     }
 

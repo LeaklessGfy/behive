@@ -18,7 +18,9 @@
 <div id="sideMenu">
     <div class="contentMenu">
         {% if app.user %}
-            <img class="avatarMenu" src="{{ asset(app.user.avatar) }}">
+            <div class="contentImgMenu">
+                <img class="avatarMenu" src="{{ asset(app.user.avatar) }}">
+            </div>
             <h4>{{ app.user.username }} - lvl {{ app.user.level }}</h4>
         {% else %}
             <h4><a href="{{ path('register') }}" class="detail-button">Inscrivez-vous!</a></h4>
@@ -28,7 +30,7 @@
             <li><a href="{{ path('homepage') }}">Accueil</a></li>
             {% if app.user %}<li><a href="{{ path('profil') }}">Profil</a></li>{% endif %}
             <li><a href="{{ path('catalogue') }}">Catalogue</a></li>
-            <li><a href="{{ path('challenge') }}">Challenge</a></li>
+            <li><a href="{{ path('challenge') }}">Challenges</a></li>
             <li><a href="{{ path('forum_home') }}">Forum</a></li>
         </ul>
         {% if app.user %}<p class="center little-push"><a href="{{ path('logout') }}" class="deco">Déconnexion</a></p>{% endif %}
