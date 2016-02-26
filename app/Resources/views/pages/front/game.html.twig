@@ -49,13 +49,13 @@
                 </a>
 
                 {% if app.user %}
-                    <a href="{{ path('game_add', {id:game.id}) }}" class="margin-l-5 detail-button ajax-link">
+                    <a href="{{ path('game_add', {id:game.id}) }}" class="margin-l-5 detail-button ajax-link" data-info="game:add">
                         <i class="fa fa-plus"></i> J'ai déjà ce jeu
                     </a>
                 {% endif %}
             {% else %}
                 {% if app.user %}
-                    <a href="{{ path('game_add', {id:game.id}) }}" class="margin-l-5 detail-button ajax-link">
+                    <a href="{{ path('game_remove', {id:game.id}) }}" class="margin-l-5 detail-button ajax-link" data-info="game:remove">
                         <i class="fa fa-minus"></i> Je n'ai pas ce jeu
                     </a>
                 {% endif %}

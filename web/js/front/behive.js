@@ -10,11 +10,14 @@ $( document ).ready( function(){
 			url: btn.attr('href'),
 			method: "GET",
 			success: function() {
-				if(btn.hasClass('margin-l-5')) {
-					btn.replaceWith("<span class='margin-l-5 detail-button valid'><i class='fa fa-check'></i> J'ai ce jeu</span>");
+				if(btn.data("info") == "game:add") {
+					content = "<span class='margin-l-5 detail-button valid'><i class='fa fa-check'></i> J'ai ce jeu</span>";
+				} else if(btn.data("info" ) == "game:remove") {
+					content = "<span class='margin-l-5 detail-button'><i class='fa fa-check'></i> J'ai déjà ce jeu</span>";
 				} else {
-					btn.replaceWith("<span class='margin-l-5 detail-button valid'><i class='fa fa-check'></i> inscris</span>");
+					content = "<span class='margin-l-5 detail-button valid'><i class='fa fa-check'></i> inscris</span>";
 				}
+				btn.replaceWith(content);
 			},
 			error: function() {
 				alert("Une erreur s'est produite");

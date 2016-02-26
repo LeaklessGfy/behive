@@ -186,6 +186,32 @@ class FrontController extends Controller
     }
 
     /**
+     * @Route("/jeux/retirer/{id}", name="game_remove", requirements={
+     *     "id": "\d+"
+     * })
+     */
+    public function gameRemoveAction($id)
+    {
+        $response = new JsonResponse();
+        $response->setStatusCode(400);
+
+        if($user = $this->getUser()) {
+            $em = $this->getDoctrine()->getManager();
+            $game = $em->getRepository("AppBundle:Game")->find($id);
+
+            if(!$game) {
+                $response->setStatusCode(404);
+            }
+
+            $user->removeGame($game);
+            $em->flush();
+            $response->setStatusCode(200);
+        }
+
+        return $response;
+    }
+
+    /**
      * @Route("/liste/{search}", name="search", defaults={"search" = null})
      */
     public function searchAction($search)
