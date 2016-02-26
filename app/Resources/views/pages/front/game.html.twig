@@ -41,7 +41,7 @@
         <p class="detail-text">
             {{ game.description }}
         </p>
-        <a href="/catalogue">
+        <a style="border-bottom:1px solid #f7ca18; padding-bottom: 5px;" href="/catalogue">
             <br /><br />
             Retour au catalogue
         </a>
@@ -65,12 +65,23 @@
                 {% endif %}
             {% endif %}
         </div>
-
+        <div class="sectionCatalogue autresCat">
+            <h2 class="titleCategorieCatalogue">Challenges associés</h2>
+            <ul>
+                {% if game.challenge|length %}
+                    {% for challenge in game.challenge %}
+                        <li>
+                            <a href="">
+                                <h5>{{ challenge.name }}</h5>
+                            </a>
+                        </li>
+                    {% endfor %}
+                {% else %}
+                    Aucun challenge n'est associé à ce jeu pour le moment.
+                {% endif %}
+            </ul>
+        </div>
         <div class="push">
-            <p class="center">
-                Expérience à gagner: 1300 points
-            </p>
-            <div class="detail-bar"></div>
 
             <a href="#" class="detail-com"><i class="fa fa-comments"></i>Laisser un commentaire</a>
         </div>
