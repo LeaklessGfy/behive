@@ -620,6 +620,18 @@ div.round canvas{
 	top:40px;
 }
 
+.profil_niveau{
+	font-size: 24px;
+	position:absolute!important;
+	top:30px!important;
+	right:36px;
+}
+
+.profil_connexion{
+	margin-left: 10%;
+	margin-bottom: 20px;
+	margin-top:		10px;
+}
 
 
 #profil .level{
@@ -925,12 +937,10 @@ div.round canvas{
 }
 
 .detail-bar{
-	width: 60%;
+	width: 20%;
 	background-color: transparent;
 	border-radius: 6px;
 	height: 10px;
-	display: inline-block;
-	position: relative;
 	overflow: hidden;
 	border: 2px solid #f7ca18;
 	margin-left: 10%;
@@ -955,7 +965,6 @@ div.round canvas{
 	text-align: center;
 	font-size: 18px;
 	font-family:'Lato', sans-serif;
-
 }
 
 .detail-com i{
@@ -1542,6 +1551,7 @@ header h1 a{
 .profil_header{
 	max-width: 976px;
 	min-height: 224px;
+	position: relative;
 	margin: 0 auto;
 	background-image: url('../../img/profil_header.jpg');
 	background-repeat: no-repeat;
@@ -1561,8 +1571,24 @@ header h1 a{
 	font-size:24px;
 	text-transform: uppercase;
 	position: absolute;
+}
 
+.profil_xp{
+	width: 30%;
+	background-color: transparent;
+	overflow: hidden;
+	margin-left: 10%;
+	margin-bottom: 20px;
+	margin-top:		10px;
+}
 
+.profil_date{
+	width: 35%;
+	background-color: transparent;
+	overflow: hidden;
+	margin-left: 10%;
+	margin-bottom: 20px;
+	margin-top:		10px;
 }
 
 .img_profil{
@@ -1583,10 +1609,12 @@ header h1 a{
 	margin-right:70px;
 }
 
+
 .profil_lvl_number{
 	font-size:80px;
-	margin-top:-100px;
-	margin-right:65px;
+	position:absolute!important;
+	top:80px!important;
+	right:60px;
 }
 
 .profil_recompense{
@@ -1665,6 +1693,39 @@ header h1 a{
 
 @media screen and (max-width: 700px) {
 
+	.profil_lvl_number{
+		font-size:25px;
+		position:absolute!important;
+		top:118px!important;
+		right:30px;
+	}
+
+	.profil_niveau{
+		font-size: 16px;
+		position:absolute!important;
+		top:125px!important;
+		right:55px;
+	}
+
+	.profil_xp{
+		width: 35%;
+		background-color: transparent;
+		overflow: hidden;
+		margin-left: 10%;
+		margin-bottom: 20px;
+		margin-top:		10px;
+	}
+
+	.profil_date{
+		width: 50%;
+		background-color: transparent;
+		overflow: hidden;
+		margin-left: 10%;
+		margin-bottom: 20px;
+		margin-top:		10px;
+		text-align:left!important;
+	}
+
 	.profil_main{
 		background-image: url("../../img/profil_bg.jpg");
 		background-repeat:repeat;
@@ -1726,12 +1787,7 @@ header h1 a{
 		float: none !important;
 		margin-top: 0;
 	}
-	.profil_lvl_number{
-		display: block;
-		margin-top: -53px;
-		font-size: 30px;
-	}
-}
+
 
 @media screen and (max-width: 990px) {
 	.contentText{

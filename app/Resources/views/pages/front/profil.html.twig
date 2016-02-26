@@ -17,14 +17,14 @@
                 <h3 class="rang">{{ badge.name }}</h3>
             {% endfor %}
 
-            <p class="center">
+            <p class="rang profil_xp">
                 Expérience: {{ app.user.xp }} xp
             </p>
-            <div class="detail-bar"></div>
+            <div class="rang detail-bar"></div>
 
-            <h3 class="rang littleTitle connexion" style="font-size:17px; text-transform: none;">Dernière connexion: {{ app.user.lastConnexion|date }}</h3>
+            <h3 class="rang littleTitle connexion profil_date" style="font-size:17px; text-transform: none;">Dernière connexion: {{ app.user.lastConnexion|date }}</h3>
 
-            <h3 class="rang profil_lvl" style="float:right; font-weight:400;">Niveau</h3>
+            <h3 class="rang profil_niveau" style="float:right; font-weight:400;">Niveau</h3>
             <h2 class="rang profil_lvl_number" style="float:right;">{{ app.user.level }}</h2>
         </div>
 
