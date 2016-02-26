@@ -1477,6 +1477,31 @@ header h1 a{
 .alert{
 	text-align:		center;
 }
+#detail{
+	width:			70%;
+	margin:			0 auto;
+}
+.detail-header{
+	width:			30%;
+	float:			left;
+	margin-right:	20px;
+	overflow:		hidden;
+	max-height:		150px;
+}
+.detail-img{
+	width:			100%;
+}
+.detail-title{
+	margin-top:		20px;
+	width:			calc(70% - 20px);
+	margin-bottom:	20px;
+	height:			auto;
+	background:		#252a2e;
+}
+#detail .detail-button{
+	position:	relative;
+	top:		25px;
+}
 
 .profil_header{
 	max-width: 976px;
@@ -1599,7 +1624,7 @@ header h1 a{
 
 @media screen and (max-width: 700px) {
 	.item {
-		width: 47%;
+		width: 		47%;
 	}
 	.profil_lvl{
 		display: block;
@@ -1615,7 +1640,18 @@ header h1 a{
 
 @media screen and (max-width: 990px) {
 	.sectionCatalogue{
-		width: calc(90% - 30px);
+		width: 		calc(90% - 30px);
+	}
+	#detail{
+		width:		calc(95% - 65px);
+	}
+	.detail-header{
+		width:		100%;
+		margin-bottom:	0;
+	}
+	.detail-title{
+		width:		100%;
+		margin-top:	20px;
 	}
 
 	.section{

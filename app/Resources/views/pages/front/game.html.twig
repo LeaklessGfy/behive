@@ -10,10 +10,10 @@
     <div id="detail" class="push">
         <div class="detail-header">
             <img src="{{ asset(game.cover) }}" alt="" class="detail-img">
-            <h2 class="detail-title">
-                {{ game.name }}
-            </h2>
         </div>
+        <h2 class="detail-title">
+            {{ game.name }}
+        </h2>
 
         <p class="detail-tags">
             {% for category in game.categories %}
@@ -41,6 +41,10 @@
         <p class="detail-text">
             {{ game.description }}
         </p>
+        <a href="/catalogue">
+            <br /><br />
+            Retour au catalogue
+        </a>
 
         <div class="center">
             {% if hasIt != true %}
