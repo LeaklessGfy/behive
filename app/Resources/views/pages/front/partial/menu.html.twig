@@ -19,7 +19,7 @@
     <div class="contentMenu">
         {% if app.user %}
             <div class="contentImgMenu">
-                <img class="avatarMenu" src="{{ app.user.avatar }}">
+                <img class="avatarMenu" src="{{ asset(app.user.avatar) }}">
             </div>
             <h4>{{ app.user.username }} - lvl {{ app.user.level }}</h4>
         {% else %}
