@@ -146,15 +146,17 @@ $(document).scroll(function(e){
 $(document).ready(function(){
 
 	$('.first').hover(function(){
-		$('.home_main').css("background-image", "url(../img/catalogue.jpg)");
+		$('.home_main').css("background-image", "url(../img/catalogue.gif)");
 	});
 
 	$('.second').hover(function(){
-		$('.home_main').css("background-image", "url(../img/challenges.jpg)");
+		$('.home_main').css("background-image", "url(../img/challenges.gif)");
 	});
 
-	$('.third').hover(function(){
-		$('.home_main').css("background-image", "url(../img/forum.jpg)");
+	$('.third').mouseover(function(){
+		$('.home_main').css("background-image", "url(../img/forum.gif)");
+
 	});
 
 });
+
