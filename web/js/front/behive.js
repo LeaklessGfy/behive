@@ -10,8 +10,11 @@ $( document ).ready( function(){
 			url: btn.attr('href'),
 			method: "GET",
 			success: function() {
-				btn.html("<i class='fa fa-check'></i> inscris");
-				btn.addClass("valid");
+				if(btn.hasClass('margin-l-5')) {
+					btn.replaceWith("<span class='margin-l-5 detail-button valid'><i class='fa fa-check'></i> J'ai ce jeu</span>");
+				} else {
+					btn.replaceWith("<span class='margin-l-5 detail-button valid'><i class='fa fa-check'></i> inscris</span>");
+				}
 			},
 			error: function() {
 				alert("Une erreur s'est produite");
