@@ -47,6 +47,18 @@ class ChallengeAward
      */
     private $limits;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="Badge")
+     * @ORM\JoinColumn(name="badge_id", referencedColumnName="id")
+     */
+    private $badge;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Game")
+     * @ORM\JoinColumn(name="game_id", referencedColumnName="id")
+     */
+    private $game;
+
 
     /**
      * Get id
@@ -142,6 +154,17 @@ class ChallengeAward
     public function getLimits()
     {
         return $this->limits;
+    }
+
+    public function toArray()
+    {
+        $entity = array(
+            "id" => $this->id,
+            "name" => $this->name,
+            "points" => $this->points
+        );
+
+        return $entity;
     }
 
     public function hasImage()

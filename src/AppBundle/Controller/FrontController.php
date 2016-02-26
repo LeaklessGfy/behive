@@ -48,7 +48,7 @@ class FrontController extends Controller
         $challenges = $em->getRepository("AppBundle:Challenge")->findBy(array('isDaily' => false));
         $dailyChallenge = $em->getRepository("AppBundle:Challenge")->findOneBy(array('isDaily' => true));
 
-        $hasIt = $this->get('front.service')->hasChallenge($this->getUser(), $dailyChallenge, $challenges);
+        $hasIt = $this->get('front.service')->hasChallenges($this->getUser(), $dailyChallenge, $challenges);
 
         return $this->render('pages/front/challenge.html.twig', array(
             "challenges" => $challenges,
@@ -58,27 +58,33 @@ class FrontController extends Controller
     }
 
     /**
-     * @Route("/profile", name="profil")
+     * @Route("/challenge/{id}", name="challenge_detail", requirements={
+     *     "id": "\d+"
+     * })
      */
-    public function profilAction()
+    public function challengeDetailAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $challenge = $this->getDoctrine()->getRepository("AppBundle:Challenge")->find($id);
 
-        $games = $em->getRepository("AppBundle:Game")->findAll();
-        $categories = $em->getRepository("AppBundle:Category")->findAll();
+        if(!$challenge) {
+            return $this->redirectToRoute('challenge');
+        }
 
-        return $this->render('pages/front/profil.html.twig', array(
-            "games" => $games,
-            "categories" => $categories
+        $hasIt = $this->get('front.service')->hasChallenge($this->getUser(), $challenge);
+
+        return $this->render('pages/front/challenge_detail.html.twig', array(
+            "challenge" => $challenge,
+            "hasIt" => $hasIt
         ));
     }
 
     /**
-     * @Route("/utilisateur", name="user")
+     * @Route("/profile", name="profil")
      */
-    public function userAction()
+    public function profilAction()
     {
-        return $this->render('pages/front/user.html.twig');
+        return $this->render('pages/front/profil.html.twig', array(
+        ));
     }
 
     /**
@@ -103,17 +109,19 @@ class FrontController extends Controller
     }
 
     /**
-     * @Route("/liste/{search}", name="search", defaults={"search" = null})
+     * @Route("/liste", name="search")
      */
-    public function searchAction($search)
+    public function searchAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $filter = urldecode($this->getRequest()->get('filter'));
+        $filter = urldecode($request->get('filter'));
+        $search = $request->get('search');
         if($search) {
             $games = $em->getRepository('AppBundle:Game')->search($search, $filter);
         } elseif($filter) {
             $games = $em->getRepository('AppBundle:Category')->findOneBy(array("name" => $filter));
+            $games = $games->getGames();
         } else {
             $games = $em->getRepository('AppBundle:Game')->findBy(array(), array(), 8, 0);
         }
