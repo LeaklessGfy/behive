@@ -1,0 +1,73 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
+/**
+ * ChallengePosition
+ *
+ * @ORM\Table(name="challenge_position")
+ * @ORM\Entity()
+ */
+class ChallengePosition
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="position", type="integer")
+     * @Assert\NotBlank(
+     *      message="Veuillez remplir ce champs"
+     * )
+     */
+    private $position;
+
+    /**
+     * @ORM\OneToOne(targetEntity="User")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     */
+    private $user;
+
+    /**
+     * @ORM\OneToOne(targetEntity="Challenge")
+     * @ORM\JoinColumn(name="challenge_id", referencedColumnName="id")
+     */
+    private $challenge;
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function toArray()
+    {
+        $entity = array(
+            "id" => $this->id,
+            "position" => $this->position,
+            "user" => $this->user,
+            "challenge" => $this->challenge
+        );
+
+        return $entity;
+    }
+
+    public function hasImage()
+    {
+        return false;
+    }
+}
