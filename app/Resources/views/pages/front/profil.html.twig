@@ -8,19 +8,24 @@
 
     <div id="profil" class="main profil_main">
         <div class="profil_header">
+            <div class="img_profil">
+                <img src="{{ asset(app.user.avatar) }}" width="164px" height="164px">
+            </div>
 
-      <!--  <div class="canvas">
-            <h2 class="level">47</h2>
-            <input type="text" class="round" data-max="50" data-min="0" value="60" readonly="readonly" style="visibility:hidden" />
-        </div>-->
-        <div class="img_profil">
-            <img src="img/max.jpg" width="164px" height="164px"/>
-        </div>
-            <h2 class="rang" style="font-weight: 400;">Max</h2>
-            <h2 class="rang">Légionnaire</h2>
-            <h2 class="rang littleTitle connexion" style="font-size:17px; text-transform: none;">Dernière connexion: Il y a 15h</h2>
-            <h2 class="rang profil_lvl" style="float:right; font-weight:400;">Niveau</h2>
-            <h2 class="rang profil_lvl_number" style="float:right;">22</h2>
+            <h2 class="rang" style="font-weight: 400;">{{ app.user.username }}</h2>
+            {% for badge in app.user.badges %}
+                <h3 class="rang">{{ badge.name }}</h3>
+            {% endfor %}
+
+            <p class="center">
+                Expérience: {{ app.user.xp }} xp
+            </p>
+            <div class="detail-bar"></div>
+
+            <h3 class="rang littleTitle connexion" style="font-size:17px; text-transform: none;">Dernière connexion: {{ app.user.lastConnexion|date }}</h3>
+
+            <h3 class="rang profil_lvl" style="float:right; font-weight:400;">Niveau</h3>
+            <h2 class="rang profil_lvl_number" style="float:right;">{{ app.user.level }}</h2>
         </div>
 
         <div class="profil_recompense">
@@ -45,49 +50,33 @@
             </div>
         </div>
 
-    <div class="recomp_jeux">
-        <div class="profil_challenge">
-            <div>
-                <h2>Challenges</h2>
-            </div>
-            <div class="challenges"></div>
+        <div class="recomp_jeux">
+            <div class="profil_challenge">
+                <h2>Challenges ({{ app.user.challenges|length }})</h2>
+
                 <div class="contentText">
-                    <h3><span class="position">#253</span><span class="title">Candy Crush Saga<span></h3>
-                    <h3><span class="position">#12</span><span class="title">Rayman Adventures<span></h3>
-                    <h3><span class="position">#45</span><span class="title">Clash of Clans<span></h3>
-                    <h3><span class="position">#789</span><span class="title">FIFA 16<span></h3>
-                    <h3><span class="position">#1253</span><span class="title">Guitar Hero<span></h3>
-                    <h3><span class="position">#231</span><span class="title">Tap Tap Revenge<span></h3>
-                    <h3><span class="position">#1</span><span class="title">Might And Magic V<span></h3>
-                    <h3><span class="position">#4</span><span class="title">Flappy Bird<span></h3>
-                    <h3><span class="position">#87</span><span class="title">King of Thieves<span></h3>
+                    {% for challenge in app.user.challenges %}
+                        <h3><span class="position">#253</span><a href="{{ path('challenge') }}" class="title">{{ challenge.name }}</a></h3>
+                    {% endfor %}
+
                     <br>
-                    <h3><a class="boutonSubmit" href="challenges.html">Voir tous les challenges...</a></h3>
+                    <a class="boutonSubmit" href="{{ path('challenge') }}">Voir tous les challenges...</a>
                 </div>
             </div>
+
             <div class="profil_jeux">
-                <h2>Jeux (34)</h2>
+                <h2>Jeux ({{ app.user.games|length }})</h2>
+
                 <div class="contentText">
-                    <h3><a href="detail.html">Candy Crush Saga</a></h3>
-                    <h3><a href="detail.html">Clash of Clans</a></h3>
-                    <h3><a href="detail.html">Rayman Adventures</a></h3>
-                    <h3><a href="detail.html">King of Thieves</a></h3>
-                    <h3><a href="detail.html">Guitar Hero</a></h3>
-                    <h3><a href="detail.html">Tap Tap Revenge</a></h3>
-                    <h3><a href="detail.html">Doodle Jump</a></h3>
-                    <h3><a href="detail.html">Flappy Bird</a></h3>
-                    <h3><a href="detail.html">Might and Magic V</a></h3>
+                    {% for game in app.user.games %}
+                        <h3><a href="{{ path('game', {id:game.id}) }}">{{ game.name }}</a></h3>
+                    {% endfor %}
+
                     <br>
-                    <h3><a href="catalogue.html" class="boutonSubmit">Voir tous les jeux...</a></h3>
+                    <a href="{{ path('catalogue') }}" class="boutonSubmit">Voir tous les jeux...</a>
                 </div>
             </div>
         </div>
 
-        </div>
-
-
-
-    <a class="deco" href="login.html">DECONNEXION</a>
-
-
+    </div>
 {% endblock %}
