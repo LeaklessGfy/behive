@@ -24,6 +24,7 @@ class BackService
             "badge" => "badge",
             "category" => "categorie",
             "challengeAward" => "récompense",
+            "challengePosition" => "position",
             "rolesCustom" => "role"
         );
 

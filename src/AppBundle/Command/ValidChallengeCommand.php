@@ -61,6 +61,12 @@ class ValidChallengeCommand extends ContainerAwareCommand
 
             $challengeId = $helper->ask($input, $output, $questionChallenge);
             $challenge = $user->getChallenges()[$challengeId];
+
+            $already = $em->getRepository("AppBundle:ChallengePosition")->findOneBy(array("user" => $user, "challenge" => $challenge));
+            if($already) {
+                $output->writeln("<error>This player already got a position with this challenge which is : " . $already->getPosition() . "</error>");
+                return;
+            }
         } else {
             $output->writeln("The specific user doesn't have any active challenge");
             $output->writeln("Would you like to add one ?");
@@ -123,8 +129,10 @@ class ValidChallengeCommand extends ContainerAwareCommand
                     $user->addBadge($badge);
                 }
             }
+            $position->addAward($award);
         }
 
+        $em->persist($position);
         $em->flush();
         $output->writeln("Success");
         return;

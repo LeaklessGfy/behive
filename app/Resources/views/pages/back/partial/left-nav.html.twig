@@ -55,6 +55,9 @@
                     <li {% if re == "challengeAward" %}class="active"{% endif %}>
                         <a href="{{ path('back_list', {ressource:'challengeAward'}) }}">Récompenses</a>
                     </li>
+                    <li {% if re == "challengePosition" %}class="active"{% endif %}>
+                        <a href="{{ path('back_list', {ressource:'challengePosition'}) }}">Positions</a>
+                    </li>
                 </ul>
             </li>
 

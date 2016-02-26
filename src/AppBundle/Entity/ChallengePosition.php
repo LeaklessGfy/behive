@@ -33,16 +33,25 @@ class ChallengePosition
     private $position;
 
     /**
-     * @ORM\OneToOne(targetEntity="User")
+     * @ORM\ManyToOne(targetEntity="User")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     private $user;
 
     /**
-     * @ORM\OneToOne(targetEntity="Challenge")
+     * @ORM\ManyToOne(targetEntity="Challenge")
      * @ORM\JoinColumn(name="challenge_id", referencedColumnName="id")
      */
     private $challenge;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="ChallengeAward")
+     * @ORM\JoinTable(name="position_awards",
+     *      joinColumns={@ORM\JoinColumn(name="position_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="award_id", referencedColumnName="id", unique=true)}
+     *      )
+     */
+    private $awards;
 
     /**
      * Get id
@@ -59,8 +68,8 @@ class ChallengePosition
         $entity = array(
             "id" => $this->id,
             "position" => $this->position,
-            "user" => $this->user,
-            "challenge" => $this->challenge
+            "user" => $this->user->getUsername(),
+            "challenge" => $this->challenge->getName()
         );
 
         return $entity;
@@ -138,5 +147,45 @@ class ChallengePosition
     public function getChallenge()
     {
         return $this->challenge;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->awards = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add awards
+     *
+     * @param \AppBundle\Entity\ChallengeAward $awards
+     * @return ChallengePosition
+     */
+    public function addAward(\AppBundle\Entity\ChallengeAward $awards)
+    {
+        $this->awards[] = $awards;
+
+        return $this;
+    }
+
+    /**
+     * Remove awards
+     *
+     * @param \AppBundle\Entity\ChallengeAward $awards
+     */
+    public function removeAward(\AppBundle\Entity\ChallengeAward $awards)
+    {
+        $this->awards->removeElement($awards);
+    }
+
+    /**
+     * Get awards
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getAwards()
+    {
+        return $this->awards;
     }
 }
