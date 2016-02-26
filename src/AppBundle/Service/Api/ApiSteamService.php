@@ -1,10 +1,10 @@
 <?php
 
-namespace AppBundle\Service;
+namespace AppBundle\Service\Api;
 
 include __DIR__.'/../../../vendor/koraktor/steam-condenser/lib/steam-condenser.php';
 
-class SteamApiService
+class ApiSteamService
 {
     public function getApi()
     {

@@ -3,7 +3,6 @@
 namespace AppBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -14,6 +13,7 @@ class FrontController extends Controller
      */
     public function indexAction()
     {
+        dump($this->container->getParameter('upload.dir'));
         return $this->render('pages/front/index.html.twig');
     }
 
@@ -27,25 +27,14 @@ class FrontController extends Controller
         $games = $em->getRepository("AppBundle:Game")->findBy(array(), array("id" => "DESC"), 8, 0);
         $categories = $em->getRepository("AppBundle:Category")->findAll();
 
-        $action = null;
-        $fps = null;
-        $rpg= null;
-        foreach($categories as $category) {
-            if($category->getName() === "Action-Adventure") {
-                $action = $category;
-            } elseif($category->getName() === "First-Person Shooter") {
-                $fps = $category;
-            } elseif($category->getName() === "Role-Playing") {
-                $rpg = $category;
-            }
-        }
+        $mainCategories = $this->get("front.service")->getMainCategories($categories);
 
         return $this->render('pages/front/catalogue.html.twig', array(
             "games" => $games,
             "categories" => $categories,
-            "action" => $action,
-            "fps" => $fps,
-            "rpg" => $rpg
+            "action" => $mainCategories['action'],
+            "fps" => $mainCategories['fps'],
+            "rpg" => $mainCategories['rpg']
         ));
     }
 
@@ -56,38 +45,46 @@ class FrontController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $challenges = $em->getRepository("AppBundle:Challenge")->findAll();
+        $challenges = $em->getRepository("AppBundle:Challenge")->findBy(array('isDaily' => false));
         $dailyChallenge = $em->getRepository("AppBundle:Challenge")->findOneBy(array('isDaily' => true));
+
+        $hasIt = $this->get('front.service')->hasChallenges($this->getUser(), $dailyChallenge, $challenges);
 
         return $this->render('pages/front/challenge.html.twig', array(
             "challenges" => $challenges,
-            "dailyChallenge" => $dailyChallenge
+            "dailyChallenge" => $dailyChallenge,
+            "hasIt" => $hasIt
         ));
-
     }
 
     /**
-     * @Route("/profil", name="profil")
+     * @Route("/challenge/{id}", name="challenge_detail", requirements={
+     *     "id": "\d+"
+     * })
+     */
+    public function challengeDetailAction($id)
+    {
+        $challenge = $this->getDoctrine()->getRepository("AppBundle:Challenge")->find($id);
+
+        if(!$challenge) {
+            return $this->redirectToRoute('challenge');
+        }
+
+        $hasIt = $this->get('front.service')->hasChallenge($this->getUser(), $challenge);
+
+        return $this->render('pages/front/challenge_detail.html.twig', array(
+            "challenge" => $challenge,
+            "hasIt" => $hasIt
+        ));
+    }
+
+    /**
+     * @Route("/profile", name="profil")
      */
     public function profilAction()
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $games = $em->getRepository("AppBundle:Game")->findAll();
-        $categories = $em->getRepository("AppBundle:Category")->findAll();
-
         return $this->render('pages/front/profil.html.twig', array(
-            "games" => $games,
-            "categories" => $categories
         ));
-    }
-
-    /**
-     * @Route("/utilisateur", name="user")
-     */
-    public function userAction()
-    {
-        return $this->render('pages/front/user.html.twig');
     }
 
     /**
@@ -103,16 +100,7 @@ class FrontController extends Controller
             return $this->redirectToRoute('catalogue');
         }
 
-        $hasIt = false;
-        $user = $this->getUser();
-        if($user) {
-            $userGames = $user->getGameContent();
-            foreach($userGames as $game) {
-                if($game->getId() == $id) {
-                    $hasIt = true;
-                }
-            }
-        }
+        $hasIt = $this->get('front.service')->hasGame($this->getUser(), $game);
 
         return $this->render('pages/front/game.html.twig', array(
             "game" => $game,
@@ -121,45 +109,19 @@ class FrontController extends Controller
     }
 
     /**
-     * @Route("/jeux/ajout/{id}", name="game_add", requirements={
-     *     "id": "\d+"
-     * })
+     * @Route("/liste", name="search")
      */
-    public function gameAddAction($id)
-    {
-        $response = new JsonResponse();
-        $response->setStatusCode(400);
-
-        if($user = $this->getUser()) {
-            $em = $this->getDoctrine()->getManager();
-            $game = $em->getRepository("AppBundle:Game")->find($id);
-            $response->setStatusCode(404);
-
-            if($game) {
-                $user->addGame($game);
-                $em->flush();
-                $response->setStatusCode(200);
-            }
-        }
-
-        return $response;
-    }
-
-    /**
-     * @Route("/liste/{search}", name="search", defaults={"search" = null})
-     */
-    public function searchAction($search)
+    public function searchAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $filter = urldecode($this->getRequest()->get('filter'));
+        $filter = urldecode($request->get('filter'));
+        $search = $request->get('search');
         if($search) {
             $games = $em->getRepository('AppBundle:Game')->search($search, $filter);
         } elseif($filter) {
             $games = $em->getRepository('AppBundle:Category')->findOneBy(array("name" => $filter));
-            if($games) {
-                $games = $games->getGames();
-            }
+            $games = $games->getGames();
         } else {
             $games = $em->getRepository('AppBundle:Game')->findBy(array(), array(), 8, 0);
         }

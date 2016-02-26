@@ -102,7 +102,7 @@ h1 a:hover{
 
 
 .push {
-	padding-top: 70px;
+	padding-top: 65px;
 }
 
 .little-push {
@@ -765,9 +765,6 @@ div.round canvas{
 	overflow:		hidden;
 	position:		relative;
 }
-.dayChallenge img{
-	width:			100%;
-}
 .day h2,
 .cDay h2{
 	margin-top:		10px;
@@ -917,7 +914,7 @@ div.round canvas{
 	margin-right: 15px;
 }
 
-.detail-button:hover{
+.detail-button:hover, .detail-button.valid{
 	transition: 0.3s all;
 	color: #FFFFFF;
 	background-color: #f7ca18;
@@ -928,7 +925,7 @@ div.round canvas{
 }
 
 .detail-bar{
-	width: 80%;
+	width: 60%;
 	background-color: transparent;
 	border-radius: 6px;
 	height: 10px;
@@ -1485,6 +1482,62 @@ header h1 a{
 .alert{
 	text-align:		center;
 }
+#detail{
+	width:			70%;
+	margin:			0 auto;
+}
+.detail-header{
+	width:			30%;
+	float:			left;
+	margin-right:	20px;
+	overflow:		hidden;
+	max-height:		150px;
+}
+.detail-img{
+	width:			100%;
+}
+.detail-title{
+	margin-top:		20px;
+	width:			calc(70% - 20px);
+	margin-bottom:	20px;
+	height:			auto;
+	background:		#252a2e;
+}
+#detail .detail-button{
+	position:		relative;
+	top:			25px;
+}
+#detail .autresCat{
+	margin:			0;
+	padding:		30px;
+	background:		#252a2e;
+}
+#detail .center{
+	height:			100px;
+}
+
+#login{
+	text-align:		center;
+}
+
+#challenges h2{
+	text-align:		center;
+	width:			100%;
+	margin:			0 auto;
+}
+#challenges h4{
+	width:			100%;
+	margin:			0 auto;
+	border-top:		1px solid rgba(255,255,255,0.3) !important;
+}
+#challenges img{
+	display:		block;
+	width:			100%;
+}
+.containerImgChallenge{
+	max-height:		50vh;
+	overflow:		hidden;
+}
 
 .profil_header{
 	max-width: 976px;
@@ -1666,7 +1719,7 @@ header h1 a{
 
 
 	.item {
-		width: 47%;
+		width: 		47%;
 	}
 	.profil_lvl{
 		display: block;
@@ -1681,8 +1734,24 @@ header h1 a{
 }
 
 @media screen and (max-width: 990px) {
+	.contentText{
+		padding:			0;
+		width:				75%;
+		margin:				0 auto;
+	}
 	.sectionCatalogue{
-		width: calc(90% - 30px);
+		width: 		calc(90% - 30px);
+	}
+	#detail{
+		width:		calc(95% - 65px);
+	}
+	.detail-header{
+		width:		100%;
+		margin-bottom:	0;
+	}
+	.detail-title{
+		width:		100%;
+		margin-top:	20px;
 	}
 
 	.section{

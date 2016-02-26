@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Controller\Front;
+namespace AppBundle\Controller\Forum;
 
 use AppBundle\Entity\FSubject;
 use AppBundle\Form\Type\FSubjectType;

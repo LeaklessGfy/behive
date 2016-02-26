@@ -1,7 +1,8 @@
 <?php
 
-namespace AppBundle\Service;
+namespace AppBundle\Service\Api;
 
+use AppBundle\Service\CacheService;
 use Symfony\Component\Config\Definition\Exception\Exception;
 
 class ApiGameService
@@ -11,7 +12,7 @@ class ApiGameService
     protected $apiKey;
     protected $format;
 
-    public function __construct($cache)
+    public function __construct(CacheService $cache)
     {
         $this->cache = $cache;
         $this->apiBase = "http://www.giantbomb.com/api/";

@@ -5,15 +5,22 @@ $( document ).ready( function(){
 
 	$(".ajax-link").click(function(e) {
 		e.preventDefault();
-
+		var btn = $(this);
 		$.ajax({
-			url: $(this).attr('href'),
+			url: btn.attr('href'),
 			method: "GET",
 			success: function() {
-				alert("add");
+				if(btn.data("info") == "game:add") {
+					content = "<span class='margin-l-5 detail-button valid'><i class='fa fa-check'></i> J'ai ce jeu</span>";
+				} else if(btn.data("info" ) == "game:remove") {
+					content = "<span class='margin-l-5 detail-button'><i class='fa fa-check'></i> J'ai déjà ce jeu</span>";
+				} else {
+					content = "<span class='margin-l-5 detail-button valid'><i class='fa fa-check'></i> inscris</span>";
+				}
+				btn.replaceWith(content);
 			},
 			error: function() {
-				alert("error");
+				alert("Une erreur s'est produite");
 			}
 		});
 	});

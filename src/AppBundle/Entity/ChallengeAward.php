@@ -47,6 +47,18 @@ class ChallengeAward
      */
     private $limits;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="Badge")
+     * @ORM\JoinColumn(name="badge_id", referencedColumnName="id")
+     */
+    private $badge;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Game")
+     * @ORM\JoinColumn(name="game_id", referencedColumnName="id")
+     */
+    private $game;
+
 
     /**
      * Get id
@@ -158,5 +170,51 @@ class ChallengeAward
     public function hasImage()
     {
         return false;
+    }
+
+    /**
+     * Set badge
+     *
+     * @param \AppBundle\Entity\Badge $badge
+     * @return ChallengeAward
+     */
+    public function setBadge(\AppBundle\Entity\Badge $badge = null)
+    {
+        $this->badge = $badge;
+
+        return $this;
+    }
+
+    /**
+     * Get badge
+     *
+     * @return \AppBundle\Entity\Badge 
+     */
+    public function getBadge()
+    {
+        return $this->badge;
+    }
+
+    /**
+     * Set game
+     *
+     * @param \AppBundle\Entity\Game $game
+     * @return ChallengeAward
+     */
+    public function setGame(\AppBundle\Entity\Game $game = null)
+    {
+        $this->game = $game;
+
+        return $this;
+    }
+
+    /**
+     * Get game
+     *
+     * @return \AppBundle\Entity\Game 
+     */
+    public function getGame()
+    {
+        return $this->game;
     }
 }

@@ -11,15 +11,22 @@ services:
       class: AppBundle\Service\CacheService
 
   api.game:
-      class: AppBundle\Service\ApiGameService
+      class: AppBundle\Service\Api\ApiGameService
+      arguments: [@cache.service]
+
+  api.igdb:
+      class: AppBundle\Service\Api\ApiIgdbService
       arguments: [@cache.service]
 
   steam.api:
-      class: AppBundle\Service\SteamApiService
+      class: AppBundle\Service\Api\ApiSteamService
 
   load.game.service:
       class: AppBundle\Service\GameService
-      arguments:
-          - array
-          - array
-          - array
+
+  front.service:
+      class: AppBundle\Service\FrontService
+
+  back.service:
+      class: AppBundle\Service\BackService
+      arguments: [@security.password_encoder, %upload.dir%]

@@ -124,6 +124,7 @@ class User implements UserInterface, \Serializable
         $this->challenges = new ArrayCollection();
         $this->xp = 0;
         $this->level = 0;
+        $this->avatar = "img/avatar.gif";
     }
 
     /**
