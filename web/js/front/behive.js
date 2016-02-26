@@ -14,7 +14,7 @@ $( document ).ready( function(){
 				btn.addClass("valid");
 			},
 			error: function() {
-				alert("error");
+				alert("Une erreur s'est produite");
 			}
 		});
 	});

@@ -145,9 +145,9 @@ class FrontController extends Controller
 
         $hasIt = false;
         if($user = $this->getUser()) {
-            $userGames = $user->getGameContent();
-            foreach($userGames as $game) {
-                if($game->getId() == $id) {
+            $userGames = $user->getGames()->getValues();
+            foreach($userGames as $userGame) {
+                if($userGame->getId() == $id) {
                     $hasIt = true;
                 }
             }
@@ -172,13 +172,14 @@ class FrontController extends Controller
         if($user = $this->getUser()) {
             $em = $this->getDoctrine()->getManager();
             $game = $em->getRepository("AppBundle:Game")->find($id);
-            $response->setStatusCode(404);
 
-            if($game) {
-                $user->addGame($game);
-                $em->flush();
-                $response->setStatusCode(200);
+            if(!$game) {
+                $response->setStatusCode(404);
             }
+
+            $user->addGame($game);
+            $em->flush();
+            $response->setStatusCode(200);
         }
 
         return $response;

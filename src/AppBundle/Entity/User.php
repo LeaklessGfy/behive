@@ -442,11 +442,6 @@ class User implements UserInterface, \Serializable
     {
     }
 
-    public function getGameContent()
-    {
-        return $this->getGames()->getValues();
-    }
-
     public function toArray() {
         $badgesArray = array();
         foreach($this->badges as $badge) {
