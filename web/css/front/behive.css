@@ -1266,17 +1266,24 @@ header h1 a{
 .flexContent{
 	display:		flex;
 	display:		-webkit-flex;
+	display:		-moz-flex;
 	width:			95%;
 	justify-content:space-between;
 	-webkit-justify-content: space-between;
 	-webkit-align-items: 	center;
+	-moz-justify-content:space-between;
+	-moz-align-items: 	center;
 	align-items: 	center;
 	flex-wrap:		wrap;
 	-webkit-flex-wrap: wrap;
+	-moz-flex-wrap: wrap;
 	margin:			0 auto;
 }
 .item {
 	width:			22%;
+}
+.jeuMoment{
+	height:			375px;
 }
 
 #sideMenu{
@@ -1360,6 +1367,7 @@ header h1 a{
 	padding-bottom: 20px;
 	overflow:		hidden;
 	display:		inline-block;
+	vertical-align: top;
 }
 .sectionCatalogue .boutonSubmit:hover{
 	background:		0;
@@ -1575,6 +1583,7 @@ header h1 a{
 .img_profil{
 	float: left;
 	margin-right: 30px;
+	margin-left: 10px;
 	position: relative;
 	width: 150px;
 	height: 150px;
