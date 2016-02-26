@@ -48,11 +48,32 @@ class FrontController extends Controller
         $challenges = $em->getRepository("AppBundle:Challenge")->findBy(array('isDaily' => false));
         $dailyChallenge = $em->getRepository("AppBundle:Challenge")->findOneBy(array('isDaily' => true));
 
-        $hasIt = $this->get('front.service')->hasChallenge($this->getUser(), $dailyChallenge, $challenges);
+        $hasIt = $this->get('front.service')->hasChallenges($this->getUser(), $dailyChallenge, $challenges);
 
         return $this->render('pages/front/challenge.html.twig', array(
             "challenges" => $challenges,
             "dailyChallenge" => $dailyChallenge,
+            "hasIt" => $hasIt
+        ));
+    }
+
+    /**
+     * @Route("/challenge/{id}", name="challenge_detail", requirements={
+     *     "id": "\d+"
+     * })
+     */
+    public function challengeDetailAction($id)
+    {
+        $challenge = $this->getDoctrine()->getRepository("AppBundle:Challenge")->find($id);
+
+        if(!$challenge) {
+            return $this->redirectToRoute('challenge');
+        }
+
+        $hasIt = $this->get('front.service')->hasChallenge($this->getUser(), $challenge);
+
+        return $this->render('pages/front/challenge_detail.html.twig', array(
+            "challenge" => $challenge,
             "hasIt" => $hasIt
         ));
     }
@@ -90,12 +111,12 @@ class FrontController extends Controller
     /**
      * @Route("/liste", name="search")
      */
-    public function searchAction()
+    public function searchAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $filter = urldecode($this->getRequest()->get('filter'));
-        $search = $this->getRequest()->get('search');
+        $filter = urldecode($request->get('filter'));
+        $search = $request->get('search');
         if($search) {
             $games = $em->getRepository('AppBundle:Game')->search($search, $filter);
         } elseif($filter) {

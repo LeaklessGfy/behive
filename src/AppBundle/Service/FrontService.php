@@ -22,7 +22,7 @@ class FrontService
         return $mainCategories;
     }
 
-    public function hasChallenge($user, $dailyChallenge, $challenges)
+    public function hasChallenges($user, $dailyChallenge, $challenges)
     {
         $hasIt = array();
         if($user) {
@@ -48,6 +48,20 @@ class FrontService
             $userGames = $user->getGames()->getValues();
 
             if(in_array($game, $userGames)) {
+                $hasIt = true;
+            }
+        }
+
+        return $hasIt;
+    }
+
+    public function hasChallenge($user, $challenge)
+    {
+        $hasIt = false;
+        if($user) {
+            $userChallenges = $user->getChallenges()->getValues();
+
+            if(in_array($challenge, $userChallenges)) {
                 $hasIt = true;
             }
         }

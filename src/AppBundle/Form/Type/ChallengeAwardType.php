@@ -11,6 +11,18 @@ class ChallengeAwardType extends AbstractType
     {
         $builder->add('name', 'text')
                 ->add('points','number')
+                ->add('badge', 'entity', array(
+                    'class' => 'AppBundle:Badge',
+                    'choice_label' => 'name',
+                    'multiple' => false,
+                    'required' => false
+                ))
+                ->add('game', 'entity', array(
+                    'class' => 'AppBundle:Game',
+                    'choice_label' => 'name',
+                    'multiple' => false,
+                    'required' => false
+                ))
         ;
     }
 
