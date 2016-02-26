@@ -5,12 +5,13 @@ $( document ).ready( function(){
 
 	$(".ajax-link").click(function(e) {
 		e.preventDefault();
-
+		var btn = $(this);
 		$.ajax({
-			url: $(this).attr('href'),
+			url: btn.attr('href'),
 			method: "GET",
 			success: function() {
-				alert("add");
+				btn.html("<i class='fa fa-check'></i> inscris");
+				btn.addClass("valid");
 			},
 			error: function() {
 				alert("error");

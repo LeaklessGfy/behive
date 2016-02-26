@@ -56,18 +56,58 @@ class FrontController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $challenges = $em->getRepository("AppBundle:Challenge")->findAll();
+        $challenges = $em->getRepository("AppBundle:Challenge")->findBy(array('isDaily' => false));
         $dailyChallenge = $em->getRepository("AppBundle:Challenge")->findOneBy(array('isDaily' => true));
+
+        $hasIt = array();
+        if($user = $this->getUser()) {
+            $userChallenge = $user->getChallenges()->getValues();
+            foreach($userChallenge as $challenge) {
+                if($challenge === $dailyChallenge) {
+                    $hasIt[] = $dailyChallenge->getId();
+                }
+
+                if(in_array($challenge, $challenges)) {
+                    $hasIt[] = $challenge->getId();
+                }
+            }
+        }
 
         return $this->render('pages/front/challenge.html.twig', array(
             "challenges" => $challenges,
-            "dailyChallenge" => $dailyChallenge
+            "dailyChallenge" => $dailyChallenge,
+            "hasIt" => $hasIt
         ));
 
     }
 
     /**
-     * @Route("/profil", name="profil")
+     * @Route("/challenge/participation/{id}", name="challenge_participation")
+     */
+    public function challengeParticipationAction($id)
+    {
+        $response = new JsonResponse();
+        $response->setStatusCode(400);
+        if($user = $this->getUser()) {
+            $em = $this->getDoctrine()->getManager();
+            $challenge = $em->getRepository("AppBundle:Challenge")->find($id);
+
+            if(!$challenge) {
+                $response->setStatusCode(404);
+            }
+
+            $challenge->addPlayer($user);
+            $user->addChallenge($challenge);
+            $em->flush();
+
+            $response->setStatusCode(200);
+        }
+
+        return $response;
+    }
+
+    /**
+     * @Route("/profile", name="profil")
      */
     public function profilAction()
     {
@@ -104,8 +144,7 @@ class FrontController extends Controller
         }
 
         $hasIt = false;
-        $user = $this->getUser();
-        if($user) {
+        if($user = $this->getUser()) {
             $userGames = $user->getGameContent();
             foreach($userGames as $game) {
                 if($game->getId() == $id) {
@@ -157,9 +196,6 @@ class FrontController extends Controller
             $games = $em->getRepository('AppBundle:Game')->search($search, $filter);
         } elseif($filter) {
             $games = $em->getRepository('AppBundle:Category')->findOneBy(array("name" => $filter));
-            if($games) {
-                $games = $games->getGames();
-            }
         } else {
             $games = $em->getRepository('AppBundle:Game')->findBy(array(), array(), 8, 0);
         }

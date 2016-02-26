@@ -760,9 +760,6 @@ div.round canvas{
 	overflow:		hidden;
 	position:		relative;
 }
-.dayChallenge img{
-	width:			100%;
-}
 .day h2,
 .cDay h2{
 	margin-top:		10px;
@@ -912,7 +909,7 @@ div.round canvas{
 	margin-right: 15px;
 }
 
-.detail-button:hover{
+.detail-button:hover, .detail-button.valid{
 	transition: 0.3s all;
 	color: #FFFFFF;
 	background-color: #f7ca18;

@@ -85,7 +85,7 @@ class BackController extends BaseController
 
         if($form->isValid()) {
             $this->handleUserPassword($ressource, $entity);
-            $this->handleImage($entity, $ressource);
+            $this->handleImage($entity, $ressource, null);
             $this->handleChallenge($ressource, $entity, $em);
 
             $em->persist($entity);
