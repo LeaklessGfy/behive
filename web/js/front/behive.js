@@ -5,15 +5,19 @@ $( document ).ready( function(){
 
 	$(".ajax-link").click(function(e) {
 		e.preventDefault();
-
+		var btn = $(this);
 		$.ajax({
-			url: $(this).attr('href'),
+			url: btn.attr('href'),
 			method: "GET",
 			success: function() {
-				alert("add");
+				if(btn.hasClass('margin-l-5')) {
+					btn.replaceWith("<span class='margin-l-5 detail-button valid'><i class='fa fa-check'></i> J'ai ce jeu</span>");
+				} else {
+					btn.replaceWith("<span class='margin-l-5 detail-button valid'><i class='fa fa-check'></i> inscris</span>");
+				}
 			},
 			error: function() {
-				alert("error");
+				alert("Une erreur s'est produite");
 			}
 		});
 	});
@@ -146,15 +150,15 @@ $(document).scroll(function(e){
 $(document).ready(function(){
 
 	$('.first').hover(function(){
-		$('.main').css("background-image", "url(../img/catalogue.jpg)");
+		$('.home_main').css("background-image", "url(../img/catalogue.jpg)");
 	});
 
 	$('.second').hover(function(){
-		$('.main').css("background-image", "url(../img/challenges.jpg)");
+		$('.home_main').css("background-image", "url(../img/challenges.jpg)");
 	});
 
 	$('.third').hover(function(){
-		$('.main').css("background-image", "url(../img/forum.jpg)");
+		$('.home_main').css("background-image", "url(../img/forum.jpg)");
 	});
 
 });

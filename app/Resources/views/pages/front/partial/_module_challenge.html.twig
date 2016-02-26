@@ -1,0 +1,19 @@
+{% if app.user %}
+    {% if challenge in hasIt %}
+        <p class="boutonSubmit detail-button valid">
+            <i class="fa fa-check"></i> Inscris
+        </p>
+    {% else %}
+        <a class="boutonSubmit detail-button ajax-link" href="{{ path('challenge_participation', {id: challenge}) }}">
+            Participer
+        </a>
+    {% endif %}
+{% else %}
+    <p class="center">Pour participer ?</p>
+    <a class="boutonSubmit detail-button" href="{{ path('register') }}">
+        S'inscrire
+    </a>
+    <a class="boutonSubmit detail-button" href="{{ path('front_login') }}">
+        Connexion
+    </a>
+{% endif %}

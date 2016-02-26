@@ -10,7 +10,7 @@
             <div class="liste">
                 {% for game in games %}
                     <div class="itemListe">
-                        <a href="">
+                        <a href="{{ path('game', {id:game.id}) }}">
                             <h3>{{ game.name }}</h3>
                             <div class="imgListe">
                                 <img src="{{ asset(game.cover)}}" alt="">

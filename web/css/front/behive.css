@@ -600,20 +600,23 @@ div.round input{
 div.round canvas{
 	position:		absolute;
 }
-#challenges,
-#profil{
+#challenges{
 	background:		#2f353a;
 }
 #profil{
 	padding-top:	85px;
 }
-#profil .name,
+
 #profil .rang{
 	font-family:	"Lato";
 	font-weight:	300;
 	text-transform: uppercase;
-	text-align:		center;
+	position: relative;
+	top:40px;
 }
+
+
+
 #profil .level{
 	font-family:	"Lato";
 	font-weight:	300;
@@ -647,8 +650,7 @@ div.round canvas{
 	font-family:	"Lato";
 	font-weight:	300;
 	text-transform: uppercase;
-	text-align:		center;
-	border-bottom:	1px solid #fff;
+
 	margin-bottom:	20px;
 	background: 	none;
 }
@@ -758,9 +760,6 @@ div.round canvas{
 	overflow:		hidden;
 	position:		relative;
 }
-.dayChallenge img{
-	width:			100%;
-}
 .day h2,
 .cDay h2{
 	margin-top:		10px;
@@ -787,8 +786,7 @@ div.round canvas{
 	z-index:		0;
 }
 .boutonSubmit{
-	color:			#fff;
-	border:			3px solid #f7ca18;
+	color:			#f7ca18;
 	background:		transparent;
 	width:			150px;
 	margin:			0 auto;
@@ -911,7 +909,7 @@ div.round canvas{
 	margin-right: 15px;
 }
 
-.detail-button:hover{
+.detail-button:hover, .detail-button.valid{
 	transition: 0.3s all;
 	color: #FFFFFF;
 	background-color: #f7ca18;
@@ -1505,9 +1503,138 @@ header h1 a{
 	top:		25px;
 }
 
+.profil_header{
+	max-width: 976px;
+	min-height: 224px;
+	margin: 0 auto;
+	background-image: url('../../img/profil_header.jpg');
+	background-repeat: no-repeat;
+	background-position: center;
+	margin-top:-20px;
+}
+
+.profil_name{
+	position: absolute;
+	left: 486px;
+	top:100px;
+	white-space: nowrap;
+}
+
+#profil .name{
+	font-family:	"Lato";
+	font-size:24px;
+	text-transform: uppercase;
+	position: absolute;
+
+
+}
+
+.img_profil{
+	float: left;
+	margin-right: 18px;
+	position: relative;
+	width: 164px;
+	height: 164px;
+}
+
+.img_profil img{
+	margin-left:10px;
+	margin-top: 34px;
+}
+
+.profil_lvl{
+	margin-top:-140px;
+	margin-right:70px;
+}
+
+.profil_lvl_number{
+	font-size:80px;
+	margin-top:-100px;
+	margin-right:65px;
+}
+
+.profil_recompense{
+	text-align: 	center;
+	padding-top:	10px;
+	vertical-align: top;
+}
+
+.profil_challenge{
+	display:inline-block;
+	width:			45%;
+	text-align: 	center;
+	padding-top:	20px;
+	padding-bottom:	20px;
+	margin-top:		40px;
+	vertical-align: top;
+	background-color:rgba(0, 0, 0, 0.5);
+	border:solid white 2px;
+}
+
+.profil_jeux{
+	display:inline-block;
+	width:			45%;
+	text-align: 	center;
+	padding-top:	20px;
+	margin-top:40px;
+	float:right;
+	vertical-align: top;
+	background-color:rgba(0, 0, 0, 0.5);
+	border:solid white 2px;
+}
+
+.title_profil{
+	text-align:left;
+	width: 62%;
+	margin:0 auto;
+}
+
+.profil_main{
+	background-image: url("../../img/profil_bg.jpg");
+	background-repeat:no-repeat;
+	width:100%;
+	background-size:cover;
+}
+
+.recomp_jeux{
+	width:60%;
+	margin:0 auto;
+}
+
+@media screen and (max-width: 1220px) {
+
+	.recomp_jeux{
+		width:90%;
+		margin:0 auto;
+	}
+
+	.contentText{
+		width:			100%;
+		padding-left:20px;
+	}
+
+	.position{
+		font-size:		19px;
+
+		display:		inline-block;
+	}
+}
+
+
+
 @media screen and (max-width: 700px) {
 	.item {
 		width: 		47%;
+	}
+	.profil_lvl{
+		display: block;
+		float: none !important;
+		margin-top: 0;
+	}
+	.profil_lvl_number{
+		display: block;
+		margin-top: -53px;
+		font-size: 30px;
 	}
 }
 
