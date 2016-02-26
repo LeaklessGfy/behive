@@ -46,7 +46,7 @@ class BackController extends BaseController
      */
     public function listAction($ressource)
     {
-        $ressourceHelper = $this->getRessourceName($ressource);
+        $ressourceHelper = $this->get('back.service')->getRessourceName($ressource);
         $this->checkIfExist($ressourceHelper);
 
         $em = $this->getDoctrine()->getManager();
@@ -72,20 +72,20 @@ class BackController extends BaseController
      */
     public function createAction(Request $request, $ressource)
     {
-        $ressourceHelper = $this->getRessourceName($ressource);
+        $ressourceHelper = $this->get('back.service')->getRessourceName($ressource);
         $em = $this->getDoctrine()->getManager();
 
         $this->checkIfExist($ressourceHelper);
 
-        $entity = $this->getNewEntity($ressource);
-        $entityForm = $this->getForm($ressource);
+        $entity = $this->get('back.service')->getNewEntity($ressource);
+        $entityForm = $this->get('back.service')->getForm($ressource);
         $form = $this->createForm(new $entityForm(), $entity);
 
         $form->handleRequest($request);
 
         if($form->isValid()) {
-            $this->handleUserPassword($ressource, $entity);
-            $this->handleImage($entity, $ressource, null);
+            $this->get('back.service')->handleUserPassword($ressource, $entity);
+            $this->get('back.service')->handleImage($entity, $ressource, null);
             $this->handleChallenge($ressource, $entity, $em);
 
             $em->persist($entity);
@@ -111,22 +111,22 @@ class BackController extends BaseController
      */
     public function editAction(Request $request, $ressource, $id)
     {
-        $ressourceHelper = $this->getRessourceName($ressource);
+        $ressourceHelper = $this->get('back.service')->getRessourceName($ressource);
         $em = $this->getDoctrine()->getManager();
 
         $this->checkIfExist($ressourceHelper);
 
         $entity = $em->getRepository("AppBundle:".ucfirst($ressource))->find($id);
         $this->checkIfExist($entity);
-        $entityForm = $this->getForm($ressource);
+        $entityForm = $this->get('back.service')->getForm($ressource);
         $form = $this->createForm(new $entityForm(), $entity);
 
         $image = $entity->hasImage() ? $entity->hasImage()['get'] : null;
         $form->handleRequest($request);
 
         if($form->isValid()) {
-            $this->handleUserPassword($entity, $ressource);
-            $this->handleImage($entity,$ressource, $image);
+            $this->get('back.service')->handleUserPassword($entity, $ressource);
+            $this->get('back.service')->handleImage($entity, $ressource, $image);
             $this->handleChallenge($ressource, $entity, $em);
 
             $em->flush();

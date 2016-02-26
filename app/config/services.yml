@@ -23,3 +23,10 @@ services:
 
   load.game.service:
       class: AppBundle\Service\GameService
+
+  front.service:
+      class: AppBundle\Service\FrontService
+
+  back.service:
+      class: AppBundle\Service\BackService
+      arguments: [@security.password_encoder, %upload.dir%]
