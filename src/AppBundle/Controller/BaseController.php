@@ -41,6 +41,13 @@ class BaseController extends Controller
         }
     }
 
+    protected function handlePostProcess($entity, $ressource, $image, $em)
+    {
+        $this->get('back.service')->handleUserPassword($entity, $ressource);
+        $this->get('back.service')->handleImage($entity, $ressource, $image);
+        $this->handleChallenge($ressource, $entity, $em);
+    }
+
     protected function handleChallenge($ressource, $entity, $em)
     {
         if($ressource === "challenge") {

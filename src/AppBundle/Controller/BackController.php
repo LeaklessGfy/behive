@@ -84,10 +84,7 @@ class BackController extends BaseController
         $form->handleRequest($request);
 
         if($form->isValid()) {
-            $this->get('back.service')->handleUserPassword($ressource, $entity);
-            $this->get('back.service')->handleImage($entity, $ressource, null);
-            $this->handleChallenge($ressource, $entity, $em);
-
+            $this->handlePostProcess($entity, $ressource, null, $em);
             $em->persist($entity);
             $em->flush();
             $this->addFlash('success', "Votre $ressourceHelper à bien été créé");
@@ -125,10 +122,7 @@ class BackController extends BaseController
         $form->handleRequest($request);
 
         if($form->isValid()) {
-            $this->get('back.service')->handleUserPassword($entity, $ressource);
-            $this->get('back.service')->handleImage($entity, $ressource, $image);
-            $this->handleChallenge($ressource, $entity, $em);
-
+            $this->handlePostProcess($entity, $ressource, $image, $em);
             $em->flush();
             $this->addFlash('success', "Votre $ressourceHelper à bien été modifié");
 
@@ -204,7 +198,7 @@ class BackController extends BaseController
         $response = $api->getVideoGame($url, $name);
 
         $categories = $em->getRepository('AppBundle:Category')->findAll();
-        $editor = $em->getRepository('AppBundle:Editor')->findOneBy(array('name' => $response['results']['publishers'][0]['name']));
+        $editor = $em->getRepository('AppBundle:Editor')->findAll();
 
         $return = $this->get('load.game.service')->createGame($categories, $editor, $response['results']);
 
