@@ -2,6 +2,7 @@
 namespace AppBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -211,9 +212,8 @@ class BackController extends BaseController
         $em->persist($return['game']);
         $em->flush();
 
-        $this->addFlash('success', 'Le jeu à bien été créé');
-        $id = $return['game']->getId();
-
-        return $this->redirectToRoute('back_edit', array("ressource" => "game", "id" => $id));
+        $response = new JsonResponse();
+        $response->setStatusCode(200);
+        return $response;
     }
 }

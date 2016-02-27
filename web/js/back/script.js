@@ -75,4 +75,25 @@ $(document).ready(function() {
             }
         });
     });
+
+    $(".ajax-form").on("submit", function(e) {
+        e.preventDefault();
+
+        var data = $(this).serialize(),
+            url = $(this).attr("action"),
+            form = $(this);
+
+        $.ajax({
+            url: url,
+            method: "POST",
+            data: data,
+            success: function() {
+                handleResponse("success", "Le jeu à bien été ajouté");
+                form.find('.btn-warning').prop('disabled', true);
+            },
+            error: function() {
+                handleResponse("danger", "Une erreur est survenue");
+            }
+        });
+    });
 });

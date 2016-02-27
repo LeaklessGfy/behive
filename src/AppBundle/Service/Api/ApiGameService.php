@@ -23,6 +23,7 @@ class ApiGameService
     protected function callApi($id, $url)
     {
         if (!$result = $this->cache->getInCache($id)) {
+            dump("send");
             try {
                 $options = array(
                     "http"=>array(

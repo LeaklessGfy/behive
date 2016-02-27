@@ -20,7 +20,7 @@ class GameService
 
         $filename = "api-".$response['id']."-img.jpg";
         $dir = __DIR__."/../../../web/uploads/game/";
-        //copy($response['image']['medium_url'], $dir.$filename);
+        copy($response['image']['medium_url'], $dir.$filename);
         $game->setCover("uploads/game/$filename");
 
         $game->setDescription($response['deck']);

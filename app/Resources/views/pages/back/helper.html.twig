@@ -25,7 +25,7 @@
                     <h3>{{ game.name }}</h3>
                     <p>{{ game.deck }}</p>
 
-                    <form action="{{ path('back_helper_save') }}" method="POST">
+                    <form class="ajax-form" action="{{ path('back_helper_save') }}" method="POST">
                         <input type="hidden" value="{{ game.api_detail_url }}" name="url">
                         <input type="hidden" value="{{ game.name }}" name="name">
 
