@@ -100,6 +100,13 @@ class User implements UserInterface, \Serializable
     private $badges;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="active_badge", type="integer", nullable=true)
+     */
+    private $activeBadge;
+
+    /**
      * @ORM\ManyToMany(targetEntity="Game", inversedBy="owners")
      * @ORM\JoinTable(name="owners_games")
      */
@@ -482,5 +489,28 @@ class User implements UserInterface, \Serializable
             "get" => $this->getAvatar(),
             "set" => "setAvatar"
         );
+    }
+
+    /**
+     * Set activeBadge
+     *
+     * @param integer $activeBadge
+     * @return User
+     */
+    public function setActiveBadge($activeBadge)
+    {
+        $this->activeBadge = $activeBadge;
+
+        return $this;
+    }
+
+    /**
+     * Get activeBadge
+     *
+     * @return integer 
+     */
+    public function getActiveBadge()
+    {
+        return $this->badges[$this->activeBadge];
     }
 }

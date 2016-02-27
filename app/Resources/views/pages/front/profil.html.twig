@@ -13,9 +13,10 @@
             </div>
 
             <h2 class="rang" style="font-weight: 400;">{{ app.user.username }}</h2>
-            {% for badge in app.user.badges %}
-                <h3 class="rang">{{ badge.name }}</h3>
-            {% endfor %}
+
+            {% if app.user.activeBadge %}
+                <p>{{ app.user.activeBadge.name }}</p>
+            {% endif %}
 
             <p class="rang profil_xp">
                 Expérience: {{ app.user.xp }} xp
@@ -82,20 +83,12 @@
             <ul>
                 {% for badge in app.user.badges %}
                     <li>
-                        <a href="">
+                        <a href="{{ path('profil_active_badge', {id: loop.index0}) }}">
                             <h5>{{ badge.name }}</h5>
                         </a>
                     </li>
                 {% endfor %}
             </ul>
-
-            {% if app.user.badges|length %}
-                {{ form_start(form) }}
-                {{ form_widget(form) }}
-
-                <input type="submit" value="Choisir">
-                {{ form_end(form) }}
-            {% endif %}
         </div>
     </div>
 {% endblock %}

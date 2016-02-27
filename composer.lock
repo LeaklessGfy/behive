@@ -4,9 +4,56 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "546c5810558bc15553dfa50d6d5d6736",
-    "content-hash": "b1d9d99c0bb7637ed9dc359c38f9afd1",
+    "hash": "b2188f47be26daf16c878f87c128fafa",
+    "content-hash": "85100e8edfaaacdc953a4bcd3e70c172",
     "packages": [
+        {
+            "name": "bmatzner/fontawesome-bundle",
+            "version": "4.4.0",
+            "target-dir": "Bmatzner/FontAwesomeBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/bmatzner/BmatznerFontAwesomeBundle.git",
+                "reference": "2ff4fc0fbcfab38428c0458f310f1b6e00cabd1e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/bmatzner/BmatznerFontAwesomeBundle/zipball/2ff4fc0fbcfab38428c0458f310f1b6e00cabd1e",
+                "reference": "2ff4fc0fbcfab38428c0458f310f1b6e00cabd1e",
+                "shasum": ""
+            },
+            "require": {
+                "symfony/framework-bundle": ">=2.1"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-0": {
+                    "Bmatzner\\FontAwesomeBundle": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT",
+                "CC BY 3.0"
+            ],
+            "authors": [
+                {
+                    "name": "Bernd Matzner",
+                    "email": "bernd@matznermatzner.de",
+                    "homepage": "http://berndmatzner.de"
+                }
+            ],
+            "description": "FontAwesome Bundle for Symfony2",
+            "homepage": "http://fortawesome.github.com/Font-Awesome/",
+            "keywords": [
+                "css",
+                "graphics",
+                "symfony",
+                "typography",
+                "webfonts"
+            ],
+            "time": "2015-08-11 17:29:13"
+        },
         {
             "name": "doctrine/annotations",
             "version": "v1.2.7",

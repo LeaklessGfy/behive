@@ -14,6 +14,9 @@ doctrine:
         result_cache_driver: apc
         query_cache_driver: apc
 
+assetic:
+    use_controller: false
+
 monolog:
     handlers:
         main:

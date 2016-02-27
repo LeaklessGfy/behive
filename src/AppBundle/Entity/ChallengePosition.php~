@@ -68,8 +68,8 @@ class ChallengePosition
         $entity = array(
             "id" => $this->id,
             "position" => $this->position,
-            "user" => $this->user,
-            "challenge" => $this->challenge
+            "user" => $this->user->getUsername(),
+            "challenge" => $this->challenge->getName()
         );
 
         return $entity;
