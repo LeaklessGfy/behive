@@ -24,17 +24,18 @@ class LoadGamesCommand extends ContainerAwareCommand
         $em = $ct->get('doctrine')->getManager();
         $output->writeln("Start process...");
         $categories = $em->getRepository('AppBundle:Category')->findAll();
+        $editors = $em->getRepository('AppBundle:Editor')->findAll();
 
         foreach($result as $game) {
-            $editor = $em->getRepository('AppBundle:Editor')->findOneBy(array('name' => $game['publishers'][0]['name']));
-            $return = $ct->get('load.game.service')->createGame($categories, $editor, $game);
+            $return = $ct->get('load.game.service')->createGame($categories, $editors, $game);
 
+            if($return['editor']) {
+                $editors[] = $return['editor'];
+                $em->persist($return['editor']);
+            }
             foreach($return['categories'] as $category) {
                 $categories[] = $category;
                 $em->persist($category);
-            }
-            if($return['editor']) {
-                $em->persist($return['editor']);
             }
             $em->persist($return['game']);
             $output->writeln("Game saved");

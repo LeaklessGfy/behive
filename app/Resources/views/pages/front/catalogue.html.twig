@@ -19,21 +19,17 @@
                             <div class="bgImg"></div>
                         </div>
                         <h3>{{ game.name }}</h3>
-                        <h4>
-                            {% for category in game.categories %}
-                                {{ category.name }}
-                            {% endfor %}
-                        </h4>
+                        <h4>{{ game.description|truncate(40, true, '...') }}</h4>
                     </a>
                 </div>
             {% endfor %}
         </div>
 
-        {% include "pages/front/partial/_module_category.html.twig" with {category: action, class: "Action"} %}
+        {% include "pages/front/partial/_module_category.html.twig" with {category: "Action-Adventure", games: action, class: "Action"} %}
 
-        {% include "pages/front/partial/_module_category.html.twig" with {category: fps, class: "Plateforme"} %}
+        {% include "pages/front/partial/_module_category.html.twig" with {category: "First-Person Shooter", games: fps, class: "Plateforme"} %}
 
-        {% include "pages/front/partial/_module_category.html.twig" with {category: rpg, class: "Voiture"} %}
+        {% include "pages/front/partial/_module_category.html.twig" with {category: "Role-Playing", games: rpg, class: "Voiture"} %}
 
         <div class="sectionCatalogue autresCat">
             <h2 class="titleCategorieCatalogue">Autres catégories</h2>

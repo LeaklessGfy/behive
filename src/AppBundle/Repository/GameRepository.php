@@ -22,11 +22,26 @@ class GameRepository extends EntityRepository
 
     public function search($queryString)
     {
-        dump($queryString);
-        $qb = $this->createQueryBuilder('a')  //add select and array for JSON
+        $qb = $this->createQueryBuilder('a')
         ->where('a.name LIKE :string')
             ->setParameter('string', "%". $queryString ."%");
 
         return $qb->getQuery()->getResult();
+    }
+
+    public function findByCategory($category, $limit)
+    {
+        $query = $this->createQueryBuilder('a')
+            ->select('a')
+            ->leftJoin('a.categories', 'c')
+            ->addSelect('c');
+
+        $query = $query->where('c.name = :c')
+            ->setParameter('c', $category)
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult();
+
+        return $query;
     }
 }
