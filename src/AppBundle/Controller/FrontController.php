@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Form\Type\UserBadgeType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -80,11 +81,24 @@ class FrontController extends Controller
     }
 
     /**
-     * @Route("/profile", name="profil")
+     * @Route("/profil", name="profil")
      */
     public function profilAction()
     {
+        if(!$this->getUser()) {
+            return $this->redirectToRoute('homepage');
+        }
+
+        $badges = $this->getUser()->getBadges()->getValues();
+        $badgesArray = array();
+        foreach($badges as $badge) {
+            $badgesArray[$badge->getId()] = $badge->getName();
+        }
+
+        $form = $this->createForm(new UserBadgeType(), $badgesArray);
+
         return $this->render('pages/front/profil.html.twig', array(
+            "form" => $form->createView()
         ));
     }
 

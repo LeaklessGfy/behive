@@ -88,6 +88,14 @@
                     </li>
                 {% endfor %}
             </ul>
+
+            {% if app.user.badges|length %}
+                {{ form_start(form) }}
+                {{ form_widget(form) }}
+
+                <input type="submit" value="Choisir">
+                {{ form_end(form) }}
+            {% endif %}
         </div>
     </div>
 {% endblock %}
