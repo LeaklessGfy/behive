@@ -3,25 +3,6 @@ namespace AppBundle\Service;
 
 class FrontService
 {
-    public function getMainCategories($categories)
-    {
-        $action = null;
-        $fps = null;
-        $rpg= null;
-        foreach($categories as $category) {
-            if($category->getName() === "Action-Adventure") {
-                $action = $category;
-            } elseif($category->getName() === "First-Person Shooter") {
-                $fps = $category;
-            } elseif($category->getName() === "Role-Playing") {
-                $rpg = $category;
-            }
-        }
-        $mainCategories = array("action" => $action, "fps" => $fps, "rpg" => $rpg);
-
-        return $mainCategories;
-    }
-
     public function hasChallenges($user, $dailyChallenge, $challenges)
     {
         $hasIt = array();

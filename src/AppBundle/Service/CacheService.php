@@ -6,10 +6,17 @@ use Symfony\Component\Filesystem\Exception\IOException;
 
 class CacheService
 {
+    private $dir;
+
+    public function __construct()
+    {
+        $this->dir = __DIR__ . '/../Cache/ApiGiant/';
+    }
+
     public function getInCache($id)
     {
         $finder = new \Symfony\Component\Finder\Finder();
-        $finder->files()->in(__DIR__.'/../Cache/ApiGiant/')->name($id.'.json');
+        $finder->files()->in($this->dir)->name($id.'.json');
 
         $contents = false;
         foreach ($finder as $file) {
@@ -18,10 +25,9 @@ class CacheService
 
         if($contents) {
             dump("cache");
-            return $contents;
         }
 
-        return false;
+        return $contents;
     }
 
     public function storeInCache($id, $result)
@@ -29,7 +35,7 @@ class CacheService
         $fs = new \Symfony\Component\Filesystem\Filesystem();
 
         try {
-            $fs->dumpFile(__DIR__.'/../Cache/ApiGiant/'.$id.'.json', $result);
+            $fs->dumpFile($this->dir.$id.'.json', $result);
         }
         catch(IOException $e) {
         }
@@ -38,7 +44,7 @@ class CacheService
     public function getEverythingFromCache()
     {
         $finder = new \Symfony\Component\Finder\Finder();
-        $finder->files()->in(__DIR__.'/../Cache/ApiGiant/')->name('game-*.json');
+        $finder->files()->in($this->dir)->name('game-*.json');
 
         $contents = array();
         foreach ($finder as $file) {

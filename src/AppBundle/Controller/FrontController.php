@@ -29,8 +29,6 @@ class FrontController extends Controller
         $action = $em->getRepository("AppBundle:Game")->findByCategory("Action-Adventure", 7);
         $fps = $em->getRepository("AppBundle:Game")->findByCategory("First-Person Shooter", 7);
         $rpg = $em->getRepository("AppBundle:Game")->findByCategory("Role-Playing", 7);
-        //dump($action);die;
-        //$mainCategories = $this->get("front.service")->getMainCategories($categories);
 
         return $this->render('pages/front/catalogue.html.twig', array(
             "games" => $games,

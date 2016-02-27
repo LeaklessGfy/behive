@@ -38,8 +38,8 @@ class BackService
     public function getNewEntity($ressource)
     {
         $ressource = ucfirst($ressource);
-
         $entity= "AppBundle\\Entity\\".$ressource;
+
         return new $entity();
     }
 
