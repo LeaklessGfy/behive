@@ -43,5 +43,6 @@ class LoadGamesCommand extends ContainerAwareCommand
 
         $em->flush();
         $output->writeln("Every games in cache have been load in database !");
+        return;
     }
 }

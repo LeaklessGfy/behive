@@ -69,8 +69,7 @@ class BackService
 
     public function handleUserPassword($ressource, $entity)
     {
-        if($ressource === "User") {
-            //$encoder = $this->container->get('security.password_encoder');
+        if($ressource === "user") {
             $password = $this->encoder->encodePassword($entity, $entity->getPassword());
             $entity->setPassword($password);
         }

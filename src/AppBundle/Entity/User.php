@@ -125,6 +125,7 @@ class User implements UserInterface, \Serializable
         $this->xp = 0;
         $this->level = 0;
         $this->avatar = "img/avatar.gif";
+        $this->lastConnexion = new \DateTime('now');
     }
 
     /**
@@ -462,7 +463,7 @@ class User implements UserInterface, \Serializable
         $entity = array(
             "id" => $this->id,
             "username" => $this->username,
-            "dernière connexion" => $this->lastConnexion->format("d/m/Y H:i:s"),
+            "dernière connexion" => $this->lastConnexion ? $this->lastConnexion->format("d/m/Y H:i:s") : null,
             "role" => $this->roles ? $this->roles->getRole() : null,
             "level" => $this->level,
             "xp" => $this->xp,

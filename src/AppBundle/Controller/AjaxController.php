@@ -9,7 +9,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class AjaxController extends Controller
 {
     /**
-     * @Route("/challenge/participation/{id}", name="challenge_participation")
+     * @Route("/challenge/participation/{id}", name="challenge_participation", requirements={
+     *     "id": "\d+"
+     * })
      */
     public function challengeParticipationAction($id)
     {

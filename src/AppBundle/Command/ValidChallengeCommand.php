@@ -31,9 +31,11 @@ class ValidChallengeCommand extends ContainerAwareCommand
         $em = $this->getContainer()->get('doctrine')->getManager();
         $helper = $this->getHelper('question');
 
+        //GET USER
         $questionUser = new Question("<question>Please enter the id of the user:</question> ");
         $userId = $helper->ask($input, $output, $questionUser);
         if(!$userId) {
+            $output->writeln("<error>You must give an ID</error>");
             return;
         }
 
@@ -43,6 +45,7 @@ class ValidChallengeCommand extends ContainerAwareCommand
             $output->writeln("<error>The user with the specific id: $userId, doesn't exist! Please check out for a new Id</error>");
             return;
         }
+        //
 
         $challengeNumber = count($user->getChallenges());
 

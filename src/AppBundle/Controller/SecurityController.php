@@ -14,7 +14,7 @@ class SecurityController extends Controller
     /**
      * @Route("/admin/login", name="back_login")
      */
-    public function backLoginAction(Request $request)
+    public function backLoginAction()
     {
         $authenticationUtils = $this->get('security.authentication_utils');
         $error = $authenticationUtils->getLastAuthenticationError();
@@ -33,7 +33,7 @@ class SecurityController extends Controller
     /**
      * @Route("/connexion", name="front_login")
      */
-    public function frontLoginAction(Request $request)
+    public function frontLoginAction()
     {
         $authenticationUtils = $this->get('security.authentication_utils');
         $error = $authenticationUtils->getLastAuthenticationError();
@@ -61,7 +61,6 @@ class SecurityController extends Controller
 
         if($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $newUser->setLastConnexion(new \DateTime('now'));
 
             //Image
             if($file = $newUser->getAvatar()) {

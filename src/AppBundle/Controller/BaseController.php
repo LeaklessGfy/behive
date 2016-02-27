@@ -20,19 +20,6 @@ class BaseController extends Controller
         $this->apiId = "440";
     }
 
-    protected function callSteamApi($interface, $method, $steamId)
-    {
-        $url = $this->apiBaseUrl . "/" . $interface . "/" . $method . "/" . $this->apiVersion . "/&key=" . $this->apiKey . "&steamid=" . $steamId;
-    }
-
-    protected function getPlayerAchievement($steamId)
-    {
-        $interface = "ISteamUserStats";
-        $method = "GetPlayerAchievements";
-
-        $response = $this->callSteamApi($interface, $method, $steamId);
-    }
-
     protected function checkIfExist($ressourceHelper)
     {
         if(!$ressourceHelper) {
@@ -43,7 +30,7 @@ class BaseController extends Controller
 
     protected function handlePostProcess($entity, $ressource, $image, $em)
     {
-        $this->get('back.service')->handleUserPassword($entity, $ressource);
+        $this->get('back.service')->handleUserPassword($ressource, $entity);
         $this->get('back.service')->handleImage($entity, $ressource, $image);
         $this->handleChallenge($ressource, $entity, $em);
     }
