@@ -86,4 +86,52 @@ class AjaxController extends Controller
 
         return $response;
     }
+
+    /**
+     * @Route("/sync/steam", name="sync_steam")
+     */
+    public function syncSteamAction()
+    {
+        $response = new JsonResponse();
+        $response->setStatusCode(401);
+
+        if(!$user = $this->getUser()) {
+            return $response;
+        }
+
+        $steamId = $user->getSteamID();
+
+        $steamApi = $this->get('api.steam');
+        $steamGames = $steamApi->getUserGames($steamId);
+
+        if(isset($steamUser['error'])) {
+            $response->setStatusCode(404);
+            $explicit = array($steamUser['content'], $steamId);
+            $response->setData($explicit);
+            return $response;
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        $giantApi = $this->get('api.giant');
+
+        $test = array("Witcher", "assassin's");
+
+        foreach($steamGames as $stG) {
+            $game = $em->getRepository("AppBundle:Game")->search($stG);
+
+            if($game) {
+                if(!in_array($game, $user->getGames()->getValues())) {
+                    $user->addGame($game[0]);
+                }
+            } else {
+                $giantApi->searchVideoGame($stG);
+            }
+        }
+
+
+        $response->setStatusCode(200);
+        $response->setData($steamGames);
+
+        return $response;
+    }
 }

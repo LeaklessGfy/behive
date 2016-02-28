@@ -37,6 +37,9 @@ class UserType extends AbstractType
                     'multiple' => true,
                     'expanded' => true
                 ))
+                ->add('steamId', 'text', array(
+                    'required' => false
+                ))
         ;
     }
 

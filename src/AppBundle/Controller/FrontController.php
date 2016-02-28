@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Form\Type\UserEditType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -91,12 +92,38 @@ class FrontController extends Controller
 
     /**
      * @Route("/profil", name="profil")
-     * @Method("GET")
+     * @Method({"GET", "POST"})
      * @Template("pages/front/profil.html.twig")
      */
-    public function profilAction()
+    public function profilAction(Request $request)
     {
-        return array();
+        $user = $this->getUser();
+        $form = $this->createForm(new UserEditType(), $user);
+        $avatar = $user->getAvatar();
+
+        $form->handleRequest($request);
+
+        if($form->isValid()) {
+            //AVATAR
+            $file = $user->getAvatar();
+            if($file) {
+                $fileName = "user-".time()."-img.jpg";
+                $fileDir = $this->getParameter('upload.dir')."user/";
+                $file->move($fileDir, $fileName);
+
+                $user->setAvatar("uploads/user/".$fileName);
+            } else {
+                $user->setAvatar($avatar);
+            }
+
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->redirectToRoute("profil");
+        }
+
+        return array(
+            "form" => $form->createView()
+        );
     }
 
     /**

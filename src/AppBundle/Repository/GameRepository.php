@@ -29,6 +29,21 @@ class GameRepository extends EntityRepository
         return $qb->getQuery()->getResult();
     }
 
+    public function searchInArray($array)
+    {
+        $qb = $this->createQueryBuilder('a')
+            ->where('a.name LIKE :data')
+            ->setParameter('data', "%".$array[0]."%");
+
+        $nbItem = count($array);
+        for($i = 1; $i < $nbItem; $i++) {
+            $qb->orWhere("a.name LIKE :id$i")
+                ->setParameter("id$i", '%'.$array[$i]."%");
+        }
+
+        return $qb->getQuery()->getResult();
+    }
+
     public function findByCategory($category, $limit)
     {
         $query = $this->createQueryBuilder('a')

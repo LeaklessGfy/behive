@@ -6,8 +6,8 @@ services:
       class: AppBundle\Service\Cache\CacheService
       arguments: [@session]
 
-  api.game:
-      class: AppBundle\Service\Api\ApiGameService
+  api.giant:
+      class: AppBundle\Service\Api\ApiGiantService
       arguments: [@cache.service, @session]
 
   api.igdb:

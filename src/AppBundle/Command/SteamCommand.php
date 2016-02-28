@@ -21,6 +21,6 @@ class SteamCommand extends ContainerAwareCommand
         $ct  = $this->getContainer();
         $api = $ct->get('api.steam');
 
-        $api->getUser("redhypegang");
+        $games = $api->getUserGames("76561198079800787");
     }
 }

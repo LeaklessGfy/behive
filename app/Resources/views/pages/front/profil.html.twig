@@ -51,6 +51,12 @@
             </div>
         </div>
 
+        <div class="center">
+            <p>Synchroniser votre compte Behive avec steam</p>
+
+            <a href="{{ path('sync_steam') }}" class="detail-button ">Synchroniser</a>
+        </div>
+
         <div class="recomp_jeux">
             <div class="profil_challenge">
                 <h2>Challenges ({{ app.user.challenges|length }})</h2>
@@ -78,17 +84,26 @@
                 </div>
             </div>
         </div>
-        <div class="sectionCatalogue autresCat">
-            <h2 class="titleCategorieCatalogue">Badges possédés</h2>
-            <ul>
-                {% for badge in app.user.badges %}
-                    <li>
-                        <a href="{{ path('profil_active_badge', {id: loop.index0}) }}">
-                            <h5>{{ badge.name }}</h5>
-                        </a>
-                    </li>
-                {% endfor %}
-            </ul>
-        </div>
+
+        {% if app.user.badges|length %}
+            <div class="sectionCatalogue autresCat">
+                <h2 class="titleCategorieCatalogue">Badges possédés</h2>
+                <ul>
+                    {% for badge in app.user.badges %}
+                        <li>
+                            <a href="{{ path('profil_active_badge', {id: loop.index0}) }}">
+                                <h5>{{ badge.name }}</h5>
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+
+        {{ form_start(form) }}
+            {{ form_widget(form) }}
+
+            <input type="submit" value="Enregistrer">
+        {{ form_end(form) }}
     </div>
 {% endblock %}

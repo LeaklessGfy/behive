@@ -6,7 +6,7 @@ use AppBundle\Service\Cache\CacheService;
 use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\Session\Session;
 
-class ApiGameService
+class ApiGiantService
 {
     protected $cache;
     protected $apiBase;

@@ -125,9 +125,9 @@ class User implements UserInterface, \Serializable
     private $roles;
 
     /**
-     * @var int
+     * @var string
      *
-     * @ORM\Column(name="steam_id", type="integer", nullable=true)
+     * @ORM\Column(name="steam_id", type="string", length=255, nullable=true)
      */
     private $steamId;
 

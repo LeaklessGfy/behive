@@ -21,12 +21,17 @@ class ApiSteamService
     {
         $response = $this->getUser($steamID);
         if($response["error"]) {
-
+            return $response;
         }
 
         $user = $response['content'];
         $games = $user->getGames();
 
-        return $games;
+        $gameName = array();
+        foreach($games as $game) {
+            $gameName[] = $game->getName();
+        }
+
+        return $gameName;
     }
 }

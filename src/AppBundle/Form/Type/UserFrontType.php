@@ -16,6 +16,9 @@ class UserFrontType extends AbstractType
                     'data_class' => null,
                     'required' => false
                 ))
+                ->add("steamId", "text", array(
+                    'required' => false
+                ))
         ;
     }
 

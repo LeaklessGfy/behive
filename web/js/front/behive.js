@@ -25,6 +25,22 @@ $( document ).ready( function(){
 		});
 	});
 
+	$(".sync-steam").click(function(e) {
+		e.preventDefault();
+		var btn = $(this);
+
+		$.ajax({
+			url: btn.attr('href'),
+			method: "GET",
+			success: function(data) {
+				console.log(data);
+			},
+			error: function() {
+				alert("Une erreur s'est produite");
+			}
+		});
+	});
+
 	$(".MenuDroite").click( function(){
 		var menu = $('.MenuDroite nav'),
 		sidebar = $("#sideMenu");
