@@ -112,12 +112,9 @@ class AjaxController extends Controller
         }
 
         $em = $this->getDoctrine()->getManager();
-        $giantApi = $this->get('api.giant');
         $gameService = $this->get('create.game.service');
 
-        $categories = $em->getRepository('AppBundle:Category')->findAll();
-        $editors = $em->getRepository('AppBundle:Editor')->findAll();
-
+        $gameAdd = array();
         foreach($steamGames as $stG) {
             $game = $em->getRepository("AppBundle:Game")->search($stG->getName());
 
@@ -126,35 +123,20 @@ class AjaxController extends Controller
                     $user->addGame($game[0]);
                 }
             } else {
-                $responseApi = $giantApi->searchVideoGame($stG->getName())['results'];
+                $steamGame = $steamApi->getGameInfo($stG->getAppId(), $stG->getName());
 
-                if(!isset($responseApi[0])) {
-                    continue;
+                if($steamGame[$stG->getAppId()]['success'] === true) {
+                    $game= $gameService->createGameFromSteam($steamGame[$stG->getAppId()]['data']);
+                    $user->addGame($game);
+                    $gameAdd[] = $game->getName();
                 }
-
-                $giantGame = $giantApi->getVideoGame($responseApi[0]['api_detail_url'], $responseApi[0]['name']);
-                $return = $gameService->createGame($categories, $editors, $giantGame['results']);
-
-                //PERSIST EDITOR
-                if($return['editor']) {
-                    $editors[] = $return['editor'];
-                    $em->persist($return['editor']);
-                }
-                //PERSIST CATEGORIES
-                foreach($return['categories'] as $category) {
-                    $categories[] = $category;
-                    $em->persist($category);
-                }
-                //PERSIST GAME
-                $em->persist($return['game']);
-                $user->addGame($return['game']);
             }
+
+            $em->flush();
         }
 
-        $em->flush();
-
         $response->setStatusCode(200);
-        $response->setData(array("jeu ajouté : " => $steamGames));
+        $response->setData(array("jeu ajouté : " => $gameAdd));
 
         return $response;
     }

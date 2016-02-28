@@ -118,11 +118,10 @@ class CreateGameService
         //IMAGE
         $filename = "steam-".$gId."-img.jpg";
         $dir = $this->uploadDir."game"."/".$filename;
-        //copy($gImage, $dir);
+        copy($gImage, $dir);
         $game->setCover("uploads/game/$filename");
 
         //CATEGORIES
-        $categoriesToFlush = array();
         foreach($gGenres as $genre) {
             $formerCategory = $this->em->getRepository("AppBundle:Category")->findOneBy(array("name" => $genre['description']));
 
@@ -132,16 +131,14 @@ class CreateGameService
                 }
             } else {
                 $newCategory = new \AppBundle\Entity\Category();
-                $newCategory->setName($genre);
-                $this->em->persist($newCategory);
+                $newCategory->setName($genre['description']);
 
                 $game->addCategory($newCategory);
-                $categoriesToFlush[] = $newCategory;
+                $this->em->persist($newCategory);
             }
         }
 
         //EDITOR
-        $editorsToFlush = array();
         $formerEditor = $this->em->getRepository("AppBundle:Editor")->findOneBy(array("name" => $gPublisher));
         if($formerEditor) {
             $game->setEditor($formerEditor);
@@ -151,7 +148,6 @@ class CreateGameService
             $this->em->persist($newEditor);
 
             $game->setEditor($newEditor);
-            $editorsToFlush[] = $newEditor;
         }
 
         $this->em->persist($game);
