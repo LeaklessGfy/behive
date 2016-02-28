@@ -124,6 +124,13 @@ class User implements UserInterface, \Serializable
      */
     private $roles;
 
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="steam_id", type="integer", nullable=true)
+     */
+    private $steamId;
+
     public function __construct() {
         $this->badges = new ArrayCollection();
         $this->myGames = new ArrayCollection();
@@ -512,5 +519,28 @@ class User implements UserInterface, \Serializable
     public function getActiveBadge()
     {
         return $this->badges[$this->activeBadge];
+    }
+
+    /**
+     * Set steamId
+     *
+     * @param integer $steamId
+     * @return User
+     */
+    public function setSteamId($steamId)
+    {
+        $this->steamId = $steamId;
+
+        return $this;
+    }
+
+    /**
+     * Get steamId
+     *
+     * @return integer 
+     */
+    public function getSteamId()
+    {
+        return $this->steamId;
     }
 }

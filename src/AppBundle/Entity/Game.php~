@@ -124,6 +124,7 @@ class Game
         $this->challenge = new ArrayCollection();
         $this->forums = new ArrayCollection();
         $this->pegi = 0;
+        $this->rating = 0;
     }
 
     /**
