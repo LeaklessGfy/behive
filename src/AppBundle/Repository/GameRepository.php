@@ -20,13 +20,18 @@ class GameRepository extends EntityRepository
             ->getSingleScalarResult();
     }
 
-    public function search($queryString)
+    public function search($queryString, $array = false)
     {
         $qb = $this->createQueryBuilder('a')
         ->where('a.name LIKE :string')
-            ->setParameter('string', "%". $queryString ."%");
+        ->setParameter('string', "%". $queryString ."%")
+        ->getQuery();
 
-        return $qb->getQuery()->getResult();
+        if($array) {
+            return $qb->getArrayResult();
+        }
+
+        return $qb->getResult();
     }
 
     public function searchInArray($array)

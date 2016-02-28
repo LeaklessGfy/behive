@@ -97,7 +97,7 @@ class FrontController extends Controller
      */
     public function profilAction(Request $request)
     {
-        $user = $this->getDoctrine()->getRepository('AppBundle:User')->getProfil("30");
+        $user = $this->getDoctrine()->getRepository('AppBundle:User')->getProfil($this->getUser());
         $form = $this->createForm(new UserEditType(), $user);
         $avatar = $user->getAvatar();
 
@@ -123,6 +123,20 @@ class FrontController extends Controller
 
         return array(
             "form" => $form->createView(),
+            "user" => $user
+        );
+    }
+
+    /**
+     * @Route("/behiver/{id}", name="user")
+     * @Method("GET")
+     * @Template("pages/front/profil.html.twig")
+     */
+    public function userAction($id)
+    {
+        $user = $this->getDoctrine()->getRepository('AppBundle:User')->getProfil($id);
+
+        return array(
             "user" => $user
         );
     }
@@ -178,19 +192,22 @@ class FrontController extends Controller
         $filter = urldecode($request->get('filter'));
         $search = $request->get('search');
         if($search) {
-            $games = $em->getRepository('AppBundle:Game')->search($search, $filter);
+            $games = $em->getRepository('AppBundle:Game')->search($search, true);
+            $re = "le jeu : " . $search;
         } elseif($filter) {
-            $games = $em->getRepository('AppBundle:Category')->findOneBy(array("name" => $filter));
-            $games = $games->getGames();
+            $games = $em->getRepository('AppBundle:Game')->findByCategory($filter, null);
+            $re = "le filtre : " . $filter;
         } else {
             $games = $em->getRepository('AppBundle:Game')->findBy(array(), array(), 8, 0);
+            $re = null;
         }
 
         $categories = $em->getRepository("AppBundle:Category")->findAll();
 
         return array(
             "games" => $games,
-            "categories" => $categories
+            "categories" => $categories,
+            "re" => $re
         );
     }
 }

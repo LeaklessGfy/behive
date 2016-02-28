@@ -39,13 +39,13 @@ class ChallengePosition
     private $user;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Challenge", fetch="EAGER")
+     * @ORM\ManyToOne(targetEntity="Challenge")
      * @ORM\JoinColumn(name="challenge_id", referencedColumnName="id")
      */
     private $challenge;
 
     /**
-     * @ORM\ManyToOne(targetEntity="ChallengeAward", fetch="EAGER")
+     * @ORM\ManyToOne(targetEntity="ChallengeAward")
      * @ORM\JoinColumn(name="award_id", referencedColumnName="id")
      */
     private $award;

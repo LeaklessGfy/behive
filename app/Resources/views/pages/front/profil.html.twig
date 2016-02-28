@@ -23,7 +23,7 @@
             </p>
             <div class="rang detail-bar"></div>
 
-            <h3 class="rang littleTitle connexion profil_date" style="font-size:17px; text-transform: none;">Dernière connexion: {{ user.lastConnexion|date }}</h3>
+            <h3 class="rang littleTitle connexion profil_date" style="font-size:17px; text-transform: none;">Dernière connexion: {{ user.lastConnexion| localizeddate('full', 'none', 'fr') }}</h3>
 
             <h3 class="rang profil_niveau" style="float:right; font-weight:400;">Niveau</h3>
             <h2 class="rang profil_lvl_number" style="float:right;">{{ user.level }}</h2>
@@ -35,37 +35,20 @@
             </div>
             <div class="recompenses">
                 <ul>
-                    {#{% for position in positions %}
-                        {% for award in position.challenge.awards %}
-                            <li><img src="{{ asset(position.game.cover) }}" alt="">{{ award.name }}</li>
-                        {% endfor %}
-                    {% endfor %}#}
-
                     {% for position in user.positions %}
                         <li><img src="{{ asset(position.challenge.game.cover) }}" alt=""><p>{{ position.award.name }}</p></li>
                     {% endfor %}
-
-                    <li class="jeuGG"><img src="img/candy.png" /><p>Jeu gagné : Candy Crush</p></li>
-                    <li class="tropheeGG"><img src="img/trophee.svg" /><p>Challenge FIFA 16 : 3000 expérience - #1</p></li>
-                    <li class="jeuGG"><img src="img/clash.png" /><p>Jeu gagné : Clash of Clans</p></li>
-                    <li class="tropheeGG"><img src="img/trophee.svg" /><p>Challenge Rayman : 1000 expérience - #37</p></li>
-                    <li class="tropheeGG"><img src="img/trophee.svg" /><p>Challenge Songpop : 1000 expérience - #24</p></li>
-                    <li class="jeuGG"><img src="img/rayman.png" /><p>Jeu gagné : Rayman Adventures</p></li>
-                    <li class="jeuGG"><img src="img/rayman.png" /><p>Jeu gagné : Rayman Adventures</p></li>
-                    <li class="tropheeGG"><img src="img/trophee.svg" /><p>Challenge King of Thieves : 3200 expérience - #89</p></li>
-                    <li class="jeuGG"><img src="img/clash.png" /><p>Jeu gagné : Clash of Clans</p></li>
-                    <li class="tropheeGG"><img src="img/trophee.svg" /><p>Challenge Clash of Clans : 2000 expérience - #121</p></li>
-                    <li class="jeuGG"><img src="img/candy.png" /><p>Jeu gagné : Candy Crush</p></li>
-                    <li class="tropheeGG"><img src="img/trophee.svg" /><p>Challenge Rayman : 1500 expérience - #143</p></li>
                 </ul>
             </div>
         </div>
 
-        <div class="center">
-            <p>Synchroniser votre compte Behive avec steam</p>
+        {% if app.request.attributes.get('_route') == "profil" %}
+            <div class="center">
+                <p>Synchroniser votre compte Behive avec steam</p>
 
-            <a href="{{ path('sync_steam') }}" class="detail-button ">Synchroniser</a>
-        </div>
+                <a href="{{ path('sync_steam') }}" class="detail-button ">Synchroniser</a>
+            </div>
+        {% endif %}
 
         <div class="recomp_jeux">
             <div class="profil_challenge">
@@ -110,10 +93,12 @@
             </div>
         {% endif %}
 
-        {{ form_start(form) }}
-            {{ form_widget(form) }}
+        {% if app.request.attributes.get('_route') == "profil" %}
+            {{ form_start(form) }}
+                {{ form_widget(form) }}
 
-            <input type="submit" value="Enregistrer">
-        {{ form_end(form) }}
+                <input type="submit" value="Enregistrer">
+            {{ form_end(form) }}
+        {% endif %}
     </div>
 {% endblock %}

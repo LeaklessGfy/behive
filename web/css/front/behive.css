@@ -656,7 +656,6 @@ div.round canvas{
 	font-weight:	300;
 	overflow:		hidden;
 }
-.recompenses,
 .challenges,
 .jeux{
 	margin-top:		40px;
@@ -758,7 +757,7 @@ div.round canvas{
 	float:			right;
 }
 #profil{
-	padding-bottom:	5%;
+	padding-bottom: 5%;
 }
 .day{
 	border-bottom:	1px solid #444444;
@@ -1414,7 +1413,6 @@ header h1 a{
 }
 
 .liste{
-	padding-top:	65px;
 	width:			65%;
 	margin-left:	4.5%;
 }
@@ -1487,10 +1485,21 @@ header h1 a{
 	right:			0;
 	padding:		20px;
 }
+
+.listeCategories .active {
+	color: #f7ca18;
+}
+
+.headerList{
+	width: 100%;
+	background: #252a2e;
+}
+
 .titleListe{
+	width: 67%;
+	margin-left: 4.5%;
 	padding-top:	85px;
 	padding-bottom:	20px;
-	margin-bottom:	20px;
 	text-align:		center;
 	background:		#252a2e;
 }
@@ -1669,7 +1678,7 @@ header h1 a{
 .title_profil{
 	text-align:left;
 	width:980px;
-	margin:0 auto;
+	margin:0 auto !important;
 }
 
 .profil_main{
