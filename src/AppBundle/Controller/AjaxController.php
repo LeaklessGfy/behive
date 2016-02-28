@@ -104,9 +104,9 @@ class AjaxController extends Controller
         $steamApi = $this->get('api.steam');
         $steamGames = $steamApi->getUserGames($steamId);
 
-        if(isset($steamUser['error'])) {
+        if(isset($steamGames['error'])) {
             $response->setStatusCode(404);
-            $explicit = array($steamUser['content'], $steamId);
+            $explicit = array($steamGames['content'], $steamId);
             $response->setData($explicit);
             return $response;
         }
@@ -126,9 +126,13 @@ class AjaxController extends Controller
                 $steamGame = $steamApi->getGameInfo($stG->getAppId(), $stG->getName());
 
                 if($steamGame[$stG->getAppId()]['success'] === true) {
-                    $game= $gameService->createGameFromSteam($steamGame[$stG->getAppId()]['data']);
-                    $user->addGame($game);
-                    $gameAdd[] = $game->getName();
+                    $data = $steamGame[$stG->getAppId()]['data'];
+
+                    if(!in_array($data['name'], $gameAdd)) {
+                        $game= $gameService->createGameFromSteam($data);
+                        $user->addGame($game);
+                        $gameAdd[] = $game->getName();
+                    }
                 }
             }
 

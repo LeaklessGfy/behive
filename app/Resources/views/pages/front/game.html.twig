@@ -35,8 +35,8 @@
             </ul>
 
             <br>
-            <p style="width: 500px;">
-                {{ game.description }}
+            <p {% if game.description|length < 400 %}style="width: 500px;"{% endif %}>
+                {{ game.description|raw }}
             </p>
             <a style="border-bottom:1px solid #f7ca18; padding-bottom: 5px;" href="{{ path('catalogue') }}">
                 <br /><br />
