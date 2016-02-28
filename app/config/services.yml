@@ -6,9 +6,14 @@ services:
       class: AppBundle\Service\Cache\CacheService
       arguments: [@session]
 
+  api.caller:
+      class: AppBundle\Service\Api\ApiCaller
+      arguments: [@cache.service, @session]
+
   api.giant:
       class: AppBundle\Service\Api\ApiGiantService
       arguments: [@cache.service, @session]
+      parent: api.caller
 
   api.igdb:
       class: AppBundle\Service\Api\ApiIgdbService
@@ -16,6 +21,7 @@ services:
 
   api.steam:
       class: AppBundle\Service\Api\ApiSteamService
+      parent: api.caller
 
   create.game.service:
       class: AppBundle\Service\CreateGameService

@@ -4,7 +4,7 @@ namespace AppBundle\Service\Api;
 
 include __DIR__.'/../../../../vendor/koraktor/steam-condenser/lib/steam-condenser.php';
 
-class ApiSteamService
+class ApiSteamService extends ApiCaller
 {
     public function getUser($steamID)
     {
@@ -33,5 +33,16 @@ class ApiSteamService
         }
 
         return $gameName;
+    }
+
+    public function getGameInfo($appid, $name)
+    {
+        $base = "http://store.steampowered.com/api/appdetails?appids=";
+        $region = "&cc=fr";
+
+        $url = $base.$appid.$region;
+        $id = $this->idConstructor("steam-game", $name);
+
+        return $this->callApi($id, $url, "Steam");
     }
 }
