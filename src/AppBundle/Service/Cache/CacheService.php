@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Service;
+namespace AppBundle\Service\Cache;
 
 use Symfony\Component\Filesystem\Exception\IOException;
 
@@ -8,43 +8,44 @@ class CacheService
 {
     private $dirBase;
 
-    public function __construct($dirBase)
+    public function __construct()
     {
-        $this->dirBase = $dirBase;
+        $this->dirBase = __DIR__ . "/";
     }
 
-    public function getInCache($id, $api)
+    public function getInCache($id, $subDir = "raw")
     {
+        $dir = $this->dirBase.$subDir."/";
+
         $finder = new \Symfony\Component\Finder\Finder();
-        $finder->files()->in($this->dirBase.$api)->name($id.'.json');
+        $finder->files()->in($dir)->name($id.'.json');
 
         $contents = false;
         foreach ($finder as $file) {
             $contents = $file->getContents();
         }
 
-        if($contents) {
-            dump("cache");
-        }
-
         return $contents;
     }
 
-    public function storeInCache($id, $result, $api)
+    public function storeInCache($id, $result, $subDir = "raw")
     {
         $fs = new \Symfony\Component\Filesystem\Filesystem();
+        $dir = $this->dirBase.$subDir."/";
 
         try {
-            $fs->dumpFile($this->dirBase.$api.$id.'.json', $result);
+            $fs->dumpFile($dir.$id.'.json', $result);
         }
         catch(IOException $e) {
         }
     }
 
-    public function getEverythingFromCache($name, $api)
+    public function getEverythingFromCache($name, $subDir = "raw")
     {
+        $dir = $this->dirBase.$subDir."/";
+
         $finder = new \Symfony\Component\Finder\Finder();
-        $finder->files()->in($this->dirBase.$api)->name($name);
+        $finder->files()->in($dir)->name($name);
 
         $contents = array();
         foreach ($finder as $file) {

@@ -2,7 +2,7 @@
 
 namespace AppBundle\Service\Api;
 
-use AppBundle\Service\CacheService;
+use AppBundle\Service\Cache\CacheService;
 use Symfony\Component\Config\Definition\Exception\Exception;
 
 class ApiIgdbService
@@ -17,7 +17,7 @@ class ApiIgdbService
         $this->cache = $cache;
         $this->apiBase = "https://www.igdb.com/api/v1/games";
         $this->apiKey = "14CFZTtk4mAG80O3L00gSFm6CyvK1fLRlnCnbuVHHng";
-        $this->api = "ApiIgdb/";
+        $this->api = "ApiIgdb";
     }
 
     public function callApi($id, $offset)

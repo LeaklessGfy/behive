@@ -19,10 +19,10 @@ class ApiUseCommand extends ContainerAwareCommand
     {
         //DEFINITIONS
         $ct  = $this->getContainer();
-        $api = $ct->get('cache.service');
+        $cache = $ct->get('cache.service');
 
         //GET CACHE DATA
-        $results = $api->getEverythingFromCache("request-*.json", "ApiIgdb/");
+        $results = $cache->getEverythingFromCache("request-*.json", "ApiIgdb");
 
         $gamesArray = array();
         foreach($results as $result) {

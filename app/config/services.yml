@@ -8,12 +8,12 @@ services:
 #        class: AppBundle\Directory\ClassName
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
   cache.service:
-      class: AppBundle\Service\CacheService
-      arguments: [%cache.dir%]
+      class: AppBundle\Service\Cache\CacheService
+      arguments: [@session]
 
   api.game:
       class: AppBundle\Service\Api\ApiGameService
-      arguments: [@cache.service]
+      arguments: [@cache.service, @session]
 
   api.igdb:
       class: AppBundle\Service\Api\ApiIgdbService

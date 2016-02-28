@@ -23,7 +23,7 @@ class LoadGamesCommand extends ContainerAwareCommand
         $cache = $ct->get('cache.service');
 
         //GET CACHE DATA
-        $results = $cache->getEverythingFromCache("game-*.json", "ApiGiant/");
+        $results = $cache->getEverythingFromCache("game-*.json", "ApiGiant");
 
         //GET FORMER CATEGORIES AND EDITORS
         $categories = $em->getRepository('AppBundle:Category')->findAll();

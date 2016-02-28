@@ -2,8 +2,9 @@
 
 namespace AppBundle\Service\Api;
 
-use AppBundle\Service\CacheService;
+use AppBundle\Service\Cache\CacheService;
 use Symfony\Component\Config\Definition\Exception\Exception;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 class ApiGameService
 {
@@ -12,20 +13,22 @@ class ApiGameService
     protected $apiKey;
     protected $format;
     protected $apiGiant;
+    private $session;
 
-    public function __construct(CacheService $cache)
+    public function __construct(CacheService $cache, Session $session)
     {
         $this->cache = $cache;
+        $this->session = $session;
         $this->apiBase = "http://www.giantbomb.com/api/";
         $this->apiKey = "api_key=838b1d8ea15ef015b443db5049548da60c4ed8d8";
         $this->format = "&format=json";
-        $this->api = "ApiGiant/";
+        $this->api = "ApiGiant";
     }
 
     protected function callApi($id, $url)
     {
+        $msg = "Donnée provenant du cache";
         if (!$result = $this->cache->getInCache($id, $this->api)) {
-            dump("send");
             try {
                 $options = array(
                     "http"=>array(
@@ -38,8 +41,11 @@ class ApiGameService
                 return $e->getMessage();
             }
 
+            $msg = "Donnée provenant de l'Api";
             $this->cache->storeInCache($id, $result, $this->api);
         }
+
+        $this->session->getFlashBag()->add("warning", $msg);
 
         return json_decode($result, true);
     }
