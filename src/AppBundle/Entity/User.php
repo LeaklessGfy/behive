@@ -119,6 +119,11 @@ class User implements UserInterface, \Serializable
     private $challenges;
 
     /**
+     * @ORM\OneToMany(targetEntity="ChallengePosition", mappedBy="user")
+     */
+    private $positions;
+
+    /**
      * @ORM\ManyToOne(targetEntity="RolesCustom")
      * @ORM\JoinColumn(name="role_id", referencedColumnName="id")
      */
@@ -136,6 +141,7 @@ class User implements UserInterface, \Serializable
         $this->myGames = new ArrayCollection();
         $this->games = new ArrayCollection();
         $this->challenges = new ArrayCollection();
+        $this->positions = new ArrayCollection();
         $this->xp = 0;
         $this->level = 0;
         $this->avatar = "img/avatar.gif";
@@ -542,5 +548,38 @@ class User implements UserInterface, \Serializable
     public function getSteamId()
     {
         return $this->steamId;
+    }
+
+    /**
+     * Add positions
+     *
+     * @param \AppBundle\Entity\ChallengePosition $positions
+     * @return User
+     */
+    public function addPosition(\AppBundle\Entity\ChallengePosition $positions)
+    {
+        $this->positions[] = $positions;
+
+        return $this;
+    }
+
+    /**
+     * Remove positions
+     *
+     * @param \AppBundle\Entity\ChallengePosition $positions
+     */
+    public function removePosition(\AppBundle\Entity\ChallengePosition $positions)
+    {
+        $this->positions->removeElement($positions);
+    }
+
+    /**
+     * Get positions
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPositions()
+    {
+        return $this->positions;
     }
 }

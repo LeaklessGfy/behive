@@ -119,15 +119,20 @@ class User implements UserInterface, \Serializable
     private $challenges;
 
     /**
+     * @ORM\OneToMany(targetEntity="ChallengePosition", mappedBy="user")
+     */
+    private $positions;
+
+    /**
      * @ORM\ManyToOne(targetEntity="RolesCustom")
      * @ORM\JoinColumn(name="role_id", referencedColumnName="id")
      */
     private $roles;
 
     /**
-     * @var int
+     * @var string
      *
-     * @ORM\Column(name="steam_id", type="integer", nullable=true)
+     * @ORM\Column(name="steam_id", type="string", length=255, nullable=true)
      */
     private $steamId;
 
@@ -136,6 +141,7 @@ class User implements UserInterface, \Serializable
         $this->myGames = new ArrayCollection();
         $this->games = new ArrayCollection();
         $this->challenges = new ArrayCollection();
+        $this->positions = new ArrayCollection();
         $this->xp = 0;
         $this->level = 0;
         $this->avatar = "img/avatar.gif";
@@ -519,5 +525,28 @@ class User implements UserInterface, \Serializable
     public function getActiveBadge()
     {
         return $this->badges[$this->activeBadge];
+    }
+
+    /**
+     * Set steamId
+     *
+     * @param integer $steamId
+     * @return User
+     */
+    public function setSteamId($steamId)
+    {
+        $this->steamId = $steamId;
+
+        return $this;
+    }
+
+    /**
+     * Get steamId
+     *
+     * @return integer 
+     */
+    public function getSteamId()
+    {
+        return $this->steamId;
     }
 }

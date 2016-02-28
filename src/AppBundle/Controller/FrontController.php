@@ -97,14 +97,9 @@ class FrontController extends Controller
      */
     public function profilAction(Request $request)
     {
-        $user = $this->getUser();
+        $user = $this->getDoctrine()->getRepository('AppBundle:User')->getProfil("30");
         $form = $this->createForm(new UserEditType(), $user);
         $avatar = $user->getAvatar();
-        $positions = $this->getDoctrine()->getRepository("AppBundle:ChallengePosition")->findBy(array("user" => $user));
-        $awards = array();
-        foreach($positions as $position) {
-            $awards[] = $position->getAward();
-        }
 
         $form->handleRequest($request);
 
@@ -128,8 +123,7 @@ class FrontController extends Controller
 
         return array(
             "form" => $form->createView(),
-            "positions" => $positions,
-            "awards" => $awards
+            "user" => $user
         );
     }
 

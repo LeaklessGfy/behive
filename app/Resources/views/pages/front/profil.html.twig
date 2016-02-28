@@ -9,24 +9,24 @@
     <div id="profil" class="main profil_main">
         <div class="profil_header">
             <div class="img_profil">
-                <img src="{{ asset(app.user.avatar) }}" width="164px" height="164px">
+                <img src="{{ asset(user.avatar) }}" width="164px" height="164px">
             </div>
 
-            <h2 class="rang" style="font-weight: 400;">{{ app.user.username }}</h2>
+            <h2 class="rang" style="font-weight: 400;">{{ user.username }}</h2>
 
-            {% if app.user.activeBadge %}
-                <p>{{ app.user.activeBadge.name }}</p>
+            {% if user.activeBadge %}
+                <p>{{ user.activeBadge.name }}</p>
             {% endif %}
 
             <p class="rang profil_xp">
-                Expérience: {{ app.user.xp }} xp
+                Expérience: {{ user.xp }} xp
             </p>
             <div class="rang detail-bar"></div>
 
-            <h3 class="rang littleTitle connexion profil_date" style="font-size:17px; text-transform: none;">Dernière connexion: {{ app.user.lastConnexion|date }}</h3>
+            <h3 class="rang littleTitle connexion profil_date" style="font-size:17px; text-transform: none;">Dernière connexion: {{ user.lastConnexion|date }}</h3>
 
             <h3 class="rang profil_niveau" style="float:right; font-weight:400;">Niveau</h3>
-            <h2 class="rang profil_lvl_number" style="float:right;">{{ app.user.level }}</h2>
+            <h2 class="rang profil_lvl_number" style="float:right;">{{ user.level }}</h2>
         </div>
 
         <div class="profil_recompense">
@@ -41,7 +41,7 @@
                         {% endfor %}
                     {% endfor %}#}
 
-                    {% for position in positions %}
+                    {% for position in user.positions %}
                         <li><img src="{{ asset(position.challenge.game.cover) }}" alt=""><p>{{ position.award.name }}</p></li>
                     {% endfor %}
 
@@ -69,10 +69,10 @@
 
         <div class="recomp_jeux">
             <div class="profil_challenge">
-                <h2>Challenges ({{ app.user.challenges|length }})</h2>
+                <h2>Challenges ({{ user.challenges|length }})</h2>
 
                 <div class="contentText">
-                    {% for position in positions %}
+                    {% for position in user.positions %}
                         <h3><span class="position">#{{ position.position }}</span><a href="{{ path('challenge') }}" class="title">{{ position.challenge.name }}<br> ({{ position.challenge.game.name }})</a></h3>
                     {% endfor %}
 
@@ -82,10 +82,10 @@
             </div>
 
             <div class="profil_jeux">
-                <h2>Jeux ({{ app.user.games|length }})</h2>
+                <h2>Jeux ({{ user.games|length }})</h2>
 
                 <div class="contentText">
-                    {% for game in app.user.games %}
+                    {% for game in user.games %}
                         <h3><a href="{{ path('game', {id:game.id}) }}">{{ game.name }}</a></h3>
                     {% endfor %}
 
@@ -95,11 +95,11 @@
             </div>
         </div>
 
-        {% if app.user.badges|length %}
+        {% if user.badges|length %}
             <div class="sectionCatalogue autresCat">
                 <h2 class="titleCategorieCatalogue">Badges possédés</h2>
                 <ul>
-                    {% for badge in app.user.badges %}
+                    {% for badge in user.badges %}
                         <li>
                             <a href="{{ path('profil_active_badge', {id: loop.index0}) }}">
                                 <h5>{{ badge.name }}</h5>
