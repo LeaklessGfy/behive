@@ -35,6 +35,16 @@
             </div>
             <div class="recompenses">
                 <ul>
+                    {#{% for position in positions %}
+                        {% for award in position.challenge.awards %}
+                            <li><img src="{{ asset(position.game.cover) }}" alt="">{{ award.name }}</li>
+                        {% endfor %}
+                    {% endfor %}#}
+
+                    {% for position in positions %}
+                        <li><img src="{{ asset(position.challenge.game.cover) }}" alt=""><p>{{ position.award.name }}</p></li>
+                    {% endfor %}
+
                     <li class="jeuGG"><img src="img/candy.png" /><p>Jeu gagné : Candy Crush</p></li>
                     <li class="tropheeGG"><img src="img/trophee.svg" /><p>Challenge FIFA 16 : 3000 expérience - #1</p></li>
                     <li class="jeuGG"><img src="img/clash.png" /><p>Jeu gagné : Clash of Clans</p></li>
@@ -62,8 +72,8 @@
                 <h2>Challenges ({{ app.user.challenges|length }})</h2>
 
                 <div class="contentText">
-                    {% for challenge in app.user.challenges %}
-                        <h3><span class="position">#253</span><a href="{{ path('challenge') }}" class="title">{{ challenge.name }}</a></h3>
+                    {% for position in positions %}
+                        <h3><span class="position">#{{ position.position }}</span><a href="{{ path('challenge') }}" class="title">{{ position.challenge.name }}<br> ({{ position.challenge.game.name }})</a></h3>
                     {% endfor %}
 
                     <br>

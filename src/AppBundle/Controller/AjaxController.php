@@ -113,24 +113,48 @@ class AjaxController extends Controller
 
         $em = $this->getDoctrine()->getManager();
         $giantApi = $this->get('api.giant');
+        $gameService = $this->get('create.game.service');
 
-        $test = array("Witcher", "assassin's");
+        $categories = $em->getRepository('AppBundle:Category')->findAll();
+        $editors = $em->getRepository('AppBundle:Editor')->findAll();
 
         foreach($steamGames as $stG) {
             $game = $em->getRepository("AppBundle:Game")->search($stG);
 
             if($game) {
-                if(!in_array($game, $user->getGames()->getValues())) {
+                if(!in_array($game[0], $user->getGames()->getValues())) {
                     $user->addGame($game[0]);
                 }
             } else {
-                $giantApi->searchVideoGame($stG);
+                $responseApi = $giantApi->searchVideoGame($stG)['results'];
+
+                if(!isset($responseApi[0])) {
+                    continue;
+                }
+
+                $giantGame = $giantApi->getVideoGame($responseApi[0]['api_detail_url'], $responseApi[0]['name']);
+                $return = $gameService->createGame($categories, $editors, $giantGame['results']);
+
+                //PERSIST EDITOR
+                if($return['editor']) {
+                    $editors[] = $return['editor'];
+                    $em->persist($return['editor']);
+                }
+                //PERSIST CATEGORIES
+                foreach($return['categories'] as $category) {
+                    $categories[] = $category;
+                    $em->persist($category);
+                }
+                //PERSIST GAME
+                $em->persist($return['game']);
+                $user->addGame($return['game']);
             }
         }
 
+        $em->flush();
 
         $response->setStatusCode(200);
-        $response->setData($steamGames);
+        $response->setData(array("jeu ajouté : " => $steamGames));
 
         return $response;
     }

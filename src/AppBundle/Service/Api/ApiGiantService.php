@@ -46,6 +46,7 @@ class ApiGiantService
         }
 
         $this->session->getFlashBag()->add("warning", $msg);
+        dump($msg);
 
         return json_decode($result, true);
     }

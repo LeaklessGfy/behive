@@ -202,7 +202,7 @@ class BackController extends BaseController
         $categories = $em->getRepository('AppBundle:Category')->findAll();
         $editor = $em->getRepository('AppBundle:Editor')->findAll();
 
-        $return = $this->get('load.game.service')->createGame($categories, $editor, $response['results']);
+        $return = $this->get('create.game.service')->createGame($categories, $editor, $response['results']);
 
         foreach($return['categories'] as $category) {
             $em->persist($category);

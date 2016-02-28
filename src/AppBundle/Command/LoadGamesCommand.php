@@ -21,6 +21,7 @@ class LoadGamesCommand extends ContainerAwareCommand
         $ct  = $this->getContainer();
         $em = $ct->get('doctrine')->getManager();
         $cache = $ct->get('cache.service');
+        $gameService = $ct->get('create.game.service');
 
         //GET CACHE DATA
         $results = $cache->getEverythingFromCache("game-*.json", "ApiGiant");
@@ -34,7 +35,7 @@ class LoadGamesCommand extends ContainerAwareCommand
             $game = json_decode($game, true)['results'];
 
             //CREATE GAME
-            $return = $ct->get('load.game.service')->createGame($categories, $editors, $game);
+            $return = $gameService->createGame($categories, $editors, $game);
 
             //PERSIST EDITOR
             if($return['editor']) {

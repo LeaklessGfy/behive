@@ -103,36 +103,34 @@ class ValidChallengeCommand extends ContainerAwareCommand
 
         foreach($limits as $limit) {
             if($limit->getEnd() >= $positionNb && $limit->getBegin() <= $positionNb) {
-                $awards = $limit->getAwards();
+                $award = $limit->getAward();
+                $position->setAward($award);
             }
         }
 
-        if(!$awards) {
+        if(!$award) {
             $output->writeln("<error>No award associated with this position !</error>");
             return;
         }
 
-        foreach($awards as $award) {
-            $userLastPoints = $user->getXp();
-            $output->writeln("Former xp = " . $userLastPoints);
-            $output->writeln("--> Add xp = " . $award->getPoints());
-            $output->writeln("New xp = " . ($userLastPoints + $award->getPoints()));
-            $user->setXp($userLastPoints + $award->getPoints());
-            if($game = $award->getGame()) {
-                $output->writeln("-> Add this game = ". $award->getGame()->getName());
+        $userLastPoints = $user->getXp();
+        $output->writeln("Former xp = " . $userLastPoints);
+        $output->writeln("--> Add xp = " . $award->getPoints());
+        $output->writeln("New xp = " . ($userLastPoints + $award->getPoints()));
+        $user->setXp($userLastPoints + $award->getPoints());
+        if($game = $award->getGame()) {
+            $output->writeln("-> Add this game = ". $award->getGame()->getName());
 
-                if(!in_array($game, $user->getGames()->getValues())) {
-                    $user->addGame($game);
-                }
+            if(!in_array($game, $user->getGames()->getValues())) {
+                $user->addGame($game);
             }
-            if($badge = $award->getBadge()) {
-                $output->writeln("-> Add this badge = ". $award->getBadge()->getName());
+        }
+        if($badge = $award->getBadge()) {
+            $output->writeln("-> Add this badge = ". $award->getBadge()->getName());
 
-                if(!in_array($badge, $user->getBadges()->getValues())) {
-                    $user->addBadge($badge);
-                }
+            if(!in_array($badge, $user->getBadges()->getValues())) {
+                $user->addBadge($badge);
             }
-            $position->addAward($award);
         }
 
         $em->persist($position);

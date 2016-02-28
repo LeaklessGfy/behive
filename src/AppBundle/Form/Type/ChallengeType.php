@@ -11,7 +11,8 @@ class ChallengeType extends AbstractType
     {
         $builder->add('name', 'text')
                 ->add('cover', 'file', array(
-                    'data_class' => null
+                    'data_class' => null,
+                    'required' => false
                 ))
                 ->add('description', 'textarea')
                 ->add('game', 'entity', array(

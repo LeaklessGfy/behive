@@ -100,6 +100,11 @@ class FrontController extends Controller
         $user = $this->getUser();
         $form = $this->createForm(new UserEditType(), $user);
         $avatar = $user->getAvatar();
+        $positions = $this->getDoctrine()->getRepository("AppBundle:ChallengePosition")->findBy(array("user" => $user));
+        $awards = array();
+        foreach($positions as $position) {
+            $awards[] = $position->getAward();
+        }
 
         $form->handleRequest($request);
 
@@ -122,7 +127,9 @@ class FrontController extends Controller
         }
 
         return array(
-            "form" => $form->createView()
+            "form" => $form->createView(),
+            "positions" => $positions,
+            "awards" => $awards
         );
     }
 
