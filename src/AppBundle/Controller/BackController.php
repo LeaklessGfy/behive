@@ -2,11 +2,11 @@
 namespace AppBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 /**
  * @Route("/admin")
@@ -167,6 +167,7 @@ class BackController extends BaseController
     /**
      * @Route("/helper", name="back_helper")
      * @Method("GET")
+     * @Template("pages/back/helper.html.twig")
      */
     public function getGameFromApiAction(Request $request)
     {
@@ -178,10 +179,10 @@ class BackController extends BaseController
             $games = $api->searchVideoGame($search)['results'];
         }
 
-        return $this->render('pages/back/helper.html.twig', array(
+        return array(
             "games" => $games,
             "search" => $search
-        ));
+        );
     }
 
     /**

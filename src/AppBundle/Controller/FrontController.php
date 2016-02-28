@@ -2,8 +2,9 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Form\Type\UserBadgeType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -11,14 +12,18 @@ class FrontController extends Controller
 {
     /**
      * @Route("/", name="homepage")
+     * @Method("GET")
+     * @Template("pages/front/index.html.twig")
      */
     public function indexAction()
     {
-        return $this->render('pages/front/index.html.twig');
+        return array();
     }
 
     /**
      * @Route("/catalogue", name="catalogue")
+     * @Method("GET")
+     * @Template("pages/front/catalogue.html.twig")
      */
     public function catalogueAction()
     {
@@ -31,17 +36,19 @@ class FrontController extends Controller
         $fps = $em->getRepository("AppBundle:Game")->findByCategory("First-Person Shooter", 7);
         $rpg = $em->getRepository("AppBundle:Game")->findByCategory("Role-Playing", 7);
 
-        return $this->render('pages/front/catalogue.html.twig', array(
+        return array(
             "games" => $games,
             "categories" => $categories,
             "action" => $action,
             "fps" => $fps,
             "rpg" => $rpg
-        ));
+        );
     }
 
     /**
      * @Route("/challenge", name="challenge")
+     * @Method("GET")
+     * @Template("pages/front/challenge.html.twig")
      */
     public function challengeAction()
     {
@@ -52,17 +59,19 @@ class FrontController extends Controller
 
         $hasIt = $this->get('front.service')->hasChallenges($this->getUser(), $dailyChallenge, $challenges);
 
-        return $this->render('pages/front/challenge.html.twig', array(
+        return array(
             "challenges" => $challenges,
             "dailyChallenge" => $dailyChallenge,
             "hasIt" => $hasIt
-        ));
+        );
     }
 
     /**
      * @Route("/challenge/{id}", name="challenge_detail", requirements={
      *     "id": "\d+"
      * })
+     * @Method("GET")
+     * @Template("pages/front/challenge_detail.html.twig")
      */
     public function challengeDetailAction($id)
     {
@@ -74,38 +83,44 @@ class FrontController extends Controller
 
         $hasIt = $this->get('front.service')->hasChallenge($this->getUser(), $challenge);
 
-        return $this->render('pages/front/challenge_detail.html.twig', array(
+        return array(
             "challenge" => $challenge,
             "hasIt" => $hasIt
-        ));
+        );
     }
 
     /**
      * @Route("/profil", name="profil")
+     * @Method("GET")
+     * @Template("pages/front/profil.html.twig")
      */
     public function profilAction()
     {
-        if(!$this->getUser()) {
-            return $this->redirectToRoute('homepage');
-        }
+        return array();
+    }
 
-        $badges = $this->getUser()->getBadges()->getValues();
-        $badgesArray = array();
-        foreach($badges as $badge) {
-            $badgesArray[$badge->getId()] = $badge->getName();
-        }
+    /**
+     * @Route("/profil/active_badge/{id}", name="profil_active_badge")
+     * @Method("GET")
+     */
+    public function changeActiveBadge($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $user = $this->getUser();
+        $user->setActiveBadge($id);
 
-        $form = $this->createForm(new UserBadgeType(), $badgesArray);
+        $em->flush();
+        $this->addFlash("success", "Votre badge à bien été changé");
 
-        return $this->render('pages/front/profil.html.twig', array(
-            "form" => $form->createView()
-        ));
+        return $this->redirectToRoute("profil");
     }
 
     /**
      * @Route("/jeux/{id}", name="game", requirements={
      *     "id": "\d+"
      * })
+     * @Method("GET")
+     * @Template("pages/front/game.html.twig")
      */
     public function gameAction($id)
     {
@@ -117,14 +132,16 @@ class FrontController extends Controller
 
         $hasIt = $this->get('front.service')->hasGame($this->getUser(), $game);
 
-        return $this->render('pages/front/game.html.twig', array(
+        return array(
             "game" => $game,
             "hasIt" => $hasIt
-        ));
+        );
     }
 
     /**
      * @Route("/liste", name="search")
+     * @Method("GET")
+     * @Template("pages/front/listing.html.twig")
      */
     public function searchAction(Request $request)
     {
@@ -143,9 +160,9 @@ class FrontController extends Controller
 
         $categories = $em->getRepository("AppBundle:Category")->findAll();
 
-        return $this->render('pages/front/listing.html.twig', array(
+        return array(
             "games" => $games,
             "categories" => $categories
-        ));
+        );
     }
 }

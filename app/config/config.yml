@@ -73,7 +73,6 @@ assetic:
     debug:          "%kernel.debug%"
     read_from:      %kernel.root_dir%/../web/
     write_to:       %kernel.root_dir%/../web/
-    use_controller: true
     bundles:        [ AppBundle ]
     filters:
         cssrewrite: ~
