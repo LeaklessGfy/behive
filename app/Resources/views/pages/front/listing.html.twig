@@ -6,33 +6,34 @@
 
 {% block body %}
     {% include "pages/front/partial/menu.html.twig" %}
-        {% if games|length %}
-            <div class="headerList">
-                <h3 class="titleListe">Résultat(s) pour {{ re }}</h3>
-            </div>
-            <div class="liste">
-                {% for game in games %}
-                    <div class="itemListe">
-                        <a href="{{ path('game', {id:game.id}) }}">
-                            <h3>{{ game.name }}</h3>
-                            <div class="imgListe">
-                                <img src="{{ asset(game.cover)}}" alt="">
-                            </div>
-                            <h4>
-                                PEGI : <span class="releaseDate">{{ game.pegi }}</span>
-                            </h4>
-                            <p>
-                                {{ game.description }}
-                            </p>
-                        </a>
-                    </div>
-                {% endfor %}
-            </div>
-        {% else %}
-            <div class="headerList">
-                <h3 class="titleListe">Pas de jeu correspondant à {{ re }}</h3>
-            </div>
-        {% endif %}
+
+    {% if games|length %}
+        <div class="headerList">
+            <h3 class="titleListe">Résultat(s) pour {{ re }}</h3>
+        </div>
+        <div class="liste">
+            {% for game in games %}
+                <div class="itemListe">
+                    <a href="{{ path('game', {id:game.id}) }}">
+                        <h3>{{ game.name }}</h3>
+                        <div class="imgListe">
+                            <img src="{{ asset(game.cover)}}" alt="">
+                        </div>
+                        <h4>
+                            PEGI : <span class="releaseDate">{{ game.pegi }}</span>
+                        </h4>
+                        <p>
+                            {{ game.description }}
+                        </p>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="headerList">
+            <h3 class="titleListe">Pas de jeu correspondant à {{ re }}</h3>
+        </div>
+    {% endif %}
 
     <div class="listeCategories">
         <ul>

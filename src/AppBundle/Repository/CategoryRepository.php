@@ -12,4 +12,13 @@ use Doctrine\ORM\EntityRepository;
  */
 class CategoryRepository extends EntityRepository
 {
+    public function searchOne($queryString)
+    {
+        $qb = $this->createQueryBuilder('a')
+            ->where('a.name LIKE :string')
+            ->setParameter('string', "%". $queryString ."%")
+            ->getQuery();
+
+        return $qb->getSingleResult();
+    }
 }

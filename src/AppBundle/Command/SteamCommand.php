@@ -20,7 +20,15 @@ class SteamCommand extends ContainerAwareCommand
         //DEFINITIONS
         $ct  = $this->getContainer();
         $api = $ct->get('api.steam');
+        $gameService = $ct->get('create.game.service');
 
-        $games = $api->getGameInfo();
+        $games = $api->getUserGames("76561198079800787");
+
+        foreach($games as $game) {
+            $gameInfo = $api->getGameInfo($game->getAppId(), $game->getName());
+            $game = $gameService->createGameFromSteam($gameInfo[$game->getAppId()]['data']);
+            dump($game);
+            //$ct->get('doctrine')->getManager()->flush();
+        }
     }
 }

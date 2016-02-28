@@ -119,14 +119,14 @@ class AjaxController extends Controller
         $editors = $em->getRepository('AppBundle:Editor')->findAll();
 
         foreach($steamGames as $stG) {
-            $game = $em->getRepository("AppBundle:Game")->search($stG);
+            $game = $em->getRepository("AppBundle:Game")->search($stG->getName());
 
             if($game) {
                 if(!in_array($game[0], $user->getGames()->getValues())) {
                     $user->addGame($game[0]);
                 }
             } else {
-                $responseApi = $giantApi->searchVideoGame($stG)['results'];
+                $responseApi = $giantApi->searchVideoGame($stG->getName())['results'];
 
                 if(!isset($responseApi[0])) {
                     continue;

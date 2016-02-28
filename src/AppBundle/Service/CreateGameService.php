@@ -1,11 +1,14 @@
 <?php
 namespace AppBundle\Service;
 
+use Doctrine\ORM\EntityManager;
+
 class CreateGameService
 {
-    public function __construct($dir)
+    public function __construct($dir, EntityManager $em)
     {
         $this->uploadDir = $dir;
+        $this->em = $em;
     }
 
     public function createGame($categories, $editors, $response)
@@ -87,5 +90,72 @@ class CreateGameService
         }
 
         return array("game" => $game, "categories" => $categoriesToPersist, "editor" => $newEditor);
+    }
+
+    public function createGameFromSteam($response)
+    {
+        //DEFINITIONS
+        $gName = $response['name'];
+        $gId = $response['steam_appid'];
+        $gImage = $response['header_image'];
+        $gDescription = $response['about_the_game'];
+        $gRating = $response['required_age'];
+        $gDate = $response['release_date']['date'];
+        $gGenres = $response['genres'];
+        $gPublisher = $response['publishers'][0];
+
+        //CREATE GAME OBJECT
+        $game = new \AppBundle\Entity\Game();
+        $game->setName($gName);
+        $game->setDescription($gDescription);
+        $game->setPegi($gRating);
+
+        //DATE
+        $date = $gDate;
+        $date = new \DateTime($date);
+        $game->setDate($date);
+
+        //IMAGE
+        $filename = "steam-".$gId."-img.jpg";
+        $dir = $this->uploadDir."game"."/".$filename;
+        //copy($gImage, $dir);
+        $game->setCover("uploads/game/$filename");
+
+        //CATEGORIES
+        $categoriesToFlush = array();
+        foreach($gGenres as $genre) {
+            $formerCategory = $this->em->getRepository("AppBundle:Category")->findOneBy(array("name" => $genre['description']));
+
+            if($formerCategory) {
+                if(!in_array($formerCategory, $game->getCategories()->getValues())) {
+                    $game->addCategory($formerCategory);
+                }
+            } else {
+                $newCategory = new \AppBundle\Entity\Category();
+                $newCategory->setName($genre);
+                $this->em->persist($newCategory);
+
+                $game->addCategory($newCategory);
+                $categoriesToFlush[] = $newCategory;
+            }
+        }
+
+        //EDITOR
+        $editorsToFlush = array();
+        $formerEditor = $this->em->getRepository("AppBundle:Editor")->findOneBy(array("name" => $gPublisher));
+        if($formerEditor) {
+            $game->setEditor($formerEditor);
+        } else {
+            $newEditor = new \AppBundle\Entity\Editor();
+            $newEditor->setName($gPublisher);
+            $this->em->persist($newEditor);
+
+            $game->setEditor($newEditor);
+            $editorsToFlush[] = $newEditor;
+        }
+
+        $this->em->persist($game);
+
+        return $game;
     }
 }

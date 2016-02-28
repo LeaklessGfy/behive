@@ -27,12 +27,7 @@ class ApiSteamService extends ApiCaller
         $user = $response['content'];
         $games = $user->getGames();
 
-        $gameName = array();
-        foreach($games as $game) {
-            $gameName[] = $game->getName();
-        }
-
-        return $gameName;
+        return $games;
     }
 
     public function getGameInfo($appid, $name)
