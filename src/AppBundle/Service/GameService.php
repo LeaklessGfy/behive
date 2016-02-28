@@ -1,10 +1,25 @@
 <?php
 namespace AppBundle\Service;
 
-class GameService
+class CreateGameService
 {
+    public function __construct($dir)
+    {
+        $this->uploadDir = $dir;
+    }
+
     public function createGame($categories, $editors, $response)
     {
+        //DEFINITIONS
+        $gName = $response['name'];
+        $gId = $response['id'];
+        $gImage = $response['image']['medium_url'];
+        $gDescription = $response['deck'];
+        $gRating = $response['original_game_rating'];
+        $gDate = $response['original_release_date'];
+        $gGenres = $response['genres'];
+        $gPublisher = $response['publishers'][0]['name'];
+
         $categoriesArray = array();
         foreach($categories as $category) {
             $categoriesArray[] = $category->getName();
@@ -15,19 +30,25 @@ class GameService
             $editorsArray[] = $editor->getName();
         }
 
+        //CREATE GAME OBJECT
         $game = new \AppBundle\Entity\Game();
-        $game->setName($response['name']);
+        $game->setName($gName);
+        $game->setDescription($gDescription);
 
-        $filename = "api-".$response['id']."-img.jpg";
-        $dir = __DIR__."/../../../web/uploads/game/";
-        copy($response['image']['medium_url'], $dir.$filename);
+        //DATE
+        $date = $gDate;
+        $date = new \DateTime($date);
+        $game->setDate($date);
+
+        //IMAGE
+        $filename = "api-".$gId."-img.jpg";
+        $dir = $this->uploadDir."game"."/".$filename;
+        copy($gImage, $dir);
         $game->setCover("uploads/game/$filename");
 
-        $game->setDescription($response['deck']);
-        $game->setRating(0);
-
-        if($response['original_game_rating']){
-            foreach($response['original_game_rating'] as $rating) {
+        //PEGI
+        if($gRating){
+            foreach($gRating as $rating) {
                 if(strpos($rating['name'], "PEGI:") !== false) {
                     preg_match_all('!\d+!', $rating['name'], $matches);
                     $game->setPegi($matches[0][0]);
@@ -36,12 +57,9 @@ class GameService
             }
         }
 
-        $date = $response['original_release_date'];
-        $date = new \DateTime($date);
-        $game->setDate($date);
-
+        //CATEGORIES
         $categoriesToPersist = array();
-        foreach($response['genres'] as $genre) {
+        foreach($gGenres as $genre) {
             $id = array_search($genre["name"], $categoriesArray);
             if($id === false) {
                 $newCategory = new \AppBundle\Entity\Category();
@@ -56,21 +74,18 @@ class GameService
             }
         }
 
-        $publisher = $response['publishers'][0]['name'];
-
+        //EDITOR
         $newEditor = false;
-        $id = array_search($publisher, $editorsArray);
+        $id = array_search($gPublisher, $editorsArray);
         if($id === false) {
             $newEditor = new \AppBundle\Entity\Editor();
-            $newEditor->setName($publisher);
+            $newEditor->setName($gPublisher);
 
             $game->setEditor($newEditor);
         } else {
             $game->setEditor($editors[$id]);
         }
 
-        $return = array("game" => $game, "categories" => $categoriesToPersist, "editor" => $newEditor);
-
-        return $return;
+        return array("game" => $game, "categories" => $categoriesToPersist, "editor" => $newEditor);
     }
 }

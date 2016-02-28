@@ -22,8 +22,9 @@ services:
   steam.api:
       class: AppBundle\Service\Api\ApiSteamService
 
-  load.game.service:
-      class: AppBundle\Service\GameService
+  create.game.service:
+      class: AppBundle\Service\CreateGameService
+      arguments: [%upload.dir%]
 
   front.service:
       class: AppBundle\Service\FrontService
