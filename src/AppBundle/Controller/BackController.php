@@ -175,7 +175,7 @@ class BackController extends BaseController
         $search = $request->get('search');
 
         if($search) {
-            $api = $this->get('api.game');
+            $api = $this->get('api.giant');
             $games = $api->searchVideoGame($search)['results'];
         }
 
@@ -196,7 +196,7 @@ class BackController extends BaseController
         $url = $request->get('url');
         $name = $request->get('name');
 
-        $api = $this->get('api.game');
+        $api = $this->get('api.giant');
         $response = $api->getVideoGame($url, $name);
 
         $categories = $em->getRepository('AppBundle:Category')->findAll();
