@@ -11,6 +11,7 @@ class ApiGameService
     protected $apiBase;
     protected $apiKey;
     protected $format;
+    protected $apiGiant;
 
     public function __construct(CacheService $cache)
     {
@@ -18,11 +19,12 @@ class ApiGameService
         $this->apiBase = "http://www.giantbomb.com/api/";
         $this->apiKey = "api_key=838b1d8ea15ef015b443db5049548da60c4ed8d8";
         $this->format = "&format=json";
+        $this->api = "ApiGiant/";
     }
 
     protected function callApi($id, $url)
     {
-        if (!$result = $this->cache->getInCache($id)) {
+        if (!$result = $this->cache->getInCache($id, $this->api)) {
             dump("send");
             try {
                 $options = array(
@@ -36,7 +38,7 @@ class ApiGameService
                 return $e->getMessage();
             }
 
-            $this->cache->storeInCache($id, $result);
+            $this->cache->storeInCache($id, $result, $this->api);
         }
 
         return json_decode($result, true);

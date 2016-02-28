@@ -6,17 +6,17 @@ use Symfony\Component\Filesystem\Exception\IOException;
 
 class CacheService
 {
-    private $dir;
+    private $dirBase;
 
-    public function __construct()
+    public function __construct($dirBase)
     {
-        $this->dir = __DIR__ . '/../Cache/ApiGiant/';
+        $this->dirBase = $dirBase;
     }
 
-    public function getInCache($id)
+    public function getInCache($id, $api)
     {
         $finder = new \Symfony\Component\Finder\Finder();
-        $finder->files()->in($this->dir)->name($id.'.json');
+        $finder->files()->in($this->dirBase.$api)->name($id.'.json');
 
         $contents = false;
         foreach ($finder as $file) {
@@ -30,26 +30,25 @@ class CacheService
         return $contents;
     }
 
-    public function storeInCache($id, $result)
+    public function storeInCache($id, $result, $api)
     {
         $fs = new \Symfony\Component\Filesystem\Filesystem();
 
         try {
-            $fs->dumpFile($this->dir.$id.'.json', $result);
+            $fs->dumpFile($this->dirBase.$api.$id.'.json', $result);
         }
         catch(IOException $e) {
         }
     }
 
-    public function getEverythingFromCache()
+    public function getEverythingFromCache($name, $api)
     {
         $finder = new \Symfony\Component\Finder\Finder();
-        $finder->files()->in($this->dir)->name('game-*.json');
+        $finder->files()->in($this->dirBase.$api)->name($name);
 
         $contents = array();
         foreach ($finder as $file) {
-            $raw = $file->getContents();
-            $contents[] = json_decode($raw, true)['results'];
+            $contents[] = $file->getContents();
         }
 
         return $contents;
