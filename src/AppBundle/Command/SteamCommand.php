@@ -18,7 +18,7 @@ class SteamCommand extends ContainerAwareCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         //DEFINITIONS
-        $ct  = $this->getContainer();
+        /*$ct  = $this->getContainer();
         $api = $ct->get('api.steam');
         $gameService = $ct->get('create.game.service');
 
@@ -28,7 +28,13 @@ class SteamCommand extends ContainerAwareCommand
             $gameInfo = $api->getGameInfo($game->getAppId(), $game->getName());
             $game = $gameService->createGameFromSteam($gameInfo[$game->getAppId()]['data']);
             dump($game);
-            //$ct->get('doctrine')->getManager()->flush();
-        }
+        }*/
+
+        $ct = $this->getContainer();
+        $redis = $ct->get('snc_redis.default');
+        //$redis->set('foo', '1');
+        $redis->del("foo");
+        $value = $redis->keys("*");
+        dump($value);
     }
 }

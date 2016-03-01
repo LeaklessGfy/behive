@@ -77,7 +77,7 @@ class User implements UserInterface, \Serializable
      * )
      * @Assert\Email(
      *     message = "L'email '{{ value }}' n'est pas valide",
-     *     checkMX = true
+     *     checkMX = false
      * )
      */
     private $email;
@@ -142,8 +142,8 @@ class User implements UserInterface, \Serializable
         $this->games = new ArrayCollection();
         $this->challenges = new ArrayCollection();
         $this->positions = new ArrayCollection();
-        $this->xp = 0;
-        $this->level = 0;
+        $this->xp = 10;
+        $this->level = 1;
         $this->avatar = "img/avatar.gif";
         $this->lastConnexion = new \DateTime('now');
     }

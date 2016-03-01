@@ -38,17 +38,12 @@
                     {% for position in user.positions %}
                         <li><img src="{{ asset(position.challenge.game.cover) }}" alt=""><p>{{ position.award.name }}</p></li>
                     {% endfor %}
+                    {% if user.positions|length == null %}
+                        <p>Aucun récompense pour le moment. <a href="{{ path('challenge') }}" class="behive-color">Participer à des challenges</a> !</p>
+                    {% endif %}
                 </ul>
             </div>
         </div>
-
-        {% if app.request.attributes.get('_route') == "profil" %}
-            <div class="center">
-                <p>Synchroniser votre compte Behive avec steam</p>
-
-                <a href="{{ path('sync_steam') }}" class="detail-button sync-steam">Synchroniser</a>
-            </div>
-        {% endif %}
 
         <div class="recomp_jeux">
             <div class="profil_challenge">
@@ -94,11 +89,23 @@
         {% endif %}
 
         {% if app.request.attributes.get('_route') == "profil" %}
-            {{ form_start(form) }}
+            <div class="center push">
+                <p>Synchroniser votre compte Behive avec steam</p>
+
+                <div class="little-push">
+                    <a href="{{ path('sync_steam') }}" class="detail-button sync-steam">Synchroniser</a>
+                </div>
+            </div>
+        {% endif %}
+
+        {% if app.request.attributes.get('_route') == "profil" %}
+            <div class="little-push">
+                {{ form_start(form) }}
                 {{ form_widget(form) }}
 
                 <input type="submit" value="Enregistrer">
-            {{ form_end(form) }}
+                {{ form_end(form) }}
+            </div>
         {% endif %}
     </div>
 {% endblock %}

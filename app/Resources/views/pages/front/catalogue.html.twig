@@ -8,21 +8,35 @@
     {% include "pages/front/partial/menu.html.twig" %}
 
     <div id="catalogue" class="main">
-        <h2 class="titleCategorieCatalogue">Jeux du moment</h2>
+        <div>
+            <h2 class="titleCategorieCatalogue">Jeux du mois</h2>
+            {% set daily = random(6) %}
 
-        <div class="flexContent jeuMoment">
-            {% for game in games %}
-                <div class="item">
-                    <a href="{{ path('game', {id:game.id}) }}">
-                        <div class="containImage">
-                            <img src="{{ asset(game.cover)}}" alt="">
-                            <div class="bgImg"></div>
-                        </div>
-                        <h3>{{ game.name }}</h3>
-                        <h4>{{ game.description|truncate(40, true, '...') }}</h4>
-                    </a>
-                </div>
-            {% endfor %}
+            <div class="jeuMoment push" style="width: 50%; margin-left: 10%;">
+                <h3 style="margin-left: 150px">{{ action[daily].name }}</h3>
+                <img src="{{ asset(action[daily].cover) }}" alt="" style="max-width: 250px; float: left;">
+                <p>{{ action[daily].description }}</p>
+            </div>
+            <div class="clear-fix"></div>
+        </div>
+
+        <div class="push">
+            <h2 class="titleCategorieCatalogue">Jeux du moment</h2>
+
+            <div class="flexContent jeuMoment">
+                {% for game in games %}
+                    <div class="item">
+                        <a href="{{ path('game', {id:game.id}) }}">
+                            <div class="containImage">
+                                <img src="{{ asset(game.cover)}}" alt="">
+                                <div class="bgImg"></div>
+                            </div>
+                            <h3>{{ game.name }}</h3>
+                            <h4>{{ game.description|truncate(40, true, '...') }}</h4>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
         </div>
 
         {% include "pages/front/partial/_module_category.html.twig" with {category: "Action-Adventure", games: action, class: "Action"} %}

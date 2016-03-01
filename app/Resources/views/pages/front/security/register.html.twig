@@ -14,23 +14,45 @@
     <div id="login">
         {{ form_start(form) }}
             <div>
-                {{ form_label(form.username, "Pseudo") }}
+                {{ form_label(form.username, "Pseudo *") }}
                 {{ form_widget(form.username) }}
+                {{ form_errors(form.username) }}
             </div>
 
             <div>
-                {{ form_label(form.password, "Mot de passe") }}
-                {{ form_widget(form.password) }}
-            </div>
-
-            <div>
-                {{ form_label(form.email, "Email") }}
+                {{ form_label(form.email, "Email *") }}
                 {{ form_widget(form.email) }}
+                {{ form_errors(form.email) }}
+            </div>
+
+            <div class="box">
+                {{ form_label(form.password.first, "Mot de passe *") }}
+                {{ form_widget(form.password.first) }}
+                {{ form_errors(form.password.first) }}
+
+                {{ form_label(form.password.second, "Mot de passe répété *") }}
+                {{ form_widget(form.password.second) }}
+                {{ form_errors(form.password.second) }}
             </div>
 
             <div>
                 {{ form_label(form.avatar, "Avatar") }}
                 {{ form_widget(form.avatar) }}
+                {{ form_errors(form.avatar) }}
+            </div>
+
+            <div class="box">
+                {{ form_label(form.steamId, "Steam ID") }}
+                {{ form_widget(form.steamId) }}
+                {{ form_errors(form.steamId) }}
+
+                <p><i>Le steam ID est votre numéro de compte sur Steam.<br>
+                        Si votre compte est public vous pouvez mettre votre login sinon,<br>
+                        rendez-vous sur votre page Steam et récupérez le numéro associé.</i></p>
+            </div>
+
+            <div class="little-push">
+                <p>* : Champs obligatoires</p>
             </div>
 
             <div>

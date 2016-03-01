@@ -48,7 +48,7 @@
 
         <div class="center">
             {% if hasIt != true %}
-                <a href="{{ game.buy }}" class="margin-r-5 detail-button">
+                <a href="{{ game.buy ? game.buy : "http://store.steampowered.com/?l=french" }}" target="_blank" class="margin-r-5 detail-button">
                     <i class="fa fa-download"></i> Télécharger
                 </a>
 

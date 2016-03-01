@@ -69,6 +69,8 @@ class SecurityController extends Controller
                 $file->move($fileDir, $fileName);
 
                 $newUser->setAvatar("uploads/user/".$fileName);
+            } else {
+                $newUser->setAvatar("img/avatar.gif");
             }
 
             //Role
