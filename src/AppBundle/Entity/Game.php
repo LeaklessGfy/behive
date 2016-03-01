@@ -5,6 +5,7 @@ namespace AppBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Game
@@ -116,6 +117,12 @@ class Game
      * @ORM\OneToMany(targetEntity="FSubject", mappedBy="game")
      */
     private $forums;
+
+    /**
+     * @Gedmo\Slug(fields={"name", "id"})
+     * @ORM\Column(length=128, unique=true)
+     */
+    private $slug;
 
     public function __construct()
     {
@@ -398,43 +405,6 @@ class Game
         return $this->categories;
     }
 
-    public function toArray()
-    {
-        $categoriesArray = array();
-        foreach($this->categories as $cat) {
-            $categoriesArray[] = $cat->getName();
-        }
-
-        $challengesArray = array();
-        foreach($this->challenge as $cha) {
-            $challengesArray[] = $cha->getName();
-        }
-
-        $entity = array(
-            "id" => $this->id,
-            "name" => $this->name,
-            "date" => $this->date->format("d/m/Y"),
-            "description" => $this->description,
-            "rating" => $this->rating,
-            "cover" => $this->cover,
-            "challenge" => $challengesArray,
-            "editeur" => $this->editor ? $this->editor->getName() : null,
-            "buy link" => $this->buy,
-            "pegi" => $this->pegi,
-            "categories" => $categoriesArray
-        );
-
-        return $entity;
-    }
-
-    public function hasImage()
-    {
-        return array(
-            "get" => $this->getCover(),
-            "set" => "setCover"
-        );
-    }
-
     /**
      * Add challenge
      *
@@ -489,5 +459,49 @@ class Game
     public function getForums()
     {
         return $this->forums;
+    }
+
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+
+    //OWN LOGIC
+    public function toArray()
+    {
+        $categoriesArray = array();
+        foreach($this->categories as $cat) {
+            $categoriesArray[] = $cat->getName();
+        }
+
+        $challengesArray = array();
+        foreach($this->challenge as $cha) {
+            $challengesArray[] = $cha->getName();
+        }
+
+        $entity = array(
+            "id" => $this->id,
+            "name" => $this->name,
+            "date" => $this->date->format("d/m/Y"),
+            "description" => $this->description,
+            "rating" => $this->rating,
+            "cover" => $this->cover,
+            "challenge" => $challengesArray,
+            "editeur" => $this->editor ? $this->editor->getName() : null,
+            "buy link" => $this->buy,
+            "pegi" => $this->pegi,
+            "categories" => $categoriesArray
+        );
+
+        return $entity;
+    }
+
+    public function hasImage()
+    {
+        return array(
+            "get" => $this->getCover(),
+            "set" => "setCover"
+        );
     }
 }

@@ -94,3 +94,12 @@ snc_redis:
             type: predis
             alias: default
             dsn: redis://localhost
+
+stof_doctrine_extensions:
+    default_locale: fr
+    translation_fallback: true
+    orm:
+        default:
+            tree: true
+            timestampable: true
+            sluggable: true

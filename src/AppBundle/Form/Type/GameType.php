@@ -11,7 +11,8 @@ class GameType extends AbstractType
     {
         $builder->add('name', 'text')
                 ->add('cover', 'file', array(
-                    'data_class' => null
+                    'data_class' => null,
+                    'required' => false
                 ))
                 ->add('date', 'date')
                 ->add('description', 'textarea')
@@ -20,7 +21,9 @@ class GameType extends AbstractType
                         range(0,5)
                     )
                 ))
-                ->add('buy', 'text')
+                ->add('buy', 'text', array(
+                    'required' => false
+                ))
                 ->add('pegi', 'choice', array(
                     'choices' => array(
                         0 => 0,

@@ -5,6 +5,7 @@ namespace AppBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Challenge
@@ -75,6 +76,12 @@ class Challenge
      * @ORM\Column(name="is_daily", type="boolean")
      */
     private $isDaily;
+
+    /**
+     * @Gedmo\Slug(fields={"name", "id"})
+     * @ORM\Column(length=128, unique=true)
+     */
+    private $slug;
 
     public function __construct()
     {
@@ -252,6 +259,36 @@ class Challenge
         return $this->limits;
     }
 
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
+     * Set isDaily
+     *
+     * @param boolean $isDaily
+     * @return Challenge
+     */
+    public function setIsDaily($isDaily)
+    {
+        $this->isDaily = $isDaily;
+
+        return $this;
+    }
+
+    /**
+     * Get isDaily
+     *
+     * @return boolean 
+     */
+    public function getIsDaily()
+    {
+        return $this->isDaily;
+    }
+
+
+    //OWN LOGIC
     public function toArray()
     {
         $playersArray = array();
@@ -283,28 +320,5 @@ class Challenge
             "get" => $this->getCover(),
             "set" => "setCover"
         );
-    }
-
-    /**
-     * Set isDaily
-     *
-     * @param boolean $isDaily
-     * @return Challenge
-     */
-    public function setIsDaily($isDaily)
-    {
-        $this->isDaily = $isDaily;
-
-        return $this;
-    }
-
-    /**
-     * Get isDaily
-     *
-     * @return boolean 
-     */
-    public function getIsDaily()
-    {
-        return $this->isDaily;
     }
 }
