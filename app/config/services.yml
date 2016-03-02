@@ -33,3 +33,13 @@ services:
   back.service:
       class: AppBundle\Service\BackService
       arguments: [@security.password_encoder, %upload.dir%]
+
+  notification.service:
+      class: AppBundle\Service\NotificationService
+      arguments: [@snc_redis.default]
+
+  notification.listener:
+      class: AppBundle\Listener\NotificationListener
+      arguments: [@notification.service, %notification.status%, @security.token_storage, @session]
+      tags:
+          - { name: kernel.event_listener, event: kernel.response, method: updateNotification }

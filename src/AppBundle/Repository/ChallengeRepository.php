@@ -38,10 +38,8 @@ class ChallengeRepository extends EntityRepository
             ->addSelect('g')
             ->leftJoin('a.limits', 'l')
             ->addSelect('l')
-            ->leftJoin('a.players', 'p')
-            ->addSelect('p')
             ->getQuery()
-            ->getResult();
+            ->getArrayResult();
     }
 
     public function findDaily()
@@ -53,8 +51,6 @@ class ChallengeRepository extends EntityRepository
             ->addSelect('g')
             ->leftJoin('a.limits', 'l')
             ->addSelect('l')
-            ->leftJoin('a.players', 'p')
-            ->addSelect('p')
             ->getQuery()
             ->getSingleResult();
     }
