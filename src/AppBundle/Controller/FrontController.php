@@ -158,15 +158,15 @@ class FrontController extends Controller
     }
 
     /**
-     * @Route("/jeux/{id}", name="game", requirements={
+     * @Route("/jeux/{slug}", name="game", requirements={
      *     "id": "\d+"
      * })
      * @Method("GET")
      * @Template("pages/front/game.html.twig")
      */
-    public function gameAction($id)
+    public function gameAction($slug)
     {
-        $game = $this->getDoctrine()->getRepository("AppBundle:Game")->find($id);
+        $game = $this->getDoctrine()->getRepository("AppBundle:Game")->findBySlug($slug);
 
         if(!$game) {
             return $this->redirectToRoute('catalogue');
@@ -175,7 +175,7 @@ class FrontController extends Controller
         $hasIt = $this->get('front.service')->hasGame($this->getUser(), $game);
 
         return array(
-            "game" => $game,
+            "game" => $game[0],
             "hasIt" => $hasIt
         );
     }

@@ -17,7 +17,7 @@
 
         <p class="detail-tags">
             {% for category in game.categories %}
-                {{ category.name }} {% if(loop.index != game.categories|length) %},{% endif %}
+                {{ category.name }}{% if(loop.index != game.categories|length) %},{% endif %}
             {% endfor %}
         </p>
 
@@ -67,7 +67,7 @@
         </div>
 
         <div class="sectionCatalogue autresCat">
-            <h2 class="titleCategorieCatalogue">Challenges associés</h2>
+            <h2 class="titleCategorieCatalogue">Challenge(s) associé(s)</h2>
             <ul>
                 {% if game.challenge|length %}
                     {% for challenge in game.challenge %}
@@ -83,8 +83,15 @@
             </ul>
         </div>
 
-        <div class="push">
-            <a href="#" class="detail-com"><i class="fa fa-comments"></i>Laisser un commentaire</a>
+        <div class="little-push">
+            {% if app.user %}
+                <a href="#" class="detail-com"><i class="fa fa-comments"></i>Laisser un commentaire</a>
+            {% else %}
+                <div class="detail-com">
+                    <p>Vous devez être connecté pour pouvoir commenter ce jeu</p>
+                    <a href="{{ path('register') }}" class="detail-button">S'inscrire</a><span> </span><a href="{{ path('front_login') }}" class="detail-button">Se connecter</a>
+                </div>
+            {% endif %}
         </div>
     </div>
 

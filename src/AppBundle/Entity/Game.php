@@ -483,6 +483,7 @@ class Game
         $entity = array(
             "id" => $this->id,
             "name" => $this->name,
+            "slug" => $this->slug,
             "date" => $this->date->format("d/m/Y"),
             "description" => $this->description,
             "rating" => $this->rating,

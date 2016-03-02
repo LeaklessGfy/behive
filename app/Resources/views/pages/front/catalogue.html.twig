@@ -26,7 +26,7 @@
             <div class="flexContent jeuMoment">
                 {% for game in games %}
                     <div class="item">
-                        <a href="{{ path('game', {id:game.id}) }}">
+                        <a href="{{ path('game', {slug:game.slug}) }}">
                             <div class="containImage">
                                 <img src="{{ asset(game.cover)}}" alt="">
                                 <div class="bgImg"></div>

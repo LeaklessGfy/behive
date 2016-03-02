@@ -51,17 +51,34 @@ class GameRepository extends EntityRepository
 
     public function findByCategory($category, $limit)
     {
-        $query = $this->createQueryBuilder('a')
+        $qb = $this->createQueryBuilder('a')
             ->select('a')
             ->leftJoin('a.categories', 'c')
             ->addSelect('c');
 
-        $query = $query->where('c.name = :c')
+        $qb = $qb->where('c.name = :c')
             ->setParameter('c', $category)
             ->setMaxResults($limit)
             ->getQuery()
             ->getResult();
 
-        return $query;
+        return $qb;
+    }
+
+    public function findBySlug($slug)
+    {
+        $qb = $this->createQueryBuilder('a')
+                ->where('a.slug = :slug')
+                ->setParameter('slug', $slug)
+                ->leftJoin('a.categories', 'c')
+                ->addSelect('c')
+                ->leftJoin('a.challenge', 'ch')
+                ->addSelect('ch')
+                ->leftJoin('a.owners', 'o')
+                ->addSelect('o.id')
+                ->getQuery()
+                ->getOneOrNullResult();
+
+        return $qb;
     }
 }

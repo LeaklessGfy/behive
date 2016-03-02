@@ -26,9 +26,7 @@ class FrontService
     {
         $hasIt = false;
         if($user) {
-            $userGames = $user->getGames()->getValues();
-
-            if(in_array($game, $userGames)) {
+            if($game['id'] && in_array($user->getId(), $game['id'])) {
                 $hasIt = true;
             }
         }
