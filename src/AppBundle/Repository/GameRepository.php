@@ -75,7 +75,7 @@ class GameRepository extends EntityRepository
                 ->leftJoin('a.challenge', 'ch')
                 ->addSelect('ch')
                 ->leftJoin('a.owners', 'o')
-                ->addSelect('o.id')
+                ->addSelect('o')
                 ->getQuery()
                 ->getOneOrNullResult();
 

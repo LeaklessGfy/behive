@@ -48,7 +48,7 @@
 
         <div class="center">
             {% if hasIt != true %}
-                <a href="{{ game.buy ? game.buy : "http://store.steampowered.com/?l=french" }}" target="_blank" class="margin-r-5 detail-button">
+                <a href="{{ game.buy ? game.buy : "http://store.steampowered.com/?l=french" }}" target="_blank" class="margin-r-5 detail-button download-btn">
                     <i class="fa fa-download"></i> Télécharger
                 </a>
 
@@ -58,11 +58,13 @@
                     </a>
                 {% endif %}
             {% else %}
-                {% if app.user %}
-                    <a href="{{ path('game_remove', {id:game.id}) }}" class="margin-l-5 detail-button ajax-link valid" data-info="game:remove">
-                        <i class="fa fa-plus"></i> J'ai ce jeu
-                    </a>
-                {% endif %}
+                <a href="{{ game.buy ? game.buy : "http://store.steampowered.com/?l=french" }}" target="_blank" class="margin-r-5 detail-button download-btn">
+                    <i class="fa fa-download"></i> Re-Télécharger
+                </a>
+
+                <a href="{{ path('game_remove', {id:game.id}) }}" class="margin-l-5 detail-button ajax-link valid" data-info="game:remove">
+                    <i class="fa fa-check"></i> J'ai ce jeu
+                </a>
             {% endif %}
         </div>
 

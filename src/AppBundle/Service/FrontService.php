@@ -25,10 +25,8 @@ class FrontService
     public function hasGame($user, $game)
     {
         $hasIt = false;
-        if($user) {
-            if($game['id'] && in_array($user->getId(), $game['id'])) {
-                $hasIt = true;
-            }
+        if($user && in_array($user, $game->getOwners()->getValues())) {
+            $hasIt = true;
         }
 
         return $hasIt;

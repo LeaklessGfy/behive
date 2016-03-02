@@ -175,7 +175,7 @@ class FrontController extends Controller
         $hasIt = $this->get('front.service')->hasGame($this->getUser(), $game);
 
         return array(
-            "game" => $game[0],
+            "game" => $game,
             "hasIt" => $hasIt
         );
     }

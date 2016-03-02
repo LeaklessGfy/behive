@@ -56,6 +56,11 @@ class AjaxController extends Controller
             $user->addGame($game);
             $em->flush();
             $response->setStatusCode(200);
+            $response->setData(
+                array(
+                    "url" => $this->generateUrl('game_remove', array('id' => $id))
+                )
+            );
         }
 
         return $response;
@@ -82,6 +87,11 @@ class AjaxController extends Controller
             $user->removeGame($game);
             $em->flush();
             $response->setStatusCode(200);
+            $response->setData(
+                array(
+                    "url" => $this->generateUrl('game_add', array('id' => $id))
+                )
+            );
         }
 
         return $response;

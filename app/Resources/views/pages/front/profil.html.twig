@@ -39,7 +39,7 @@
                         <li><img src="{{ asset(position.challenge.game.cover) }}" alt=""><p>{{ position.award.name }}</p></li>
                     {% endfor %}
                     {% if user.positions|length == null %}
-                        <p>Aucun récompense pour le moment. <a href="{{ path('challenge') }}" class="behive-color">Participer à des challenges</a> !</p>
+                        <p>Aucune récompense pour le moment. {% if app.request.attributes.get('_route') == "profil" %}<a href="{{ path('challenge') }}" class="behive-color">Participer à des challenges !</a>{% endif %}</p>
                     {% endif %}
                 </ul>
             </div>
@@ -64,7 +64,7 @@
 
                 <div class="contentText">
                     {% for game in user.games %}
-                        <h3><a href="{{ path('game', {id:game.id}) }}">{{ game.name }}</a></h3>
+                        <h3><a href="{{ path('game', {slug:game.slug}) }}">{{ game.name }}</a></h3>
                     {% endfor %}
 
                     <br>
