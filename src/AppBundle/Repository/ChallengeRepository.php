@@ -28,4 +28,34 @@ class ChallengeRepository extends EntityRepository
             ->getQuery()
             ->execute();
     }
+
+    public function findNonDaily()
+    {
+        return $this->createQueryBuilder('a')
+            ->select('a')
+            ->where('a.isDaily = 0')
+            ->leftJoin('a.game', 'g')
+            ->addSelect('g')
+            ->leftJoin('a.limits', 'l')
+            ->addSelect('l')
+            ->leftJoin('a.players', 'p')
+            ->addSelect('p')
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findDaily()
+    {
+        return $this->createQueryBuilder('a')
+            ->select('a')
+            ->where('a.isDaily = 1')
+            ->leftJoin('a.game', 'g')
+            ->addSelect('g')
+            ->leftJoin('a.limits', 'l')
+            ->addSelect('l')
+            ->leftJoin('a.players', 'p')
+            ->addSelect('p')
+            ->getQuery()
+            ->getSingleResult();
+    }
 }

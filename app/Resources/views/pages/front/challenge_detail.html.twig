@@ -1,0 +1,39 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    Challenge - Behive
+{% endblock %}
+
+{% block body %}
+    {% include "pages/front/partial/menu.html.twig" %}
+
+    <div id="challenges" class="main push">
+        <div class="day">
+            <div class="dayChallenge">
+                <img src="{{ challenge.cover }}" alt="">
+                <h2 class="detail-title">{{ challenge.name }}</h2>
+                <h4 class="center detail-title"><a href="{{ path('game', {slug: challenge.game.slug}) }}">{{ challenge.game.name }}</a></h4>
+            </div>
+            <div class="descriptionChallenge">
+                <h3>Seuils d'expérience:</h3>
+                <div class="contentText">
+                    {% for limit in challenge.limits %}
+                        <p><span class="position">{{ limit.begin }} - {{ limit.end }}</span> <span class="date">{{ limit.points }} points</span></p>
+                    {% endfor %}
+                </div>
+                {% include "pages/front/partial/_module_challenge.html.twig" with {challenge: challenge.id} %}
+            </div>
+        </div>
+        <div class="contentText">
+            {% for player in challenge.players %}
+                <div class="player">
+                    <a href="{{ path('user', {id:player.id}) }}">
+                        <img src="{{ asset(player.avatar) }}" alt="" class="user_img">
+                        <p class="center">{{ player.username|capitalize }}</p>
+                    </a>
+                </div>
+
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

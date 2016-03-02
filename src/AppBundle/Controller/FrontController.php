@@ -55,8 +55,8 @@ class FrontController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $challenges = $em->getRepository("AppBundle:Challenge")->findBy(array('isDaily' => false));
-        $dailyChallenge = $em->getRepository("AppBundle:Challenge")->findOneBy(array('isDaily' => true));
+        $challenges = $em->getRepository("AppBundle:Challenge")->findNonDaily();
+        $dailyChallenge = $em->getRepository("AppBundle:Challenge")->findDaily();
 
         $hasIt = $this->get('front.service')->hasChallenges($this->getUser(), $dailyChallenge, $challenges);
 

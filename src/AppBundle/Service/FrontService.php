@@ -7,13 +7,11 @@ class FrontService
     {
         $hasIt = array();
         if($user) {
-            $userChallenge = $user->getChallenges()->getValues();
-            foreach($userChallenge as $challenge) {
-                if($challenge === $dailyChallenge) {
-                    $hasIt[] = $dailyChallenge->getId();
-                }
-
-                if(in_array($challenge, $challenges)) {
+            if(in_array($user, $dailyChallenge->getPlayers()->getValues())) {
+                $hasIt[] = $dailyChallenge->getId();
+            }
+            foreach($challenges as $challenge) {
+                if(in_array($user, $challenge->getPlayers()->getValues())) {
                     $hasIt[] = $challenge->getId();
                 }
             }

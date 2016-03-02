@@ -74,7 +74,7 @@
                 {% if game.challenge|length %}
                     {% for challenge in game.challenge %}
                         <li>
-                            <a href="">
+                            <a href="{{ path('challenge_detail', {id:challenge.id}) }}">
                                 <h5>{{ challenge.name }}</h5>
                             </a>
                         </li>

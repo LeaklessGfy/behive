@@ -752,6 +752,18 @@ div.round canvas{
 	font-weight: 300;
 	overflow: hidden;
 }
+#challenges .player {
+	border: 2px solid #252a2e;
+	padding: 20px;
+}
+#challenges .player .user_img {
+	width: 60px;
+	float: left;
+}
+#challenges .player p {
+	padding-top: 20px;
+}
+
 .position{
 	font-size:		19px;
 	float:			left;
