@@ -22,7 +22,7 @@ class NotificationListener {
 
     public function updateNotification(FilterResponseEvent $event)
     {
-        if (!$event->isMasterRequest() || $this->notificationStatus) {
+        if (!$event->isMasterRequest() || !$this->notificationStatus) {
             return;
         }
 
