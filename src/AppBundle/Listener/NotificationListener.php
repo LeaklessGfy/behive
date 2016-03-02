@@ -33,7 +33,7 @@ class NotificationListener {
                 $notifications = $this->notification->getNotifications($user->getId());
 
                 foreach ($notifications as $notification) {
-                    $this->get('session')->getFlashBag()->add('notif', $notification);
+                    $this->session->getFlashBag()->add('notif', $notification);
                 }
             }
         }
