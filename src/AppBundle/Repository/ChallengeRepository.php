@@ -12,10 +12,20 @@ use Doctrine\ORM\EntityRepository;
  */
 class ChallengeRepository extends EntityRepository
 {
-    public function getCount() {
+    public function getCount()
+    {
         return $this->createQueryBuilder('a')
             ->select('COUNT(a)')
             ->getQuery()
             ->getSingleScalarResult();
+    }
+
+    public function clearDaily()
+    {
+        $this->createQueryBuilder('a')
+            ->update('AppBundle:Challenge', 'a')
+            ->set('a.isDaily', 0)
+            ->getQuery()
+            ->execute();
     }
 }

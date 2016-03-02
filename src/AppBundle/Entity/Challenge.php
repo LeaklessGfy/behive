@@ -304,6 +304,7 @@ class Challenge
         $entity = array(
             "id" => $this->id,
             "name" => $this->name,
+            "daily ?" => $this->isDaily ? "True" : "False",
             "cover" => $this->cover,
             "description" => $this->description,
             "players" => $playersArray,

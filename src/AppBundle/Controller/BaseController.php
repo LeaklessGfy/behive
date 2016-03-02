@@ -44,6 +44,10 @@ class BaseController extends Controller
                 $limit->setChallenge($entity);
                 $em->persist($limit);
             }
+
+            if($entity->getIsDaily()) {
+                $em->getRepository("AppBundle:Challenge")->clearDaily();
+            }
         }
     }
 }

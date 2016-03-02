@@ -16,7 +16,7 @@
                         <img src="{{ dailyChallenge.cover }}" alt="">
                     </div>
                     <h2 class="detail-title">{{ dailyChallenge.name }}</h2>
-                    <h4 class="center detail-title"><a href="{{ path('game', {id: dailyChallenge.game.id}) }}">{{ dailyChallenge.game.name }}</a></h4>
+                    <h4 class="center detail-title"><a href="{{ path('game', {slug: dailyChallenge.game.slug}) }}">{{ dailyChallenge.game.name }}</a></h4>
                 </div>
                 <div class="descriptionChallenge">
                     <h3>Seuils d'expérience:</h3>
@@ -36,7 +36,7 @@
                 <div class="dayChallenge">
                     <img src="{{ challenge.cover }}" alt="">
                     <h2 class="detail-title">{{ challenge.name }}</h2>
-                    <h4 class="center detail-title"><a href="{{ path('game', {id: challenge.game.id}) }}">{{ challenge.game.name }}</a></h4>
+                    <h4 class="center detail-title"><a href="{{ path('game', {slug: challenge.game.slug}) }}">{{ challenge.game.name }}</a></h4>
                 </div>
                 <div class="descriptionChallenge">
                     <h3>Seuils d'expérience:</h3>
