@@ -7,19 +7,6 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class BaseController extends Controller
 {
-    private $apiKey;
-    private $apiBaseUrl;
-    private $apiVersion;
-    private $apiId;
-
-    public function __construct()
-    {
-        $this->apiKey = "EB2471058B905E6A6D6036A38C135015";
-        $this->apiBaseUrl = " http://api.steampowered.com/";
-        $this->apiVersion = "v0001";
-        $this->apiId = "440";
-    }
-
     protected function checkIfExist($ressourceHelper)
     {
         if(!$ressourceHelper) {
