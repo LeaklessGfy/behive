@@ -172,21 +172,31 @@ $(document).scroll(function(e){
 	*/
 
 });
-/*
+
 $(document).ready(function(){
 
 	$('.first').hover(function(){
-		$('.home_main').css("background-image", "url(../img/catalogue.gif)");
+		$('#home_video_1').css("opacity", "1");
+		$('#home_video_2').css("opacity", "0");
+		$('.home_gif_challenges').css("opacity", "0");
+		$('.home_gif_challenges').css("opacity", "0");
 	});
 
 	$('.second').hover(function(){
-		$('.home_main').css("background-image", "url(../img/challenges.gif)");
+		$('.home_gif_challenges').css("opacity", "1");
+		$('#home_video_1').css("opacity", "0");
+		$('#home_video_2').css("opacity", "0");
 	});
 
-	$('.third').mouseover(function(){
-		$('.home_main').css("background-image", "url(../img/forum.gif)");
-
+	$('.third').hover(function(){
+		$('#home_video_2').css("opacity", "1");
+		$('#home_video_1').css("opacity", "0");
+		$('.home_gif_challenges').css("opacity", "0");
 	});
 
-});*/
+	$('video').on('ended', function () {
+		this.load();
+		this.play();
+	});
+});
 
