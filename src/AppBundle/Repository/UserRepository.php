@@ -34,6 +34,21 @@ class UserRepository extends EntityRepository
             ->setParameter('id', $id)
             ->getQuery()
             ->getSingleResult();
+
+        return $query;
+    }
+
+    public function getGames($user)
+    {
+        $query = $this->createQueryBuilder('a')
+            ->select('a')
+            ->Leftjoin('a.games', 'g')
+            ->addSelect('g')
+            ->where('a.id = :user')
+            ->setParameter('user', $user)
+            ->getQuery()
+            ->getOneOrNullResult();
+
         return $query;
     }
 }
