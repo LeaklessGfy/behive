@@ -65,17 +65,6 @@ class GameRepository extends EntityRepository
         return $qb;
     }
 
-    public function findByUser($user)
-    {
-        $qb = $this->createQueryBuilder('a')
-            ->where('a.owners = :user')
-            ->setParameter('user', $user)
-            ->getQuery()
-            ->getArrayResult();
-
-        return $qb;
-    }
-
     public function findBySlug($slug)
     {
         $qb = $this->createQueryBuilder('a')
@@ -90,7 +79,7 @@ class GameRepository extends EntityRepository
                 ->leftJoin('a.comments', 'co')
                 ->addSelect('co')
                 ->getQuery()
-                ->getOneOrNullResult();
+                ->getSingleResult();
 
         return $qb;
     }

@@ -6,6 +6,8 @@
 
     {% include "pages/front/partial/menu.html.twig" %}
 
+    {% include "pages/front/partial/notification.html.twig" %}
+
     <div id="profil" class="main profil_main">
         <div class="profil_header">
             <div class="img_profil">
@@ -34,14 +36,15 @@
                 <h2 class="title_profil">Récompenses</h2>
             </div>
             <div class="recompenses">
-                <ul>
-                    {% for position in user.positions %}
-                        <li><img src="{{ asset(position.challenge.game.cover) }}" alt=""><p>{{ position.award.name }}</p></li>
-                    {% endfor %}
-                    {% if user.positions|length == null %}
-                        <p>Aucune récompense pour le moment. {% if app.request.attributes.get('_route') == "profil" %}<a href="{{ path('challenge') }}" class="behive-color">Participer à des challenges !</a>{% endif %}</p>
-                    {% endif %}
-                </ul>
+                {% if user.positions|length %}
+                    <ul>
+                        {% for position in user.positions %}
+                            <li><img src="{{ asset(position.challenge.game.cover) }}" alt=""><p>{{ position.award.name }}</p></li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>Aucune récompense pour le moment. {% if app.request.attributes.get('_route') == "profil" %}<a href="{{ path('challenge') }}" class="behive-color">Participer à des challenges !</a>{% endif %}</p>
+                {% endif %}
             </div>
         </div>
 
@@ -73,9 +76,9 @@
             </div>
         </div>
 
-        {% if user.badges|length %}
-            <div class="sectionCatalogue autresCat">
-                <h2 class="titleCategorieCatalogue">Badges possédés</h2>
+        <div class="sectionCatalogue autresCat">
+            <h2 class="titleCategorieCatalogue">Badges possédés</h2>
+            {% if user.badges|length %}
                 <ul>
                     {% for badge in user.badges %}
                         <li>
@@ -85,8 +88,12 @@
                         </li>
                     {% endfor %}
                 </ul>
-            </div>
-        {% endif %}
+            {% else %}
+                <div>
+                    <p>Aucune badge pour le moment.</p>
+                </div>
+            {% endif %}
+        </div>
 
         {% if app.request.attributes.get('_route') == "profil" %}
             <div class="center push">

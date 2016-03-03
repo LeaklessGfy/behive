@@ -210,7 +210,8 @@ class FrontController extends Controller
             $games = $em->getRepository('AppBundle:Game')->findByCategory($filter, null);
             $re = "le filtre : " . $filter;
         } elseif($user) {
-            $games = $em->getRepository('AppBundle:Game')->findByUser($user);
+            $games = $em->getRepository('AppBundle:User')->getGames($user)->getGames();
+            $re = "L'utilisateur";
         } else {
             $games = $em->getRepository('AppBundle:Game')->findBy(array(), array(), 8, 0);
             $re = null;
