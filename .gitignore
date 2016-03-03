@@ -16,3 +16,4 @@
 .idea
 .idea/workspace.xml
 /app/config/parameters.php
+./app/config/parameters.php
