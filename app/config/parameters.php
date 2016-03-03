@@ -3,4 +3,4 @@
     $dirUploads = $dirKernel.'/../web/uploads/';
 
     $container->setParameter('upload.dir', $dirUploads);
-    $container->setParameter('notification.status', true);
+    $container->setParameter('notification.status', false);
