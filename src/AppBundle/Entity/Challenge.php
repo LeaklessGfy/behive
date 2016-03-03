@@ -322,4 +322,17 @@ class Challenge
             "set" => "setCover"
         );
     }
+
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     * @return Challenge
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
 }

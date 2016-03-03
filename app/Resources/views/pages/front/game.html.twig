@@ -88,6 +88,11 @@
         <div class="little-push">
             {% if app.user %}
                 <a href="#" class="detail-com"><i class="fa fa-comments"></i>Laisser un commentaire</a>
+
+                {{ form_start(form) }}
+                {{ form_widget(form) }}
+                <input class="" type="submit" value="Enregistrer">
+                {{ form_end(form) }}
             {% else %}
                 <div class="detail-com">
                     <p>Vous devez être connecté pour pouvoir commenter ce jeu</p>

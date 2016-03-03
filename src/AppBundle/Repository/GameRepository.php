@@ -76,6 +76,8 @@ class GameRepository extends EntityRepository
                 ->addSelect('ch')
                 ->leftJoin('a.owners', 'o')
                 ->addSelect('o')
+                ->leftJoin('a.comments', 'co')
+                ->addSelect('co')
                 ->getQuery()
                 ->getOneOrNullResult();
 

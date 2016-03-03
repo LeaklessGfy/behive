@@ -124,6 +124,11 @@ class User implements UserInterface, \Serializable
     private $positions;
 
     /**
+     * @ORM\OneToMany(targetEntity="Comment", mappedBy="owner")
+     */
+    private $comments;
+
+    /**
      * @ORM\ManyToOne(targetEntity="RolesCustom")
      * @ORM\JoinColumn(name="role_id", referencedColumnName="id")
      */
@@ -142,6 +147,7 @@ class User implements UserInterface, \Serializable
         $this->games = new ArrayCollection();
         $this->challenges = new ArrayCollection();
         $this->positions = new ArrayCollection();
+        $this->comments = new ArrayCollection();
         $this->xp = 10;
         $this->level = 1;
         $this->avatar = "img/avatar.gif";
@@ -581,5 +587,38 @@ class User implements UserInterface, \Serializable
     public function getPositions()
     {
         return $this->positions;
+    }
+
+    /**
+     * Add comments
+     *
+     * @param \AppBundle\Entity\Comment $comments
+     * @return User
+     */
+    public function addComment(\AppBundle\Entity\Comment $comments)
+    {
+        $this->comments[] = $comments;
+
+        return $this;
+    }
+
+    /**
+     * Remove comments
+     *
+     * @param \AppBundle\Entity\Comment $comments
+     */
+    public function removeComment(\AppBundle\Entity\Comment $comments)
+    {
+        $this->comments->removeElement($comments);
+    }
+
+    /**
+     * Get comments
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getComments()
+    {
+        return $this->comments;
     }
 }

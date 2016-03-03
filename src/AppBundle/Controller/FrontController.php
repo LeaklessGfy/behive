@@ -2,6 +2,8 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Comment;
+use AppBundle\Form\Type\CommentType;
 use AppBundle\Form\Type\UserEditType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -152,22 +154,37 @@ class FrontController extends Controller
      * @Route("/jeux/{slug}", name="game", requirements={
      *     "id": "\d+"
      * })
-     * @Method("GET")
+     * @Method({"GET", "POST"})
      * @Template("pages/front/game.html.twig")
      */
-    public function gameAction($slug)
+    public function gameAction($slug, Request $request)
     {
-        $game = $this->getDoctrine()->getRepository("AppBundle:Game")->findBySlug($slug);
+        $em = $this->getDoctrine()->getManager();
+        $game = $em->getRepository("AppBundle:Game")->findBySlug($slug);
 
         if(!$game) {
             return $this->redirectToRoute('catalogue');
+        }
+
+        if($this->getUser()) {
+            $comment = new Comment($game, $this->getUser());
+            $form = $this->createForm(new CommentType(), $comment);
+            $form->handleRequest($request);
+
+            if($form->isValid()) {
+                $em->persist($comment);
+                $em->flush();
+
+                return $this->redirectToRoute("game", array("slug" => $slug));
+            }
         }
 
         $hasIt = $this->get('front.service')->hasGame($this->getUser(), $game);
 
         return array(
             "game" => $game,
-            "hasIt" => $hasIt
+            "hasIt" => $hasIt,
+            "form" => $form->createView()
         );
     }
 
