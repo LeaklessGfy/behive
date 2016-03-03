@@ -1,7 +1,10 @@
-<div class="notification">
-    <a href="{{ path('profil') }}" >
-        <img src="{{ asset('img/logoGrey.png') }}" alt="logo" />
-        <h4>Vous avez remporté un challenge !</h4>
-        <p>Récompense: 1000xp / COD Black Ops</p>
-    </a>
-</div>
+{% set val = 80 %}
+{% for flash in app.session.flashbag.get('notif') %}
+    <div class="notification" style="top: {{ val }}px">
+        <a href="{{ path('profil') }}" >
+            <img src="{{ asset('img/logoGrey.png') }}" alt="logo" />
+            {{ flash|raw }}
+        </a>
+    </div>
+    {% set val = val + 60 %}
+{% endfor %}

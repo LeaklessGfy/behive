@@ -21,7 +21,7 @@ class NotificationService {
 
     public function getNotificationsKeys($userId)
     {
-        $keys = $this->redis->keys($userId."_notif-*");
+        $keys = $this->redis->keys($userId."_notif_*");
 
         return $keys;
     }
@@ -36,6 +36,9 @@ class NotificationService {
     public function getNotifications($id)
     {
         $notificationsKeys = $this->getNotificationsKeys($id);
+
+        dump($notificationsKeys);
+        dump("dd");
 
         if(!$notificationsKeys) {
             return;
@@ -61,7 +64,9 @@ class NotificationService {
             return;
         }
 
-        $notification = $userId . "_notif-" . $key;
+        $uniq = count($this->redis->keys($userId . "_notif_*-" . $key)) + 1;
+
+        $notification = $userId . "_notif_" . $uniq . "-" . $key;
         $this->redis->set($notification, $value);
     }
 
