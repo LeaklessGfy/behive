@@ -37,9 +37,6 @@ class NotificationService {
     {
         $notificationsKeys = $this->getNotificationsKeys($id);
 
-        dump($notificationsKeys);
-        dump("dd");
-
         if(!$notificationsKeys) {
             return;
         }
