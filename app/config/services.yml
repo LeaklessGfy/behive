@@ -37,10 +37,14 @@ services:
 
   notification.service:
       class: AppBundle\Service\NotificationService
-      arguments: [@snc_redis.default]
+      arguments: [@snc_redis.default, @flash.handler.service, %notification.status%]
 
   notification.listener:
       class: AppBundle\Listener\NotificationListener
-      arguments: [@notification.service, %notification.status%, @security.token_storage, @session]
+      arguments: [@notification.service, %notification.status%, @security.token_storage]
       tags:
           - { name: kernel.event_listener, event: kernel.response, method: updateNotification }
+
+  flash.handler.service:
+      class: AppBundle\Service\FlashHandlerService
+      arguments: [@session]

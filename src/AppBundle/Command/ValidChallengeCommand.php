@@ -28,7 +28,8 @@ class ValidChallengeCommand extends ContainerAwareCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $em = $this->getContainer()->get('doctrine')->getManager();
+        $ct = $this->getContainer();
+        $em = $ct->get('doctrine')->getManager();
         $helper = $this->getHelper('question');
 
         //GET USER
@@ -118,11 +119,16 @@ class ValidChallengeCommand extends ContainerAwareCommand
         $output->writeln("--> Add xp = " . $award->getPoints());
         $output->writeln("New xp = " . ($userLastPoints + $award->getPoints()));
         $user->setXp($userLastPoints + $award->getPoints());
+
+        $notif = $ct->get('notification.service');
+        $notif->setNotification($userId, "earn-points", $award->getPoints());
+
         if($game = $award->getGame()) {
             $output->writeln("-> Add this game = ". $award->getGame()->getName());
 
             if(!in_array($game, $user->getGames()->getValues())) {
                 $user->addGame($game);
+                $notif->setNotification($userId, "earn-game", $game->getId());
             }
         }
         if($badge = $award->getBadge()) {
@@ -130,8 +136,11 @@ class ValidChallengeCommand extends ContainerAwareCommand
 
             if(!in_array($badge, $user->getBadges()->getValues())) {
                 $user->addBadge($badge);
+                $notif->setNotification($userId, "earn-badge", $badge->getId());
             }
         }
+
+        $notif->setNotification($userId, "challenge-complete", $challengeId."_".$positionNb);
 
         $em->persist($position);
         $em->flush();

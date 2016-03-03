@@ -4,28 +4,69 @@ namespace AppBundle\Service;
 use Predis\Client as Redis;
 
 class NotificationService {
-    public function __construct(Redis $redis)
+    private $redis;
+    private $flashHandler;
+    private $notificationStatus;
+    private $notificationsPanel;
+
+    public function __construct(Redis $redis, FlashHandlerService $flashHandler, $notificationStatus)
     {
         $this->redis = $redis;
+        $this->flashHandler = $flashHandler;
+        $this->notificationStatus = $notificationStatus;
         $this->notificationsPanel = array(
-            "new-user", "add-game", "earn-points", "earn-game", "earn-badge", "subscribe-challenge"
+            "new-user", "add-game", "earn-points", "earn-game", "earn-badge", "challenge-subscribe", "challenge-complete"
         );
     }
 
-    public function getNotifications($userId)
+    public function getNotificationsKeys($userId)
     {
-        $notifications = $this->redis->keys($userId."_notif-*");
+        $keys = $this->redis->keys($userId."_notif-*");
 
-        return $notifications;
+        return $keys;
+    }
+
+    public function getNotificationsValues($mget)
+    {
+        $values = $this->redis->mget($mget);
+
+        return $values;
+    }
+
+    public function getNotifications($id)
+    {
+        $notificationsKeys = $this->getNotificationsKeys($id);
+
+        if(!$notificationsKeys) {
+            return;
+        }
+
+        $notificationsValues = $this->getNotificationsValues($notificationsKeys);
+        $notificationsLength = count($notificationsKeys);
+
+        for($i = 0; $i < $notificationsLength; $i++) {
+            $end = strpos($notificationsKeys[$i], "-") + 1;
+            $key = substr($notificationsKeys[$i], $end);
+            $value = $notificationsValues[$i];
+
+            $this->flashHandler->flashForNotifications($key, $value);
+        }
+
+        $this->unsetKeys($notificationsKeys);
     }
 
     public function setNotification($userId, $key, $value)
     {
-        if(!in_array($key, $this->notificationsPanel)) {
+        if(!in_array($key, $this->notificationsPanel) || !$this->notificationStatus) {
             return;
         }
 
-        $notification = $userId . "_" . $key;
+        $notification = $userId . "_notif-" . $key;
         $this->redis->set($notification, $value);
+    }
+
+    public function unsetKeys($keys)
+    {
+        $this->redis->del($keys);
     }
 }
