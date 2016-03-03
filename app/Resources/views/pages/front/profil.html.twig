@@ -87,25 +87,27 @@
                 </ul>
             </div>
         {% endif %}
+        <h2 class="title_profil labelParametres"><img src="{{ asset('img/gear.png') }}" />Paramètres</h2>
+        <div class="parametres">
+            {% if app.request.attributes.get('_route') == "profil" %}
+                <div class="center">
+                    <p>Synchroniser votre compte Behive avec steam</p>
 
-        {% if app.request.attributes.get('_route') == "profil" %}
-            <div class="center push">
-                <p>Synchroniser votre compte Behive avec steam</p>
-
-                <div class="little-push">
-                    <a href="{{ path('sync_steam') }}" class="detail-button sync-steam">Synchroniser</a>
+                    <div class="">
+                        <a href="{{ path('sync_steam') }}" class="detail-button sync-steam">Synchroniser</a>
+                    </div>
                 </div>
-            </div>
-        {% endif %}
+            {% endif %}
 
-        {% if app.request.attributes.get('_route') == "profil" %}
-            <div class="little-push">
-                {{ form_start(form) }}
-                {{ form_widget(form) }}
+            {% if app.request.attributes.get('_route') == "profil" %}
+                <div class="">
+                    {{ form_start(form) }}
+                    {{ form_widget(form) }}
 
-                <input type="submit" value="Enregistrer">
-                {{ form_end(form) }}
-            </div>
-        {% endif %}
+                    <input type="submit" value="Enregistrer">
+                    {{ form_end(form) }}
+                </div>
+            {% endif %}
+        </div>
     </div>
 {% endblock %}
