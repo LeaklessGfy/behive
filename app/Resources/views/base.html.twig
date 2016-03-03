@@ -14,10 +14,12 @@
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,300,700' rel='stylesheet' type='text/css'>
         <link href='https://fonts.googleapis.com/css?family=Lato:300,400' rel='stylesheet' type='text/css'>
         <style>
+            {% if app.user %}
             .detail-bar:before{
                 {% set xpRequired = app.user.level * 100 %}
                 width: {{ (app.user.xp / xpRequired) * 100 }}%;
             }
+            {% endif %}
         </style>
     </head>
     <body>

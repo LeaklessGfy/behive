@@ -55,6 +55,10 @@ class AjaxController extends Controller
 
             $user->addGame($game);
             $em->flush();
+
+            $this->get('notification.service')->setNotification($user->getId(), "add-game", $game->getName());
+            $this->get('notification.service')->getNotifications($user->getId());
+
             $response->setStatusCode(200);
             $response->setData(
                 array(
@@ -62,8 +66,6 @@ class AjaxController extends Controller
                     "notif" => $this->renderView("pages/front/partial/notification.html.twig")
                 )
             );
-
-            $this->get('notification.service')->setNotification($user->getId(), "add-game", $game->getName());
         }
 
         return $response;
