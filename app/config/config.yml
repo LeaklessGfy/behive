@@ -107,3 +107,4 @@ stof_doctrine_extensions:
 exercise_html_purifier:
     default:
         Cache.SerializerPath: '%kernel.cache_dir%/htmlpurifier'
+        HTML.Allowed: ""
