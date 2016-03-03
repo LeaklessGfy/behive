@@ -88,19 +88,27 @@
         </div>
 
         <div class="little-push">
-            {% if app.user %}
-                <a href="#" class="detail-com"><i class="fa fa-comments"></i>Laisser un commentaire</a>
-
-                {{ form_start(form) }}
-                {{ form_widget(form) }}
-                <input class="" type="submit" value="Enregistrer">
-                {{ form_end(form) }}
-            {% else %}
-                <div class="detail-com">
-                    <p>Vous devez être connecté pour pouvoir commenter ce jeu</p>
-                    <a href="{{ path('register') }}" class="detail-button">S'inscrire</a><span> </span><a href="{{ path('front_login') }}" class="detail-button">Se connecter</a>
+            <ul class="game-comment">
+                {% if app.user %}
+                    <li>
+                        <span href="#" class="detail-com add-comment"><i class="fa fa-comments"></i>Laisser un commentaire</span>
+                <div class="ajout-comment">
+                    {{ form_start(form) }}
+                        {{ form_label(form.content, "Commentaire") }}
+                    {{ form_widget(form.content) }}
+                    <div class="envoie-comment"><input class="input-save" type="submit" value="Envoyer"></div>
+                    {{ form_end(form) }}
                 </div>
-            {% endif %}
+                    </li>
+            </ul>
+                {% else %}
+                    <div class="detail-com">
+                        <p>Vous devez être connecté pour pouvoir commenter ce jeu</p>
+                        <a href="{{ path('register') }}" class="detail-button">S'inscrire</a><span> </span><a href="{{ path('front_login') }}" class="detail-button">Se connecter</a>
+                    </div>
+                {% endif %}
+
+
 
             {% if game.comments|length %}
                 <div class="autresCat push">
