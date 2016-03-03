@@ -100,10 +100,35 @@ h1 a:hover{
 .home_main{
 	background-image: url("../../img/challenges.gif");
 	background-repeat:no-repeat;
+	background: transparent;
 	width:100%;
+	height: auto;
 	background-size:cover;
+	opacity:1;
 }
 
+#home_video_1{
+	opacity:0;
+}
+
+#home_video_2{
+	opacity:0;
+}
+
+.home_gif_challenges{
+	background-image: url("../../img/challenges.gif");
+	background-repeat:no-repeat;
+	background-size:cover;
+	opacity:0;
+	position: fixed;
+	top: 0;
+	left: 0;
+	min-width: 100%;
+	min-height: 100%;
+	width: auto;
+	height: auto;
+	z-index: -100;
+}
 
 .push {
 	padding-top: 65px;
@@ -120,6 +145,20 @@ h1 a:hover{
 .margin-r-5 {
 	margin-right: 5px;
 }
+
+video{
+	position: fixed;
+	top: 0;
+	left: 0;
+	min-width: 100%;
+	min-height: 100%;
+	width: auto;
+	height: auto;
+	z-index: -100;
+	background-size: cover;
+}
+
+
 
 	.section{
 		height:			100%;
@@ -1817,6 +1856,29 @@ header h1 a{
 
 
 @media screen and (max-width: 700px) {
+
+	.profil_lvl_number {
+		font-size: 25px;
+		position: absolute !important;
+		top: 118px !important;
+		right: 30px;
+	}
+
+	.profil_niveau {
+		font-size: 16px;
+		position: absolute !important;
+		top: 125px !important;
+		right: 55px;
+	}
+
+	.profil_xp {
+		width: 35%;
+		background-color: transparent;
+		overflow: hidden;
+		margin-left: 10%;
+		margin-bottom: 20px;
+		margin-top: 10px;
+
 	.jeuMois {
 		width:			calc(100% - 40px) !important;
 		max-height:		500px !important;
@@ -1851,6 +1913,7 @@ header h1 a{
 		margin-left: 	10%;
 		margin-bottom: 	20px;
 		margin-top: 	10px;
+
 	}
 
 	.profil_date {
@@ -1925,6 +1988,7 @@ header h1 a{
 		float: none !important;
 		margin-top: 0;
 	}
+
 }
 
 @media screen and (max-width: 990px) {
@@ -1998,6 +2062,7 @@ header h1 a{
 		transition: all 0.2s;
 		top:40%;
 	}
+
 	.section:hover .nameCategorie {
 		top: 35%;
 		color: white;
