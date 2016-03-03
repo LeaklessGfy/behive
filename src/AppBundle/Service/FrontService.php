@@ -14,13 +14,15 @@ class FrontService
     {
         $hasIt = array();
         if($user) {
-            $playersForDC = $dailyChallenge->getPlayers();
-            $dcIDS = $playersForDC->map(function($entity)  {
-                return $entity->getId();
-            })->toArray();
+            if($dailyChallenge) {
+                $playersForDC = $dailyChallenge->getPlayers();
+                $dcIDS = $playersForDC->map(function($entity)  {
+                    return $entity->getId();
+                })->toArray();
 
-            if(in_array($user->getId(), $dcIDS)) {
-                $hasIt[] = $dailyChallenge->getId();
+                if(in_array($user->getId(), $dcIDS)) {
+                    $hasIt[] = $dailyChallenge->getId();
+                }
             }
 
             foreach($challenges as $challenge) {

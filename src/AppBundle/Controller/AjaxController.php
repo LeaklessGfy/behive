@@ -58,7 +58,8 @@ class AjaxController extends Controller
             $response->setStatusCode(200);
             $response->setData(
                 array(
-                    "url" => $this->generateUrl('game_remove', array('id' => $id))
+                    "url" => $this->generateUrl('game_remove', array('id' => $id)),
+                    "notif" => $this->renderView("pages/front/partial/notification.html.twig")
                 )
             );
 

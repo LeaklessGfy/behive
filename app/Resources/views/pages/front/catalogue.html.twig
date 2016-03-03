@@ -15,9 +15,11 @@
             {% set daily = random(6) %}
 
             <div class="jeuMoment push jeuMois" id="detail">
-                <h3 class="detail-title">{{ action[daily].name }}</h3>
-                <img class="detail-header" src="{{ asset(action[daily].cover) }}" alt="">
-                <p class="detail-infos">{{ action[daily].description }}</p>
+                <a href="{{ path('game', {slug:action[daily].slug}) }}">
+                    <h3 class="detail-title">{{ action[daily].name }}</h3>
+                    <img class="detail-header" src="{{ asset(action[daily].cover) }}" alt="">
+                    <p class="detail-infos">{{ action[daily].description }}</p>
+                </a>
             </div>
             <div class="clear-fix"></div>
         </div>

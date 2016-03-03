@@ -17,6 +17,9 @@ $( document ).ready( function(){
 				if(btn.data("info") == "game:add") {
 					content = '<a href="'+data.url+'" class="margin-l-5 detail-button ajax-link valid" data-info="game:remove"> <i class="fa fa-check"></i> J\'ai ce jeu </a>';
 					downloadText = '<i class="fa fa-download"></i> Re-Télécharger';
+
+					console.log(data.notif);
+					$("body").append(data.notif);
 				} else if(btn.data("info" ) == "game:remove") {
 					content = '<a href="'+data.url+'" class="margin-l-5 detail-button ajax-link" data-info="game:add"> <i class="fa fa-plus"></i> J\'ai déjà ce jeu </a>';
 					downloadText = '<i class="fa fa-download"></i> Télécharger';
