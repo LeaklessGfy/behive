@@ -99,6 +99,17 @@
                     <a href="{{ path('register') }}" class="detail-button">S'inscrire</a><span> </span><a href="{{ path('front_login') }}" class="detail-button">Se connecter</a>
                 </div>
             {% endif %}
+
+            <div class="autresCat">
+                {% for comment in game.comments %}
+                    <div class="itemComment">
+                        <div class="avatarComment">
+                            <img src="{{ asset(comment.owner.avatar) }}" alt="">
+                        </div>
+                        <p>{{ comment.content }}</p>
+                    </div>
+                {% endfor %}
+            </div>
         </div>
     </div>
 

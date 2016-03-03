@@ -1454,6 +1454,18 @@ header h1 a{
 	border-bottom:	1px solid #fff;
 	padding:		20px;
 }
+.avatarComment {
+	display: inline-block;
+	width: 100px;
+}
+.itemComment {
+	background:		#252a2e;
+	border-bottom:	1px solid #fff;
+	padding:		20px;
+}
+.itemComment p {
+	display: inline-block;
+}
 .imgListe{
 	width:			200px;
 	float:			right;
@@ -1461,6 +1473,7 @@ header h1 a{
 	overflow:		hidden;
 }
 .imgListe img{
+	display: block;
 	width:			200px;
 }
 .autresCat{
