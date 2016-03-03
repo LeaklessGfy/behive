@@ -52,6 +52,6 @@ class ChallengeRepository extends EntityRepository
             ->leftJoin('a.limits', 'l')
             ->addSelect('l')
             ->getQuery()
-            ->getSingleResult();
+            ->getOneOrNullResult();
     }
 }
