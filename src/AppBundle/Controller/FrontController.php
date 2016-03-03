@@ -97,7 +97,8 @@ class FrontController extends Controller
      */
     public function profilAction(Request $request)
     {
-        $user = $this->getDoctrine()->getRepository('AppBundle:User')->getProfil($this->getUser());
+        $em = $this->getDoctrine()->getManager();
+        $user = $em->getRepository('AppBundle:User')->getProfil($this->getUser());
         $form = $this->createForm(new UserEditType(), $user);
         $avatar = $user->getAvatar();
 
@@ -105,18 +106,8 @@ class FrontController extends Controller
 
         if($form->isValid()) {
             //AVATAR
-            $file = $user->getAvatar();
-            if($file) {
-                $fileName = "user-".time()."-img.jpg";
-                $fileDir = $this->getParameter('upload.dir')."user/";
-                $file->move($fileDir, $fileName);
-
-                $user->setAvatar("uploads/user/".$fileName);
-            } else {
-                $user->setAvatar($avatar);
-            }
-
-            $this->getDoctrine()->getManager()->flush();
+            $this->get('front.service')->handleAvatar($user, $avatar);
+            $em->flush();
 
             return $this->redirectToRoute("profil");
         }

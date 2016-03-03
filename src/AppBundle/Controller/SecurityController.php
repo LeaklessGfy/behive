@@ -63,15 +63,7 @@ class SecurityController extends Controller
             $em = $this->getDoctrine()->getManager();
 
             //Image
-            if($file = $newUser->getAvatar()) {
-                $fileName = "user-".time()."-img.jpg";
-                $fileDir = $this->container->getParameter('kernel.root_dir').'/../web/uploads/user';
-                $file->move($fileDir, $fileName);
-
-                $newUser->setAvatar("uploads/user/".$fileName);
-            } else {
-                $newUser->setAvatar("img/avatar.gif");
-            }
+            $this->get('front.service')->handleAvatar($newUser, "img/avatar.gif");
 
             //Role
             $role = $em->getRepository('AppBundle:RolesCustom')->findOneBy(array('role' => 'ROLE_USER'));

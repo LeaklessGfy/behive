@@ -54,4 +54,18 @@ class FrontService
 
         return $hasIt;
     }
+
+    public function handleAvatar($user, $avatar)
+    {
+        $file = $user->getAvatar();
+        if($file) {
+            $fileName = "user-".time()."-img.jpg";
+            $fileDir = $this->getParameter('upload.dir')."user/";
+            $file->move($fileDir, $fileName);
+
+            $user->setAvatar("uploads/user/".$fileName);
+        } else {
+            $user->setAvatar($avatar);
+        }
+    }
 }
