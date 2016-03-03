@@ -100,16 +100,21 @@
                 </div>
             {% endif %}
 
-            <div class="autresCat">
-                {% for comment in game.comments %}
-                    <div class="itemComment">
-                        <div class="avatarComment">
-                            <img src="{{ asset(comment.owner.avatar) }}" alt="">
+            {% if game.comments|length %}
+                <div class="autresCat push">
+                    {% for comment in game.comments %}
+                        <div class="itemComment">
+                            <div class="avatarComment">
+                                <img src="{{ asset(comment.owner.avatar) }}" alt="" width="100px">
+                            </div>
+                            <div class="contentComment">
+                                <p><i>{{ comment.date|localizeddate }}</i></p>
+                                <p>{{ comment.content }} - <a href="{{ path('user', {id:comment.owner.id}) }}">{{ comment.owner.username }}</a></p>
+                            </div>
                         </div>
-                        <p>{{ comment.content }}</p>
-                    </div>
-                {% endfor %}
-            </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
         </div>
     </div>
 
