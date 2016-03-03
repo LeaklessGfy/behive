@@ -7,6 +7,8 @@
 {% block body %}
     {% include "pages/front/partial/menu.html.twig" %}
 
+    {% include "pages/front/partial/notification.html.twig" %}
+
     {% if games|length %}
         <div class="headerList">
             <h3 class="titleListe">Résultat(s) pour {{ re }}</h3>

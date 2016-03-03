@@ -48,3 +48,12 @@ services:
   flash.handler.service:
       class: AppBundle\Service\FlashHandlerService
       arguments: [@session]
+
+  user.level.service:
+      class: AppBundle\Service\UserLevelService
+
+  user.update.listener:
+      class: AppBundle\Listener\UserUpdateListener
+      arguments: [@user.level.service]
+      tags:
+          - { name: doctrine.event_listener, event: preUpdate }
