@@ -9,15 +9,22 @@
 
     <div id="main" class="home_main">
             <a href="{{ path('catalogue') }}" class="section first">
+                <video autoplay='true' onended="replay()" id="home_video_1">
+                    <source src="video/catalogue.webm" type="video/webm" >
+                </video>
                 <h2 class="nameCategorie">Catalogue</h2>
                 <p class="home_decouvrir">Découvrir</p>
             </a>
             <a href="{{ path('challenge') }}" class="section second">
+                <img src="img/challenges.gif" class="home_gif_challenges">
                 <h2 class="nameCategorie">Challenges</h2>
                 <p class="home_decouvrir">Découvrir</p>
             </a>
-            <a href="{{ path('forum_home') }}" class="section third">
-                <h2 class="nameCategorie">Forum</h2>
+            <a href="{{ path('profil') }}" class="section third">
+                <video autoplay='true' onended="replay()" id="home_video_2">
+                    <source src="video/forum.webm" type="video/webm" >
+                </video>
+                <h2 class="nameCategorie">Profil</h2>
                 <p class="home_decouvrir">Découvrir</p>
             </a>
     </div>

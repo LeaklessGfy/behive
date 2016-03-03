@@ -6,6 +6,9 @@
 
 {% block body %}
     {% include "pages/front/partial/menu.html.twig" %}
+
+    {% include "pages/front/partial/notification.html.twig" %}
+
     <div id="catalogue" class="main">
         <div>
             <h2 class="titleCategorieCatalogue">Jeux du mois</h2>
@@ -56,6 +59,5 @@
                 {% endfor %}
             </ul>
         </div>
-
     </div>
 {% endblock %}

@@ -79,7 +79,7 @@ class GameRepository extends EntityRepository
                 ->leftJoin('a.comments', 'co')
                 ->addSelect('co')
                 ->getQuery()
-                ->getOneOrNullResult();
+                ->getSingleResult();
 
         return $qb;
     }

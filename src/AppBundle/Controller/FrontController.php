@@ -202,12 +202,16 @@ class FrontController extends Controller
 
         $filter = urldecode($request->get('filter'));
         $search = $request->get('search');
+        $user = $request->get('user');
         if($search) {
             $games = $em->getRepository('AppBundle:Game')->search($search, true);
             $re = "le jeu : " . $search;
         } elseif($filter) {
             $games = $em->getRepository('AppBundle:Game')->findByCategory($filter, null);
             $re = "le filtre : " . $filter;
+        } elseif($user) {
+            $games = $em->getRepository('AppBundle:User')->getGames($user)->getGames();
+            $re = "L'utilisateur";
         } else {
             $games = $em->getRepository('AppBundle:Game')->findBy(array(), array(), 8, 0);
             $re = null;
