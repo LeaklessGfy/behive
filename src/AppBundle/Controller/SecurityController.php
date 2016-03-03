@@ -78,6 +78,8 @@ class SecurityController extends Controller
             $em->persist($newUser);
             $em->flush();
 
+            $this->get('notification.service')->setNotification($newUser->getId(), "new-user", $newUser->getUsername());
+
             $this->addFlash("success", "Votre compte à bien été validé. Veuillez vous connecter maintenant !");
             return $this->redirectToRoute('front_login');
         }

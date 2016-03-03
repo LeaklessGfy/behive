@@ -154,6 +154,8 @@ class AjaxController extends Controller
             $em->flush();
         }
 
+        $this->get('notification.service')->setNotification($user->getId(), "steam", count($steamGames));
+
         $response->setStatusCode(200);
         $response->setData(array("jeu ajouté : " => $gameAdd));
 

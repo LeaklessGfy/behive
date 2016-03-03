@@ -15,7 +15,7 @@ class NotificationService {
         $this->flashHandler = $flashHandler;
         $this->notificationStatus = $notificationStatus;
         $this->notificationsPanel = array(
-            "new-user", "add-game", "earn-points", "earn-game", "earn-badge", "challenge-subscribe", "challenge-complete"
+            "new-user", "add-game", "earn-points", "earn-game", "earn-badge", "challenge-subscribe", "challenge-complete", "steam"
         );
     }
 
