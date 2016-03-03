@@ -2,6 +2,7 @@ $( document ).ready( function(){
 	var isSearchOpen = false;
 	var compteur = 1;
 	var search;
+	showNotif();
 
 	$("body").on('click', '.ajax-link', function(e) {
 		e.preventDefault();
@@ -189,4 +190,12 @@ $(document).ready(function(){
 	});
 
 });
+
+function showNotif(){
+	$('.notification').fadeIn(800);
+	setTimeout(function(){
+		$('.notification').fadeOut(800)}
+		,8000
+	)
+}
 

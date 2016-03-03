@@ -6,13 +6,12 @@
 
 {% block body %}
     {% include "pages/front/partial/menu.html.twig" %}
-
     <div id="catalogue" class="main">
         <div>
             <h2 class="titleCategorieCatalogue">Jeux du mois</h2>
             {% set daily = random(6) %}
 
-            <div class="jeuMoment push" style="float:left; max-height:150px; overflow:hidden;" id="detail">
+            <div class="jeuMoment push jeuMois" id="detail">
                 <h3 class="detail-title">{{ action[daily].name }}</h3>
                 <img class="detail-header" src="{{ asset(action[daily].cover) }}" alt="">
                 <p class="detail-infos">{{ action[daily].description }}</p>
@@ -32,7 +31,7 @@
                                 <div class="bgImg"></div>
                             </div>
                             <h3>{{ game.name }}</h3>
-                            <h4>{{ game.description|purify|truncate(40, true, '...') }}</h4>
+                            <h4>{{ game.description|purify|truncate(25, true, '...') }}</h4>
                         </a>
                     </div>
                 {% endfor %}
