@@ -61,6 +61,8 @@ class AjaxController extends Controller
                     "url" => $this->generateUrl('game_remove', array('id' => $id))
                 )
             );
+
+            $this->get('notification.service')->setNotification($user->getId(), "add-game", $game->getName());
         }
 
         return $response;

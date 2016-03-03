@@ -981,7 +981,7 @@ div.round canvas{
 	text-align: center;
 	font-size: 18px;
 	font-family:'Lato', sans-serif;
-	padding-bottom: 30px;
+	padding-bottom: 50px;
 }
 
 .detail-com i{
@@ -1454,14 +1454,27 @@ header h1 a{
 	border-bottom:	1px solid #fff;
 	padding:		20px;
 }
+.avatarComment {
+	display: inline-block;
+	width: 100px;
+	margin-right: 20px;
+	border-radius: 100px;
+	overflow: hidden;
+}
+.itemComment {
+	background:		#252a2e;
+	border-bottom:	1px solid #fff;
+	padding:		20px;
+}
+.itemComment .contentComment {
+	display: inline-block;
+	vertical-align: top;
+}
 .imgListe{
 	width:			200px;
 	float:			right;
 	height:			120px;
 	overflow:		hidden;
-}
-.imgListe img{
-	width:			200px;
 }
 .autresCat{
 	width:			92%;

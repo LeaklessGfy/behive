@@ -166,6 +166,13 @@ class FrontController extends Controller
             return $this->redirectToRoute('catalogue');
         }
 
+        $hasIt = $this->get('front.service')->hasGame($this->getUser(), $game);
+
+        $return = array(
+            "game" => $game,
+            "hasIt" => $hasIt
+        );
+
         if($this->getUser()) {
             $comment = new Comment($game, $this->getUser());
             $form = $this->createForm(new CommentType(), $comment);
@@ -177,15 +184,11 @@ class FrontController extends Controller
 
                 return $this->redirectToRoute("game", array("slug" => $slug));
             }
+
+            $return["form"] = $form->createView();
         }
 
-        $hasIt = $this->get('front.service')->hasGame($this->getUser(), $game);
-
-        return array(
-            "game" => $game,
-            "hasIt" => $hasIt,
-            "form" => $form->createView()
-        );
+        return $return;
     }
 
     /**

@@ -99,6 +99,22 @@
                     <a href="{{ path('register') }}" class="detail-button">S'inscrire</a><span> </span><a href="{{ path('front_login') }}" class="detail-button">Se connecter</a>
                 </div>
             {% endif %}
+
+            {% if game.comments|length %}
+                <div class="autresCat push">
+                    {% for comment in game.comments %}
+                        <div class="itemComment">
+                            <div class="avatarComment">
+                                <img src="{{ asset(comment.owner.avatar) }}" alt="" width="100px">
+                            </div>
+                            <div class="contentComment">
+                                <p><i>{{ comment.date|localizeddate }}</i></p>
+                                <p>{{ comment.content }} - <a href="{{ path('user', {id:comment.owner.id}) }}">{{ comment.owner.username }}</a></p>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
         </div>
     </div>
 

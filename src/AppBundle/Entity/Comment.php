@@ -52,6 +52,7 @@ class Comment
     {
         $this->game = $game;
         $this->owner = $user;
+        $this->date = new \DateTime("now");
     }
 
     /**
