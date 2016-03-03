@@ -12,7 +12,7 @@
             <h2 class="titleCategorieCatalogue">Jeux du mois</h2>
             {% set daily = random(6) %}
 
-            <div class="jeuMoment push" id="detail">
+            <div class="jeuMoment push" style="float:left; max-height:150px; overflow:hidden;" id="detail">
                 <h3 class="detail-title">{{ action[daily].name }}</h3>
                 <img class="detail-header" src="{{ asset(action[daily].cover) }}" alt="">
                 <p class="detail-infos">{{ action[daily].description }}</p>
