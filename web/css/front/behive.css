@@ -1351,8 +1351,38 @@ header h1 a{
 	overflow: 	hidden;
 }
 
+.synchroButton{
+	margin-top:	30px;
+}
+
 .parametres{
 	padding-top: 20px;
+	width:		980px;
+	background:	rgba(0,0,0,0.4);
+	margin:		20px auto;
+	padding:	15px;
+	padding-bottom:30px;
+}
+.parametres label{
+	display:	inline-block;
+	text-align:	center;
+	float:		none;
+	width:		30%;
+}
+.parametres input{
+	background:	rgba(0,0,0,0.3);
+	padding:	10px;
+	line-height:25px;
+}
+.parametres input[type = submit] {
+	height:		40px;
+	line-height:20px;
+	transition:	.5s;
+	text-transform: uppercase;
+	cursor:		pointer;
+}
+.parametres input[type = submit]:hover {
+	background:	#f7ca18;
 }
 .labelParametres{
 	text-align:	center;
@@ -1435,7 +1465,7 @@ header h1 a{
 }
 .avatarMenu{
 	display:		block;
-	background:		blue;
+	background:		#f7ca18;
 	margin:			0 auto;
 	height:			100%;
 }
@@ -1772,6 +1802,12 @@ header h1 a{
 	overflow:		hidden;
 }
 
+.profilBadges{
+	margin:0 auto;
+	width:980px;
+	display:block;
+}
+
 .profil_header{
 	max-width: 976px;
 	min-height: 224px;
@@ -2058,6 +2094,15 @@ header h1 a{
 }
 
 @media screen and (max-width: 990px) {
+	#profil{
+		overflow-x:		hidden;
+	}
+	.labelParametres{
+		width:			100%;
+	}
+	.parametres{
+		width:			90%;
+	}
 	.jeuMoment{
 		height:			auto;
 	}

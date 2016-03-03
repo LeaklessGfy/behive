@@ -76,7 +76,7 @@
             </div>
         </div>
 
-        <div class="sectionCatalogue autresCat">
+        <div class="sectionCatalogue autresCat profilBadges">
             <h2 class="titleCategorieCatalogue">Badges possédés</h2>
             {% if user.badges|length %}
                 <ul>
@@ -88,42 +88,31 @@
                         </li>
                     {% endfor %}
                 </ul>
-            </div>
-        {% endif %}
-        <h2 class="title_profil labelParametres"><img src="{{ asset('img/gear.png') }}" />Paramètres</h2>
-        <div class="parametres">
-            {% if app.request.attributes.get('_route') == "profil" %}
-                <div class="center">
-                    <p>Synchroniser votre compte Behive avec steam</p>
-
-                    <div class="">
-                        <a href="{{ path('sync_steam') }}" class="detail-button sync-steam">Synchroniser</a>
-                    </div>
             {% else %}
-                <div>
-                    <p>Aucune badge pour le moment.</p>
-                </div>
+                <div style="clear:both"></div>
+                <p class="center">Aucune récompense pour le moment. {% if app.request.attributes.get('_route') == "profil" %}<a href="{{ path('challenge') }}" class="behive-color">Participer à des challenges !</a>{% endif %}</p>
             {% endif %}
         </div>
-
-        {% if app.request.attributes.get('_route') == "profil" %}
-            <div class="center push">
-                <p>Synchroniser votre compte Behive avec steam</p>
-
-                <div class="little-push">
-                    <a href="{{ path('sync_steam') }}" class="detail-button sync-steam">Synchroniser</a>
-                </div>
-            {% endif %}
+        <h2 class="title_profil labelParametres"><img src="{{ asset('img/gear.png') }}" />Paramètres</h2>
+        <div class="parametres">
 
             {% if app.request.attributes.get('_route') == "profil" %}
                 <div class="">
                     {{ form_start(form) }}
                     {{ form_widget(form) }}
 
-                    <input type="submit" value="Enregistrer">
+                    <input type="submit" value="Enregistrer les modifications">
                     {{ form_end(form) }}
                 </div>
             {% endif %}
+            {% if app.request.attributes.get('_route') == "profil" %}
+            <div class="center">
+                <p>Synchroniser votre compte Behive avec steam</p>
+
+                <div class="little-push synchroButton">
+                    <a href="{{ path('sync_steam') }}" class="detail-button sync-steam">Synchroniser</a>
+                </div>
+                {% endif %}
         </div>
     </div>
 {% endblock %}
