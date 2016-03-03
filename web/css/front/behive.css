@@ -134,8 +134,51 @@ h1 a:hover{
 	padding-top: 65px;
 }
 
-.little-push {
-	padding-top: 20px;
+.game-comment {
+	list-style:none;
+	padding:0;
+	margin:0 auto;
+	margin-top: 50px;
+
+}
+
+.game-comment li{
+	postion:relative;
+	cursor:pointer;
+}
+
+.game-comment span{
+	font-size:25px;
+}
+
+.add-comment:hover{
+	color:#f7ca18;
+	text-decoration: underline;
+}
+input#comment_content{
+	height:90px;
+}
+
+input.input-save{
+	text-align: center;
+	height:40px;
+	cursor: pointer;
+}
+
+.envoie-comment{
+	margin-top:20px;
+}
+
+textarea{
+	width : 80%;
+	height: 150px;
+	background:transparent;
+	padding: 6px 12px;
+	color:white
+}
+
+.ajout-comment{
+	display:none;
 }
 
 .margin-l-5 {

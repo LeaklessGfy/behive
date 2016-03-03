@@ -180,7 +180,6 @@ $(document).ready(function(){
 		$('#home_video_1').css("opacity", "1");
 		$('#home_video_2').css("opacity", "0");
 		$('.home_gif_challenges').css("opacity", "0");
-		$('.home_gif_challenges').css("opacity", "0");
 	});
 
 	$('.second').hover(function(){
@@ -195,10 +194,35 @@ $(document).ready(function(){
 		$('.home_gif_challenges').css("opacity", "0");
 	});
 
+	$('.detail-com').click(function(e){
+		e.preventDefault();
+
+		var text = $('.game-comment li').children('.ajout-comment');
+
+		if (text.is(':hidden')){
+			text.slideDown('500');
+			$(this).children('span').html('-');
+
+		}
+		else {
+			text.slideUp('300');
+			$(this).children('span').html('+');
+
+		}
+	});
+
+
+
+
+
+
 	$('video').on('ended', function () {
 		this.load();
 		this.play();
 	});
+
+
+
 });
 
 function showNotif(){
