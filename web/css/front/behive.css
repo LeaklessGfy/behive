@@ -1679,7 +1679,6 @@ header h1 a{
 	right:			0;
 	z-index:		10000;
 	color:			#252a2e;
-	display:		none;
 	transition:		all .5s;
 }
 .notification:hover{
