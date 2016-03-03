@@ -63,12 +63,12 @@
                 <h2>Jeux ({{ user.games|length }})</h2>
 
                 <div class="contentText">
-                    {% for game in user.games %}
+                    {% for game in user.games|slice(0, 10) %}
                         <h3><a href="{{ path('game', {slug:game.slug}) }}">{{ game.name }}</a></h3>
                     {% endfor %}
 
                     <br>
-                    <a href="{{ path('catalogue') }}" class="boutonSubmit">Voir tous les jeux...</a>
+                    <a href="{{ path('search', {user:user.id}) }}" class="boutonSubmit">Voir tous les jeux...</a>
                 </div>
             </div>
         </div>

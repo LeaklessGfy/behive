@@ -166,6 +166,13 @@ class FrontController extends Controller
             return $this->redirectToRoute('catalogue');
         }
 
+        $hasIt = $this->get('front.service')->hasGame($this->getUser(), $game);
+
+        $return = array(
+            "game" => $game,
+            "hasIt" => $hasIt
+        );
+
         if($this->getUser()) {
             $comment = new Comment($game, $this->getUser());
             $form = $this->createForm(new CommentType(), $comment);
@@ -177,15 +184,11 @@ class FrontController extends Controller
 
                 return $this->redirectToRoute("game", array("slug" => $slug));
             }
+
+            $return["form"] = $form->createView();
         }
 
-        $hasIt = $this->get('front.service')->hasGame($this->getUser(), $game);
-
-        return array(
-            "game" => $game,
-            "hasIt" => $hasIt,
-            "form" => $form->createView()
-        );
+        return $return;
     }
 
     /**
@@ -199,12 +202,15 @@ class FrontController extends Controller
 
         $filter = urldecode($request->get('filter'));
         $search = $request->get('search');
+        $user = $request->get('user');
         if($search) {
             $games = $em->getRepository('AppBundle:Game')->search($search, true);
             $re = "le jeu : " . $search;
         } elseif($filter) {
             $games = $em->getRepository('AppBundle:Game')->findByCategory($filter, null);
             $re = "le filtre : " . $filter;
+        } elseif($user) {
+            $games = $em->getRepository('AppBundle:Game')->findByUser($user);
         } else {
             $games = $em->getRepository('AppBundle:Game')->findBy(array(), array(), 8, 0);
             $re = null;

@@ -10,14 +10,12 @@ use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
 class NotificationListener {
     private $notification;
     private $notificationStatus;
-    private $session;
 
-    public function __construct(NotificationService $notification, $notificationStatus, TokenStorage $token, Session $session)
+    public function __construct(NotificationService $notification, $notificationStatus, TokenStorage $token)
     {
         $this->notification = $notification;
         $this->notificationStatus = $notificationStatus;
         $this->token = $token;
-        $this->session = $session;
     }
 
     public function updateNotification(FilterResponseEvent $event)
@@ -30,11 +28,7 @@ class NotificationListener {
             $user = $this->token->getToken()->getUser();
 
             if($user instanceof User) {
-                $notifications = $this->notification->getNotifications($user->getId());
-
-                foreach ($notifications as $notification) {
-                    $this->session->getFlashBag()->add('notif', $notification);
-                }
+                $this->notification->getNotifications($user->getId());
             }
         }
     }

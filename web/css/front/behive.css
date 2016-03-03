@@ -1020,7 +1020,7 @@ div.round canvas{
 	text-align: center;
 	font-size: 18px;
 	font-family:'Lato', sans-serif;
-	padding-bottom: 30px;
+	padding-bottom: 50px;
 }
 
 .detail-com i{
@@ -1493,14 +1493,27 @@ header h1 a{
 	border-bottom:	1px solid #fff;
 	padding:		20px;
 }
+.avatarComment {
+	display: inline-block;
+	width: 100px;
+	margin-right: 20px;
+	border-radius: 100px;
+	overflow: hidden;
+}
+.itemComment {
+	background:		#252a2e;
+	border-bottom:	1px solid #fff;
+	padding:		20px;
+}
+.itemComment .contentComment {
+	display: inline-block;
+	vertical-align: top;
+}
 .imgListe{
 	width:			200px;
 	float:			right;
 	height:			120px;
 	overflow:		hidden;
-}
-.imgListe img{
-	width:			200px;
 }
 .autresCat{
 	width:			92%;
@@ -1543,17 +1556,79 @@ header h1 a{
 }
 
 .listeCategories .active {
-	color: #f7ca18;
+	color: 			#f7ca18;
 }
 
 .headerList{
-	width: 100%;
-	background: #252a2e;
+	width: 			100%;
+	background: 	#252a2e;
+	margin-bottom:	20px;
+}
+
+.notification img{
+	float:			left;
+	width:			30px;
+	padding:		10px;
+	position:		relative;
+	animation-name:	bee;
+	animation-duration:	.5s;
+	animation-iteration-count: infinite;
+	animation-direction: alternate;
+	-webkit-animation-direction: alternate;
+	-webkit-animation-name:	bee;
+	-webkit-animation-duration:	.5s;
+	-webkit-animation-iteration-count: infinite;
+}
+@-webkit-keyframes bee {
+	from {top: 		-3px;}
+	to {top: 		3px;}
+}
+@keyframes bee {
+	from {top: 		-3px;}
+	to {top: 		3px;}
+}
+
+.jeuMois{
+	float:			left;
+	max-height:		150px;
+	overflow:		hidden;
+}
+
+.notification h4{
+	font-size:		16px;
+	margin-top:		5px;
+}
+.notification p{
+	font-size:		12px;
+}
+.notification h4,
+.notification p,{
+	float:			right;
+	line-height:	20px;
+}
+.notification{
+	width:			350px;
+	background:		#f7ca18;
+	height:			50px;
+	position:		fixed;
+	box-shadow: 	0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+	top:			80px;
+	right:			0;
+	z-index:		10000;
+	color:			#252a2e;
+	display:		none;
+	transition:		all .5s;
+}
+.notification:hover{
+	box-shadow: 	0 12px 24px rgba(0,0,0,0.29), 0 9px 9px rgba(0,0,0,0.33);
+}
+.notification a{
+	color:			#252a2e;
 }
 
 .titleListe{
-	width: 67%;
-	margin-left: 4.5%;
+	width: 			67%;
+	margin-left: 	4.5%;
 	padding-top:	85px;
 	padding-bottom:	20px;
 	text-align:		center;
@@ -1803,6 +1878,42 @@ header h1 a{
 		margin-left: 10%;
 		margin-bottom: 20px;
 		margin-top: 10px;
+
+	.jeuMois {
+		width:			calc(100% - 40px) !important;
+		max-height:		500px !important;
+		padding-top:	0 !important;
+	}
+	.jeuMois .detail-header{
+		height:			250px;
+		float:			none;
+		width:			auto;
+		text-align:		center;
+		margin:			0 auto;
+		margin-bottom:	10px;
+	}
+	.profil_lvl_number {
+		font-size: 		25px;
+		position: 		absolute !important;
+		top: 			118px !important;
+		right: 			30px;
+	}
+
+	.profil_niveau {
+		font-size: 		16px;
+		position: 		absolute !important;
+		top: 			125px !important;
+		right: 			55px;
+	}
+
+	.profil_xp {
+		width: 			35%;
+		background-color: transparent;
+		overflow: 		hidden;
+		margin-left: 	10%;
+		margin-bottom: 	20px;
+		margin-top: 	10px;
+
 	}
 
 	.profil_date {
@@ -1881,6 +1992,25 @@ header h1 a{
 }
 
 @media screen and (max-width: 990px) {
+	.jeuMoment{
+		height:			auto;
+	}
+	.titleCategorieCatalogue{
+		margin-bottom:	10px;
+	}
+	.jeuMois {
+		width:			calc(100% - 40px) !important;
+		max-height:		500px !important;
+		padding-top:	0 !important;
+	}
+	.jeuMois .detail-header{
+		height:			250px;
+		float:			none;
+		width:			auto;
+		text-align:		center;
+		margin:			0 auto;
+		margin-bottom:	10px;
+	}
 	.contentText{
 		padding:			0;
 		width:				75%;
