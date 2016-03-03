@@ -1,32 +1,46 @@
-# Learn more about services, parameters and containers at
-# http://symfony.com/doc/current/book/service_container.html
 parameters:
 #    parameter_name: value
 
 services:
-#    service_name:
-#        class: AppBundle\Directory\ClassName
-#        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
   cache.service:
-      class: AppBundle\Service\CacheService
+      class: AppBundle\Service\Cache\CacheService
+      arguments: [@session]
 
-  api.game:
-      class: AppBundle\Service\Api\ApiGameService
-      arguments: [@cache.service]
+  api.caller:
+      class: AppBundle\Service\Api\ApiCaller
+      arguments: [@cache.service, @session]
+
+  api.giant:
+      class: AppBundle\Service\Api\ApiGiantService
+      arguments: [@cache.service, @session]
+      parent: api.caller
 
   api.igdb:
       class: AppBundle\Service\Api\ApiIgdbService
       arguments: [@cache.service]
 
-  steam.api:
+  api.steam:
       class: AppBundle\Service\Api\ApiSteamService
+      parent: api.caller
 
-  load.game.service:
-      class: AppBundle\Service\GameService
+  create.game.service:
+      class: AppBundle\Service\CreateGameService
+      arguments: [%upload.dir%, @doctrine.orm.entity_manager]
 
   front.service:
       class: AppBundle\Service\FrontService
+      arguments: [%upload.dir%]
 
   back.service:
       class: AppBundle\Service\BackService
       arguments: [@security.password_encoder, %upload.dir%]
+
+  notification.service:
+      class: AppBundle\Service\NotificationService
+      arguments: [@snc_redis.default]
+
+  notification.listener:
+      class: AppBundle\Listener\NotificationListener
+      arguments: [@notification.service, %notification.status%, @security.token_storage, @session]
+      tags:
+          - { name: kernel.event_listener, event: kernel.response, method: updateNotification }

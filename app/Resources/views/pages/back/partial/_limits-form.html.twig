@@ -1,4 +1,4 @@
-{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+{{ form_start(form) }}
 
     {{ form_row(form.name) }}
     {{ form_row(form.cover) }}
@@ -28,7 +28,7 @@
                         </div>
 
                         <div class="form-group">
-                            {{ form_row(limit.awards) }}
+                            {{ form_row(limit.award) }}
                         </div>
                     </div>
                 </li>

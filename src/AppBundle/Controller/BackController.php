@@ -2,10 +2,11 @@
 namespace AppBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * @Route("/admin")
@@ -84,10 +85,7 @@ class BackController extends BaseController
         $form->handleRequest($request);
 
         if($form->isValid()) {
-            $this->get('back.service')->handleUserPassword($ressource, $entity);
-            $this->get('back.service')->handleImage($entity, $ressource, null);
-            $this->handleChallenge($ressource, $entity, $em);
-
+            $this->handlePostProcess($entity, $ressource, null, $em);
             $em->persist($entity);
             $em->flush();
             $this->addFlash('success', "Votre $ressourceHelper à bien été créé");
@@ -125,10 +123,7 @@ class BackController extends BaseController
         $form->handleRequest($request);
 
         if($form->isValid()) {
-            $this->get('back.service')->handleUserPassword($entity, $ressource);
-            $this->get('back.service')->handleImage($entity, $ressource, $image);
-            $this->handleChallenge($ressource, $entity, $em);
-
+            $this->handlePostProcess($entity, $ressource, $image, $em);
             $em->flush();
             $this->addFlash('success', "Votre $ressourceHelper à bien été modifié");
 
@@ -172,6 +167,7 @@ class BackController extends BaseController
     /**
      * @Route("/helper", name="back_helper")
      * @Method("GET")
+     * @Template("pages/back/helper.html.twig")
      */
     public function getGameFromApiAction(Request $request)
     {
@@ -179,14 +175,14 @@ class BackController extends BaseController
         $search = $request->get('search');
 
         if($search) {
-            $api = $this->get('api.game');
+            $api = $this->get('api.giant');
             $games = $api->searchVideoGame($search)['results'];
         }
 
-        return $this->render('pages/back/helper.html.twig', array(
+        return array(
             "games" => $games,
             "search" => $search
-        ));
+        );
     }
 
     /**
@@ -200,13 +196,13 @@ class BackController extends BaseController
         $url = $request->get('url');
         $name = $request->get('name');
 
-        $api = $this->get('api.game');
+        $api = $this->get('api.giant');
         $response = $api->getVideoGame($url, $name);
 
         $categories = $em->getRepository('AppBundle:Category')->findAll();
-        $editor = $em->getRepository('AppBundle:Editor')->findOneBy(array('name' => $response['results']['publishers'][0]['name']));
+        $editor = $em->getRepository('AppBundle:Editor')->findAll();
 
-        $return = $this->get('load.game.service')->createGame($categories, $editor, $response['results']);
+        $return = $this->get('create.game.service')->createGame($categories, $editor, $response['results']);
 
         foreach($return['categories'] as $category) {
             $em->persist($category);
@@ -217,9 +213,8 @@ class BackController extends BaseController
         $em->persist($return['game']);
         $em->flush();
 
-        $this->addFlash('success', 'Le jeu à bien été créé');
-        $id = $return['game']->getId();
-
-        return $this->redirectToRoute('back_edit', array("ressource" => "game", "id" => $id));
+        $response = new JsonResponse();
+        $response->setStatusCode(200);
+        return $response;
     }
 }

@@ -15,6 +15,10 @@ a:hover{
 	color:				#f7ca18;
 }
 
+.behive-color {
+	color: #f7ca18;
+}
+
 html{
 	height: 		100%;
 }
@@ -668,7 +672,6 @@ div.round canvas{
 	font-weight:	300;
 	overflow:		hidden;
 }
-.recompenses,
 .challenges,
 .jeux{
 	margin-top:		40px;
@@ -761,6 +764,18 @@ div.round canvas{
 	font-weight: 300;
 	overflow: hidden;
 }
+#challenges .player {
+	border: 2px solid #252a2e;
+	padding: 20px;
+}
+#challenges .player .user_img {
+	width: 60px;
+	float: left;
+}
+#challenges .player p {
+	padding-top: 20px;
+}
+
 .position{
 	font-size:		19px;
 	float:			left;
@@ -770,7 +785,7 @@ div.round canvas{
 	float:			right;
 }
 #profil{
-	padding-bottom:	5%;
+	padding-bottom: 5%;
 }
 .day{
 	border-bottom:	1px solid #444444;
@@ -978,6 +993,7 @@ div.round canvas{
 	text-align: center;
 	font-size: 18px;
 	font-family:'Lato', sans-serif;
+	padding-bottom: 30px;
 }
 
 .detail-com i{
@@ -1426,7 +1442,6 @@ header h1 a{
 }
 
 .liste{
-	padding-top:	65px;
 	width:			65%;
 	margin-left:	4.5%;
 }
@@ -1499,10 +1514,21 @@ header h1 a{
 	right:			0;
 	padding:		20px;
 }
+
+.listeCategories .active {
+	color: #f7ca18;
+}
+
+.headerList{
+	width: 100%;
+	background: #252a2e;
+}
+
 .titleListe{
+	width: 67%;
+	margin-left: 4.5%;
 	padding-top:	85px;
 	padding-bottom:	20px;
-	margin-bottom:	20px;
 	text-align:		center;
 	background:		#252a2e;
 }
@@ -1527,7 +1553,6 @@ header h1 a{
 	float:			left;
 	margin-right:	20px;
 	overflow:		hidden;
-	max-height:		150px;
 }
 .detail-img{
 	width:			100%;
@@ -1554,6 +1579,13 @@ header h1 a{
 
 #login{
 	text-align:		center;
+}
+
+#login .box {
+	border: 1px solid #717171;
+	padding: 15px;
+	width: 500px;
+	margin: 30px auto;
 }
 
 #challenges h2{
@@ -1682,7 +1714,7 @@ header h1 a{
 .title_profil{
 	text-align:left;
 	width:980px;
-	margin:0 auto;
+	margin:0 auto !important;
 }
 
 .profil_main{

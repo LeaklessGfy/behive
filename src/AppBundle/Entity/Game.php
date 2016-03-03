@@ -5,6 +5,7 @@ namespace AppBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Game
@@ -117,13 +118,26 @@ class Game
      */
     private $forums;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Comment", mappedBy="game")
+     */
+    private $comments;
+
+    /**
+     * @Gedmo\Slug(fields={"name", "id"})
+     * @ORM\Column(length=128, unique=true)
+     */
+    private $slug;
+
     public function __construct()
     {
         $this->owners = new ArrayCollection();
         $this->categories = new ArrayCollection();
         $this->challenge = new ArrayCollection();
         $this->forums = new ArrayCollection();
+        $this->comments = new ArrayCollection();
         $this->pegi = 0;
+        $this->rating = 0;
     }
 
     /**
@@ -397,43 +411,6 @@ class Game
         return $this->categories;
     }
 
-    public function toArray()
-    {
-        $categoriesArray = array();
-        foreach($this->categories as $cat) {
-            $categoriesArray[] = $cat->getName();
-        }
-
-        $challengesArray = array();
-        foreach($this->challenge as $cha) {
-            $challengesArray[] = $cha->getName();
-        }
-
-        $entity = array(
-            "id" => $this->id,
-            "name" => $this->name,
-            "date" => $this->date->format("d/m/Y"),
-            "description" => $this->description,
-            "rating" => $this->rating,
-            "cover" => $this->cover,
-            "challenge" => $challengesArray,
-            "editeur" => $this->editor ? $this->editor->getName() : null,
-            "buy link" => $this->buy,
-            "pegi" => $this->pegi,
-            "categories" => $categoriesArray
-        );
-
-        return $entity;
-    }
-
-    public function hasImage()
-    {
-        return array(
-            "get" => $this->getCover(),
-            "set" => "setCover"
-        );
-    }
-
     /**
      * Add challenge
      *
@@ -488,5 +465,96 @@ class Game
     public function getForums()
     {
         return $this->forums;
+    }
+
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+
+    //OWN LOGIC
+    public function toArray()
+    {
+        $categoriesArray = array();
+        foreach($this->categories as $cat) {
+            $categoriesArray[] = $cat->getName();
+        }
+
+        $challengesArray = array();
+        foreach($this->challenge as $cha) {
+            $challengesArray[] = $cha->getName();
+        }
+
+        $entity = array(
+            "id" => $this->id,
+            "name" => $this->name,
+            "slug" => $this->slug,
+            "date" => $this->date->format("d/m/Y"),
+            "description" => $this->description,
+            "rating" => $this->rating,
+            "cover" => $this->cover,
+            "challenge" => $challengesArray,
+            "editeur" => $this->editor ? $this->editor->getName() : null,
+            "buy link" => $this->buy,
+            "pegi" => $this->pegi,
+            "categories" => $categoriesArray
+        );
+
+        return $entity;
+    }
+
+    public function hasImage()
+    {
+        return array(
+            "get" => $this->getCover(),
+            "set" => "setCover"
+        );
+    }
+
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     * @return Game
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * Add comments
+     *
+     * @param \AppBundle\Entity\Comment $comments
+     * @return Game
+     */
+    public function addComment(\AppBundle\Entity\Comment $comments)
+    {
+        $this->comments[] = $comments;
+
+        return $this;
+    }
+
+    /**
+     * Remove comments
+     *
+     * @param \AppBundle\Entity\Comment $comments
+     */
+    public function removeComment(\AppBundle\Entity\Comment $comments)
+    {
+        $this->comments->removeElement($comments);
+    }
+
+    /**
+     * Get comments
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getComments()
+    {
+        return $this->comments;
     }
 }

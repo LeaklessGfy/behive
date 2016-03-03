@@ -5,9 +5,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>{% block title %}Welcome!{% endblock %}</title>
         {% block stylesheets %}
-            {% stylesheets 'css/front/behive.css' 'css/font-awesome.min.css' filter='cssrewrite' %}
+            {% stylesheets 'css/front/behive.css' filter='cssrewrite' %}
                 <link rel="stylesheet" href="{{ asset_url }}">
             {% endstylesheets %}
+            <link rel="stylesheet" type="text/css" href="{{ asset('bundles/bmatznerfontawesome/css/font-awesome.min.css') }}">
         {% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('img/favicon.png') }}">
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,300,700' rel='stylesheet' type='text/css'>

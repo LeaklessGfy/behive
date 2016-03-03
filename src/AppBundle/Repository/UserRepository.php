@@ -12,10 +12,28 @@ use Doctrine\ORM\EntityRepository;
  */
 class UserRepository extends EntityRepository
 {
-    public function getCount() {
+    public function getCount()
+    {
         return $this->createQueryBuilder('a')
             ->select('COUNT(a)')
             ->getQuery()
             ->getSingleScalarResult();
+    }
+
+    public function getProfil($id)
+    {
+        $query = $this->createQueryBuilder('a')
+            ->select('a')
+            ->Leftjoin('a.positions', 'p')
+            ->addSelect('p')
+            ->Leftjoin('a.games', 'g')
+            ->addSelect('g')
+            ->Leftjoin('a.badges', 'b')
+            ->addSelect('b')
+            ->where('a.id = :id')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getSingleResult();
+        return $query;
     }
 }

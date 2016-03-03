@@ -9,23 +9,24 @@
     <div id="profil" class="main profil_main">
         <div class="profil_header">
             <div class="img_profil">
-                <img src="{{ asset(app.user.avatar) }}" width="164px" height="164px">
+                <img src="{{ asset(user.avatar) }}" width="164px" height="164px">
             </div>
 
-            <h2 class="rang" style="font-weight: 400;">{{ app.user.username }}</h2>
-            {% for badge in app.user.badges %}
-                <h3 class="rang">{{ badge.name }}</h3>
-            {% endfor %}
+            <h2 class="rang" style="font-weight: 400;">{{ user.username }}</h2>
+
+            {% if user.activeBadge %}
+                <p>{{ user.activeBadge.name }}</p>
+            {% endif %}
 
             <p class="rang profil_xp">
-                Expérience: {{ app.user.xp }} xp
+                Expérience: {{ user.xp }} xp
             </p>
             <div class="rang detail-bar"></div>
 
-            <h3 class="rang littleTitle connexion profil_date" style="font-size:17px; text-transform: none;">Dernière connexion: {{ app.user.lastConnexion|date }}</h3>
+            <h3 class="rang littleTitle connexion profil_date" style="font-size:17px; text-transform: none;">Dernière connexion: {{ user.lastConnexion| localizeddate('full', 'none', 'fr') }}</h3>
 
             <h3 class="rang profil_niveau" style="float:right; font-weight:400;">Niveau</h3>
-            <h2 class="rang profil_lvl_number" style="float:right;">{{ app.user.level }}</h2>
+            <h2 class="rang profil_lvl_number" style="float:right;">{{ user.level }}</h2>
         </div>
 
         <div class="profil_recompense">
@@ -34,29 +35,23 @@
             </div>
             <div class="recompenses">
                 <ul>
-                    <li class="jeuGG"><img src="img/candy.png" /><p>Jeu gagné : Candy Crush</p></li>
-                    <li class="tropheeGG"><img src="img/trophee.svg" /><p>Challenge FIFA 16 : 3000 expérience - #1</p></li>
-                    <li class="jeuGG"><img src="img/clash.png" /><p>Jeu gagné : Clash of Clans</p></li>
-                    <li class="tropheeGG"><img src="img/trophee.svg" /><p>Challenge Rayman : 1000 expérience - #37</p></li>
-                    <li class="tropheeGG"><img src="img/trophee.svg" /><p>Challenge Songpop : 1000 expérience - #24</p></li>
-                    <li class="jeuGG"><img src="img/rayman.png" /><p>Jeu gagné : Rayman Adventures</p></li>
-                    <li class="jeuGG"><img src="img/rayman.png" /><p>Jeu gagné : Rayman Adventures</p></li>
-                    <li class="tropheeGG"><img src="img/trophee.svg" /><p>Challenge King of Thieves : 3200 expérience - #89</p></li>
-                    <li class="jeuGG"><img src="img/clash.png" /><p>Jeu gagné : Clash of Clans</p></li>
-                    <li class="tropheeGG"><img src="img/trophee.svg" /><p>Challenge Clash of Clans : 2000 expérience - #121</p></li>
-                    <li class="jeuGG"><img src="img/candy.png" /><p>Jeu gagné : Candy Crush</p></li>
-                    <li class="tropheeGG"><img src="img/trophee.svg" /><p>Challenge Rayman : 1500 expérience - #143</p></li>
+                    {% for position in user.positions %}
+                        <li><img src="{{ asset(position.challenge.game.cover) }}" alt=""><p>{{ position.award.name }}</p></li>
+                    {% endfor %}
+                    {% if user.positions|length == null %}
+                        <p>Aucune récompense pour le moment. {% if app.request.attributes.get('_route') == "profil" %}<a href="{{ path('challenge') }}" class="behive-color">Participer à des challenges !</a>{% endif %}</p>
+                    {% endif %}
                 </ul>
             </div>
         </div>
 
         <div class="recomp_jeux">
             <div class="profil_challenge">
-                <h2>Challenges ({{ app.user.challenges|length }})</h2>
+                <h2>Challenges ({{ user.challenges|length }})</h2>
 
                 <div class="contentText">
-                    {% for challenge in app.user.challenges %}
-                        <h3><span class="position">#253</span><a href="{{ path('challenge') }}" class="title">{{ challenge.name }}</a></h3>
+                    {% for position in user.positions %}
+                        <h3><span class="position">#{{ position.position }}</span><a href="{{ path('challenge') }}" class="title">{{ position.challenge.name }}<br> ({{ position.challenge.game.name }})</a></h3>
                     {% endfor %}
 
                     <br>
@@ -65,11 +60,11 @@
             </div>
 
             <div class="profil_jeux">
-                <h2>Jeux ({{ app.user.games|length }})</h2>
+                <h2>Jeux ({{ user.games|length }})</h2>
 
                 <div class="contentText">
-                    {% for game in app.user.games %}
-                        <h3><a href="{{ path('game', {id:game.id}) }}">{{ game.name }}</a></h3>
+                    {% for game in user.games %}
+                        <h3><a href="{{ path('game', {slug:game.slug}) }}">{{ game.name }}</a></h3>
                     {% endfor %}
 
                     <br>
@@ -77,17 +72,40 @@
                 </div>
             </div>
         </div>
-        <div class="sectionCatalogue autresCat">
-            <h2 class="titleCategorieCatalogue">Badges possédés</h2>
-            <ul>
-                {% for badge in app.user.badges %}
-                    <li>
-                        <a href="">
-                            <h5>{{ badge.name }}</h5>
-                        </a>
-                    </li>
-                {% endfor %}
-            </ul>
-        </div>
+
+        {% if user.badges|length %}
+            <div class="sectionCatalogue autresCat">
+                <h2 class="titleCategorieCatalogue">Badges possédés</h2>
+                <ul>
+                    {% for badge in user.badges %}
+                        <li>
+                            <a href="{{ path('profil_active_badge', {id: loop.index0}) }}">
+                                <h5>{{ badge.name }}</h5>
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+
+        {% if app.request.attributes.get('_route') == "profil" %}
+            <div class="center push">
+                <p>Synchroniser votre compte Behive avec steam</p>
+
+                <div class="little-push">
+                    <a href="{{ path('sync_steam') }}" class="detail-button sync-steam">Synchroniser</a>
+                </div>
+            </div>
+        {% endif %}
+
+        {% if app.request.attributes.get('_route') == "profil" %}
+            <div class="little-push">
+                {{ form_start(form) }}
+                {{ form_widget(form) }}
+
+                <input type="submit" value="Enregistrer">
+                {{ form_end(form) }}
+            </div>
+        {% endif %}
     </div>
 {% endblock %}

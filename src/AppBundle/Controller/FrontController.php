@@ -2,7 +2,12 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Comment;
+use AppBundle\Form\Type\CommentType;
+use AppBundle\Form\Type\UserEditType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -10,14 +15,18 @@ class FrontController extends Controller
 {
     /**
      * @Route("/", name="homepage")
+     * @Method("GET")
+     * @Template("pages/front/index.html.twig")
      */
     public function indexAction()
     {
-        return $this->render('pages/front/index.html.twig');
+        return array();
     }
 
     /**
      * @Route("/catalogue", name="catalogue")
+     * @Method("GET")
+     * @Template("pages/front/catalogue.html.twig")
      */
     public function catalogueAction()
     {
@@ -26,40 +35,46 @@ class FrontController extends Controller
         $games = $em->getRepository("AppBundle:Game")->findBy(array(), array("id" => "DESC"), 8, 0);
         $categories = $em->getRepository("AppBundle:Category")->findAll();
 
-        $mainCategories = $this->get("front.service")->getMainCategories($categories);
+        $action = $em->getRepository("AppBundle:Game")->findByCategory("Action-Adventure", 7);
+        $fps = $em->getRepository("AppBundle:Game")->findByCategory("First-Person Shooter", 7);
+        $rpg = $em->getRepository("AppBundle:Game")->findByCategory("Role-Playing", 7);
 
-        return $this->render('pages/front/catalogue.html.twig', array(
+        return array(
             "games" => $games,
             "categories" => $categories,
-            "action" => $mainCategories['action'],
-            "fps" => $mainCategories['fps'],
-            "rpg" => $mainCategories['rpg']
-        ));
+            "action" => $action,
+            "fps" => $fps,
+            "rpg" => $rpg
+        );
     }
 
     /**
      * @Route("/challenge", name="challenge")
+     * @Method("GET")
+     * @Template("pages/front/challenge.html.twig")
      */
     public function challengeAction()
     {
         $em = $this->getDoctrine()->getManager();
 
-        $challenges = $em->getRepository("AppBundle:Challenge")->findBy(array('isDaily' => false));
-        $dailyChallenge = $em->getRepository("AppBundle:Challenge")->findOneBy(array('isDaily' => true));
+        $challenges = $em->getRepository("AppBundle:Challenge")->findNonDaily();
+        $dailyChallenge = $em->getRepository("AppBundle:Challenge")->findDaily();
 
         $hasIt = $this->get('front.service')->hasChallenges($this->getUser(), $dailyChallenge, $challenges);
 
-        return $this->render('pages/front/challenge.html.twig', array(
+        return array(
             "challenges" => $challenges,
             "dailyChallenge" => $dailyChallenge,
             "hasIt" => $hasIt
-        ));
+        );
     }
 
     /**
      * @Route("/challenge/{id}", name="challenge_detail", requirements={
      *     "id": "\d+"
      * })
+     * @Method("GET")
+     * @Template("pages/front/challenge_detail.html.twig")
      */
     public function challengeDetailAction($id)
     {
@@ -71,44 +86,112 @@ class FrontController extends Controller
 
         $hasIt = $this->get('front.service')->hasChallenge($this->getUser(), $challenge);
 
-        return $this->render('pages/front/challenge_detail.html.twig', array(
+        return array(
             "challenge" => $challenge,
             "hasIt" => $hasIt
-        ));
+        );
     }
 
     /**
-     * @Route("/profile", name="profil")
+     * @Route("/profil", name="profil")
+     * @Method({"GET", "POST"})
+     * @Template("pages/front/profil.html.twig")
      */
-    public function profilAction()
+    public function profilAction(Request $request)
     {
-        return $this->render('pages/front/profil.html.twig', array(
-        ));
+        $em = $this->getDoctrine()->getManager();
+        $user = $em->getRepository('AppBundle:User')->getProfil($this->getUser());
+        $form = $this->createForm(new UserEditType(), $user);
+        $avatar = $user->getAvatar();
+
+        $form->handleRequest($request);
+
+        if($form->isValid()) {
+            //AVATAR
+            $this->get('front.service')->handleAvatar($user, $avatar);
+            $em->flush();
+
+            return $this->redirectToRoute("profil");
+        }
+
+        return array(
+            "form" => $form->createView(),
+            "user" => $user
+        );
     }
 
     /**
-     * @Route("/jeux/{id}", name="game", requirements={
+     * @Route("/behiver/{id}", name="user")
+     * @Method("GET")
+     * @Template("pages/front/profil.html.twig")
+     */
+    public function userAction($id)
+    {
+        $user = $this->getDoctrine()->getRepository('AppBundle:User')->getProfil($id);
+
+        return array(
+            "user" => $user
+        );
+    }
+
+    /**
+     * @Route("/profil/active_badge/{id}", name="profil_active_badge")
+     * @Method("GET")
+     */
+    public function changeActiveBadge($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $user = $this->getUser();
+        $user->setActiveBadge($id);
+
+        $em->flush();
+        $this->addFlash("success", "Votre badge à bien été changé");
+
+        return $this->redirectToRoute("profil");
+    }
+
+    /**
+     * @Route("/jeux/{slug}", name="game", requirements={
      *     "id": "\d+"
      * })
+     * @Method({"GET", "POST"})
+     * @Template("pages/front/game.html.twig")
      */
-    public function gameAction($id)
+    public function gameAction($slug, Request $request)
     {
-        $game = $this->getDoctrine()->getRepository("AppBundle:Game")->find($id);
+        $em = $this->getDoctrine()->getManager();
+        $game = $em->getRepository("AppBundle:Game")->findBySlug($slug);
 
         if(!$game) {
             return $this->redirectToRoute('catalogue');
         }
 
+        if($this->getUser()) {
+            $comment = new Comment($game, $this->getUser());
+            $form = $this->createForm(new CommentType(), $comment);
+            $form->handleRequest($request);
+
+            if($form->isValid()) {
+                $em->persist($comment);
+                $em->flush();
+
+                return $this->redirectToRoute("game", array("slug" => $slug));
+            }
+        }
+
         $hasIt = $this->get('front.service')->hasGame($this->getUser(), $game);
 
-        return $this->render('pages/front/game.html.twig', array(
+        return array(
             "game" => $game,
-            "hasIt" => $hasIt
-        ));
+            "hasIt" => $hasIt,
+            "form" => $form->createView()
+        );
     }
 
     /**
      * @Route("/liste", name="search")
+     * @Method("GET")
+     * @Template("pages/front/listing.html.twig")
      */
     public function searchAction(Request $request)
     {
@@ -117,19 +200,22 @@ class FrontController extends Controller
         $filter = urldecode($request->get('filter'));
         $search = $request->get('search');
         if($search) {
-            $games = $em->getRepository('AppBundle:Game')->search($search, $filter);
+            $games = $em->getRepository('AppBundle:Game')->search($search, true);
+            $re = "le jeu : " . $search;
         } elseif($filter) {
-            $games = $em->getRepository('AppBundle:Category')->findOneBy(array("name" => $filter));
-            $games = $games->getGames();
+            $games = $em->getRepository('AppBundle:Game')->findByCategory($filter, null);
+            $re = "le filtre : " . $filter;
         } else {
             $games = $em->getRepository('AppBundle:Game')->findBy(array(), array(), 8, 0);
+            $re = null;
         }
 
         $categories = $em->getRepository("AppBundle:Category")->findAll();
 
-        return $this->render('pages/front/listing.html.twig', array(
+        return array(
             "games" => $games,
-            "categories" => $categories
-        ));
+            "categories" => $categories,
+            "re" => $re
+        );
     }
 }

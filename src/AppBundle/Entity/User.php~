@@ -77,7 +77,7 @@ class User implements UserInterface, \Serializable
      * )
      * @Assert\Email(
      *     message = "L'email '{{ value }}' n'est pas valide",
-     *     checkMX = true
+     *     checkMX = false
      * )
      */
     private $email;
@@ -100,6 +100,13 @@ class User implements UserInterface, \Serializable
     private $badges;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="active_badge", type="integer", nullable=true)
+     */
+    private $activeBadge;
+
+    /**
      * @ORM\ManyToMany(targetEntity="Game", inversedBy="owners")
      * @ORM\JoinTable(name="owners_games")
      */
@@ -112,19 +119,38 @@ class User implements UserInterface, \Serializable
     private $challenges;
 
     /**
+     * @ORM\OneToMany(targetEntity="ChallengePosition", mappedBy="user")
+     */
+    private $positions;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Comment", mappedBy="owner")
+     */
+    private $comments;
+
+    /**
      * @ORM\ManyToOne(targetEntity="RolesCustom")
      * @ORM\JoinColumn(name="role_id", referencedColumnName="id")
      */
     private $roles;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="steam_id", type="string", length=255, nullable=true)
+     */
+    private $steamId;
 
     public function __construct() {
         $this->badges = new ArrayCollection();
         $this->myGames = new ArrayCollection();
         $this->games = new ArrayCollection();
         $this->challenges = new ArrayCollection();
-        $this->xp = 0;
-        $this->level = 0;
+        $this->positions = new ArrayCollection();
+        $this->xp = 10;
+        $this->level = 1;
         $this->avatar = "img/avatar.gif";
+        $this->lastConnexion = new \DateTime('now');
     }
 
     /**
@@ -462,7 +488,7 @@ class User implements UserInterface, \Serializable
         $entity = array(
             "id" => $this->id,
             "username" => $this->username,
-            "dernière connexion" => $this->lastConnexion->format("d/m/Y H:i:s"),
+            "dernière connexion" => $this->lastConnexion ? $this->lastConnexion->format("d/m/Y H:i:s") : null,
             "role" => $this->roles ? $this->roles->getRole() : null,
             "level" => $this->level,
             "xp" => $this->xp,
@@ -481,5 +507,84 @@ class User implements UserInterface, \Serializable
             "get" => $this->getAvatar(),
             "set" => "setAvatar"
         );
+    }
+
+    /**
+     * Set activeBadge
+     *
+     * @param integer $activeBadge
+     * @return User
+     */
+    public function setActiveBadge($activeBadge)
+    {
+        $this->activeBadge = $activeBadge;
+
+        return $this;
+    }
+
+    /**
+     * Get activeBadge
+     *
+     * @return integer 
+     */
+    public function getActiveBadge()
+    {
+        return $this->badges[$this->activeBadge];
+    }
+
+    /**
+     * Set steamId
+     *
+     * @param integer $steamId
+     * @return User
+     */
+    public function setSteamId($steamId)
+    {
+        $this->steamId = $steamId;
+
+        return $this;
+    }
+
+    /**
+     * Get steamId
+     *
+     * @return integer 
+     */
+    public function getSteamId()
+    {
+        return $this->steamId;
+    }
+
+    /**
+     * Add positions
+     *
+     * @param \AppBundle\Entity\ChallengePosition $positions
+     * @return User
+     */
+    public function addPosition(\AppBundle\Entity\ChallengePosition $positions)
+    {
+        $this->positions[] = $positions;
+
+        return $this;
+    }
+
+    /**
+     * Remove positions
+     *
+     * @param \AppBundle\Entity\ChallengePosition $positions
+     */
+    public function removePosition(\AppBundle\Entity\ChallengePosition $positions)
+    {
+        $this->positions->removeElement($positions);
+    }
+
+    /**
+     * Get positions
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPositions()
+    {
+        return $this->positions;
     }
 }

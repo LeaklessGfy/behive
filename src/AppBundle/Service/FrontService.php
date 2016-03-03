@@ -3,37 +3,34 @@ namespace AppBundle\Service;
 
 class FrontService
 {
-    public function getMainCategories($categories)
-    {
-        $action = null;
-        $fps = null;
-        $rpg= null;
-        foreach($categories as $category) {
-            if($category->getName() === "Action-Adventure") {
-                $action = $category;
-            } elseif($category->getName() === "First-Person Shooter") {
-                $fps = $category;
-            } elseif($category->getName() === "Role-Playing") {
-                $rpg = $category;
-            }
-        }
-        $mainCategories = array("action" => $action, "fps" => $fps, "rpg" => $rpg);
+    private $uploadDir;
 
-        return $mainCategories;
+    public function __construct($uploadDir)
+    {
+        $this->uploadDir = $uploadDir;
     }
 
     public function hasChallenges($user, $dailyChallenge, $challenges)
     {
         $hasIt = array();
         if($user) {
-            $userChallenge = $user->getChallenges()->getValues();
-            foreach($userChallenge as $challenge) {
-                if($challenge === $dailyChallenge) {
-                    $hasIt[] = $dailyChallenge->getId();
-                }
+            $playersForDC = $dailyChallenge->getPlayers();
+            $dcIDS = $playersForDC->map(function($entity)  {
+                return $entity->getId();
+            })->toArray();
 
-                if(in_array($challenge, $challenges)) {
-                    $hasIt[] = $challenge->getId();
+            if(in_array($user->getId(), $dcIDS)) {
+                $hasIt[] = $dailyChallenge->getId();
+            }
+
+            foreach($challenges as $challenge) {
+                $playersForC = $dailyChallenge->getPlayers();
+                $cIDS = $playersForC->map(function($entity)  {
+                    return $entity->getId();
+                })->toArray();
+
+                if(in_array($user->getId(), $cIDS)) {
+                    $hasIt[] = $challenge['id'];
                 }
             }
         }
@@ -44,12 +41,8 @@ class FrontService
     public function hasGame($user, $game)
     {
         $hasIt = false;
-        if($user) {
-            $userGames = $user->getGames()->getValues();
-
-            if(in_array($game, $userGames)) {
-                $hasIt = true;
-            }
+        if($user && in_array($user, $game->getOwners()->getValues())) {
+            $hasIt = true;
         }
 
         return $hasIt;
@@ -67,5 +60,19 @@ class FrontService
         }
 
         return $hasIt;
+    }
+
+    public function handleAvatar($user, $avatar)
+    {
+        $file = $user->getAvatar();
+        if($file) {
+            $fileName = "user-".time()."-img.jpg";
+            $fileDir = $this->uploadDir."user/";
+            $file->move($fileDir, $fileName);
+
+            $user->setAvatar("uploads/user/".$fileName);
+        } else {
+            $user->setAvatar($avatar);
+        }
     }
 }

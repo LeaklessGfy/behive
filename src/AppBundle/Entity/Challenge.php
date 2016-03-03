@@ -5,6 +5,7 @@ namespace AppBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Challenge
@@ -75,6 +76,12 @@ class Challenge
      * @ORM\Column(name="is_daily", type="boolean")
      */
     private $isDaily;
+
+    /**
+     * @Gedmo\Slug(fields={"name", "id"})
+     * @ORM\Column(length=128, unique=true)
+     */
+    private $slug;
 
     public function __construct()
     {
@@ -252,37 +259,9 @@ class Challenge
         return $this->limits;
     }
 
-    public function toArray()
+    public function getSlug()
     {
-        $playersArray = array();
-        foreach($this->players as $player) {
-            $playersArray[] = $player->getUsername();
-        }
-
-        $limitsArray = array();
-        foreach($this->limits as $limit) {
-            $limitsArray[] = $limit->getBegin() . " - " . $limit->getEnd() . " - " . $limit->getPoints() . " points";
-        }
-
-        $entity = array(
-            "id" => $this->id,
-            "name" => $this->name,
-            "cover" => $this->cover,
-            "description" => $this->description,
-            "players" => $playersArray,
-            "game" => $this->game ? $this->game->getName() : null,
-            "limits" => $limitsArray
-        );
-
-        return $entity;
-    }
-
-    public function hasImage()
-    {
-        return array(
-            "get" => $this->getCover(),
-            "set" => "setCover"
-        );
+        return $this->slug;
     }
 
     /**
@@ -306,5 +285,54 @@ class Challenge
     public function getIsDaily()
     {
         return $this->isDaily;
+    }
+
+
+    //OWN LOGIC
+    public function toArray()
+    {
+        $playersArray = array();
+        foreach($this->players as $player) {
+            $playersArray[] = $player->getUsername();
+        }
+
+        $limitsArray = array();
+        foreach($this->limits as $limit) {
+            $limitsArray[] = $limit->getBegin() . " - " . $limit->getEnd() . " - " . $limit->getPoints() . " points";
+        }
+
+        $entity = array(
+            "id" => $this->id,
+            "name" => $this->name,
+            "daily ?" => $this->isDaily ? "True" : "False",
+            "cover" => $this->cover,
+            "description" => $this->description,
+            "players" => $playersArray,
+            "game" => $this->game ? $this->game->getName() : null,
+            "limits" => $limitsArray
+        );
+
+        return $entity;
+    }
+
+    public function hasImage()
+    {
+        return array(
+            "get" => $this->getCover(),
+            "set" => "setCover"
+        );
+    }
+
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     * @return Challenge
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+
+        return $this;
     }
 }

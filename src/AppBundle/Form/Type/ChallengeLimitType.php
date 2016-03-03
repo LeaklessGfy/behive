@@ -12,10 +12,10 @@ class ChallengeLimitType extends AbstractType
         $builder->add('begin', 'number')
                 ->add('end', 'number')
                 ->add('points', 'number')
-                ->add('awards', 'entity', array(
+                ->add('award', 'entity', array(
                     'class' => 'AppBundle:ChallengeAward',
                     'choice_label' => 'name',
-                    'multiple' => true,
+                    'multiple' => false,
                     'expanded' => true
                 ))
         ;

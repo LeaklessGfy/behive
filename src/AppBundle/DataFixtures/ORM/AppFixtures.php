@@ -14,8 +14,6 @@ class AppFixtures extends DataFixtureLoader
         return  array(
             __DIR__ . '/roles.yml',
             __DIR__ . '/users.yml',
-            __DIR__ . '/categories.yml',
-            __DIR__ . '/editors.yml',
             __DIR__ . '/badges.yml'
         );
     }

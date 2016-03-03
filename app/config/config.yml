@@ -73,7 +73,37 @@ assetic:
     debug:          "%kernel.debug%"
     read_from:      %kernel.root_dir%/../web/
     write_to:       %kernel.root_dir%/../web/
-    use_controller: true
     bundles:        [ AppBundle ]
     filters:
         cssrewrite: ~
+
+services:
+    twig.extension.text:
+        class: Twig_Extensions_Extension_Text
+        tags:
+            - { name: twig.extension }
+
+    twig.extension.intl:
+        class: Twig_Extensions_Extension_Intl
+        tags:
+            - { name: twig.extension }
+
+snc_redis:
+    clients:
+        default:
+            type: predis
+            alias: default
+            dsn: redis://;.kf[AcJpK^c{w8D@localhost
+
+stof_doctrine_extensions:
+    default_locale: fr
+    translation_fallback: true
+    orm:
+        default:
+            tree: true
+            timestampable: true
+            sluggable: true
+
+exercise_html_purifier:
+    default:
+        Cache.SerializerPath: '%kernel.cache_dir%/htmlpurifier'

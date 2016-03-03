@@ -12,10 +12,46 @@ use Doctrine\ORM\EntityRepository;
  */
 class ChallengeRepository extends EntityRepository
 {
-    public function getCount() {
+    public function getCount()
+    {
         return $this->createQueryBuilder('a')
             ->select('COUNT(a)')
             ->getQuery()
             ->getSingleScalarResult();
+    }
+
+    public function clearDaily()
+    {
+        $this->createQueryBuilder('a')
+            ->update('AppBundle:Challenge', 'a')
+            ->set('a.isDaily', 0)
+            ->getQuery()
+            ->execute();
+    }
+
+    public function findNonDaily()
+    {
+        return $this->createQueryBuilder('a')
+            ->select('a')
+            ->where('a.isDaily = 0')
+            ->leftJoin('a.game', 'g')
+            ->addSelect('g')
+            ->leftJoin('a.limits', 'l')
+            ->addSelect('l')
+            ->getQuery()
+            ->getArrayResult();
+    }
+
+    public function findDaily()
+    {
+        return $this->createQueryBuilder('a')
+            ->select('a')
+            ->where('a.isDaily = 1')
+            ->leftJoin('a.game', 'g')
+            ->addSelect('g')
+            ->leftJoin('a.limits', 'l')
+            ->addSelect('l')
+            ->getQuery()
+            ->getSingleResult();
     }
 }

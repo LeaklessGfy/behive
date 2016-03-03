@@ -6,38 +6,40 @@
 
 {% block body %}
     {% include "pages/front/partial/menu.html.twig" %}
-        {% if games|length %}
-            <div class="liste">
-                {% for game in games %}
-                    <div class="itemListe">
-                        <a href="{{ path('game', {id:game.id}) }}">
-                            <h3>{{ game.name }}</h3>
-                            <div class="imgListe">
-                                <img src="{{ asset(game.cover)}}" alt="">
-                            </div>
-                            <h4>
-                                {% for category in game.categories %}
-                                    {{ category.name }}
-                                {% endfor %}
-                            </h4>
-                            <h4>
-                                PEGI : <span class="releaseDate">{{ game.pegi }}</span>
-                            </h4>
-                            <p>
-                                {{ game.description }}
-                            </p>
-                        </a>
-                    </div>
-                {% endfor %}
-            </div>
-        {% else %}
-            <h3 class="titleListe">Pas de jeu correspondant à "{{ app.request.get("search") }}"</h3>
-        {% endif %}
+
+    {% if games|length %}
+        <div class="headerList">
+            <h3 class="titleListe">Résultat(s) pour {{ re }}</h3>
+        </div>
+        <div class="liste">
+            {% for game in games %}
+                <div class="itemListe">
+                    <a href="{{ path('game', {slug:game.slug}) }}">
+                        <h3>{{ game.name }}</h3>
+                        <div class="imgListe">
+                            <img src="{{ asset(game.cover)}}" alt="">
+                        </div>
+                        <h4>
+                            PEGI : <span class="releaseDate">{{ game.pegi }}</span>
+                        </h4>
+                        <p>
+                            {{ game.description }}
+                        </p>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="headerList">
+            <h3 class="titleListe">Pas de jeu correspondant à {{ re }}</h3>
+        </div>
+    {% endif %}
 
     <div class="listeCategories">
         <ul>
             {% for category in categories %}
-                <li><a href="{{ path('search', {filter: category.name|lower|url_encode}) }}">{{ category.name }}</a></li>
+                {% set categorySlug = category.name|lower|url_encode %}
+                <li><a class="{% if app.request.get('filter') == categorySlug %}active{% endif %}" href="{{ path('search', {filter: categorySlug}) }}">{{ category.name }}</a></li>
             {% endfor %}
         </ul>
     </div>

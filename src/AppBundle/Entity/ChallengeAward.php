@@ -43,7 +43,7 @@ class ChallengeAward
     private $points;
 
     /**
-     * @ORM\ManyToMany(targetEntity="ChallengeLimit", mappedBy="awards")
+     * @ORM\OneToMany(targetEntity="ChallengeLimit", mappedBy="award")
      */
     private $limits;
 

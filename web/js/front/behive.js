@@ -3,21 +3,44 @@ $( document ).ready( function(){
 	var compteur = 1;
 	var search;
 
-	$(".ajax-link").click(function(e) {
+	$("body").on('click', '.ajax-link', function(e) {
 		e.preventDefault();
-		var btn = $(this);
+		var btn = $(this),
+			content = "",
+			downloadText = "";
+
 		$.ajax({
 			url: btn.attr('href'),
 			method: "GET",
-			success: function() {
+			success: function(data) {
 				if(btn.data("info") == "game:add") {
-					content = "<span class='margin-l-5 detail-button valid'><i class='fa fa-check'></i> J'ai ce jeu</span>";
+					content = '<a href="'+data.url+'" class="margin-l-5 detail-button ajax-link valid" data-info="game:remove"> <i class="fa fa-check"></i> J\'ai ce jeu </a>';
+					downloadText = '<i class="fa fa-download"></i> Re-Télécharger';
 				} else if(btn.data("info" ) == "game:remove") {
-					content = "<span class='margin-l-5 detail-button'><i class='fa fa-check'></i> J'ai déjà ce jeu</span>";
+					content = '<a href="'+data.url+'" class="margin-l-5 detail-button ajax-link" data-info="game:add"> <i class="fa fa-plus"></i> J\'ai déjà ce jeu </a>';
+					downloadText = '<i class="fa fa-download"></i> Télécharger';
 				} else {
 					content = "<span class='margin-l-5 detail-button valid'><i class='fa fa-check'></i> inscris</span>";
 				}
+
 				btn.replaceWith(content);
+				$('.download-btn').html(downloadText);
+			},
+			error: function() {
+				alert("Une erreur s'est produite");
+			}
+		});
+	});
+
+	$(".sync-steam").click(function(e) {
+		e.preventDefault();
+		var btn = $(this);
+
+		$.ajax({
+			url: btn.attr('href'),
+			method: "GET",
+			success: function(data) {
+				console.log(data);
 			},
 			error: function() {
 				alert("Une erreur s'est produite");

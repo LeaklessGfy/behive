@@ -17,14 +17,12 @@
 
         <p class="detail-tags">
             {% for category in game.categories %}
-                {{ category.name }} {% if(loop.index != game.categories|length) %},{% endif %}
+                {{ category.name }}{% if(loop.index != game.categories|length) %},{% endif %}
             {% endfor %}
         </p>
 
         <div class="detail-infos">
-            <p>
-                Pegi {{ game.pegi }}
-            </p>
+            <p>Pegi {{ game.pegi }}</p>
 
             <ul class="detail-heart">
                 {% for i in 1..5 %}
@@ -35,20 +33,22 @@
                     {% endif %}
                 {% endfor %}
             </ul>
+
+            <br>
+            <p {% if game.description|length < 400 %}style="width: 500px;"{% endif %}>
+                {{ game.description|raw }}
+            </p>
+            <a style="border-bottom:1px solid #f7ca18; padding-bottom: 5px;" href="{{ path('catalogue') }}">
+                <br /><br />
+                Retour au catalogue
+            </a>
+
             <div class="clear"></div>
         </div>
 
-        <p class="detail-text">
-            {{ game.description }}
-        </p>
-        <a style="border-bottom:1px solid #f7ca18; padding-bottom: 5px;" href="/catalogue">
-            <br /><br />
-            Retour au catalogue
-        </a>
-
         <div class="center">
             {% if hasIt != true %}
-                <a href="{{ game.buy }}" class="margin-r-5 detail-button">
+                <a href="{{ game.buy ? game.buy : "http://store.steampowered.com/?l=french" }}" target="_blank" class="margin-r-5 detail-button download-btn">
                     <i class="fa fa-download"></i> Télécharger
                 </a>
 
@@ -58,20 +58,23 @@
                     </a>
                 {% endif %}
             {% else %}
-                {% if app.user %}
-                    <a href="{{ path('game_remove', {id:game.id}) }}" class="margin-l-5 detail-button ajax-link valid" data-info="game:remove">
-                        <i class="fa fa-plus"></i> J'ai ce jeu
-                    </a>
-                {% endif %}
+                <a href="{{ game.buy ? game.buy : "http://store.steampowered.com/?l=french" }}" target="_blank" class="margin-r-5 detail-button download-btn">
+                    <i class="fa fa-download"></i> Re-Télécharger
+                </a>
+
+                <a href="{{ path('game_remove', {id:game.id}) }}" class="margin-l-5 detail-button ajax-link valid" data-info="game:remove">
+                    <i class="fa fa-check"></i> J'ai ce jeu
+                </a>
             {% endif %}
         </div>
+
         <div class="sectionCatalogue autresCat">
-            <h2 class="titleCategorieCatalogue">Challenges associés</h2>
+            <h2 class="titleCategorieCatalogue">Challenge(s) associé(s)</h2>
             <ul>
                 {% if game.challenge|length %}
                     {% for challenge in game.challenge %}
                         <li>
-                            <a href="">
+                            <a href="{{ path('challenge_detail', {id:challenge.id}) }}">
                                 <h5>{{ challenge.name }}</h5>
                             </a>
                         </li>
@@ -81,9 +84,21 @@
                 {% endif %}
             </ul>
         </div>
-        <div class="push">
 
-            <a href="#" class="detail-com"><i class="fa fa-comments"></i>Laisser un commentaire</a>
+        <div class="little-push">
+            {% if app.user %}
+                <a href="#" class="detail-com"><i class="fa fa-comments"></i>Laisser un commentaire</a>
+
+                {{ form_start(form) }}
+                {{ form_widget(form) }}
+                <input class="" type="submit" value="Enregistrer">
+                {{ form_end(form) }}
+            {% else %}
+                <div class="detail-com">
+                    <p>Vous devez être connecté pour pouvoir commenter ce jeu</p>
+                    <a href="{{ path('register') }}" class="detail-button">S'inscrire</a><span> </span><a href="{{ path('front_login') }}" class="detail-button">Se connecter</a>
+                </div>
+            {% endif %}
         </div>
     </div>
 

@@ -17,30 +17,46 @@ class LoadGamesCommand extends ContainerAwareCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        //DEFINITIONS
         $ct  = $this->getContainer();
-        $cache = $ct->get('cache.service');
-        $result = $cache->getEverythingFromCache();
-
         $em = $ct->get('doctrine')->getManager();
-        $output->writeln("Start process...");
+        $cache = $ct->get('cache.service');
+        $gameService = $ct->get('create.game.service');
+
+        //GET CACHE DATA
+        $results = $cache->getEverythingFromCache("game-*.json", "ApiGiant");
+
+        //GET FORMER CATEGORIES AND EDITORS
         $categories = $em->getRepository('AppBundle:Category')->findAll();
+        $editors = $em->getRepository('AppBundle:Editor')->findAll();
 
-        foreach($result as $game) {
-            $editor = $em->getRepository('AppBundle:Editor')->findOneBy(array('name' => $game['publishers'][0]['name']));
-            $return = $ct->get('load.game.service')->createGame($categories, $editor, $game);
+        $output->writeln("Start process...");
+        foreach($results as $game) {
+            $game = json_decode($game, true)['results'];
 
+            //CREATE GAME
+            $return = $gameService->createGame($categories, $editors, $game);
+
+            //PERSIST EDITOR
+            if($return['editor']) {
+                $editors[] = $return['editor'];
+                $em->persist($return['editor']);
+            }
+            //PERSIST CATEGORIES
             foreach($return['categories'] as $category) {
                 $categories[] = $category;
                 $em->persist($category);
             }
-            if($return['editor']) {
-                $em->persist($return['editor']);
-            }
+            //PERSIST GAME
             $em->persist($return['game']);
+
             $output->writeln("Game saved");
         }
 
+        //FINAL FLUSH
         $em->flush();
         $output->writeln("Every games in cache have been load in database !");
+
+        return;
     }
 }

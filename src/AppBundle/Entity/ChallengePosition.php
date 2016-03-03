@@ -33,7 +33,7 @@ class ChallengePosition
     private $position;
 
     /**
-     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="positions")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     private $user;
@@ -45,13 +45,10 @@ class ChallengePosition
     private $challenge;
 
     /**
-     * @ORM\ManyToMany(targetEntity="ChallengeAward")
-     * @ORM\JoinTable(name="position_awards",
-     *      joinColumns={@ORM\JoinColumn(name="position_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="award_id", referencedColumnName="id", unique=true)}
-     *      )
+     * @ORM\ManyToOne(targetEntity="ChallengeAward")
+     * @ORM\JoinColumn(name="award_id", referencedColumnName="id")
      */
-    private $awards;
+    private $award;
 
     /**
      * Get id
@@ -148,44 +145,27 @@ class ChallengePosition
     {
         return $this->challenge;
     }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->awards = new \Doctrine\Common\Collections\ArrayCollection();
-    }
 
     /**
-     * Add awards
+     * Set award
      *
-     * @param \AppBundle\Entity\ChallengeAward $awards
+     * @param \AppBundle\Entity\ChallengeAward $award
      * @return ChallengePosition
      */
-    public function addAward(\AppBundle\Entity\ChallengeAward $awards)
+    public function setAward(\AppBundle\Entity\ChallengeAward $award = null)
     {
-        $this->awards[] = $awards;
+        $this->award = $award;
 
         return $this;
     }
 
     /**
-     * Remove awards
-     *
-     * @param \AppBundle\Entity\ChallengeAward $awards
-     */
-    public function removeAward(\AppBundle\Entity\ChallengeAward $awards)
-    {
-        $this->awards->removeElement($awards);
-    }
-
-    /**
      * Get awards
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \AppBundle\Entity\ChallengeAward
      */
-    public function getAwards()
+    public function getAward()
     {
-        return $this->awards;
+        return $this->award;
     }
 }

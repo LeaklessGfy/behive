@@ -9,7 +9,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class AjaxController extends Controller
 {
     /**
-     * @Route("/challenge/participation/{id}", name="challenge_participation")
+     * @Route("/challenge/participation/{id}", name="challenge_participation", requirements={
+     *     "id": "\d+"
+     * })
      */
     public function challengeParticipationAction($id)
     {
@@ -54,6 +56,11 @@ class AjaxController extends Controller
             $user->addGame($game);
             $em->flush();
             $response->setStatusCode(200);
+            $response->setData(
+                array(
+                    "url" => $this->generateUrl('game_remove', array('id' => $id))
+                )
+            );
         }
 
         return $response;
@@ -80,7 +87,70 @@ class AjaxController extends Controller
             $user->removeGame($game);
             $em->flush();
             $response->setStatusCode(200);
+            $response->setData(
+                array(
+                    "url" => $this->generateUrl('game_add', array('id' => $id))
+                )
+            );
         }
+
+        return $response;
+    }
+
+    /**
+     * @Route("/sync/steam", name="sync_steam")
+     */
+    public function syncSteamAction()
+    {
+        $response = new JsonResponse();
+        $response->setStatusCode(401);
+
+        if(!$user = $this->getUser()) {
+            return $response;
+        }
+
+        $steamId = $user->getSteamID();
+
+        $steamApi = $this->get('api.steam');
+        $steamGames = $steamApi->getUserGames($steamId);
+
+        if(isset($steamGames['error'])) {
+            $response->setStatusCode(404);
+            $explicit = array($steamGames['content'], $steamId);
+            $response->setData($explicit);
+            return $response;
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        $gameService = $this->get('create.game.service');
+
+        $gameAdd = array();
+        foreach($steamGames as $stG) {
+            $game = $em->getRepository("AppBundle:Game")->search($stG->getName());
+
+            if($game) {
+                if(!in_array($game[0], $user->getGames()->getValues())) {
+                    $user->addGame($game[0]);
+                }
+            } else {
+                $steamGame = $steamApi->getGameInfo($stG->getAppId(), $stG->getName());
+
+                if($steamGame[$stG->getAppId()]['success'] === true) {
+                    $data = $steamGame[$stG->getAppId()]['data'];
+
+                    if(!in_array($data['name'], $gameAdd)) {
+                        $game= $gameService->createGameFromSteam($data);
+                        $user->addGame($game);
+                        $gameAdd[] = $game->getName();
+                    }
+                }
+            }
+
+            $em->flush();
+        }
+
+        $response->setStatusCode(200);
+        $response->setData(array("jeu ajouté : " => $gameAdd));
 
         return $response;
     }
