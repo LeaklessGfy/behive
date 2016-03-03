@@ -119,6 +119,11 @@ class Game
     private $forums;
 
     /**
+     * @ORM\OneToMany(targetEntity="Comment", mappedBy="game")
+     */
+    private $comments;
+
+    /**
      * @Gedmo\Slug(fields={"name", "id"})
      * @ORM\Column(length=128, unique=true)
      */
@@ -130,6 +135,7 @@ class Game
         $this->categories = new ArrayCollection();
         $this->challenge = new ArrayCollection();
         $this->forums = new ArrayCollection();
+        $this->comments = new ArrayCollection();
         $this->pegi = 0;
         $this->rating = 0;
     }
@@ -504,5 +510,51 @@ class Game
             "get" => $this->getCover(),
             "set" => "setCover"
         );
+    }
+
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     * @return Game
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * Add comments
+     *
+     * @param \AppBundle\Entity\Comment $comments
+     * @return Game
+     */
+    public function addComment(\AppBundle\Entity\Comment $comments)
+    {
+        $this->comments[] = $comments;
+
+        return $this;
+    }
+
+    /**
+     * Remove comments
+     *
+     * @param \AppBundle\Entity\Comment $comments
+     */
+    public function removeComment(\AppBundle\Entity\Comment $comments)
+    {
+        $this->comments->removeElement($comments);
+    }
+
+    /**
+     * Get comments
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getComments()
+    {
+        return $this->comments;
     }
 }
