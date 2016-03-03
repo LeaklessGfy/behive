@@ -1860,7 +1860,8 @@ header h1 a{
 	margin-left: 10px;
 	position: relative;
 	width: 150px;
-	height: 150px;
+	height: 200px;
+	overflow: hidden;
 }
 
 .img_profil img{
