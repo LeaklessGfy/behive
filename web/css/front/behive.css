@@ -130,6 +130,10 @@ h1 a:hover{
 	z-index: -100;
 }
 
+.little-push {
+	padding-top: 20px;
+}
+
 .push {
 	padding-top: 65px;
 }
