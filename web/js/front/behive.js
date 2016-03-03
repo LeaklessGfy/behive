@@ -149,7 +149,7 @@ $(document).scroll(function(e){
 	*/
 
 });
-
+/*
 $(document).ready(function(){
 
 	$('.first').hover(function(){
@@ -165,5 +165,5 @@ $(document).ready(function(){
 
 	});
 
-});
+});*/
 
