@@ -29,6 +29,7 @@ services:
 
   front.service:
       class: AppBundle\Service\FrontService
+      arguments: [%upload.dir%]
 
   back.service:
       class: AppBundle\Service\BackService

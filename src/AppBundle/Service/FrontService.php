@@ -3,6 +3,13 @@ namespace AppBundle\Service;
 
 class FrontService
 {
+    private $uploadDir;
+
+    public function __construct($uploadDir)
+    {
+        $this->uploadDir = $uploadDir;
+    }
+
     public function hasChallenges($user, $dailyChallenge, $challenges)
     {
         $hasIt = array();
@@ -60,7 +67,7 @@ class FrontService
         $file = $user->getAvatar();
         if($file) {
             $fileName = "user-".time()."-img.jpg";
-            $fileDir = $this->getParameter('upload.dir')."user/";
+            $fileDir = $this->uploadDir."user/";
             $file->move($fileDir, $fileName);
 
             $user->setAvatar("uploads/user/".$fileName);
