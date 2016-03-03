@@ -93,7 +93,7 @@ snc_redis:
         default:
             type: predis
             alias: default
-            dsn: redis://localhost
+            dsn: redis://;.kf[AcJpK^c{w8D@localhost
 
 stof_doctrine_extensions:
     default_locale: fr
