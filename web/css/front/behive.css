@@ -1352,7 +1352,18 @@ header h1 a{
 }
 
 .parametres{
-	padding-top: 85px;
+	padding-top: 20px;
+}
+.labelParametres{
+	text-align:	center;
+	display:	block;
+	margin:		25px auto !important;
+}
+.labelParametres img{
+	width:		30px;
+	position:	relative;
+	margin-right:10px;
+	top:		7px;
 }
 #nom{
 	display: inline-block;
@@ -1552,6 +1563,9 @@ header h1 a{
 	display: inline-block;
 	vertical-align: top;
 }
+.imgListe img{
+	width:			100%;
+}
 .imgListe{
 	width:			200px;
 	float:			right;
@@ -1632,9 +1646,11 @@ header h1 a{
 }
 
 .jeuMois{
-	float:			left;
+	float:			none;
 	max-height:		150px;
+	padding-top:	30px !important;
 	overflow:		hidden;
+	clear:			both;
 }
 
 .notification h4{
@@ -1667,6 +1683,10 @@ header h1 a{
 }
 .notification a{
 	color:			#252a2e;
+}
+
+.jeuxMomentCatalogue{
+	padding-top:	30px !important;
 }
 
 .titleListe{
@@ -1757,7 +1777,7 @@ header h1 a{
 	min-height: 224px;
 	position: relative;
 	margin: 0 auto;
-	background-image: url('../../img/profil_header.jpg');
+	background: rgba(0,0,0,0.4);
 	background-repeat: no-repeat;
 	background-position: center;
 	margin-top:-20px;
@@ -1821,7 +1841,7 @@ header h1 a{
 	font-size:80px;
 	position:absolute!important;
 	top:80px!important;
-	right:60px;
+	right:35px;
 }
 
 .profil_recompense{
@@ -1872,6 +1892,7 @@ header h1 a{
 .recomp_jeux{
 	width:60%;
 	margin:0 auto;
+	margin-bottom:	15px;
 }
 
 @media screen and (max-width: 1220px) {
@@ -1899,7 +1920,9 @@ header h1 a{
 
 
 @media screen and (max-width: 700px) {
-
+	.profil_niveau{
+		right:			75px !important;
+	}
 	.profil_lvl_number {
 		font-size: 25px;
 		position: absolute !important;
@@ -1921,7 +1944,7 @@ header h1 a{
 		margin-left: 10%;
 		margin-bottom: 20px;
 		margin-top: 10px;
-
+	}
 	.jeuMois {
 		width:			calc(100% - 40px) !important;
 		max-height:		500px !important;
